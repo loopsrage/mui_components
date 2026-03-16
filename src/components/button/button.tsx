@@ -4,7 +4,7 @@ import type {ApiClient} from "../../utility/api";
 
 interface ApiButtonProps {
     api: ApiClient;
-    endpoint: string;
+    endpoint: string | null;
     onClick?: (data: unknown) => void;
 }
 
@@ -16,7 +16,7 @@ export const ApiButton: FC<ApiButtonProps> = ({ api, endpoint, onClick }) => {
                 args: { Feature: endpoint }
             });
 
-            if (onClick) onClick(result);
+            if (onClick) onClick(() => console.log(result));
             else console.log("Success:", result);
         } catch (error) {
             console.error("Button Action Failed:", error);
