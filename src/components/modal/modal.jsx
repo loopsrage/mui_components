@@ -14,19 +14,27 @@ import {
 } from "../../utility/form_builder.jsx";
 
 export const TypeFormBuilderModal = ({title, getSchema, handleSave, elementSelector}) => {
-    const [show, setShow] = useState(true);
+    const [show, setShow] = useState(false);
     const [elements, setElements] = useState(undefined);
     const [activeTab, setActiveTab] = useState(0);
 
     const formRef = useRef(InitialTypeFormBuilderRefState(elementSelector))
 
-    const handleOnAdd = () => {
-        getSchema().then(data => {
-            SetContainer(formRef, BuildContainerTree(null, [], ".", data))
-            TypeFormBuilder({formRef, container: GetContainer(formRef)})
-            setElements(GetElements(formRef))
-            setShow(true)
-        })
+    const handleOnAdd = async () => {
+        try {
+            const data = await getSchema();
+            console.log("Schema data received:", data); // Check if this fires
+
+            const tree = BuildContainerTree(null, [], ".", data);
+            SetContainer(formRef, tree);
+
+            TypeFormBuilder({formRef, container: GetContainer(formRef)});
+
+            setElements(GetElements(formRef));
+            setShow(true);
+        } catch (error) {
+            console.error("Failed to load schema:", error);
+        }
     }
 
     const getbody = () => {

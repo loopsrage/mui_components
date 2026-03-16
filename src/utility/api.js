@@ -1,6 +1,10 @@
 import {FetchApi} from "./fetchapi.js";
+import {IsNullOrUndefined} from "./validation.js";
 
 export const Api = ({ endpoint, handleErr}) => {
+    if (IsNullOrUndefined(handleErr)) {
+        handleErr = (err) => console.log(err)
+    }
     const api = FetchApi(endpoint, {handleErr})
     return {
         at: async (endpoint, params) => await api.fetchJson({endpoint: endpoint, ...params}),

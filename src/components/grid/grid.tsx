@@ -147,7 +147,7 @@ export const SetPaginationModel = (ref: RefObject<TableState>) => {
     }
 }
 
-export interface ApiResponse<T = never> {
+export interface ApiResponse<T = unknown> {
     results: T[];
     pagination?: {
         count: number;
