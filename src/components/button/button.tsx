@@ -1,11 +1,11 @@
 import type {FC} from "react";
-import type {ApiWrapper} from "../../utility/fetchapi";
 import {Button} from "@mui/material";
+import type {ApiClient} from "../../utility/api";
 
 interface ApiButtonProps {
-    api: ApiWrapper;
+    api: ApiClient;
     endpoint: string;
-    onClick?: (data: never) => void;
+    onClick?: (data: unknown) => void;
 }
 
 export const ApiButton: FC<ApiButtonProps> = ({ api, endpoint, onClick }) => {

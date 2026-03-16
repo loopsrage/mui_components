@@ -1,13 +1,16 @@
-import {type RefObject, type FC, useRef, useState} from "react";
+import {type FC, type RefObject, useRef, useState} from "react";
 import {
-    DataGrid, type GridColDef,
-    type GridDataSource, GridGetRowsError, type GridGetRowsParams,
-    type GridPaginationModel,
+    DataGrid,
+    type GridColDef,
+    type GridDataSource, type GridFilterModel,
+    GridGetRowsError,
+    type GridGetRowsParams,
+    type GridPaginationModel, type GridRowSelectionModel,
     type GridValidRowModel
 } from '@mui/x-data-grid';
-import {type Container, BuildContainerTree, RangePrimitiveValues} from "../../utility/containers";
+import {BuildContainerTree, type Container, RangePrimitiveValues} from "../../utility/containers";
 import {IsPrimitive} from "../../utility/validation";
-import type {ApiWrapper} from "../../utility/fetchapi";
+import type {ApiClient} from "../../utility/api";
 
 export interface TableState {
     index: number
@@ -18,13 +21,17 @@ export interface TableState {
     datasource: GridDataSource
     paginationModel: GridPaginationModel
 
-    api: ApiWrapper
+    refresh: () => void
+    selected_ids: GridRowSelectionModel | null
+    filter_model:  GridFilterModel | null
+    selected_data: unknown[]
+    api: ApiClient
     args: Record<string, string | number | boolean | undefined | null>
 }
 
 export interface Props {
     ref: RefObject<TableState>
-    api: ApiWrapper
+    api: ApiClient
 }
 
 export const SetHeadersFromJson = (ref: RefObject<TableState>, data: Container) => {
@@ -60,9 +67,14 @@ export const SetHeadersFromJson = (ref: RefObject<TableState>, data: Container) 
 export const SetRowsFromJson = (ref: RefObject<TableState>, data: Container) => {
     const st = ref.current;
     if (!st) return;
+    st.rows = []
+    st.row_count = 0;
+
+    st.headers.forEach(() => {
+        st.rows.push([]);
+    });
 
     RangePrimitiveValues(data, (cont) => {
-        console.log(cont.path, cont.value)
         if (IsPrimitive(cont.value)) {
             const columnIndex = st.headers_ri[cont.path]
             if (columnIndex !== undefined) {
@@ -70,20 +82,27 @@ export const SetRowsFromJson = (ref: RefObject<TableState>, data: Container) => 
             }
         }
     })
+    ref.current = st
 }
 
 export const GetRows = (ref: RefObject<TableState>): GridValidRowModel[] => {
     const st = ref.current;
-    if (!st || st.headers.length === 0 || !st.rows[0]) return [];
+    if (!st || !st.rows || st.rows.length === 0) return [];
 
-    const rowCount = st.rows[0].length;
+    const idColumn = st.rows[0];
+    const rowCount = idColumn.length;
 
     return Array.from({ length: rowCount }).map((_, rowIndex) => {
-        const rowObj: Record<string, unknown> = { id: rowIndex };
+        const rowObj: Record<string, unknown> = {};
+
         st.headers.forEach((colDef, colIndex) => {
             const columnData = st.rows[colIndex];
             rowObj[colDef.field] = columnData ? columnData[rowIndex] : null;
         });
+
+        const persistentId = rowObj["id"];
+        rowObj.id = persistentId;
+
         return rowObj;
     });
 }
@@ -130,7 +149,6 @@ export const DataSourceWrapper = (ref: RefObject<TableState>, handleToggle: () =
                 sortModel: JSON.stringify(params.sortModel),
                 filterModel: JSON.stringify(params.filterModel),
             }
-
             const result: ApiResponse = await st.api.at("", {
                 fetchParams: { method: "GET" },
                 args: currentArgs,
@@ -142,7 +160,6 @@ export const DataSourceWrapper = (ref: RefObject<TableState>, handleToggle: () =
             st.row_count = result.pagination?.count || 0;
             ref.current = st;
             handleToggle()
-
             return {
                 rows: GetRows(ref),
                 rowCount: ref.current.row_count,
@@ -155,13 +172,43 @@ export const GetDatasource = (ref: RefObject<TableState>) => {
     return ref.current.datasource
 }
 
+export const Refresh = (ref: RefObject<TableState>) => {
+    const st = ref.current;
+    if (!st) return;
+    st.refresh()
+}
+
+export const SetSelectedRows = (ref: RefObject<TableState>) => {
+    return (model: GridRowSelectionModel) => {
+        const st = ref.current;
+        if (!st || st.rows.length === 0) return;
+
+        const selectedIDs = model.ids;
+        const rowCount = st.rows[0].length;
+
+        const indices = Array.from({ length: rowCount }, (_, i) => i);
+        const selectedIndices = indices.filter(rowIndex => {
+            const rowId = st.rows[0][rowIndex] as string | number;
+            return selectedIDs.has(rowId);
+        });
+
+        st.selected_data = st.rows.map(column =>
+            selectedIndices.map(rowIndex => column[rowIndex])
+        );
+        st.selected_ids = model;
+        ref.current = st;
+    }
+}
+
 export const UITable: FC<Props> = ({ ref, api }) => {
     const localRef = useRef<TableState>(null);
     const internalRef = (ref || localRef) as RefObject<TableState>;
     const [toggle, setToggle] = useState(false);
+
     const handleToggle = () => {
         setToggle(!toggle)
     }
+
     const initialRef = () => {
         return {
             index: 0,
@@ -172,6 +219,10 @@ export const UITable: FC<Props> = ({ ref, api }) => {
             datasource: DataSourceWrapper(internalRef, handleToggle),
             paginationModel: { page: 0, pageSize: 5 },
             args: {},
+            selected_data: [],
+            selected_ids: null,
+            refresh: handleToggle,
+            filter_model: null,
             api: api,
         }
     }
@@ -183,16 +234,19 @@ export const UITable: FC<Props> = ({ ref, api }) => {
     return (
         <div style={{ height: 400, width: '100%' }}>
             <DataGrid
-                rows={GetRows(internalRef)}
                 columns={GetHeaders(internalRef)}
                 dataSource={GetDatasource(internalRef)}
-                rowCount={internalRef.current.row_count}
                 pageSizeOptions={[5, 10, 25]}
                 paginationModel={GetPaginationModel(internalRef)}
                 onPaginationModelChange={SetPaginationModel(internalRef)}
                 paginationMode="server"
                 sortingMode="server"
+                getRowId={(row) => row.id}
                 filterMode="server"
+                checkboxSelection
+                onRowSelectionModelChange={
+                    (newModel) => SetSelectedRows(internalRef)(newModel)
+                }
                 onDataSourceError={(error) => {
                     console.error("DataGrid Error Type:", error.name);
                     console.error("DataGrid Error Message:", error.message);
