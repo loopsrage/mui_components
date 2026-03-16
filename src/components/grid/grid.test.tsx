@@ -5,7 +5,7 @@ import {Api} from "../../utility/api";
 
 test('should load and display server-side data', async () => {
 
-    const mockApi = Api({endpoint: "http://localhost:8000/training"})
+    const mockApi = Api({endpoint: "http://localhost:8000/count_column"})
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error

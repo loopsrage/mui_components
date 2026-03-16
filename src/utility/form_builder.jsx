@@ -5,7 +5,6 @@ import {KeyValue} from "../components/key_value/key_value.jsx";
 import {DataViewer} from "../components/file_viewer/file_viewer.jsx";
 import {DataImage} from "../components/image_viewer/image_viewer.jsx";
 import {SelectOptions} from "../components/select_options/select_options.jsx";
-import {ListSelect} from "./form_builder.d.ts";
 
 const formatDate = (date) => {
     return date.toISOString().slice(0, 16);
@@ -23,7 +22,8 @@ export const SelectAssociation = ({jsxKey, key, inputProps}) => {
             endpoint = key.slice(5, key.length-3)
             inputProps = {...inputProps, multiple: true}
         }
-        return (<SelectOptions endpoint={endpoint} jsxKey={jsxKey} inputProps={inputProps}/>)
+
+        return <SelectOptions endpoint={endpoint} jsxKey={jsxKey} inputProps={inputProps} />
     }
     return null
 }
@@ -69,7 +69,7 @@ const defaultSelector = () => {
             }
 
             if (Array.isArray(inputProps.defaultValue)) {
-                return <ListSelect formRef={formRef} inputKey={key} jsxKey={jsxKey} inputProps={inputProps}  />
+                // return <ListSelect formRef={formRef} inputKey={key} jsxKey={jsxKey} inputProps={inputProps}  />
             }
 
             if (IsNullOrUndefined(inputProps.defaultValue)) {

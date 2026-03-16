@@ -34,6 +34,24 @@ export interface Props {
     api: ApiClient
 }
 
+const initialRef = (ref: RefObject<TableState>, api: ApiClient, handleToggle: () => void) => {
+    return {
+        index: 0,
+        headers: [],
+        headers_ri: {},
+        rows: [],
+        row_count: 0,
+        datasource: DataSourceWrapper(ref, handleToggle),
+        paginationModel: { page: 0, pageSize: 5 },
+        args: {},
+        selected_data: [],
+        selected_ids: null,
+        refresh: handleToggle,
+        filter_model: null,
+        api: api,
+    }
+}
+
 export const SetHeadersFromJson = (ref: RefObject<TableState>, data: Container) => {
     const st = ref.current
     RangePrimitiveValues(data, (cont) => {
@@ -209,26 +227,8 @@ export const UITable: FC<Props> = ({ ref, api }) => {
         setToggle(!toggle)
     }
 
-    const initialRef = () => {
-        return {
-            index: 0,
-            headers: [],
-            headers_ri: {},
-            rows: [],
-            row_count: 0,
-            datasource: DataSourceWrapper(internalRef, handleToggle),
-            paginationModel: { page: 0, pageSize: 5 },
-            args: {},
-            selected_data: [],
-            selected_ids: null,
-            refresh: handleToggle,
-            filter_model: null,
-            api: api,
-        }
-    }
-
     if (!internalRef.current) {
-        (internalRef as RefObject<TableState>).current = initialRef()
+        (internalRef as RefObject<TableState>).current = initialRef(ref, api, handleToggle)
     }
 
     return (

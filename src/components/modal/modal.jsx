@@ -1,20 +1,23 @@
 
 import React, { useRef, useState} from "react";
+
+import {BuildContainerTree, NewObject, ReadFromContainers} from "../../utility/containers.js";
+import {Box, Button, Stack, Tab, Tabs} from "@mui/material";
+import {IsNullOrUndefined} from "../../utility/validation.js";
+import {CenteredModal} from "../centered_modal/centered_modal.jsx";
 import {
     AddElement,
     GetContainer, GetElements,
     InitialTypeFormBuilderRefState,
     SetContainer,
     TypeFormBuilder
-} from "../../utility/form_builder.js";
-import {BuildContainerTree, NewObject, ReadFromContainers} from "../../utility/containers.js";
-import {Box, Button, Stack, Tab, Tabs} from "@mui/material";
-import {IsNullOrUndefined} from "../../utility/validation.js";
-import {CenteredModal} from "./centered_modal.jsx";
+} from "../../utility/form_builder.jsx";
 
 export const TypeFormBuilderModal = ({title, getSchema, handleSave, elementSelector}) => {
-    const [show, setShow] = useState(false);
-    const [elements, setElements] = useState([])
+    const [show, setShow] = useState(true);
+    const [elements, setElements] = useState(undefined);
+    const [activeTab, setActiveTab] = useState(0);
+
     const formRef = useRef(InitialTypeFormBuilderRefState(elementSelector))
 
     const handleOnAdd = () => {
@@ -27,7 +30,6 @@ export const TypeFormBuilderModal = ({title, getSchema, handleSave, elementSelec
     }
 
     const getbody = () => {
-        const [activeTab, setActiveTab] = useState(0);
         const handleChange = (event, newValue) => setActiveTab(newValue);
         return (<Box sx={{ width: '100%' }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>

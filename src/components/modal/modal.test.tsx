@@ -1,10 +1,17 @@
-import {test} from "vitest";
+import { test } from 'vitest';
+import {TypeFormBuilderModal} from "./modal";
 import {render} from "@testing-library/react";
+import {Api} from "../../utility/api";
+
 
 test('should load and display server-side data', async () => {
+    const mockApi = Api({endpoint: "http://localhost:8000/count_column"})
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
-    render(<TypeFormBuilderModal />)
+    render(<TypeFormBuilderModal title={"test"}
+                                 getSchema={mockApi.schema}
+                                 handleSave={(data) => {
+                                     console.log(data)
+                                 }} />)
+
     await new Promise(() => {});
 })

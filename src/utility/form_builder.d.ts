@@ -6,8 +6,8 @@ import type {Container} from "./containers";
  */
 declare const formatDate: (date: Date) => string;
 
-interface InputProps extends Record<string, never> {
-    defaultValue?: never;
+interface InputProps extends Record<string, unknown> {
+    defaultValue?: unknown;
     multiple?: boolean;
     name?: string;
 }
@@ -23,13 +23,13 @@ interface SelectorParams {
 /**
  * Component Props
  */
-export interface SelectAssociationProps {
+export declare interface SelectAssociationProps {
     jsxKey: string;
     key: string;
     inputProps: InputProps;
 }
 
-export interface ListSelectProps {
+export declare interface ListSelectProps {
     formRef: RefObject<FormBuilderState | null>;
     inputKey: string;
     jsxKey: string;
@@ -39,28 +39,26 @@ export interface ListSelectProps {
 /**
  * Components
  */
-export const SelectAssociation: React.FC<SelectAssociationProps>;
-
-declare function ListSelect(props: ListSelectProps): React.JSX.Element | null;
+export declare const SelectAssociation: React.FC<SelectAssociationProps>;
 
 /**
  * State Management & Refs
  */
 export interface FormBuilderState {
     index: number;
-    elements: Record<string, never>;
-    nameIndex: Record<string, never>;
+    elements: Record<string, unknown>;
+    nameIndex: Record<string, unknown>;
     labels: Record<string, string>;
-    element_component: Record<string, never>;
+    element_component: Record<string, unknown>;
     container: Container | undefined;
     elementSelector: (params: SelectorParams) => React.JSX.Element | null | undefined;
 }
 
-export const InitialTypeFormBuilderRefState: (
+export declare const InitialTypeFormBuilderRefState: (
     elementSelector?: (params: SelectorParams) => React.JSX.Element | null | undefined
 ) => FormBuilderState;
 
-export const SetContainer: (
+export declare const SetContainer: (
     ref: RefObject<FormBuilderState | null>,
     container: Container
 ) => void;
@@ -68,54 +66,54 @@ export const SetContainer: (
 /**
  * State Accessors & UI Generators
  */
-export const GetContainer: (
+export declare const GetContainer: (
     ref: RefObject<FormBuilderState | null>
 ) => Container;
 
-export const GetSet: (
+export declare const GetSet: (
     ref: RefObject<FormBuilderState | null>,
     ind: string | number
 ) => React.JSX.Element;
 
-export const GetElements: (
+export declare const GetElements: (
     ref: RefObject<FormBuilderState | null>
 ) => React.JSX.Element;
 
 /**
  * Event Handlers
  */
-export const UpdateElementValues: (
+export declare const UpdateElementValues: (
     ref: RefObject<FormBuilderState | null>
 ) => {
-    onChange: (event: React.ChangeEvent<never>) => void;
+    onChange: (event: React.ChangeEvent<unknown>) => void;
 };
 
 /**
  * Element & State Management
  */
-export const GetElementValue: (
+export declare const GetElementValue: (
     ref: RefObject<FormBuilderState | null>,
     name: string
-) => never;
+) => unknown;
 
-export const GetElementTypes: (
+export declare const GetElementTypes: (
     ref: RefObject<FormBuilderState | null>,
     key: string,
-    element: never
+    element: unknown
 ) => React.JSX.Element | null | undefined;
 
-export const AddElement: (
+export declare const AddElement: (
     ref: RefObject<FormBuilderState | null>,
     key: string,
-    element: never
+    element: unknown,
 ) => void;
 
-export const GetElementIndex: (
+export declare const GetElementIndex: (
     ref: RefObject<FormBuilderState | null>,
     key: string
 ) => number;
 
-export const DeleteLabel: (
+export declare const DeleteLabel: (
     ref: RefObject<FormBuilderState | null>,
     key: string
 ) => void;
@@ -126,9 +124,9 @@ export const DeleteLabel: (
  * rather than returning a React Element.
  */
 export interface TypeFormBuilderProps {
-    formRef: React.MutableRefObject<FormBuilderState | null>;
+    formRef: RefObject<FormBuilderState | null>;
     container: Container;
 }
 
-export const TypeFormBuilder: (props: TypeFormBuilderProps) => void;
+export declare const TypeFormBuilder: (props: TypeFormBuilderProps) => void;
 
