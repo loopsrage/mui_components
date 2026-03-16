@@ -1,0 +1,93 @@
+
+import React, { useRef, useState} from "react";
+import {
+    AddElement,
+    GetContainer, GetElements,
+    InitialTypeFormBuilderRefState,
+    SetContainer,
+    TypeFormBuilder
+} from "../../utility/form_builder.js";
+import {BuildContainerTree, NewObject, ReadFromContainers} from "../../utility/containers.js";
+import {Box, Button, Stack, Tab, Tabs} from "@mui/material";
+import {IsNullOrUndefined} from "../../utility/validation.js";
+import {CenteredModal} from "./centered_modal.jsx";
+
+export const TypeFormBuilderModal = ({title, getSchema, handleSave, elementSelector}) => {
+    const [show, setShow] = useState(false);
+    const [elements, setElements] = useState([])
+    const formRef = useRef(InitialTypeFormBuilderRefState(elementSelector))
+
+    const handleOnAdd = () => {
+        getSchema().then(data => {
+            SetContainer(formRef, BuildContainerTree(null, [], ".", data))
+            TypeFormBuilder({formRef, container: GetContainer(formRef)})
+            setElements(GetElements(formRef))
+            setShow(true)
+        })
+    }
+
+    const getbody = () => {
+        const [activeTab, setActiveTab] = useState(0);
+        const handleChange = (event, newValue) => setActiveTab(newValue);
+        return (<Box sx={{ width: '100%' }}>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                <Tabs value={activeTab} onChange={handleChange} aria-label="custom tabs">
+                    <Tab label="File Upload" />
+                    <Tab label="File Viewer" />
+                </Tabs>
+            </Box>
+            {/* Tab 1: File Upload */}
+            {activeTab === 0 && (
+                <Box sx={{ p: 3 }}>
+                    {elements}
+                </Box>
+            )}
+            {/* Tab 2: File Viewer */}
+            {activeTab === 1 && (
+                <Box sx={{ p: 3 }}>
+                    <pre>{JSON.stringify(GetContainer(formRef)?.value, null, 2)}</pre>
+                </Box>
+            )}
+        </Box>)
+    }
+
+    const handleOnClose = () => {
+        setShow(false)
+    }
+
+    const handleOnSave = () => {
+        handleSave(GetContainer(formRef).value)
+        setShow(false)
+    }
+
+    const handleAddCustomField = () => {
+        const elm = {}
+        elm[formRef.current.index] = ""
+        const current = GetContainer(formRef)
+        if (IsNullOrUndefined(ReadFromContainers(current, "root.Fields"))) {
+            SetContainer(formRef, NewObject(current, "root.Fields", {}))
+        }
+        AddElement(formRef, "root.Fields."+formRef.current.index, elm)
+        setElements(GetElements(formRef))
+    }
+
+    const footerButtons = () => {
+        return (
+            <Stack direction="horizontal" gap={2}>
+                <Button onClick={handleAddCustomField}>Add Field</Button>
+                <Button onClick={handleOnSave}>Save</Button>
+                <Button onClick={handleOnClose}>Close</Button>
+            </Stack>
+        )
+    }
+
+    return (
+        <Stack direction="horizontal" gap={2} >
+            <Button onClick={handleOnAdd}>{title}</Button>
+            <CenteredModal title={title}
+                           body={getbody()}
+                           show={show}
+                           footer={footerButtons()}/>
+        </Stack>
+    )
+}

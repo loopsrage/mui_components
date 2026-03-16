@@ -114,7 +114,6 @@ export interface ApiResponse<T = never> {
     results: T[];
     pagination?: {
         count: number;
-        // add other fields like page, limit if needed
     };
 }
 
