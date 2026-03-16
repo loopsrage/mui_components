@@ -6,6 +6,19 @@ import { playwright } from '@vitest/browser-playwright';
 
 export default defineConfig({
   plugins: [react()],
+  optimizeDeps: {
+    exclude: ['fsevents'], // Add this line
+    include: [
+      '@lexical/react/LexicalComposer',
+      '@lexical/react/LexicalRichTextPlugin',
+      '@lexical/react/LexicalContentEditable',
+      '@lexical/react/LexicalErrorBoundary',
+      '@lexical/react/LexicalComposerContext',
+      'lexical',
+      '@lexical/html',
+      '@lexical/utils'
+    ]
+  },
   build: {
     copyPublicDir: false,
     lib: {
@@ -27,6 +40,11 @@ export default defineConfig({
   test: {
     testTimeout: 1000000,
     fileParallelism: false,
+    server: {
+      deps: {
+        inline: [/@lexical\/react/] // Force Vitest to process these as ESM
+      }
+    },
     browser: {
       enabled: true,
       provider: playwright(
