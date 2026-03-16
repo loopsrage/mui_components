@@ -2,6 +2,7 @@ import {useState} from "react";
 import { Buffer } from 'buffer';
 import {DecompressGzipPng, StringToArrayBuffer} from "../../utility/gzip.js";
 import {IsNullOrUndefined} from "../../utility/validation.js";
+import { Image } from 'mui-image';
 
 const encodingString = "data:image/#{encoding};base64,#{data}"
 
