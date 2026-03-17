@@ -9,7 +9,7 @@ import {
     type GridValidRowModel
 } from '@mui/x-data-grid';
 import {BuildContainerTree, type Container, RangePrimitiveValues} from "../../utility/containers";
-import {IsPrimitive} from "../../utility/validation";
+import {IsNullOrUndefined, IsPrimitive} from "../../utility/validation";
 import type {ApiClient} from "../../utility/api";
 
 export interface TableState {
@@ -32,24 +32,6 @@ export interface TableState {
 export interface Props {
     ref: RefObject<TableState>
     api: ApiClient
-}
-
-const initialRef = (ref: RefObject<TableState>, api: ApiClient, handleToggle: () => void) => {
-    return {
-        index: 0,
-        headers: [],
-        headers_ri: {},
-        rows: [],
-        row_count: 0,
-        datasource: DataSourceWrapper(ref, handleToggle),
-        paginationModel: { page: 0, pageSize: 5 },
-        args: {},
-        selected_data: [],
-        selected_ids: null,
-        refresh: handleToggle,
-        filter_model: null,
-        api: api,
-    }
 }
 
 export const SetHeadersFromJson = (ref: RefObject<TableState>, data: Container) => {
@@ -160,17 +142,40 @@ export const DataSourceWrapper = (ref: RefObject<TableState>, handleToggle: () =
             const st = ref.current;
             if (!st) return { rows: [], rowCount: 0 };
 
-            const currentArgs = {
+            const currentArgs: Record<string, unknown> = {
                 ...st.args,
                 page: (params.paginationModel?.page || 0) + 1,
                 limit: params.paginationModel?.pageSize,
                 sortModel: JSON.stringify(params.sortModel),
                 filterModel: JSON.stringify(params.filterModel),
             }
-            const result: ApiResponse = await st.api.at("", {
-                fetchParams: { method: "GET" },
-                args: currentArgs,
+
+            const finalArgs: Record<string, unknown> = {}
+            Object.keys(currentArgs).forEach((key) => {
+                const val = currentArgs[key]
+                if (Array.isArray(val) && val.length === 0) return;
+                if (IsNullOrUndefined(val)) return;
+                finalArgs[key] = val
             })
+
+            if (!IsNullOrUndefined(params.sortModel)) {
+                if (Array.isArray(params.sortModel) && params.sortModel.length === 0) {
+                    delete finalArgs["sortModel"];
+                }
+            }
+
+            if (!IsNullOrUndefined(params.filterModel)) {
+                if (Array.isArray(params.filterModel["items"]) && params.filterModel["items"].length === 0) {
+                    delete finalArgs["filterModel"];
+                }
+            }
+
+            console.log(finalArgs)
+            const result = await st.api.at("", {
+                fetchParams: { method: "GET" },
+                args: finalArgs,
+            }) as ApiResponse;
+
             const resultContainer = BuildContainerTree(null, [], ".", result)
             SetHeadersFromJson(ref, resultContainer)
             SetRowsFromJson(ref, resultContainer)
@@ -223,12 +228,30 @@ export const UITable: FC<Props> = ({ ref, api }) => {
     const internalRef = (ref || localRef) as RefObject<TableState>;
     const [toggle, setToggle] = useState(false);
 
+    const initialRef = () => {
+        return {
+            index: 0,
+            headers: [],
+            headers_ri: {},
+            rows: [],
+            row_count: 0,
+            datasource: DataSourceWrapper(internalRef, handleToggle),
+            paginationModel: { page: 0, pageSize: 5 },
+            args: {},
+            selected_data: [],
+            selected_ids: null,
+            refresh: handleToggle,
+            filter_model: null,
+            api: api,
+        }
+    }
+
     const handleToggle = () => {
         setToggle(!toggle)
     }
 
     if (!internalRef.current) {
-        (internalRef as RefObject<TableState>).current = initialRef(ref, api, handleToggle)
+        (internalRef as RefObject<TableState>).current = initialRef()
     }
 
     return (
