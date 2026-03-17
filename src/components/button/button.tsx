@@ -12,8 +12,8 @@ export const ApiButton: FC<ApiButtonProps> = ({ api, endpoint, onClick }) => {
     const handleClick = async () => {
         try {
             const result = await api.at("/" + endpoint, {
-                fetchParams: { method: "POST" },
-                args: { Feature: endpoint }
+                fetchParams: { method: "GET" },
+                args: {}
             });
 
             if (onClick) onClick(() => console.log(result));
