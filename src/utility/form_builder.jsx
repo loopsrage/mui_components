@@ -1,6 +1,6 @@
 import {RangeContainers, ReadFromContainers, UpdateContainerByPath} from "./containers.js";
 import {IsNullOrUndefined, IsPrimitive, TitleCase} from "./validation.js";
-import {FormControl, FormLabel, Stack, Switch} from "@mui/material";
+import {FormControl, FormLabel, Input, InputLabel, Stack, Switch} from "@mui/material";
 import {KeyValue} from "../components/key_value/key_value.jsx";
 import {DataViewer} from "../components/file_viewer/file_viewer.jsx";
 import {DataImage} from "../components/image_viewer/image_viewer.jsx";
@@ -35,9 +35,9 @@ const defaultSelector = () => {
             return elem
         }
 
-        elem = <FormControl type="text"  key={jsxKey} {...inputProps}/>
+        elem = <Input type="text"  key={jsxKey} {...inputProps}/>
         if (currentType === 'number' || currentType === 'bigint') {
-            return <FormControl type='number' key={jsxKey} {...inputProps}/>
+            return <Input type='number' key={jsxKey} {...inputProps}/>
         }
 
         if (currentType === 'boolean') {
@@ -124,7 +124,7 @@ export const GetElements = (ref) => {
         sets[key] = GetSet(ref, value)
     })
     return (
-        <Stack direction={"row"} gap={3} >
+        <Stack direction={"column"} gap={3} sx={{ width: '100%' }} alignItems="stretch">
             {Object.keys(sets).map(x => sets[x])}
         </Stack>
     )
@@ -206,7 +206,7 @@ export const AddElement = (ref, key, element) => {
 
         if (!IsNullOrUndefined(elm)) {
             const keyNoRoot = TitleCase(key.replace(/root\./, ""), '.')
-            st.labels[st.index] = <FormLabel key={"Label" + key + st.index} column={key}>{keyNoRoot}</FormLabel>
+            st.labels[st.index] = <InputLabel key={"Label" + key + st.index} column={key}>{keyNoRoot}</InputLabel>
             st.element_component[st.index] = elm
             st.index++
         }

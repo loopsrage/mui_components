@@ -148,7 +148,6 @@ export const GetHeaders = (ref: RefObject<TableState>) => {
             renderCell: ModalCellRendererWrapper(ref),
         } as GridColDef)
     }
-    console.log(st.row_details)
     return headers;
 }
 

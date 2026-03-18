@@ -46,7 +46,7 @@ export const TypeFormBuilderModal = ({title, getSchema, handleSave, elementSelec
             </Box>
             {/* Tab 1: File Upload */}
             {activeTab === 0 && (
-                <Box sx={{ p: 3 }}>
+                <Box >
                     {elements}
                 </Box>
             )}
@@ -81,7 +81,7 @@ export const TypeFormBuilderModal = ({title, getSchema, handleSave, elementSelec
 
     const footerButtons = () => {
         return (
-            <Stack direction="horizontal" gap={2}>
+            <Stack direction="row" gap={3}>
                 <Button onClick={handleAddCustomField}>Add Field</Button>
                 <Button onClick={handleOnSave}>Save</Button>
                 <Button onClick={handleOnClose}>Close</Button>
@@ -90,7 +90,7 @@ export const TypeFormBuilderModal = ({title, getSchema, handleSave, elementSelec
     }
 
     return (
-        <Stack direction="horizontal" gap={2} >
+        <Stack direction="row" gap={3} >
             <Button onClick={handleOnAdd}>{title}</Button>
             <CenteredModal title={title}
                            body={getbody()}
