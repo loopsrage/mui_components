@@ -1,4 +1,4 @@
-import {type FC, type RefObject, useRef, useState} from "react";
+import {type FC, type RefObject, useLayoutEffect, useRef, useState} from "react";
 import {
     DataGrid,
     type GridColDef,
@@ -13,6 +13,8 @@ import {IsNullOrUndefined, IsPrimitive} from "../../utility/validation";
 import type {ApiClient} from "../../utility/api";
 
 import {EditCellRenderer} from "../../meta_components/crud_elements/crud_elements";
+import type {IBaseRefProps} from "../../ibase/ibase";
+import {useConditionalRef} from "../../context/context_index";
 
 export interface TableState {
     index: number
@@ -34,7 +36,7 @@ export interface TableState {
     fetch_params: Record<string, string | number | boolean | undefined | null> | null
 }
 
-export interface Props {
+export interface Props extends IBaseRefProps {
     ref: RefObject<TableState>
     api: ApiClient
 
@@ -320,9 +322,9 @@ export const ModalCellRendererWrapper = (ref: RefObject<TableState>) => {
     }
 }
 
-export const UITable: FC<Props> = ({ ref, api, endpoint, row_details}) => {
-    const localRef = useRef<TableState>(null);
-    const internalRef = (ref || localRef) as RefObject<TableState>;
+export const UITable: FC<Props> = ({ api, endpoint, row_details, refKey, register_component=false}) => {
+    const setRegistryRef = useConditionalRef(refKey, register_component)
+    const localRef = useRef<TableState>(null as unknown as TableState);
     const [toggle, setToggle] = useState(false);
 
     const initialRef = () => {
@@ -332,7 +334,7 @@ export const UITable: FC<Props> = ({ ref, api, endpoint, row_details}) => {
             headers_ri: {},
             rows: [],
             row_count: 0,
-            datasource: DataSourceWrapper(internalRef, handleToggle),
+            datasource: DataSourceWrapper(localRef, handleToggle),
             paginationModel: { page: 0, pageSize: 5 },
             args: {},
             selected_data: [],
@@ -350,20 +352,25 @@ export const UITable: FC<Props> = ({ ref, api, endpoint, row_details}) => {
         setToggle(!toggle)
     }
 
-    if (!internalRef.current) {
-        (internalRef as RefObject<TableState>).current = initialRef()
+    if (!localRef.current) {
+        (localRef as RefObject<TableState>).current = initialRef()
     }
+
+    useLayoutEffect(() => {
+        setRegistryRef(localRef.current);
+        return () => setRegistryRef(null);
+    }, [setRegistryRef]);
 
     return (
         <>
             <DataGrid
                 style={{height: "80vh"}}
-                columns={GetHeaders(internalRef)}
-                dataSource={GetDatasource(internalRef)}
+                columns={GetHeaders(localRef)}
+                dataSource={GetDatasource(localRef)}
                 pageSizeOptions={[5, 10, 25]}
-                paginationModel={GetPaginationModel(internalRef)}
-                onPaginationModelChange={SetPaginationModel(internalRef, GetPaginationModel(internalRef))}
-                onRowSelectionModelChange={(newModel) => SetSelectedRows(internalRef)(newModel)}
+                paginationModel={GetPaginationModel(localRef)}
+                onPaginationModelChange={SetPaginationModel(localRef, GetPaginationModel(localRef))}
+                onRowSelectionModelChange={(newModel) => SetSelectedRows(localRef)(newModel)}
                 paginationMode="server"
                 sortingMode="server"
                 filterMode="server"

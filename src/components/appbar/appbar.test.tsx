@@ -5,6 +5,6 @@ import {UIAppBar} from "./appbar";
 test('should load and display server-side data', async () => {
 
 
-    render(<UIAppBar />)
+    render(<UIAppBar refKey={""} />)
     await new Promise(() => {});
 })

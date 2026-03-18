@@ -14,6 +14,9 @@ export const RefProvider: FC<RefProviderProps> = ({ children }) => {
         register: (key: string, el: unknown) => {
             registry.current[key] = el;
         },
+        unregister: (key: string) => {
+            delete registry.current[key];
+        },
         get: <T = unknown>(key: string): T | null => {
             return (registry.current[key] as T) || null;
         },
