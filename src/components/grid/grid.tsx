@@ -37,7 +37,6 @@ export interface TableState {
 }
 
 export interface Props extends IBaseRefProps {
-    ref: RefObject<TableState>
     api: ApiClient
 
     endpoint: string;

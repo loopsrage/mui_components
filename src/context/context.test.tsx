@@ -4,16 +4,15 @@ import {useRefIndex} from "./context_index";
 import { test } from 'vitest'
 
 const TargetComponent = () => {
-    const { register } = useRefIndex();
-    return <input data-testid="my-input" ref={(el) => register('search', el)} />;
+    const context = useRefIndex();
+    return <input data-testid="my-input" ref={(el) => context?.register('search', el)} />;
 };
 
 // Component that pulls from the index
 const ControllerComponent = () => {
-    const { get } = useRefIndex();
-
+    const context = useRefIndex();
     const handleClick = () => {
-        const input = get<HTMLInputElement>('search');
+        const input = context?.get<HTMLInputElement>('search');
 
         if (input) {
             input.value = 'Ref Success!';
