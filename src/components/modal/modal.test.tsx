@@ -12,11 +12,12 @@ test('should load and display server-side data', async () => {
         return result
     }
 
-    render(<TypeFormBuilderModal title={"test"}
-                                 getSchema={handleApiCall}
-                                 handleSave={(data) => {
-                                     console.log(data)
-                                 }} />)
+    render(<TypeFormBuilderModal
+        title={"test"}
+        getSchema={handleApiCall}
+        handleSave={(data) => {
+             console.log(data)
+        }} />)
 
     await new Promise(() => {});
 })

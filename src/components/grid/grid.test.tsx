@@ -5,10 +5,10 @@ import {Api} from "../../utility/api";
 
 test('should load and display server-side data', async () => {
 
-    const mockApi = Api({endpoint: "http://localhost:8000/"})
+    const mockApi = Api({endpoint: "http://localhost:8000"})
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
-    render(<UITable api={mockApi} endpoint={"list"}/>)
+    render(<UITable api={mockApi} endpoint={"list"} row_details={true}/>)
     await new Promise(() => {});
 })

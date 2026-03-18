@@ -95,7 +95,7 @@ export const InitialTypeFormBuilderRefState = (elementSelector) => {
         labels: {},
         element_component: {},
         container: undefined,
-        elementSelector: elementSelector || defaultSelector()
+        elementSelector: elementSelector || defaultSelector(),
     }
 }
 

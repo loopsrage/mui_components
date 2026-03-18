@@ -17,7 +17,7 @@ export const GridWithButtons: FC<GridWithButtonsProps> = ({api, grid_ref, grid_e
             <Stack direction={"row"} gap={3}>
                 {buttons?.map((button) => button)}
             </Stack>
-            <UITable ref={grid_ref} api={api} endpoint={grid_endpoint} />
+            <UITable ref={grid_ref} api={api} endpoint={grid_endpoint} row_details={true}/>
         </Stack>
     )
 }

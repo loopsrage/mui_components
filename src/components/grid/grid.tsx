@@ -5,12 +5,14 @@ import {
     type GridDataSource, type GridFilterModel,
     GridGetRowsError,
     type GridGetRowsParams,
-    type GridPaginationModel, type GridRowSelectionModel, type GridSortModel,
+    type GridPaginationModel, type GridRenderCellParams, type GridRowSelectionModel, type GridSortModel,
     type GridValidRowModel
 } from '@mui/x-data-grid';
 import {BuildContainerTree, type Container, RangePrimitiveValues} from "../../utility/containers";
 import {IsNullOrUndefined, IsPrimitive} from "../../utility/validation";
 import type {ApiClient} from "../../utility/api";
+
+import {EditCellRenderer} from "../../meta_components/crud_elements/crud_elements";
 
 export interface TableState {
     index: number
@@ -18,6 +20,7 @@ export interface TableState {
     headers_ri: Record<string, number>
     rows: unknown[][]
     row_count: number
+    row_details?: boolean | null
     datasource: GridDataSource
     paginationModel: GridPaginationModel
 
@@ -36,6 +39,7 @@ export interface Props {
     api: ApiClient
 
     endpoint: string;
+    row_details?: boolean | null
 }
 
 export const SetEndpoint = (ref: RefObject<TableState>, endpoint: string) => {
@@ -124,11 +128,28 @@ export const GetRows = (ref: RefObject<TableState>): GridValidRowModel[] => {
 
 export const GetHeaders = (ref: RefObject<TableState>) => {
     const st = ref.current
-    return Object.keys(st.headers_ri).map(path => ({
+    const headers = Object.keys(st.headers_ri).map(path => ({
         field: path,
+        sortable: true,
+        filterable: true,
         headerName: path.split('.').pop(),
-        flex: 1
-    }));
+        flex: 1,
+        type: 'string',
+    } as GridColDef));
+
+    if (st.row_details) {
+        headers.push({
+            sortable: false,
+            filterable: false,
+            field: "edit",
+            headerName: "Edit",
+            flex: 1,
+            type: 'actions',
+            renderCell: ModalCellRendererWrapper(ref),
+        } as GridColDef)
+    }
+    console.log(st.row_details)
+    return headers;
 }
 
 export const GetPaginationModel = (ref: RefObject<TableState>) => {
@@ -162,7 +183,7 @@ export const SetFilterModel = (ref: RefObject<TableState>, filterModel: GridFilt
     const st = ref.current;
     if (!st) return;
 
-    st.args["sortModel"] = JSON.stringify(filterModel)
+    st.args["filterModel"] = JSON.stringify(filterModel)
     ref.current = st
 }
 
@@ -206,7 +227,7 @@ export const DataSourceWrapper = (ref: RefObject<TableState>, handleToggle: () =
 
             const currentArgs: Record<string, unknown> = {
                 ...st.args,
-                page: (params.paginationModel?.page || 0) + 1,
+                page: (params.paginationModel?.page || 0),
                 limit: params.paginationModel?.pageSize,
             }
 
@@ -292,7 +313,15 @@ export const SetSelectedRows = (ref: RefObject<TableState>) => {
     }
 }
 
-export const UITable: FC<Props> = ({ ref, api, endpoint}) => {
+export const ModalCellRendererWrapper = (ref: RefObject<TableState>) => {
+    return (params: GridRenderCellParams) => {
+        const st = ref.current;
+        if (!st) return;
+        return <EditCellRenderer handleRefreshGrid={() => Refresh(ref)} api={st.api} id={params.id}/>
+    }
+}
+
+export const UITable: FC<Props> = ({ ref, api, endpoint, row_details}) => {
     const localRef = useRef<TableState>(null);
     const internalRef = (ref || localRef) as RefObject<TableState>;
     const [toggle, setToggle] = useState(false);
@@ -312,6 +341,7 @@ export const UITable: FC<Props> = ({ ref, api, endpoint}) => {
             refresh: handleToggle,
             filter_model: null,
             api: api,
+            row_details: row_details,
             fetch_params: null,
             endpoint: endpoint
         }
@@ -326,37 +356,42 @@ export const UITable: FC<Props> = ({ ref, api, endpoint}) => {
     }
 
     return (
-        <DataGrid
-            style={{height: "80vh"}}
-            columns={GetHeaders(internalRef)}
-            dataSource={GetDatasource(internalRef)}
-            pageSizeOptions={[5, 10, 25]}
-            paginationModel={GetPaginationModel(internalRef)}
-            onPaginationModelChange={SetPaginationModel(internalRef, GetPaginationModel(internalRef))}
-            onRowSelectionModelChange={(newModel) => SetSelectedRows(internalRef)(newModel)}
-            paginationMode="server"
-            sortingMode="server"
-            filterMode="server"
-            checkboxSelection
+        <>
+            <DataGrid
+                style={{height: "80vh"}}
+                columns={GetHeaders(internalRef)}
+                dataSource={GetDatasource(internalRef)}
+                pageSizeOptions={[5, 10, 25]}
+                paginationModel={GetPaginationModel(internalRef)}
+                onPaginationModelChange={SetPaginationModel(internalRef, GetPaginationModel(internalRef))}
+                onRowSelectionModelChange={(newModel) => SetSelectedRows(internalRef)(newModel)}
+                paginationMode="server"
+                sortingMode="server"
+                filterMode="server"
 
-            getRowId={(row) => row.id}
-            onDataSourceError={(error) => {
-                console.error("DataGrid Error Type:", error.name);
-                console.error("DataGrid Error Message:", error.message);
+                checkboxSelection
+                showToolbar
 
-                if (error.cause) {
-                    console.group("Original Error Cause");
-                    console.error("Message:", error.cause.message);
-                    console.error("Stack:", error.cause.stack);
-                    console.groupEnd();
-                }
+                getRowId={(row) => row.id}
+                onDataSourceError={(error) => {
+                    console.error("DataGrid Error Type:", error.name);
+                    console.error("DataGrid Error Message:", error.message);
 
-                if (error instanceof GridGetRowsError) {
-                    console.warn("Fetch failed. Check your API mock or network.");
-                } else {
-                    console.warn("Row update failed.");
-                }
-            }}
-        />
+                    if (error.cause) {
+                        console.group("Original Error Cause");
+                        console.error("Message:", error.cause.message);
+                        console.error("Stack:", error.cause.stack);
+                        console.groupEnd();
+                    }
+
+                    if (error instanceof GridGetRowsError) {
+                        console.warn("Fetch failed. Check your API mock or network.");
+                    } else {
+                        console.warn("Row update failed.");
+                    }
+                }}
+
+            />
+        </>
     );
 };

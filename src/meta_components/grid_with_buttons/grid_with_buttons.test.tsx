@@ -12,9 +12,9 @@ test('should load and display server-side data', async () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
     render(<GridWithButtons api={mockApi} grid_endpoint={"list"} buttons={[
-        <ApiButton api={mockApi} endpoint={"trigger"} />,
-        <Button>Test1</Button>,
-        <Button>Test2</Button>,
+        <ApiButton api={mockApi} endpoint={"trigger"} key={"trigger"} />,
+        <Button key={0}>Test1</Button>,
+        <Button key={1}>Test2</Button>,
     ]}/>)
     await new Promise(() => {});
 })

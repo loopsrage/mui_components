@@ -23,8 +23,6 @@ export const TypeFormBuilderModal = ({title, getSchema, handleSave, elementSelec
     const handleOnAdd = async () => {
         try {
             const data = await getSchema();
-            console.log("Schema data received:", data); // Check if this fires
-
             const tree = BuildContainerTree(null, [], ".", data);
             SetContainer(formRef, tree);
 
