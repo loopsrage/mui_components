@@ -46,7 +46,7 @@ export const TypeFormBuilderModal = ({title, getSchema, handleSave, elementSelec
             </Box>
             {/* Tab 1: File Upload */}
             {activeTab === 0 && (
-                <Box >
+                <Box sx={{ borderBottom: 1, borderColor: 'divider', width: '100%' }}>
                     {elements}
                 </Box>
             )}

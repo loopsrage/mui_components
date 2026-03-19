@@ -1,6 +1,6 @@
 import {RangeContainers, ReadFromContainers, UpdateContainerByPath} from "./containers.js";
 import {IsNullOrUndefined, IsPrimitive, TitleCase} from "./validation.js";
-import {FormControl, FormLabel, Input, InputLabel, Stack, Switch} from "@mui/material";
+import {Box, FormControl, FormLabel, Input, InputLabel, Stack, Switch} from "@mui/material";
 import {KeyValue} from "../components/key_value/key_value.jsx";
 import {DataViewer} from "../components/file_viewer/file_viewer.jsx";
 import {DataImage} from "../components/image_viewer/image_viewer.jsx";
@@ -35,9 +35,9 @@ const defaultSelector = () => {
             return elem
         }
 
-        elem = <Input type="text"  key={jsxKey} {...inputProps}/>
+        elem = <Input type="text"  key={jsxKey} {...inputProps} />
         if (currentType === 'number' || currentType === 'bigint') {
-            return <Input type='number' key={jsxKey} {...inputProps}/>
+            return <Input type='number' key={jsxKey} {...inputProps} />
         }
 
         if (currentType === 'boolean') {
@@ -124,7 +124,7 @@ export const GetElements = (ref) => {
         sets[key] = GetSet(ref, value)
     })
     return (
-        <Stack direction={"column"} gap={3} sx={{ width: '100%' }} alignItems="stretch">
+        <Stack direction={"column"} gap={3} >
             {Object.keys(sets).map(x => sets[x])}
         </Stack>
     )
@@ -192,7 +192,8 @@ export const GetElementTypes = (ref, key, element) => {
     const props = {
         name: key,
         defaultValue: GetElementValue(ref, key),
-        onChange: UpdateElementValues(ref).onChange
+        onChange: UpdateElementValues(ref).onChange,
+        sx: {width: "100%"}
     }
     return st.elementSelector({key, formRef: ref, jsxKey, currentType, inputProps: props})
 }
