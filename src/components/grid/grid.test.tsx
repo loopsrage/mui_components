@@ -9,6 +9,6 @@ test('should load and display server-side data', async () => {
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
-    render(<UITable api={mockApi} endpoint={"list"} row_details={true}/>)
+    render(<UITable api={mockApi} endpoint={"count_column"} row_details={true}/>)
     await new Promise(() => {});
 })

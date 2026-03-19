@@ -25,7 +25,7 @@ test('should load and display server-side data', async () => {
         </CenteredContainer>
         <CenteredContainer sx={{minHeight: "10hv"}}>
             <Paper>
-                <GridWithButtons title={"Review Classifications"} api={mockApi} grid_endpoint={"list"}
+                <GridWithButtons title={"Review Classifications"} api={mockApi} grid_endpoint={"training"}
                                  buttons={[(<Button>Test21</Button>), (<Button>13414</Button>)]}
                                  row_details={true} refKey={"test_grid"} register_component={true} />
             </Paper>
