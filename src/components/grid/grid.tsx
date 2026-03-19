@@ -15,6 +15,7 @@ import type {ApiClient} from "../../utility/api";
 import {EditCellRenderer} from "../../meta_components/crud_elements/crud_elements";
 import type {IBaseRefProps} from "../../ibase/ibase";
 import {useConditionalRef} from "../../context/context_index";
+import { Box } from "@mui/material";
 
 export interface TableState {
     index: number
@@ -41,6 +42,7 @@ export interface Props extends IBaseRefProps {
 
     endpoint: string;
     row_details?: boolean | null
+    toolbar?: boolean | undefined
 }
 
 export const SetEndpoint = (ref: RefObject<TableState>, endpoint: string) => {
@@ -132,6 +134,7 @@ export const GetHeaders = (ref: RefObject<TableState>) => {
     const headers = Object.keys(st.headers_ri).map(path => ({
         field: path,
         sortable: true,
+        minWidth: 50,
         filterable: true,
         headerName: path.split('.').pop(),
         flex: 1,
@@ -142,8 +145,10 @@ export const GetHeaders = (ref: RefObject<TableState>) => {
         headers.push({
             sortable: false,
             filterable: false,
+            width: 100,
             field: "edit",
             headerName: "Edit",
+            pinnable: true,
             flex: 1,
             type: 'actions',
             renderCell: ModalCellRendererWrapper(ref),
@@ -321,7 +326,7 @@ export const ModalCellRendererWrapper = (ref: RefObject<TableState>) => {
     }
 }
 
-export const UITable: FC<Props> = ({ api, endpoint, row_details, refKey, register_component=false}) => {
+export const UITable: FC<Props> = ({ api, endpoint, row_details, refKey, register_component=false, toolbar=false}) => {
     const setRegistryRef = useConditionalRef(refKey, register_component)
     const localRef = useRef<TableState>(null as unknown as TableState);
     const [toggle, setToggle] = useState(false);
@@ -343,7 +348,7 @@ export const UITable: FC<Props> = ({ api, endpoint, row_details, refKey, registe
             api: api,
             row_details: row_details,
             fetch_params: null,
-            endpoint: endpoint
+            endpoint: endpoint,
         }
     }
 
@@ -361,12 +366,67 @@ export const UITable: FC<Props> = ({ api, endpoint, row_details, refKey, registe
     }, [setRegistryRef]);
 
     return (
-        <>
+        <Box sx={{height: "50vh", width: "100%"}}>
             <DataGrid
-                style={{height: "80vh"}}
+                disableVirtualization
+                sx={{
+                    // Sticky Header
+                    '& .MuiDataGrid-columnHeader[data-field="edit"]': {
+                        position: 'sticky',
+                        right: 0,
+                        backgroundColor: 'black !important',
+                        color: 'white',
+                        zIndex: 3,
+                    },
+                    // Sticky Cells
+                    '& .MuiDataGrid-cell[data-field="edit"]': {
+                        position: 'sticky',
+                        right: 0,
+                        backgroundColor: 'white',
+                        zIndex: 2,
+                        boxShadow: '-4px 0px 4px -2px rgba(0,0,0,0.1)', // Subtle shadow "floats" it
+                    },
+                    // Ensure the container doesn't clip the sticky effect
+                    '& .MuiDataGrid-main': {
+                        overflow: 'auto',
+                    },
+                    '& .MuiDataGrid-cell--pinnedRight': {
+                        boxShadow: '-2px 0px 4px rgba(0,0,0,0.1)',
+                        backgroundColor: '#fff',
+                    },
+                    '& .MuiDataGrid-columnHeader--pinnedRight': {
+                        backgroundColor: 'black', // Matches your header theme
+                        color: 'white'
+                    },
+                    // 1. Target the actual row container inside the headers
+                    '& .MuiDataGrid-columnHeaders div[role="row"]': {
+                        backgroundColor: 'black !important',
+                        color: 'white',
+                    },
+                    // 2. Ensure individual header cells also inherit the color
+                    '& .MuiDataGrid-columnHeader': {
+                        backgroundColor: 'black !important',
+                        color: 'white',
+                    },
+                    // 3. Style the "filler" space (empty space after the last column)
+                    '& .MuiDataGrid-filler': {
+                        backgroundColor: 'black !important',
+                    },
+                    // 4. Make sort icons and menu dots white
+                    '& .MuiDataGrid-iconButtonContainer': {
+                        color: 'white',
+                    },
+                    '& .MuiDataGrid-menuIcon': {
+                        color: 'white',
+                    },
+                    // 5. Change the column separator color so it's visible on black
+                    '& .MuiDataGrid-columnSeparator': {
+                        color: '#333',
+                    },
+                }}
                 columns={GetHeaders(localRef)}
                 dataSource={GetDatasource(localRef)}
-                pageSizeOptions={[5, 10, 25]}
+                pageSizeOptions={[10, 25, 50, 100]}
                 paginationModel={GetPaginationModel(localRef)}
                 onPaginationModelChange={SetPaginationModel(localRef, GetPaginationModel(localRef))}
                 onRowSelectionModelChange={(newModel) => SetSelectedRows(localRef)(newModel)}
@@ -375,7 +435,7 @@ export const UITable: FC<Props> = ({ api, endpoint, row_details, refKey, registe
                 filterMode="server"
 
                 checkboxSelection
-                showToolbar
+                showToolbar={toolbar}
 
                 getRowId={(row) => row.id}
                 onDataSourceError={(error) => {
@@ -397,6 +457,6 @@ export const UITable: FC<Props> = ({ api, endpoint, row_details, refKey, registe
                 }}
 
             />
-        </>
+        </Box>
     );
 };

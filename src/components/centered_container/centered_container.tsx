@@ -1,11 +1,12 @@
-import {Box, Container, Paper, Stack} from "@mui/material";
+import {Box, Container,  Stack} from "@mui/material";
 import type {FC, ReactElement} from "react";
 
 export interface ICenteredContainer {
     children: ReactElement[] | ReactElement | null;
+    sx: object | null | undefined;
 }
 
-export const CenteredContainer: FC<ICenteredContainer> = ({children}) => {
+export const CenteredContainer: FC<ICenteredContainer> = ({children, sx = {}}) => {
     return (
         <Box
             sx={{
@@ -14,14 +15,13 @@ export const CenteredContainer: FC<ICenteredContainer> = ({children}) => {
                 justifyContent: 'center',
                 alignItems: 'center',
                 minHeight: '100vh',
+                ...sx
             }}
         >
             <Container maxWidth="sm">
-                    <Paper sx={{ p: 4 }}>
-                        <Stack direction={"column"}>
-                            {children}
-                        </Stack>
-                    </Paper>
+                <Stack direction={"column"}>
+                    {children}
+                </Stack>
             </Container>
         </Box>
     )

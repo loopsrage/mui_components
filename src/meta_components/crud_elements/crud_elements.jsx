@@ -52,7 +52,7 @@ export const Delete = ({refreshGrid, api, id}) => {
     }
 
     return (
-        <Stack direction="horizontal" gap={3}>
+        <Stack direction="row" gap={3}>
             <Button onClick={handleOnCLick}>Delete</Button>
             <CenteredConfirmCancelModal onConfirm={handleConfirm} show={show}/>
         </Stack>
@@ -62,7 +62,7 @@ export const Delete = ({refreshGrid, api, id}) => {
 export const EditCellRenderer = ({handleRefreshGrid, api, id}) => {
     const props = { refreshGrid: handleRefreshGrid, api, id }
     return (
-        <Stack direction="horizontal" gap={3}>
+        <Stack direction="row" gap={3}>
             <Update  {...props} />
             <Delete {...props} />
         </Stack>

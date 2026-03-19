@@ -5,7 +5,7 @@ import {CenteredContainer} from "../../components/centered_container/centered_co
 
 test('should load and display server-side data', async () => {
     render(<HeaderFooterLayout>
-            <CenteredContainer>
+            <CenteredContainer sx={undefined} >
                 <div></div>
             </CenteredContainer>
         </HeaderFooterLayout>)
