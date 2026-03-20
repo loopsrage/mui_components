@@ -5,9 +5,8 @@ import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { $generateHtmlFromNodes, $generateNodesFromDOM } from "@lexical/html";
-import { $getRoot, $insertNodes } from "lexical";
+import { $getRoot, $insertNodes, $createTextNode} from "lexical";
 import { Box, Paper } from "@mui/material";
-
 import { DecompressGzip, IsGzip, StringToArrayBuffer } from "../../utility/gzip.js";
 
 // Helper Plugin to sync data in/out of Lexical
@@ -30,11 +29,18 @@ const DataSyncPlugin = ({ fileData, onChange, name }) => {
             }
 
             editor.update(() => {
+                const root = $getRoot();
                 const parser = new DOMParser();
                 const dom = parser.parseFromString(decoded, "text/html");
                 const nodes = $generateNodesFromDOM(editor, dom);
-                $getRoot().clear();
-                $getRoot().append(...nodes);
+
+                root.clear();
+                // Fallback: If no nodes were generated, insert the raw text
+                if (nodes.length === 0 && decoded) {
+                    root.append($createTextNode(decoded));
+                } else {
+                    root.append(...nodes);
+                }
             });
         };
 
@@ -61,7 +67,6 @@ export const DataViewer = ({ fileData, subtype, inputProps }) => {
         onError: (error) => console.error(error),
         editable: subtype !== 0,
     };
-
     return (
         <Box sx={{ width: '100%' }}>
             <Paper variant="outlined" sx={{ p: 2, minHeight: '200px', position: 'relative' }}>
