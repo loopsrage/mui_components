@@ -22,7 +22,7 @@ export const ProgressAdornment: FC<ProgressAdornmentProps> = ({loading, value}) 
     return (
         <Box sx={{ position: 'relative', display: 'inline-flex' }}>
             <InputAdornment position="end">
-                {loading && <CircularProgress color={"inherit"}  variant="determinate" />}
+                {loading && <CircularProgress sx={{ color: '#ff0000' }}  variant="determinate" value={value} />}
                 <Box
                     sx={{
                         top: 0,
@@ -119,7 +119,7 @@ export const UIInput: FC<UploadInputProps> = ({refKey, register_component, onDro
     const { ref, ...rootProps } = getRootProps();
 
     const currentEndAdornment = loading ? (
-        <ProgressAdornment loading={loading} value={progress} />
+        <ProgressAdornment loading={true} value={progress} />
     ) : (
         <SendIconButton />
     );
