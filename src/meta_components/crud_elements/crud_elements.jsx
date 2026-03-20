@@ -1,6 +1,6 @@
 import {useState} from "react";
 import {TypeFormBuilderModal} from "../../components/modal/modal.jsx";
-import {Button, Stack} from "@mui/material";
+import {Box, Button, Stack} from "@mui/material";
 import {
     CenteredConfirmCancelModal
 } from "../../components/centered_modal_confirm_cancel/centered_confirm_cancel_modal.jsx";
@@ -13,11 +13,11 @@ export const Create = ({refreshGrid, api}) => {
     return <TypeFormBuilderModal title={"Create"} getSchema={api.schema} handleSave={handleOnSave}  />
 }
 
-export const Update = ({refreshGrid, api, id}) => {
+export const Update = ({refreshGrid, api, id, title}) => {
     const handleOnSave = (output) => {
         api.update(output, id).then(() => refreshGrid())
     }
-    return <TypeFormBuilderModal title={"Update"} getSchema={HandleGet(api, id)} handleSave={handleOnSave}  />
+    return <TypeFormBuilderModal title={title} button_title={"Update"} getSchema={HandleGet(api, id)} handleSave={handleOnSave}  />
 }
 
 export const DeleteMany = ({refreshGrid, api, handleSelectedIds}) => {
@@ -59,10 +59,10 @@ export const Delete = ({refreshGrid, api, id}) => {
     )
 }
 
-export const EditCellRenderer = ({handleRefreshGrid, api, id}) => {
-    const props = { refreshGrid: handleRefreshGrid, api, id }
+export const EditCellRenderer = ({handleRefreshGrid, api, id, params}) => {
+    const props = {...params, refreshGrid: handleRefreshGrid, api, id};
     return (
-        <Stack direction="row" gap={3}>
+        <Stack direction="row" gap={1}>
             <Update  {...props} />
             <Delete {...props} />
         </Stack>

@@ -29,6 +29,7 @@ export interface EditCellRendererProps {
     handleRefreshGrid: () => void;
     api: CrudApi;
     id: string | number;
+    params: object;
 }
 
 // Component Exports

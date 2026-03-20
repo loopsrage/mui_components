@@ -1,12 +1,12 @@
 import {type FC, type RefObject, useLayoutEffect, useRef, useState} from "react";
 import {
-    DataGrid,
+    DataGrid, type GridApi,
     type GridColDef,
     type GridDataSource, type GridFilterModel,
     GridGetRowsError,
     type GridGetRowsParams,
     type GridPaginationModel, type GridRenderCellParams, type GridRowSelectionModel, type GridSortModel,
-    type GridValidRowModel
+    type GridValidRowModel, useGridApiRef
 } from '@mui/x-data-grid';
 import {BuildContainerTree, type Container, RangePrimitiveValues} from "../../utility/containers";
 import {IsNullOrUndefined, IsPrimitive} from "../../utility/validation";
@@ -15,9 +15,10 @@ import type {ApiClient} from "../../utility/api";
 import {EditCellRenderer} from "../../meta_components/crud_elements/crud_elements";
 import type {IBaseRefProps} from "../../ibase/ibase";
 import {useConditionalRef} from "../../context/context_index";
-import { Box } from "@mui/material";
+import {Box, Stack} from "@mui/material";
 
 export interface TableState {
+    gridRef: RefObject<GridApi | null>;
     index: number
     headers: GridColDef[]
     headers_ri: Record<string, number>
@@ -35,6 +36,7 @@ export interface TableState {
     endpoint: string;
     args: Record<string, string | number | boolean | undefined | null>
     fetch_params: Record<string, string | number | boolean | undefined | null> | null
+    modal_title: string | undefined | null
 }
 
 export interface Props extends IBaseRefProps {
@@ -42,6 +44,7 @@ export interface Props extends IBaseRefProps {
 
     endpoint: string;
     row_details?: boolean | null
+    checkbox_select?: boolean | undefined
     toolbar?: boolean | undefined
 }
 
@@ -267,7 +270,6 @@ export const DataSourceWrapper = (ref: RefObject<TableState>, handleToggle: () =
             const resultContainer = BuildContainerTree(null, [], ".", result.results)
             SetHeadersFromJson(ref, resultContainer)
             SetRowsFromJson(ref, resultContainer)
-
             st.row_count = result.pagination?.count || 0;
             ref.current = st;
             handleToggle()
@@ -322,17 +324,47 @@ export const ModalCellRendererWrapper = (ref: RefObject<TableState>) => {
     return (params: GridRenderCellParams) => {
         const st = ref.current;
         if (!st) return;
-        return <EditCellRenderer handleRefreshGrid={() => Refresh(ref)} api={st.api} id={params.id}/>
+
+        let bgc = "white"
+        if (params.row["stage"] === "rejected") {
+            bgc = "red"
+        }
+
+        if (params.row["stage"] === "approved") {
+            bgc = "green"
+        }
+
+        const title = (
+            <Stack direction="column" spacing={2}>
+                <Stack gap={3} direction="row">
+                    {params.row["item_id"]}
+                    <Box sx={{
+                        backgroundColor: bgc,
+                        color: "black",
+                        borderRadius: 2,
+                        px: 1.5,
+                    }}>
+                        {params.row["stage"]}
+                    </Box>
+                </Stack>
+                <Stack gap={3} direction="row">
+                    {params.row["truth"]}
+                </Stack>
+            </Stack>
+        )
+        const input_params =  {title: title, ...params.row};
+        return <EditCellRenderer params={input_params} handleRefreshGrid={() => Refresh(ref)} api={st.api} id={params.id} />
     }
 }
 
-export const UITable: FC<Props> = ({ api, endpoint, row_details, refKey, register_component=false, toolbar=false}) => {
+export const UITable: FC<Props> = ({ api, endpoint, row_details, refKey, register_component=false, toolbar=false, checkbox_select=false}) => {
     const setRegistryRef = useConditionalRef(refKey, register_component)
     const localRef = useRef<TableState>(null as unknown as TableState);
     const [toggle, setToggle] = useState(false);
-
+    const apiRef = useGridApiRef();
     const initialRef = () => {
         return {
+            gridRef: apiRef,
             index: 0,
             headers: [],
             headers_ri: {},
@@ -349,6 +381,7 @@ export const UITable: FC<Props> = ({ api, endpoint, row_details, refKey, registe
             row_details: row_details,
             fetch_params: null,
             endpoint: endpoint,
+            modal_title: null
         }
     }
 
@@ -366,7 +399,7 @@ export const UITable: FC<Props> = ({ api, endpoint, row_details, refKey, registe
     }, [setRegistryRef]);
 
     return (
-        <Box sx={{height: "50vh", width: "100%"}}>
+        <Box sx={{height: "45vh", width: "100%"}}>
             <DataGrid
                 disableVirtualization
                 sx={{
@@ -426,15 +459,19 @@ export const UITable: FC<Props> = ({ api, endpoint, row_details, refKey, registe
                 }}
                 columns={GetHeaders(localRef)}
                 dataSource={GetDatasource(localRef)}
-                pageSizeOptions={[10, 25, 50, 100]}
+                pageSizeOptions={[5, 10, 25, 50, 100]}
                 paginationModel={GetPaginationModel(localRef)}
                 onPaginationModelChange={SetPaginationModel(localRef, GetPaginationModel(localRef))}
                 onRowSelectionModelChange={(newModel) => SetSelectedRows(localRef)(newModel)}
                 paginationMode="server"
                 sortingMode="server"
                 filterMode="server"
-
-                checkboxSelection
+                autosizeOnMount
+                autosizeOptions={{
+                    includeOutliers: true,
+                    includeHeaders: true,
+                }}
+                checkboxSelection={checkbox_select}
                 showToolbar={toolbar}
 
                 getRowId={(row) => row.id}

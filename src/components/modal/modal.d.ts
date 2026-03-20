@@ -6,7 +6,8 @@ import { SelectorParams } from "../../utility/form_builder";
  */
 export interface TypeFormBuilderModalProps {
     /** The label for the trigger button and the header of the modal. */
-    title: string;
+    title: unknown;
+    button_title: string;
     /**
      * Async function that returns the schema data (e.g., from an API).
      * Used to build the initial container tree.

@@ -13,7 +13,7 @@ import {
     TypeFormBuilder
 } from "../../utility/form_builder.jsx";
 
-export const TypeFormBuilderModal = ({title, getSchema, handleSave, elementSelector}) => {
+export const TypeFormBuilderModal = ({title, button_title, getSchema, handleSave, elementSelector}) => {
     const [show, setShow] = useState(false);
     const [elements, setElements] = useState(undefined);
     const [activeTab, setActiveTab] = useState(0);
@@ -81,7 +81,7 @@ export const TypeFormBuilderModal = ({title, getSchema, handleSave, elementSelec
 
     const footerButtons = () => {
         return (
-            <Stack direction="row" gap={3}>
+            <Stack direction="row" gap={1}>
                 <Button onClick={handleAddCustomField}>Add Field</Button>
                 <Button onClick={handleOnSave}>Save</Button>
                 <Button onClick={handleOnClose}>Close</Button>
@@ -91,11 +91,13 @@ export const TypeFormBuilderModal = ({title, getSchema, handleSave, elementSelec
 
     return (
         <Stack direction="row" gap={3} >
-            <Button onClick={handleOnAdd}>{title}</Button>
+            <Button onClick={handleOnAdd}>{button_title}</Button>
             <CenteredModal title={title}
                            body={getbody()}
                            show={show}
-                           footer={footerButtons()}/>
+                           footer={footerButtons()}
+                           title_sx={{background: "black", color: 'white'}}
+            />
         </Stack>
     )
 }

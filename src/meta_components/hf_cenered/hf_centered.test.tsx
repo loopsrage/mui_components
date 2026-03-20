@@ -29,7 +29,6 @@ test('should load and display server-side data', async () => {
         Object.keys(acceptedFiles).forEach(acceptedFile => {console.log(acceptedFile)})
     }
     render(<HFCenteredLayout>
-
         <CenteredContainer  sx={{ minHeight: "10vh", display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <Typography   align="center" sx={{ fontWeight: 'bold', width: '100%', px: 2}} >
                 HTS Code Lookup
