@@ -2,7 +2,7 @@
 import React, { useRef, useState} from "react";
 
 import {BuildContainerTree, NewObject, ReadFromContainers} from "../../utility/containers.js";
-import {Box, Button, Stack, Tab, Tabs} from "@mui/material";
+import {Box, Button, IconButton, Stack, Tab, Tabs} from "@mui/material";
 import {IsNullOrUndefined} from "../../utility/validation.js";
 import {CenteredModal} from "../centered_modal/centered_modal.jsx";
 import {
@@ -12,7 +12,7 @@ import {
     SetContainer,
     TypeFormBuilder
 } from "../../utility/form_builder.jsx";
-
+import DescriptionIcon from '@mui/icons-material/Description'
 export const TypeFormBuilderModal = ({title, button_title, getSchema, handleSave, elementSelector}) => {
     const [show, setShow] = useState(false);
     const [elements, setElements] = useState(undefined);
@@ -91,7 +91,9 @@ export const TypeFormBuilderModal = ({title, button_title, getSchema, handleSave
 
     return (
         <Stack direction="row" gap={3} >
-            <Button onClick={handleOnAdd}>{button_title}</Button>
+            <IconButton onClick={handleOnAdd}>
+                <DescriptionIcon sx={{ color: 'red' }} />
+            </IconButton>
             <CenteredModal title={title}
                            body={getbody()}
                            show={show}

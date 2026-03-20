@@ -64,7 +64,6 @@ export const EditCellRenderer = ({handleRefreshGrid, api, id, params}) => {
     return (
         <Stack direction="row" gap={1}>
             <Update  {...props} />
-            <Delete {...props} />
         </Stack>
     )
 }

@@ -137,10 +137,9 @@ export const GetHeaders = (ref: RefObject<TableState>) => {
     const headers = Object.keys(st.headers_ri).map(path => ({
         field: path,
         sortable: true,
-        minWidth: 50,
         filterable: true,
         headerName: path.split('.').pop(),
-        flex: 1,
+        flex: 2,
         type: 'string',
     } as GridColDef));
 
