@@ -264,7 +264,7 @@ export const DataSourceWrapper = (ref: RefObject<TableState>, handleToggle: () =
                 args: finalArgs,
             }) as ApiResponse;
 
-            const resultContainer = BuildContainerTree(null, [], ".", result)
+            const resultContainer = BuildContainerTree(null, [], ".", result.results)
             SetHeadersFromJson(ref, resultContainer)
             SetRowsFromJson(ref, resultContainer)
 

@@ -19,8 +19,8 @@ export const GridWithButtons: FC<GridWithButtonsProps> = ({api, title, grid_endp
             <Stack
                 justifyContent="space-between"
                 alignItems="center"
-                spacing={2}
-                direction={"row"} sx={{ px: 2, pt: 1 }} >
+                spacing={1}
+                direction={"row"} sx={{ px: 2 }} >
                 <Typography variant="h6" component="h2"  sx={{
                     whiteSpace: 'nowrap',
                     overflow: 'hidden',

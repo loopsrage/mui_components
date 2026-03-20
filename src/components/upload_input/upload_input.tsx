@@ -1,18 +1,107 @@
-import {useCallback, useState, type ChangeEvent} from "react";
+import {
+    useCallback,
+    useState,
+    type ChangeEvent,
+    type FC,
+    useLayoutEffect,
+    useRef,
+    type RefObject
+} from "react";
 import { useDropzone } from 'react-dropzone';
-import { InputAdornment, IconButton, TextField,  } from '@mui/material';
+import {InputAdornment, IconButton, TextField, CircularProgress, Box, Typography,} from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import SendIcon from '@mui/icons-material/Send';
+import {useConditionalRef} from "../../context/context_index";
 
-export const UIInput = () => {
+export interface ProgressAdornmentProps {
+    loading: boolean;
+    value: number;
+}
+
+export const ProgressAdornment: FC<ProgressAdornmentProps> = ({loading, value}) => {
+    return (
+        <Box sx={{ position: 'relative', display: 'inline-flex' }}>
+            <InputAdornment position="end">
+                {loading && <CircularProgress color={"inherit"}  variant="determinate" />}
+                <Box
+                    sx={{
+                        top: 0,
+                        left: 0,
+                        bottom: 0,
+                        right: 0,
+                        position: 'absolute',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}
+                >
+                    <Typography
+                        variant="caption"
+                        component="div"
+                        sx={{ color: 'text.secondary' }}
+                    >{`${Math.round(value)}%`}</Typography>
+                </Box>
+            </InputAdornment>
+        </Box>
+    )
+}
+
+export const SendIconButton = () => {
+    return (
+        <IconButton>
+            <SendIcon />
+        </IconButton>
+    )
+}
+
+export interface UploadInputProps {
+    refKey: string;
+    register_component: boolean;
+
+    onDropSuccess: (ref: RefObject<UploadInputState>, acceptedFiles: File[]) => void;
+}
+
+export interface UploadInputState {
+    setProgressValue: (value: number) => void;
+    progressValue: number;
+}
+
+export const SetProgressValue = (ref: RefObject<UploadInputState>, value: number) => {
+    const st = ref.current;
+    if (!st) return;
+
+    st.setProgressValue(value);
+    st.progressValue = value
+    ref.current = st
+}
+
+export const GetProgressValue = (ref: RefObject<UploadInputState>) => {
+    if (!ref || !ref.current) return 1;
+    return ref.current.progressValue
+}
+
+
+export const UIInput: FC<UploadInputProps> = ({refKey, register_component, onDropSuccess}) => {
     const [text, setText] = useState("");
-    const [, setFile] = useState<File | null>(null);
+    const [loading, setLoading] = useState(false)
+    const [progress, setProgress] = useState(0)
+
+    const setRegistryRef = useConditionalRef(refKey, register_component)
+
+    const localRef = useRef<UploadInputState>({
+        progressValue: 0,
+        setProgressValue: setProgress
+    });
 
     const onDrop = useCallback((acceptedFiles: File[]) => {
         if (acceptedFiles.length > 0) {
-            setFile(acceptedFiles[0]);
+            const st = localRef.current
+            setLoading(true)
+            st.setProgressValue = setProgress
+            onDropSuccess(localRef, acceptedFiles)
+            localRef.current = st
         }
-    }, []);
+    }, [onDropSuccess]);
 
     const { getRootProps, getInputProps, open, isDragActive } = useDropzone({
         onDrop,
@@ -20,7 +109,20 @@ export const UIInput = () => {
         noKeyboard: true,
         multiple: false
     });
+
+    useLayoutEffect(() => {
+        setRegistryRef(localRef.current);
+        return () => setRegistryRef(null);
+    }, [setRegistryRef]);
+
+
     const { ref, ...rootProps } = getRootProps();
+
+    const currentEndAdornment = loading ? (
+        <ProgressAdornment loading={loading} value={progress} />
+    ) : (
+        <SendIconButton />
+    );
 
     return (
         <TextField
@@ -39,11 +141,7 @@ export const UIInput = () => {
                             </IconButton>
                         </InputAdornment>
                     ),
-                    endAdornment: (
-                        <IconButton>
-                            <SendIcon />
-                        </IconButton>
-                    )
+                    endAdornment: currentEndAdornment
                 } as object | undefined,
             }}
             sx={{
