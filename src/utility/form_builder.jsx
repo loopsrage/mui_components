@@ -53,7 +53,7 @@ const defaultSelector = () => {
             if (inputProps.defaultValue["Subtype"] === 16 || inputProps.defaultValue["Subtype"] === 0) {
                 const container = ReadFromContainers(GetContainer(formRef), key.slice(0, key.lastIndexOf(".")))
                 inputProps.name = key.slice(0, key.lastIndexOf("."))+".Data"
-                return <DataViewer key={jsxKey} fileData={JSON.stringify(container?.value["Data"])} inputProps={inputProps} subtype={inputProps.defaultValue["Subtype"]} />
+                return <DataViewer key={jsxKey} fileData={JSON.stringify(container?.value["Data"], null, 2)} inputProps={inputProps} subtype={inputProps.defaultValue["Subtype"]} />
             }
 
             if (inputProps.defaultValue["Subtype"] === 18) {
@@ -69,7 +69,9 @@ const defaultSelector = () => {
             }
 
             if (Array.isArray(inputProps.defaultValue)) {
-                // return <ListSelect formRef={formRef} inputKey={key} jsxKey={jsxKey} inputProps={inputProps}  />
+                return Object.keys(inputProps.defaultValue).map((i) => {
+                    return (<Input type="text" key={jsxKey} {...inputProps} defaultValue={inputProps.defaultValue[i]}/>)
+                })
             }
 
             if (IsNullOrUndefined(inputProps.defaultValue)) {
@@ -115,7 +117,15 @@ export const GetSet = (ref, ind) => {
     const st = ref.current
     const la = st.labels[ind]
     const cm = st.element_component[ind]
-    return (<div key={ind}>{la}{cm}</div>)
+    if (la === "None") {
+        return <>{cm}</>;
+    }
+    return (
+        <div key={ind} >
+            {la}
+            {cm}
+        </div>
+    )
 }
 
 export const GetElements = (ref) => {
@@ -124,7 +134,7 @@ export const GetElements = (ref) => {
         sets[key] = GetSet(ref, value)
     })
     return (
-        <Stack direction={"column"} gap={3} >
+        <Stack direction={"column"} gap={0}  >
             {Object.keys(sets).map(x => sets[x])}
         </Stack>
     )
@@ -207,7 +217,15 @@ export const AddElement = (ref, key, element) => {
 
         if (!IsNullOrUndefined(elm)) {
             const keyNoRoot = TitleCase(key.replace(/root\./, ""), '.')
-            st.labels[st.index] = <InputLabel key={"Label" + key + st.index} column={key}>{keyNoRoot}</InputLabel>
+            const pathSegments = keyNoRoot.split(' ');
+            const lastSegment = pathSegments[pathSegments.length - 1];
+            const isArrayIndex = /^\d+$/.test(lastSegment);
+
+            if (!isArrayIndex) {
+                st.labels[st.index] = <InputLabel key={"Label" + key + st.index} column={key}>{keyNoRoot}</InputLabel>
+            } else {
+                st.labels[st.index] = "None";
+            }
             st.element_component[st.index] = elm
             st.index++
         }
