@@ -1,31 +1,49 @@
-import type {FC} from "react";
-import {Button} from "@mui/material";
+import type {FC, ReactElement} from "react";
+import {Button, type ButtonProps} from "@mui/material";
 import type {ApiClient} from "../../utility/api";
 
-interface ApiButtonProps {
+interface ApiButtonProps extends ButtonProps {
     api: ApiClient;
     endpoint: string | null;
-    onClick?: (data: unknown) => void;
+
+    children?: ReactElement | ReactElement[] | null | string;
+    get_args?: () => object;
+    fetch_params?: () => object;
+
+    callback?: (fetchParams: object, args: object, result: unknown) => void;
 }
 
-export const ApiButton: FC<ApiButtonProps> = ({ api, endpoint, onClick }) => {
+export const ApiButton: FC<ApiButtonProps> = ({ api, endpoint, children, get_args, fetch_params, callback, ...props}) => {
     const handleClick = async () => {
         try {
+            let args = {}
+            if (get_args) {
+                args = get_args()
+            }
+
+            let fetchParams = {
+                method: "GET"
+            }
+            if (fetch_params) {
+                fetchParams = {...fetchParams, ...fetch_params()}
+            }
+
             const result = await api.at("/" + endpoint, {
-                fetchParams: { method: "GET" },
-                args: {}
+                fetchParams: fetchParams,
+                args: args
             });
 
-            if (onClick) onClick(() => console.log(result));
-            else console.log("Success:", result);
+            if (callback) {
+                callback(fetchParams, args, result)
+            }
         } catch (error) {
             console.error("Button Action Failed:", error);
         }
     };
 
     return (
-        <Button variant="contained" onClick={handleClick}>
-            {endpoint}
+        <Button onClick={handleClick} {...props}>
+            {children}
         </Button>
     );
 };

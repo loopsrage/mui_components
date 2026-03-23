@@ -26,7 +26,7 @@ export interface TableState {
     row_count: number
     row_details?: boolean | null
     datasource: GridDataSource
-    paginationModel: GridPaginationModel
+    paginationModel: GridPaginationModel | undefined
 
     refresh: () => void
     selected_ids: GridRowSelectionModel | null
@@ -198,7 +198,7 @@ export const SetPaginationModel = (ref: RefObject<TableState>, paginationModel: 
     return () => {
         const st = ref.current;
         if (!st) return;
-
+        st.paginationModel = paginationModel
         st.args["paginationModel"] = JSON.stringify(paginationModel);
         ref.current = st
     }
@@ -219,7 +219,7 @@ export const GetFetchParams = (ref: RefObject<TableState>) => {
 export interface ApiResponse<T = unknown> {
     results: T[];
     pagination?: {
-        count: number;
+        total: number;
     };
 }
 
@@ -231,11 +231,11 @@ export const DataSourceWrapper = (ref: RefObject<TableState>, handleToggle: () =
 
             SetFilterModel(ref, params.filterModel)
             SetSortModel(ref, params.sortModel)
-
-            const currentArgs: Record<string, unknown> = {
+            const { page, pageSize } = params.paginationModel;
+            const  currentArgs: Record<string, unknown> = {
                 ...st.args,
-                page: (params.paginationModel?.page || 0),
-                limit: params.paginationModel?.pageSize,
+                offset: page * pageSize,
+                limit: pageSize,
             }
 
             const finalArgs: Record<string, unknown> = {}
@@ -269,12 +269,12 @@ export const DataSourceWrapper = (ref: RefObject<TableState>, handleToggle: () =
             const resultContainer = BuildContainerTree(null, [], ".", result.results)
             SetHeadersFromJson(ref, resultContainer)
             SetRowsFromJson(ref, resultContainer)
-            st.row_count = result.pagination?.count || 0;
+            st.row_count = result.pagination?.total || 0;
             ref.current = st;
             handleToggle()
             return {
                 rows: GetRows(ref),
-                rowCount: ref.current.row_count,
+                rowCount: result.pagination?.total || 0,
             };
         }
     }
@@ -359,7 +359,10 @@ export const ModalCellRendererWrapper = (ref: RefObject<TableState>) => {
 export const UITable: FC<Props> = ({ api, endpoint, row_details, refKey, register_component=false, toolbar=false, checkbox_select=false}) => {
     const setRegistryRef = useConditionalRef(refKey, register_component)
     const localRef = useRef<TableState>(null as unknown as TableState);
-    const [toggle, setToggle] = useState(false);
+    const [, setToggle] = useState(false);
+    const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 5 });
+    const [rowCount, setRowCount] = useState(0);
+
     const apiRef = useGridApiRef();
     const initialRef = () => {
         return {
@@ -385,8 +388,11 @@ export const UITable: FC<Props> = ({ api, endpoint, row_details, refKey, registe
     }
 
     const handleToggle = () => {
-        setToggle(!toggle)
-    }
+        if (localRef.current) {
+            setRowCount(localRef.current.row_count);
+        }
+        setToggle(prev => !prev);
+    };
 
     if (!localRef.current) {
         (localRef as RefObject<TableState>).current = initialRef()
@@ -401,6 +407,7 @@ export const UITable: FC<Props> = ({ api, endpoint, row_details, refKey, registe
         <Box sx={{height: "45vh", width: "100%"}}>
             <DataGrid
                 disableVirtualization
+                rowCount={rowCount}
                 sx={{
                     // Sticky Header
                     '& .MuiDataGrid-columnHeader[data-field="edit"]': {
@@ -459,8 +466,10 @@ export const UITable: FC<Props> = ({ api, endpoint, row_details, refKey, registe
                 columns={GetHeaders(localRef)}
                 dataSource={GetDatasource(localRef)}
                 pageSizeOptions={[5, 10, 25, 50, 100]}
-                paginationModel={GetPaginationModel(localRef)}
-                onPaginationModelChange={SetPaginationModel(localRef, GetPaginationModel(localRef))}
+                paginationModel={paginationModel}
+                onPaginationModelChange={(model) => {
+                    setPaginationModel(model);
+                }}
                 onRowSelectionModelChange={(newModel) => SetSelectedRows(localRef)(newModel)}
                 paginationMode="server"
                 sortingMode="server"
