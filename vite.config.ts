@@ -4,9 +4,10 @@ import { resolve } from 'path';
 
 import { playwright } from '@vitest/browser-playwright';
 import dts from 'vite-plugin-dts';
+import { esmExternalRequirePlugin } from 'vite';
 
 export default defineConfig({
-  plugins: [react(), dts({ tsconfigPath: './tsconfig.app.json', insertTypesEntry: true })],
+  plugins: [react(), dts({ tsconfigPath: './tsconfig.app.json', insertTypesEntry: true }), esmExternalRequirePlugin()],
   optimizeDeps: {
     exclude: ['fsevents'], // Add this line
     include: [
@@ -21,7 +22,9 @@ export default defineConfig({
     ]
   },
   build: {
+    target: 'esnext',
     copyPublicDir: false,
+    ssr: false,
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'components',
@@ -29,6 +32,7 @@ export default defineConfig({
       formats: ['es']
     },
     rolldownOptions: {
+      shimMissingExports: false,
       platform: "browser",
       external: [
         'react',
@@ -51,17 +55,12 @@ export default defineConfig({
         'react-icons',
         /^react-icons\//
       ],
-
       output: {
-        externalLiveBindings: false,
-        globals: {
-          react: 'React',
-          'react-dom': 'ReactDOM',
-          'react/jsx-runtime': 'jsxRuntime',
-          '@mui/material': 'MaterialUI',
-          '@emotion/react': 'emotionReact',
-          '@emotion/styled': 'emotionStyled',
-        },
+        format: 'esm', // 3. Reinforce ESM
+        exports: 'named',
+        // This prevents Rolldown from wrapping your code in a global 'this' check
+        extend: true,
+        codeSplitting: false,
       },
     },
   },
