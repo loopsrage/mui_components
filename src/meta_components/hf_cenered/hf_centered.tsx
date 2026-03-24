@@ -1,5 +1,5 @@
 import {HeaderFooterLayout} from "../header_footer_layout/header_footer_layout";
-import {RefProvider} from "../../context/context";
+import {RefProvider} from "@/context/context";
 import type {FC, ReactElement} from "react";
 import {Stack} from "@mui/material";
 

@@ -1,8 +1,8 @@
 import {type FC, type ReactElement} from "react";
-import { UITable} from "../../components/grid/grid";
-import type {ApiClient} from "../../utility/api";
+import { UITable} from "@/components/grid/grid";
+import type {ApiClient} from "@/utility/api";
 import { Stack, Typography} from "@mui/material";
-import type {IBaseRefProps} from "../../ibase/ibase";
+import type {IBaseRefProps} from "@/ibase/ibase";
 
 export interface GridWithButtonsProps extends IBaseRefProps {
     api: ApiClient;

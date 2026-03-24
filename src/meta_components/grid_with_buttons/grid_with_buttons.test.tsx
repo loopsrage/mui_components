@@ -1,9 +1,9 @@
 import {render} from '@testing-library/react'
 import { test } from 'vitest'
-import {Api} from "../../utility/api";
+import {Api} from "@/utility/api";
 import {GridWithButtons} from "./grid_with_buttons";
 import {Button} from "@mui/material";
-import {ApiButton} from "../../components/button/button";
+import {ApiButton} from "@/components/button/button";
 
 test('should load and display server-side data', async () => {
 

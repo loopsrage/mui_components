@@ -2,19 +2,19 @@ import {render} from '@testing-library/react'
 import { test } from 'vitest'
 import {HFCenteredLayout} from "./hf_centered";
 import {GridWithButtons} from "../grid_with_buttons/grid_with_buttons";
-import {Api} from "../../utility/api";
+import {Api} from "@/utility/api";
 import {Button, Paper, Stack, Typography} from "@mui/material";
 import {
     GetProgressValue,
     SetProgressValue,
     UIInput,
     type UploadInputState
-} from "../../components/upload_input/upload_input";
-import {CenteredContainer} from "../../components/centered_container/centered_container";
+} from "@/components/upload_input/upload_input";
+import {CenteredContainer} from "@/components/centered_container/centered_container";
 import SendIcon from "@mui/icons-material/Send";
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import type {RefObject} from "react";
-import {ApiButton} from "../../components/button/button";
+import {ApiButton} from "@/components/button/button";
 import RefreshIcon from '@mui/icons-material/Refresh';
 
 test('should load and display server-side data', async () => {

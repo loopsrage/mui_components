@@ -1,5 +1,5 @@
-import {UIBottomNav} from "../../components/bottomnav/bottomnav";
-import {UIAppBar} from "../../components/appbar/appbar";
+import {UIBottomNav} from "@/components/bottomnav/bottomnav";
+import {UIAppBar} from "@/components/appbar/appbar";
 import type {FC, ReactElement} from "react";
 import {Box} from "@mui/material";
 
