@@ -34,6 +34,11 @@ export default defineConfig({
         'react-dom',
         'react/jsx-runtime',      // <--- ADD THIS
         'react/jsx-dev-runtime',  // <--- ADD THIS for development builds
+        'mui-tiptap',
+        'mui-image',
+        'react-dropzone',
+        /^@lexical\//,
+        'lexical',
         /^react\//,
         /^react-dom\//,
         '@mui/material',
