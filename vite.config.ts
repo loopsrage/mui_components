@@ -41,6 +41,7 @@ export default defineConfig({
     alias: {
       '@': resolve(__dirname, './src'),
       'use-sync-external-store/shim': 'react',
+      'use-sync-external-store': 'react',
     },
   },
   build: {
