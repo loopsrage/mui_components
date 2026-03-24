@@ -7,7 +7,23 @@ import dts from 'vite-plugin-dts';
 import { esmExternalRequirePlugin } from 'vite';
 
 export default defineConfig({
-  plugins: [react(), dts({ tsconfigPath: './tsconfig.app.json', insertTypesEntry: true }), esmExternalRequirePlugin()],
+  plugins: [react(), dts({ tsconfigPath: './tsconfig.app.json', insertTypesEntry: true }), esmExternalRequirePlugin(),
+    {
+      name: 'kill-require-shim',
+      enforce: 'pre',
+      resolveId(id) {
+        // If it's any of our problematic libs, force it to be a clean external
+        if (
+            id === 'react' ||
+            id.startsWith('react/') ||
+            id.includes('lexical') ||
+            id.includes('@mui') ||
+            id.includes('@emotion')
+        ) {
+          return { id, external: true, moduleSideEffects: false };
+        }
+      }
+    }],
   optimizeDeps: {
     exclude: ['fsevents'], // Add this line
     include: [
@@ -21,6 +37,11 @@ export default defineConfig({
       '@lexical/utils'
     ]
   },
+  resolve: {
+    alias: {
+      '@': resolve(__dirname, './src'),
+    },
+  },
   build: {
     copyPublicDir: false,
     lib: {
@@ -30,22 +51,39 @@ export default defineConfig({
       formats: ['es']
     },
     rolldownOptions: {
-      external: ['react',
+      shimMissingExports: false,
+      external: [
+        'react',
         'react-dom',
-        'react/jsx-runtime',      // <--- ADD THIS
-        'react/jsx-dev-runtime',  // <--- ADD THIS for development builds
-        'mui-tiptap',
-        'mui-image',
-        'react-dropzone',
-        /^@lexical\//,
-        'lexical',
+        'react/jsx-runtime',
+        'react/jsx-dev-runtime',
         /^react\//,
         /^react-dom\//,
+        'lexical',
+        // BROAD CATCH-ALLS FOR ROLIDOWN:
+        '@lexical/react',
+        /^@lexical\//,
         '@mui/material',
-        /@mui\/material\/.*/,    // <--- USE REGEX for MUI subpaths
+        '@mui/material/utils',
+        '@mui/icons-material',
+        "@mui/icons-material/BugReport",
+        '@mui/icons-material/Description',
+        "@mui/icons-material/Download",
+        "@mui/icons-material/Close",
+        "@mui/icons-material/CloudUpload",
+        "@mui/icons-material/Send",
+        "@mui/icons-material/SaveAlt",
+        '@mui/icons-material/Refresh',
+        /^@mui\/icons-material/, // This covers all sub-icons like BugReport
+        /^@mui\/material/, // This covers all sub-components and Unstable_
         '@emotion/react',
         '@emotion/styled',
-        /@emotion\/.*/
+        /^@emotion\//,
+        'mui-image',
+        'mui-tiptap',
+        'react-dropzone',
+        'react-icons',
+        /^react-icons\//
       ],
       output: {
         globals: {

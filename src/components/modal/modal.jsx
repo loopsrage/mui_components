@@ -13,7 +13,7 @@ import {
     TypeFormBuilder
 } from "../../utility/form_builder.jsx";
 import DescriptionIcon from '@mui/icons-material/Description'
-import {useConditionalRef} from "../../context/context_index.ts";
+import {useConditionalRef} from "@/context/context_index.ts";
 
 export const TypeFormBuilderModal = ({title, getSchema, handleSave, elementSelector, footerButtons, refKey, register_component=false}) => {
     const setRegistryRef = useConditionalRef(refKey, register_component)

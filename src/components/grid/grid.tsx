@@ -8,18 +8,18 @@ import {
     type GridPaginationModel, type GridRenderCellParams, type GridRowSelectionModel, type GridSortModel,
     type GridValidRowModel, useGridApiRef
 } from '@mui/x-data-grid';
-import {BuildContainerTree, type Container, RangePrimitiveValues} from "../../utility/containers";
-import {IsNullOrUndefined, IsPrimitive} from "../../utility/validation";
-import type {ApiClient} from "../../utility/api";
+import {BuildContainerTree, type Container, RangePrimitiveValues} from "@/utility/containers";
+import {IsNullOrUndefined, IsPrimitive} from "@/utility/validation";
+import type {ApiClient} from "@/utility/api";
 
-import {EditCellRenderer} from "../../meta_components/crud_elements/crud_elements";
-import type {IBaseRefProps} from "../../ibase/ibase";
-import {useConditionalRef, useRefIndex} from "../../context/context_index";
+import {EditCellRenderer} from "@/meta_components/crud_elements/crud_elements";
+import type {IBaseRefProps} from "@/ibase/ibase";
+import {useConditionalRef, useRefIndex} from "@/context/context_index";
 import {Box, Button, IconButton, Stack} from "@mui/material";
 import {ApiButton} from "../button/button";
 import DownloadIcon from '@mui/icons-material/Download';
 import CloseIcon from '@mui/icons-material/Close';
-import type {FormBuilderState} from "../../utility/form_builder";
+import type {FormBuilderState} from "@/utility/form_builder";
 
 export interface TableState {
     gridRef: RefObject<GridApi | null>;

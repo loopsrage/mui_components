@@ -11,7 +11,7 @@ import { useDropzone } from 'react-dropzone';
 import {InputAdornment, IconButton, TextField, CircularProgress, Box, Typography,} from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import SendIcon from '@mui/icons-material/Send';
-import {useConditionalRef} from "../../context/context_index";
+import {useConditionalRef} from "@/context/context_index";
 
 export interface ProgressAdornmentProps {
     loading: boolean;
