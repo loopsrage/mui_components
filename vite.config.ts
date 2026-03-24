@@ -40,6 +40,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': resolve(__dirname, './src'),
+      'use-sync-external-store/shim': 'react',
     },
   },
   build: {
