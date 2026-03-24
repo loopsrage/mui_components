@@ -25,7 +25,7 @@ export default defineConfig({
       }
     }],
   optimizeDeps: {
-    exclude: ['fsevents'], // Add this line
+    exclude: ['fsevents', 'use-sync-external-store'], // Add this line
     include: [
       '@lexical/react/LexicalComposer',
       '@lexical/react/LexicalRichTextPlugin',
@@ -104,7 +104,10 @@ export default defineConfig({
     fileParallelism: false,
     server: {
       deps: {
-        inline: [/@lexical\/react/] // Force Vitest to process these as ESM
+        inline: [/@lexical\/react/,
+          /@mui\/x-data-grid/,
+          /@mui\/material/,
+          'use-sync-external-store'] // Force Vitest to process these as ESM
       }
     },
     browser: {
