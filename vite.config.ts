@@ -25,14 +25,17 @@ export default defineConfig({
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'components',
       fileName: 'index',
+      formats: ['es', 'umd']
     },
     rolldownOptions: {
-      // 1.2.10: Externalize peer dependencies so they aren't bundled
-      external: ['react', 'react-dom'],
+      external: ['react', 'react-dom', 'react-dom', '@mui/material', '@emotion/react', '@emotion/styled'],
       output: {
         globals: {
           react: 'React',
           'react-dom': 'ReactDOM',
+          '@mui/material': 'MaterialUI',
+          '@emotion/react': 'emotionReact',
+          '@emotion/styled': 'emotionStyled'
         },
       },
     },

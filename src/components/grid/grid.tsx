@@ -237,7 +237,7 @@ export const DataSourceWrapper = (ref: RefObject<TableState>, handleToggle: () =
 
             SetFilterModel(ref, params.filterModel)
             SetSortModel(ref, params.sortModel)
-            const { page, pageSize } = params.paginationModel
+            const { page, pageSize } = params.paginationModel ?? { page: 0, pageSize: 10 };
             const  currentArgs: Record<string, unknown> = {
                 ...st.args,
                 offset: page * pageSize,

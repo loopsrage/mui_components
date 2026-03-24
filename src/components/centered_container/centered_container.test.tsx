@@ -4,6 +4,6 @@ import {CenteredContainer} from "./centered_container";
 
 test('should load and display server-side data', async () => {
 
-    render(<CenteredContainer content={<div>test</div>}/>)
+    render(<CenteredContainer children={<div>test</div>} sx={undefined}/>)
     await new Promise(() => {});
 })

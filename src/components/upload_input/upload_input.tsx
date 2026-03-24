@@ -58,7 +58,7 @@ export interface UploadInputProps {
     refKey: string;
     register_component: boolean;
 
-    onSend: () => void;
+    onSend: unknown;
     onDropSuccess: (ref: RefObject<UploadInputState>, acceptedFiles: File[]) => void;
 }
 

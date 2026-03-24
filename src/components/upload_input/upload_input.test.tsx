@@ -24,8 +24,9 @@ test('should load and display server-side data', async () => {
             <UIInput
                 refKey={"test_input"}
                 register_component={true}
-                onDropSuccess={onDropSuccess}
-            />
+                onDropSuccess={onDropSuccess} onSend={function (): void {
+                throw new Error("Function not implemented.");
+            }}            />
         </RefProvider>
     );
 
