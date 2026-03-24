@@ -25,7 +25,7 @@ export default defineConfig({
       }
     }],
   optimizeDeps: {
-    exclude: ['fsevents', 'use-sync-external-store'], // Add this line
+    exclude: ['fsevents'], // Add this line
     include: [
       '@lexical/react/LexicalComposer',
       '@lexical/react/LexicalRichTextPlugin',
@@ -40,7 +40,6 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': resolve(__dirname, './src'),
-
     },
   },
   build: {
@@ -61,9 +60,6 @@ export default defineConfig({
         /^react\//,
         /^react-dom\//,
         'lexical',
-        'use-sync-external-store/shim',
-        'use-sync-external-store/shim/index.js',
-        'use-sync-external-store',
         // BROAD CATCH-ALLS FOR ROLIDOWN:
         '@lexical/react',
         /^@lexical\//,
@@ -108,10 +104,7 @@ export default defineConfig({
     fileParallelism: false,
     server: {
       deps: {
-        inline: [/@lexical\/react/,
-          /@mui\/x-data-grid/,
-          /@mui\/material/,
-          'use-sync-external-store'] // Force Vitest to process these as ESM
+        inline: [/@lexical\/react/] // Force Vitest to process these as ESM
       }
     },
     browser: {
