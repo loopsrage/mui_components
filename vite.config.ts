@@ -31,6 +31,7 @@ export default defineConfig({
     rolldownOptions: {
       external: ['react',
         'react-dom',
+        'react/jsx-runtime',
         /^react\//,
         /^react-dom\//,
         '@mui/material',
@@ -40,10 +41,10 @@ export default defineConfig({
         globals: {
           react: 'React',
           'react-dom': 'ReactDOM',
+          'react/jsx-runtime': 'jsxRuntime',
           '@mui/material': 'MaterialUI',
           '@emotion/react': 'emotionReact',
           '@emotion/styled': 'emotionStyled',
-          'react/jsx-runtime': 'jsxRuntime'
         },
       },
     },
