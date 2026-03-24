@@ -11,7 +11,7 @@ export const HFCenteredLayout: FC<HFCenteredLayoutProps> = ({children}) => {
     return (
         <RefProvider>
             <HeaderFooterLayout>
-                <Stack direction={"column"} gap={3}>
+                <Stack direction={"column"} gap={2}>
                     {children}
                 </Stack>
             </HeaderFooterLayout>

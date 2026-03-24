@@ -15,7 +15,9 @@ import type {ApiClient} from "../../utility/api";
 import {EditCellRenderer} from "../../meta_components/crud_elements/crud_elements";
 import type {IBaseRefProps} from "../../ibase/ibase";
 import {useConditionalRef} from "../../context/context_index";
-import {Box, Stack} from "@mui/material";
+import {Box, Button, Stack} from "@mui/material";
+import {ApiButton} from "../button/button";
+import DownloadIcon from '@mui/icons-material/Download';
 
 export interface TableState {
     gridRef: RefObject<GridApi | null>;
@@ -231,7 +233,7 @@ export const DataSourceWrapper = (ref: RefObject<TableState>, handleToggle: () =
 
             SetFilterModel(ref, params.filterModel)
             SetSortModel(ref, params.sortModel)
-            const { page, pageSize } = params.paginationModel;
+            const { page, pageSize } = params.paginationModel
             const  currentArgs: Record<string, unknown> = {
                 ...st.args,
                 offset: page * pageSize,
@@ -351,8 +353,22 @@ export const ModalCellRendererWrapper = (ref: RefObject<TableState>) => {
                 </Stack>
             </Stack>
         )
-        const input_params =  {title: title, ...params.row};
-        return <EditCellRenderer params={input_params} handleRefreshGrid={() => Refresh(ref)} api={st.api} id={params.id} />
+        const input_params =  {footerButtons: [
+            <Button
+                variant='outlined'
+                sx={{color: "black", backgroundColor: "white", borderColor: "black"}}
+                startIcon={<DownloadIcon/>}>Extract</Button>,
+            <Box key="spacer" sx={{ flexGrow: 1 }} />,
+            <Button
+                sx={{backgroundColor: "red"}}
+                variant="contained">Reject</Button>,
+            <ApiButton
+                api={st.api}
+                sx={{backgroundColor: "green"}}
+                variant="contained"
+                endpoint={"Approve"}>Approve</ApiButton>,
+            ], title: title, ...params.row};
+        return <EditCellRenderer  params={input_params} handleRefreshGrid={() => Refresh(ref)} api={st.api} id={params.id} />
     }
 }
 
@@ -404,104 +420,103 @@ export const UITable: FC<Props> = ({ api, endpoint, row_details, refKey, registe
     }, [setRegistryRef]);
 
     return (
-        <Box sx={{height: "45vh", width: "100%"}}>
-            <DataGrid
-                disableVirtualization
-                rowCount={rowCount}
-                sx={{
-                    // Sticky Header
-                    '& .MuiDataGrid-columnHeader[data-field="edit"]': {
-                        position: 'sticky',
-                        right: 0,
-                        backgroundColor: 'black !important',
-                        color: 'white',
-                        zIndex: 3,
-                    },
-                    // Sticky Cells
-                    '& .MuiDataGrid-cell[data-field="edit"]': {
-                        position: 'sticky',
-                        right: 0,
-                        backgroundColor: 'white',
-                        zIndex: 2,
-                        boxShadow: '-4px 0px 4px -2px rgba(0,0,0,0.1)', // Subtle shadow "floats" it
-                    },
-                    // Ensure the container doesn't clip the sticky effect
-                    '& .MuiDataGrid-main': {
-                        overflow: 'auto',
-                    },
-                    '& .MuiDataGrid-cell--pinnedRight': {
-                        boxShadow: '-2px 0px 4px rgba(0,0,0,0.1)',
-                        backgroundColor: '#fff',
-                    },
-                    '& .MuiDataGrid-columnHeader--pinnedRight': {
-                        backgroundColor: 'black', // Matches your header theme
-                        color: 'white'
-                    },
-                    // 1. Target the actual row container inside the headers
-                    '& .MuiDataGrid-columnHeaders div[role="row"]': {
-                        backgroundColor: 'black !important',
-                        color: 'white',
-                    },
-                    // 2. Ensure individual header cells also inherit the color
-                    '& .MuiDataGrid-columnHeader': {
-                        backgroundColor: 'black !important',
-                        color: 'white',
-                    },
-                    // 3. Style the "filler" space (empty space after the last column)
-                    '& .MuiDataGrid-filler': {
-                        backgroundColor: 'black !important',
-                    },
-                    // 4. Make sort icons and menu dots white
-                    '& .MuiDataGrid-iconButtonContainer': {
-                        color: 'white',
-                    },
-                    '& .MuiDataGrid-menuIcon': {
-                        color: 'white',
-                    },
-                    // 5. Change the column separator color so it's visible on black
-                    '& .MuiDataGrid-columnSeparator': {
-                        color: '#333',
-                    },
-                }}
-                columns={GetHeaders(localRef)}
-                dataSource={GetDatasource(localRef)}
-                pageSizeOptions={[5, 10, 25, 50, 100]}
-                paginationModel={paginationModel}
-                onPaginationModelChange={(model) => {
-                    setPaginationModel(model);
-                }}
-                onRowSelectionModelChange={(newModel) => SetSelectedRows(localRef)(newModel)}
-                paginationMode="server"
-                sortingMode="server"
-                filterMode="server"
-                autosizeOnMount
-                autosizeOptions={{
-                    includeOutliers: true,
-                    includeHeaders: true,
-                }}
-                checkboxSelection={checkbox_select}
-                showToolbar={toolbar}
+        <DataGrid
+            disableVirtualization
+            rowCount={rowCount}
+            sx={{
+                width: "100%",
+                // Sticky Header
+                '& .MuiDataGrid-columnHeader[data-field="edit"]': {
+                    position: 'sticky',
+                    right: 0,
+                    backgroundColor: 'black !important',
+                    color: 'white',
+                    zIndex: 3,
+                },
+                // Sticky Cells
+                '& .MuiDataGrid-cell[data-field="edit"]': {
+                    position: 'sticky',
+                    right: 0,
+                    backgroundColor: 'white',
+                    zIndex: 2,
+                    boxShadow: '-4px 0px 4px -2px rgba(0,0,0,0.1)', // Subtle shadow "floats" it
+                },
+                // Ensure the container doesn't clip the sticky effect
+                '& .MuiDataGrid-main': {
+                    overflow: 'auto',
+                },
+                '& .MuiDataGrid-cell--pinnedRight': {
+                    boxShadow: '-2px 0px 4px rgba(0,0,0,0.1)',
+                    backgroundColor: '#fff',
+                },
+                '& .MuiDataGrid-columnHeader--pinnedRight': {
+                    backgroundColor: 'black', // Matches your header theme
+                    color: 'white'
+                },
+                // 1. Target the actual row container inside the headers
+                '& .MuiDataGrid-columnHeaders div[role="row"]': {
+                    backgroundColor: 'black !important',
+                    color: 'white',
+                },
+                // 2. Ensure individual header cells also inherit the color
+                '& .MuiDataGrid-columnHeader': {
+                    backgroundColor: 'black !important',
+                    color: 'white',
+                },
+                // 3. Style the "filler" space (empty space after the last column)
+                '& .MuiDataGrid-filler': {
+                    backgroundColor: 'black !important',
+                },
+                // 4. Make sort icons and menu dots white
+                '& .MuiDataGrid-iconButtonContainer': {
+                    color: 'white',
+                },
+                '& .MuiDataGrid-menuIcon': {
+                    color: 'white',
+                },
+                // 5. Change the column separator color so it's visible on black
+                '& .MuiDataGrid-columnSeparator': {
+                    color: '#333',
+                },
+            }}
+            columns={GetHeaders(localRef)}
+            dataSource={GetDatasource(localRef)}
+            pageSizeOptions={[5, 10, 25, 50, 100]}
+            paginationModel={paginationModel}
+            onPaginationModelChange={(model) => {
+                setPaginationModel(model);
+            }}
+            onRowSelectionModelChange={(newModel) => SetSelectedRows(localRef)(newModel)}
+            paginationMode="server"
+            sortingMode="server"
+            filterMode="server"
+            autosizeOnMount
+            autosizeOptions={{
+                includeOutliers: true,
+                includeHeaders: true,
+            }}
+            checkboxSelection={checkbox_select}
+            showToolbar={toolbar}
 
-                getRowId={(row) => row.id}
-                onDataSourceError={(error) => {
-                    console.error("DataGrid Error Type:", error.name);
-                    console.error("DataGrid Error Message:", error.message);
+            getRowId={(row) => row.id}
+            onDataSourceError={(error) => {
+                console.error("DataGrid Error Type:", error.name);
+                console.error("DataGrid Error Message:", error.message);
 
-                    if (error.cause) {
-                        console.group("Original Error Cause");
-                        console.error("Message:", error.cause.message);
-                        console.error("Stack:", error.cause.stack);
-                        console.groupEnd();
-                    }
+                if (error.cause) {
+                    console.group("Original Error Cause");
+                    console.error("Message:", error.cause.message);
+                    console.error("Stack:", error.cause.stack);
+                    console.groupEnd();
+                }
 
-                    if (error instanceof GridGetRowsError) {
-                        console.warn("Fetch failed. Check your API mock or network.");
-                    } else {
-                        console.warn("Row update failed.");
-                    }
-                }}
+                if (error instanceof GridGetRowsError) {
+                    console.warn("Fetch failed. Check your API mock or network.");
+                } else {
+                    console.warn("Row update failed.");
+                }
+            }}
 
-            />
-        </Box>
+        />
     );
 };

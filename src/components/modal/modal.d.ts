@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {type ReactElement} from 'react';
 import { SelectorParams } from "../../utility/form_builder";
 
 /**
@@ -23,6 +23,8 @@ export interface TypeFormBuilderModalProps {
      * for a specific data type or key.
      */
     elementSelector?: (params: SelectorParams) => React.JSX.Element | null | undefined;
+
+    footerButtons?: ReactElement[] | ReactElement | null;
 }
 
 /**

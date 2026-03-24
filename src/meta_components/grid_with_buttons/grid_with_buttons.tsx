@@ -1,7 +1,7 @@
-import type {FC, ReactElement} from "react";
+import {type FC, type ReactElement} from "react";
 import { UITable} from "../../components/grid/grid";
 import type {ApiClient} from "../../utility/api";
-import {Stack, Typography} from "@mui/material";
+import { Stack, Typography} from "@mui/material";
 import type {IBaseRefProps} from "../../ibase/ibase";
 
 export interface GridWithButtonsProps extends IBaseRefProps {
@@ -10,26 +10,29 @@ export interface GridWithButtonsProps extends IBaseRefProps {
 
     title: string;
     row_details: boolean;
-    buttons: ReactElement[];
+    buttons?: ReactElement[] | null;
 }
 
 export const GridWithButtons: FC<GridWithButtonsProps> = ({api, title, grid_endpoint, row_details, buttons, refKey}) => {
+    const headerButtons = buttons?.map((button) => button)
     return (
-        <Stack direction={"column"} gap={3}>
+        <Stack direction={"column"} gap={2}>
             <Stack
                 justifyContent="space-between"
                 alignItems="center"
-                spacing={1}
-                direction={"row"} sx={{ px: 2 }} >
-                <Typography variant="h6" component="h2"  sx={{
+                direction={"row"} >
+                <Typography sx={{
                     whiteSpace: 'nowrap',
                     overflow: 'hidden',
                     textOverflow: 'ellipsis'
                 }}>
                     {title}
                 </Typography>
-                <Stack direction={"row"} gap={3}>
-                    {buttons?.map((button) => button)}
+                <Stack direction={"row"} gap={1}   sx={{
+                    justifyContent: 'flex-end',
+                    width: '50%'
+                }}>
+                    {headerButtons}
                 </Stack>
             </Stack>
             <UITable api={api} endpoint={grid_endpoint} row_details={row_details} refKey={refKey}/>

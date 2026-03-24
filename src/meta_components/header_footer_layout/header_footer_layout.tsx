@@ -9,7 +9,7 @@ export interface IHeaderFooterLayout {
 
 export const HeaderFooterLayout: FC<IHeaderFooterLayout>= ({children}) => {
     return (
-        <Box sx={{width: "100%"}}>
+        <Box>
             <UIAppBar />
                 {children}
             <UIBottomNav />

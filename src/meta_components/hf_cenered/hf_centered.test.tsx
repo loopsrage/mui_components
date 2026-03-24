@@ -3,7 +3,7 @@ import { test } from 'vitest'
 import {HFCenteredLayout} from "./hf_centered";
 import {GridWithButtons} from "../grid_with_buttons/grid_with_buttons";
 import {Api} from "../../utility/api";
-import { Paper, Stack, Typography} from "@mui/material";
+import {Button, Paper, Stack, Typography} from "@mui/material";
 import {
     GetProgressValue,
     SetProgressValue,
@@ -15,6 +15,7 @@ import SendIcon from "@mui/icons-material/Send";
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import type {RefObject} from "react";
 import {ApiButton} from "../../components/button/button";
+import RefreshIcon from '@mui/icons-material/Refresh';
 test('should load and display server-side data', async () => {
     const mockApi = Api({endpoint: "http://localhost:8000"})
     const onDropSuccess = (ref: RefObject<UploadInputState>, acceptedFiles: File[]) => {
@@ -32,41 +33,79 @@ test('should load and display server-side data', async () => {
 
     // const csvCallback = (fetchParams, args, result) => {}
     // const otmCallback = (fetchParams, args, result) => {}
-
+    const buttons = [     (
+        <ApiButton
+            variant={"outlined"}
+            startIcon={<SaveAltIcon/>}
+            api={mockApi}
+            endpoint={""}
+            sx={{
+                backgroundColor: 'darkgray',
+                width: 'fit-content',
+                borderColor: 'black',
+                color: 'white',
+                '&:hover': {
+                    backgroundColor: 'black',
+                },
+            }}
+            // callback={csvCallback}
+        >
+            {"CSV"}
+        </ApiButton>
+    ),
+    (
+        <ApiButton
+            variant={"outlined"}
+           startIcon={<SendIcon/>}
+           api={mockApi}
+           endpoint={""}
+           sx={{
+               backgroundColor: 'darkgray',
+               width: 'fit-content',
+               borderColor: 'black',
+               color: 'white',
+               '&:hover': {
+                   backgroundColor: 'black',
+               },
+           }}
+        // callback={otmCallback}
+        >
+            {"Send To OTM/GTM"}
+        </ApiButton>
+    )]
     render(
         <HFCenteredLayout>
             <CenteredContainer sx={{minHeight: "10hv", display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                <Stack gap={3}>
-                    <Typography   align="center" sx={{ fontWeight: 'bold', width: '100%', px: 2}} >
+                <Stack gap={3} alignItems={"center"}>
+                    <Typography   align="center" sx={{ fontWeight: 'bold', width: '100%'}} >
                         HTS Code Lookup
                     </Typography>
-                    <Typography  align="center" sx={{ width: '100%', px: 2 }}>
+                    <Typography  align="center" sx={{ width: '100%' }}>
                         Upload CSV or paste / type in part numbers (one per line or comma-separated).
                     </Typography>
+                    <Button
+                        variant="contained"
+                        sx={{
+                            backgroundColor: 'darkred',
+                            width: 'fit-content',
+                            color: 'white',
+                            '&:hover': {
+                                backgroundColor: 'black',
+                            },
+                        }}
+                        startIcon={<RefreshIcon />}>Start Over</Button>
                     <UIInput refKey={"csv_upload"} register_component={true} onDropSuccess={onDropSuccess} />
                     <Paper>
-                        <GridWithButtons title={"Review Classifications"} api={mockApi} grid_endpoint={"list"}
-                                         buttons={[
-                                             (
-                                                 <ApiButton variant={"outlined"} startIcon={<SaveAltIcon/>} api={mockApi}
-                                                            endpoint={""}
-                                                            // callback={csvCallback}
-                                                 >
-                                                     {"CSV"}
-                                                 </ApiButton>
-                                            ),
-                                             (
-                                                 <ApiButton variant={"outlined"} startIcon={<SendIcon/>} api={mockApi}
-                                                            endpoint={""}
-                                                            // callback={otmCallback}
-                                                 >
-                                                     {"Send To OTM/GTM"}
-                                                 </ApiButton>
-                                             )
-                                         ]}
-                                         row_details={true} refKey={"test_grid"} register_component={true} />
+                        <GridWithButtons
+                            title={"Review Classifications"}
+                            api={mockApi}
+                            grid_endpoint={"list"}
+                            buttons={buttons}
+                            row_details={true}
+                            refKey={"test_grid"}
+                            register_component={true} />
                     </Paper>
-                    <Typography  align="center" sx={{ width: '100%', px: 2 }}>
+                    <Typography  align="center" sx={{ width: '100%' }}>
                         Upload CSV or paste / type in part numbers (one per line or comma-separated).
                     </Typography>
                 </Stack>

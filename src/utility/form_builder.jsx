@@ -29,15 +29,43 @@ export const SelectAssociation = ({jsxKey, key, inputProps}) => {
 }
 
 const defaultSelector = () => {
+
     return ({formRef, jsxKey, key, currentType, inputProps}) => {
         let elem = SelectAssociation({jsxKey, key,  inputProps})
         if (!IsNullOrUndefined(elem)){
             return elem
         }
-
-        elem = <Input type="text"  key={jsxKey} {...inputProps} />
+        const cleanInputSx = {
+            width: '100%',
+            '&:before, &:after': {
+                display: 'none !important',
+            },
+            '&:hover:not(.Mui-disabled):before': {
+                display: 'none !important',
+            },
+            '& .MuiInput-input': {
+                padding: '4px 0',
+                cursor: 'default',
+                '&::-webkit-outer-spin-button, &::-webkit-inner-spin-button': {
+                    '-webkit-appearance': 'none',
+                    margin: 0,
+                },
+                '&[type=number]': {
+                    '-moz-appearance': 'textfield',
+                },
+            },
+        };
+        elem = <Input type="text"
+                      disableUnderline={true}
+                      readOnly={true}
+                      sx={cleanInputSx}
+                      key={jsxKey} {...inputProps} />
         if (currentType === 'number' || currentType === 'bigint') {
-            return <Input type='number' key={jsxKey} {...inputProps} />
+            return <Input type='number'
+                          disableUnderline={true}
+                          readOnly={true}
+                          sx={cleanInputSx}
+                          key={jsxKey} {...inputProps} />
         }
 
         if (currentType === 'boolean') {
@@ -70,7 +98,14 @@ const defaultSelector = () => {
 
             if (Array.isArray(inputProps.defaultValue)) {
                 return Object.keys(inputProps.defaultValue).map((i) => {
-                    return (<Input type="text" key={jsxKey} {...inputProps} defaultValue={inputProps.defaultValue[i]}/>)
+                    return (<Input
+                        type="text"
+                        key={jsxKey}
+                        disableUnderline={true}
+                        readOnly={true}
+                        sx={cleanInputSx}
+                        {...inputProps}
+                        defaultValue={inputProps.defaultValue[i]}/>)
                 })
             }
 
@@ -121,10 +156,25 @@ export const GetSet = (ref, ind) => {
         return <>{cm}</>;
     }
     return (
-        <div key={ind} >
-            {la}
-            {cm}
-        </div>
+        <Stack
+            key={ind}
+            direction="row"
+            gap={1}
+            sx={{
+                justifyContent: 'space-between',
+                width: '100%',
+                borderBottom: '1px solid rgba(0, 0, 0, 0.42)',
+                pb: 0.5,
+                alignItems: 'flex-end'
+            }}
+        >
+            <Box sx={{ width: "50%", flexShrink: 0 }}>
+                {la}
+            </Box>
+            <Box sx={{ flexGrow: 1 }}>
+                {cm}
+            </Box>
+        </Stack>
     )
 }
 
@@ -134,7 +184,7 @@ export const GetElements = (ref) => {
         sets[key] = GetSet(ref, value)
     })
     return (
-        <Stack direction={"column"} gap={0}  >
+        <Stack direction={"column"} gap={0} >
             {Object.keys(sets).map(x => sets[x])}
         </Stack>
     )

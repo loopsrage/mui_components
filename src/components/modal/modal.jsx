@@ -13,7 +13,8 @@ import {
     TypeFormBuilder
 } from "../../utility/form_builder.jsx";
 import DescriptionIcon from '@mui/icons-material/Description'
-export const TypeFormBuilderModal = ({title, button_title, getSchema, handleSave, elementSelector}) => {
+
+export const TypeFormBuilderModal = ({title, getSchema, handleSave, elementSelector, footerButtons}) => {
     const [show, setShow] = useState(false);
     const [elements, setElements] = useState(undefined);
     const [activeTab, setActiveTab] = useState(0);
@@ -79,14 +80,8 @@ export const TypeFormBuilderModal = ({title, button_title, getSchema, handleSave
         setElements(GetElements(formRef))
     }
 
-    const footerButtons = () => {
-        return (
-            <Stack direction="row" gap={1}>
-                <Button onClick={handleAddCustomField}>Add Field</Button>
-                <Button onClick={handleOnSave}>Save</Button>
-                <Button onClick={handleOnClose}>Close</Button>
-            </Stack>
-        )
+    if (!footerButtons) {
+        footerButtons = []
     }
 
     return (
@@ -97,7 +92,7 @@ export const TypeFormBuilderModal = ({title, button_title, getSchema, handleSave
             <CenteredModal title={title}
                            body={getbody()}
                            show={show}
-                           footer={footerButtons()}
+                           footer={footerButtons}
                            title_sx={{background: "black", color: 'white'}}
             />
         </Stack>

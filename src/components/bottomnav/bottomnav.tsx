@@ -1,11 +1,11 @@
-import {Box, Container, Typography} from "@mui/material";
+import {Box, Container} from "@mui/material";
 
 export const UIBottomNav = () => {
     return (
         <Box
             component="footer"
             sx={{
-                py: 6,
+                py: 2,
                 px: 2,
                 mt: 'auto',
                 backgroundColor: "black",
@@ -14,11 +14,7 @@ export const UIBottomNav = () => {
                 width: '100%',
             }}
         >
-            <Container maxWidth="sm">
-                <Typography variant="body2" color="text.secondary" align="center">
-                    {'Copyright © Your Website 2026.'}
-                </Typography>
-            </Container>
+            <Container maxWidth="sm" />
         </Box>
     )
 }
