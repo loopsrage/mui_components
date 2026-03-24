@@ -1,0 +1,1 @@
+{"version":3,"file":"header_footer_layout.d.ts","sourceRoot":"","sources":["../../../src/meta_components/header_footer_layout/header_footer_layout.tsx"],"names":[],"mappings":"AAEA,OAAO,KAAK,EAAC,EAAE,EAAE,YAAY,EAAC,MAAM,OAAO,CAAC;AAG5C,MAAM,WAAW,mBAAmB;IAChC,QAAQ,EAAE,YAAY,EAAE,GAAG,YAAY,GAAG,IAAI,CAAC;CAClD;AAED,eAAO,MAAM,kBAAkB,EAAE,EAAE,CAAC,mBAAmB,CAQtD,CAAA"}
