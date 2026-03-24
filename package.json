@@ -12,60 +12,42 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
-  "peerDependencies": {
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4"
-  },
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "import": "./dist/index.js",
+      "require": "./dist/index.umd.cjs"
     }
   },
-  "devDependencies": {
-    "@eslint/js": "^9.39.4",
-    "@testing-library/jest-dom": "^6.9.1",
-    "@testing-library/react": "^16.3.2",
-    "@testing-library/user-event": "^14.6.1",
-    "@types/node": "^24.12.0",
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^6.0.0",
-    "@vitest/browser": "^4.1.0",
-    "@vitest/browser-playwright": "^4.1.0",
-    "eslint": "^9.39.4",
-    "eslint-plugin-react-hooks": "^7.0.1",
-    "eslint-plugin-react-refresh": "^0.5.2",
-    "global-jsdom": "^28.0.0",
-    "globals": "^17.4.0",
-    "jsdom": "^28.1.0",
-    "typescript": "~5.9.3",
-    "typescript-eslint": "^8.56.1",
-    "vite": "^8.0.0",
-    "vite-plugin-dts": "^4.5.4",
-    "vitest": "^4.1.0",
-    "webdriverio": "^9.25.0"
-  },
-  "dependencies": {
+  "peerDependencies": {
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "@mui/material": "^7.3.9",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
+    "@mui/x-data-grid": "^8.27.5"
+  },
+  "devDependencies": {
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "@mui/material": "^7.3.9",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "vite-plugin-dts": "^4.5.4",
+    "typescript": "~5.9.3",
+    "vite": "^8.0.0"
+  },
+  "dependencies": {
     "@lexical/html": "^0.41.0",
     "@lexical/react": "^0.41.0",
     "@lexical/rich-text": "^0.41.0",
-    "@lexical/utils": "^0.41.0",
-    "@mui/material": "^7.3.9",
-    "@mui/styled-engine-sc": "^7.3.9",
-    "@mui/x-data-grid": "^8.27.5",
-    "@playwright/experimental-ct-react": "^1.58.2",
-    "buffer": "^6.0.3",
     "lexical": "^0.41.0",
     "mui-image": "^1.0.9",
     "mui-tiptap": "^1.29.0",
     "react-dropzone": "^15.0.0",
-    "react-icons": "^5.6.0",
-    "styled-components": "^6.3.11"
+    "react-icons": "^5.6.0"
   }
 }
