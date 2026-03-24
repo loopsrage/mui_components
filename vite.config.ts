@@ -6,7 +6,7 @@ import { playwright } from '@vitest/browser-playwright';
 import dts from 'vite-plugin-dts';
 
 export default defineConfig({
-  plugins: [react(), dts({ insertTypesEntry: true })],
+  plugins: [react(), dts({ tsconfigPath: './tsconfig.app.json', insertTypesEntry: true })],
   optimizeDeps: {
     exclude: ['fsevents'], // Add this line
     include: [
