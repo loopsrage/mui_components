@@ -1,5 +1,5 @@
 
-import React, { useRef, useState} from "react";
+import React, {useLayoutEffect, useRef, useState} from "react";
 
 import {BuildContainerTree, NewObject, ReadFromContainers} from "../../utility/containers.js";
 import {Box, Button, IconButton, Stack, Tab, Tabs} from "@mui/material";
@@ -9,24 +9,46 @@ import {
     AddElement,
     GetContainer, GetElements,
     InitialTypeFormBuilderRefState,
-    SetContainer,
+    SetContainer, SetHandleClose,
     TypeFormBuilder
 } from "../../utility/form_builder.jsx";
 import DescriptionIcon from '@mui/icons-material/Description'
+import {useConditionalRef} from "../../context/context_index.ts";
 
-export const TypeFormBuilderModal = ({title, getSchema, handleSave, elementSelector, footerButtons}) => {
+export const TypeFormBuilderModal = ({title, getSchema, handleSave, elementSelector, footerButtons, refKey, register_component=false}) => {
+    const setRegistryRef = useConditionalRef(refKey, register_component)
+    const formRef = useRef(null)
     const [show, setShow] = useState(false);
+
+    const handleOnClose = () => {
+        setShow(false)
+    }
+
+    const handleOnSave = () => {
+        handleSave(GetContainer(formRef).value)
+        setShow(false)
+    }
+
+    if (!formRef.current) {
+        formRef.current = InitialTypeFormBuilderRefState(elementSelector, {
+            setShow: (value) => {setShow(value)},
+        })
+    }
+
+    useLayoutEffect(() => {
+        setRegistryRef(formRef.current);
+        return () => setRegistryRef(null);
+    }, [setRegistryRef]);
+
     const [elements, setElements] = useState(undefined);
     const [activeTab, setActiveTab] = useState(0);
-
-    const formRef = useRef(InitialTypeFormBuilderRefState(elementSelector))
 
     const handleOnAdd = async () => {
         try {
             const data = await getSchema();
             const tree = BuildContainerTree(null, [], ".", data);
             SetContainer(formRef, tree);
-
+            SetHandleClose(formRef, handleOnClose)
             TypeFormBuilder({formRef, container: GetContainer(formRef)});
 
             setElements(GetElements(formRef));
@@ -58,15 +80,6 @@ export const TypeFormBuilderModal = ({title, getSchema, handleSave, elementSelec
                 </Box>
             )}
         </Box>)
-    }
-
-    const handleOnClose = () => {
-        setShow(false)
-    }
-
-    const handleOnSave = () => {
-        handleSave(GetContainer(formRef).value)
-        setShow(false)
     }
 
     const handleAddCustomField = () => {

@@ -52,6 +52,7 @@ export interface FormBuilderState {
     element_component: Record<string, unknown>;
     container: Container | undefined;
     elementSelector: (params: SelectorParams) => React.JSX.Element | null | undefined;
+    context?: Record<string, unknown> | null | undefined;
 }
 
 export declare const InitialTypeFormBuilderRefState: (

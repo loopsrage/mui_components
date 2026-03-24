@@ -14,10 +14,12 @@ import type {ApiClient} from "../../utility/api";
 
 import {EditCellRenderer} from "../../meta_components/crud_elements/crud_elements";
 import type {IBaseRefProps} from "../../ibase/ibase";
-import {useConditionalRef} from "../../context/context_index";
-import {Box, Button, Stack} from "@mui/material";
+import {useConditionalRef, useRefIndex} from "../../context/context_index";
+import {Box, Button, IconButton, Stack} from "@mui/material";
 import {ApiButton} from "../button/button";
 import DownloadIcon from '@mui/icons-material/Download';
+import CloseIcon from '@mui/icons-material/Close';
+import type {FormBuilderState} from "../../utility/form_builder";
 
 export interface TableState {
     gridRef: RefObject<GridApi | null>;
@@ -322,7 +324,9 @@ export const SetSelectedRows = (ref: RefObject<TableState>) => {
 }
 
 export const ModalCellRendererWrapper = (ref: RefObject<TableState>) => {
+    const context = useRefIndex();
     return (params: GridRenderCellParams) => {
+
         const st = ref.current;
         if (!st) return;
 
@@ -335,8 +339,18 @@ export const ModalCellRendererWrapper = (ref: RefObject<TableState>) => {
             bgc = "green"
         }
 
+        const handleShow = () => {
+            const update: FormBuilderState | null | undefined = context?.get("update_modal")
+
+            const up = update?.context
+            if (!up) return;
+
+            const ss = up.setShow as (show: boolean) => void;
+            ss(false)
+        }
+
         const title = (
-            <Stack direction="column" spacing={2}>
+            <Stack direction="column" justifyContent="space-between" spacing={2} sx={{ width: '100%' }}>
                 <Stack gap={3} direction="row">
                     {params.row["item_id"]}
                     <Box sx={{
@@ -344,12 +358,18 @@ export const ModalCellRendererWrapper = (ref: RefObject<TableState>) => {
                         color: "black",
                         borderRadius: 2,
                         px: 1.5,
+                        fontSize: '0.875rem'
                     }}>
                         {params.row["stage"]}
                     </Box>
+                    <Box key="spacer" sx={{ flexGrow: 1 }} />
+                    <IconButton onClick={handleShow} sx={{backgroundColor: "black", color: "white"}}>
+                        <CloseIcon />
+                    </IconButton>
                 </Stack>
                 <Stack gap={3} direction="row">
-                    {params.row["truth"]}
+                    {params.row["code"]}
+                    {params.row["description"]}
                 </Stack>
             </Stack>
         )

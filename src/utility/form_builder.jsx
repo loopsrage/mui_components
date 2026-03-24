@@ -124,7 +124,7 @@ const defaultSelector = () => {
     }
 }
 
-export const InitialTypeFormBuilderRefState = (elementSelector) => {
+export const InitialTypeFormBuilderRefState = (elementSelector, context={}) => {
     return {
         index: 0,
         elements: {},
@@ -132,8 +132,21 @@ export const InitialTypeFormBuilderRefState = (elementSelector) => {
         labels: {},
         element_component: {},
         container: undefined,
+        handleOnClose: undefined,
         elementSelector: elementSelector || defaultSelector(),
+
+        context: context,
     }
+}
+
+export const Close = (ref) => {
+    ref.current.handleOnClose()
+}
+
+export const SetHandleClose = (ref, handleClose) => {
+    const st = ref.current
+    st.handleClose = handleClose
+    ref.current = st
 }
 
 export const SetContainer = (ref, container) => {
