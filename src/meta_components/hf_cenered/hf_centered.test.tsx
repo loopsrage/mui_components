@@ -16,6 +16,7 @@ import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import type {RefObject} from "react";
 import {ApiButton} from "../../components/button/button";
 import RefreshIcon from '@mui/icons-material/Refresh';
+
 test('should load and display server-side data', async () => {
     const mockApi = Api({endpoint: "http://localhost:8000"})
     const onDropSuccess = (ref: RefObject<UploadInputState>, acceptedFiles: File[]) => {
@@ -73,6 +74,13 @@ test('should load and display server-side data', async () => {
             {"Send To OTM/GTM"}
         </ApiButton>
     )]
+    const handleOnSend = async () => {
+        const result = await mockApi.at("/upload", {fetchParams: {method: "POST"},args: {
+            item_ids: [1,2,3,4,6],
+        }})
+        console.log(result)
+    }
+
     render(
         <HFCenteredLayout>
             <CenteredContainer sx={{minHeight: "10hv", display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
@@ -83,6 +91,7 @@ test('should load and display server-side data', async () => {
                     <Typography  align="center" sx={{ width: '100%' }}>
                         Upload CSV or paste / type in part numbers (one per line or comma-separated).
                     </Typography>
+
                     <Button
                         variant="contained"
                         sx={{
@@ -94,7 +103,7 @@ test('should load and display server-side data', async () => {
                             },
                         }}
                         startIcon={<RefreshIcon />}>Start Over</Button>
-                    <UIInput refKey={"csv_upload"} register_component={true} onDropSuccess={onDropSuccess} />
+                    <UIInput onSend={handleOnSend} refKey={"csv_upload"} register_component={true} onDropSuccess={onDropSuccess} />
                     <Paper>
                         <GridWithButtons
                             title={"Review Classifications"}
@@ -105,8 +114,9 @@ test('should load and display server-side data', async () => {
                             refKey={"test_grid"}
                             register_component={true} />
                     </Paper>
+
                     <Typography  align="center" sx={{ width: '100%' }}>
-                        Upload CSV or paste / type in part numbers (one per line or comma-separated).
+                        Please review the part details file and approve / reject
                     </Typography>
                 </Stack>
             </CenteredContainer>

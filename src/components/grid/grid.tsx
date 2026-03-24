@@ -38,9 +38,11 @@ export interface TableState {
     selected_data: unknown[]
     api: ApiClient
     endpoint: string;
-    args: Record<string, string | number | boolean | undefined | null>
+    args: Record<string, string | number | boolean | undefined | null | number[] | string[] >
     fetch_params: Record<string, string | number | boolean | undefined | null> | null
     modal_title: string | undefined | null
+
+    context?: Record<string, unknown> | null | undefined;
 }
 
 export interface Props extends IBaseRefProps {
@@ -174,7 +176,7 @@ export const SetArgs = (ref: RefObject<TableState>, args: Record<string, string 
     ref.current = st
 }
 
-export const SetOrAddArgs = (ref: RefObject<TableState>, args: Record<string, string | number | boolean | undefined | null>) => {
+export const SetOrAddArgs = (ref: React.RefObject<TableState>, args: { item_ids: number[] }) => {
     const st = ref.current;
     if (!st) return;
 

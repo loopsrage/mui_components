@@ -46,9 +46,9 @@ export const ProgressAdornment: FC<ProgressAdornmentProps> = ({loading, value}) 
     )
 }
 
-export const SendIconButton = () => {
+export const SendIconButton = ({ ...props}) => {
     return (
-        <IconButton>
+        <IconButton {...props} >
             <SendIcon />
         </IconButton>
     )
@@ -58,6 +58,7 @@ export interface UploadInputProps {
     refKey: string;
     register_component: boolean;
 
+    onSend: () => void;
     onDropSuccess: (ref: RefObject<UploadInputState>, acceptedFiles: File[]) => void;
 }
 
@@ -81,7 +82,7 @@ export const GetProgressValue = (ref: RefObject<UploadInputState>) => {
 }
 
 
-export const UIInput: FC<UploadInputProps> = ({refKey, register_component, onDropSuccess}) => {
+export const UIInput: FC<UploadInputProps> = ({refKey, register_component, onDropSuccess, onSend}) => {
     const [text, setText] = useState("");
     const [loading, setLoading] = useState(false)
     const [progress, setProgress] = useState(0)
@@ -118,10 +119,13 @@ export const UIInput: FC<UploadInputProps> = ({refKey, register_component, onDro
 
     const { ref, ...rootProps } = getRootProps();
 
-    const currentEndAdornment = loading ? (
+    const currentEndAdornment = loading || progress == 100 ? (
         <ProgressAdornment loading={true} value={progress} />
     ) : (
-        <SendIconButton />
+        <SendIconButton
+            onClick={onSend}
+            sx={{ color: progress === 100 ? 'red' : 'inherit' }}
+        />
     );
 
     return (
