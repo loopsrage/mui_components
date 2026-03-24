@@ -40,8 +40,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': resolve(__dirname, './src'),
-      'use-sync-external-store/shim': 'react',
-      'use-sync-external-store': 'react',
+
     },
   },
   build: {
@@ -62,6 +61,9 @@ export default defineConfig({
         /^react\//,
         /^react-dom\//,
         'lexical',
+        'use-sync-external-store/shim',
+        'use-sync-external-store/shim/index.js',
+        'use-sync-external-store',
         // BROAD CATCH-ALLS FOR ROLIDOWN:
         '@lexical/react',
         /^@lexical\//,
@@ -95,6 +97,8 @@ export default defineConfig({
           '@mui/material': 'MaterialUI',
           '@emotion/react': 'emotionReact',
           '@emotion/styled': 'emotionStyled',
+          'use-sync-external-store/shim': 'React',
+          'use-sync-external-store/shim/index.js': 'React',
         },
       },
     },
