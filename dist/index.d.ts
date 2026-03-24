@@ -9,6 +9,7 @@ export * from './meta_components/grid_with_buttons/grid_with_buttons';
 export * from './meta_components/header_footer_layout/header_footer_layout';
 export * from './meta_components/hf_cenered/hf_centered';
 export * from './context/context';
+export * from './context/context_index';
 export * from './ibase/ibase';
 export * from './utility/api';
 export * from './utility/form_builder';

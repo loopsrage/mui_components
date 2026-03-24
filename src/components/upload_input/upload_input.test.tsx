@@ -1,7 +1,7 @@
 import { render} from '@testing-library/react'
 import {  test } from 'vitest';
 import {GetProgressValue, SetProgressValue, UIInput, type UploadInputState} from "./upload_input";
-import {RefProvider} from "../../context/context";
+import {RefProvider} from "@/context/context";
 import type {RefObject} from "react";
 
 test('should load and display server-side data', async () => {
