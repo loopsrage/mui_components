@@ -30,24 +30,31 @@ export default defineConfig({
       formats: ['es']
     },
     rolldownOptions: {
-      external: ['react',
+      platform: "browser",
+      external: [
+        'react',
         'react-dom',
-        'react/jsx-runtime',      // <--- ADD THIS
-        'react/jsx-dev-runtime',  // <--- ADD THIS for development builds
-        'mui-tiptap',
-        'mui-image',
-        'react-dropzone',
-        /^@lexical\//,
-        'lexical',
+        'react/jsx-runtime',
+        'react/jsx-dev-runtime',
         /^react\//,
         /^react-dom\//,
         '@mui/material',
-        /@mui\/material\/.*/,    // <--- USE REGEX for MUI subpaths
+        /@mui\/material\/.*/,
+        '@mui/icons-material',
+        /@mui\/icons-material\/.*/,
         '@emotion/react',
         '@emotion/styled',
-        /@emotion\/.*/
+        /@emotion\/.*/,
+        // Externalize these because they are pulling in CJS/Require
+        'lexical',
+        /^@lexical\//,
+        'mui-image',
+        'react-dropzone',
+        'react-icons',
+        /^react-icons\//
       ],
       output: {
+        externalLiveBindings: false,
         globals: {
           react: 'React',
           'react-dom': 'ReactDOM',
