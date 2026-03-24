@@ -29,14 +29,21 @@ export default defineConfig({
       formats: ['es', 'umd']
     },
     rolldownOptions: {
-      external: ['react', 'react-dom', 'react-dom', '@mui/material', '@emotion/react', '@emotion/styled'],
+      external: ['react',
+        'react-dom',
+        /^react\//,
+        /^react-dom\//,
+        '@mui/material',
+        '@emotion/react',
+        '@emotion/styled'],
       output: {
         globals: {
           react: 'React',
           'react-dom': 'ReactDOM',
           '@mui/material': 'MaterialUI',
           '@emotion/react': 'emotionReact',
-          '@emotion/styled': 'emotionStyled'
+          '@emotion/styled': 'emotionStyled',
+          'react/jsx-runtime': 'jsxRuntime'
         },
       },
     },
