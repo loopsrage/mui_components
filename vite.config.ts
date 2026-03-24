@@ -3,9 +3,10 @@ import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
 
 import { playwright } from '@vitest/browser-playwright';
+import dts from 'vite-plugin-dts';
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), dts({ insertTypesEntry: true })],
   optimizeDeps: {
     exclude: ['fsevents'], // Add this line
     include: [
