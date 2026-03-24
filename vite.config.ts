@@ -4,10 +4,9 @@ import { resolve } from 'path';
 
 import { playwright } from '@vitest/browser-playwright';
 import dts from 'vite-plugin-dts';
-import { esmExternalRequirePlugin } from 'vite';
 
 export default defineConfig({
-  plugins: [react(), dts({ tsconfigPath: './tsconfig.app.json', insertTypesEntry: true }), esmExternalRequirePlugin()],
+  plugins: [react(), dts({ tsconfigPath: './tsconfig.app.json', insertTypesEntry: true })],
   optimizeDeps: {
     exclude: ['fsevents'], // Add this line
     include: [
@@ -45,7 +44,6 @@ export default defineConfig({
         '@emotion/react',
         '@emotion/styled',
         /@emotion\/.*/,
-        // Externalize these because they are pulling in CJS/Require
         'lexical',
         /^@lexical\//,
         'mui-image',
@@ -53,6 +51,7 @@ export default defineConfig({
         'react-icons',
         /^react-icons\//
       ],
+
       output: {
         externalLiveBindings: false,
         globals: {
