@@ -26,17 +26,21 @@ export default defineConfig({
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'components',
       fileName: 'index',
-      formats: ['es', 'umd']
+      formats: ['es']
     },
     rolldownOptions: {
       external: ['react',
         'react-dom',
-        'react/jsx-runtime',
+        'react/jsx-runtime',      // <--- ADD THIS
+        'react/jsx-dev-runtime',  // <--- ADD THIS for development builds
         /^react\//,
         /^react-dom\//,
         '@mui/material',
+        /@mui\/material\/.*/,    // <--- USE REGEX for MUI subpaths
         '@emotion/react',
-        '@emotion/styled'],
+        '@emotion/styled',
+        /@emotion\/.*/
+      ],
       output: {
         globals: {
           react: 'React',
