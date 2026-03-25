@@ -1,4 +1,4 @@
-import { FC, RefObject } from 'react';
+import { FC, JSX, RefObject } from 'react';
 import { GridApi, GridColDef, GridDataSource, GridFilterModel, GridGetRowsParams, GridPaginationModel, GridRenderCellParams, GridRowSelectionModel, GridSortModel, GridValidRowModel } from '@mui/x-data-grid';
 import { Container } from '../../utility/containers';
 import { ApiClient } from '../../utility/api';
@@ -11,6 +11,7 @@ export interface TableState {
     rows: unknown[][];
     row_count: number;
     row_details?: boolean | null;
+    cellRenderer?: (ref: RefObject<TableState>) => (params: GridRenderCellParams) => (undefined | JSX.Element) | null;
     datasource: GridDataSource;
     paginationModel: GridPaginationModel | undefined;
     refresh: () => void;
@@ -30,6 +31,7 @@ export interface Props extends IBaseRefProps {
     row_details?: boolean | null;
     checkbox_select?: boolean | undefined;
     toolbar?: boolean | undefined;
+    cellRenderer?: (ref: RefObject<TableState>) => (params: GridRenderCellParams) => (undefined | JSX.Element) | null;
 }
 export declare const SetEndpoint: (ref: RefObject<TableState>, endpoint: string) => void;
 export declare const GetEndpoint: (ref: RefObject<TableState>) => string;
@@ -63,6 +65,8 @@ export declare const SetSearch: (ref: RefObject<TableState>, value: string) => v
 export declare const GetDatasource: (ref: RefObject<TableState>) => GridDataSource;
 export declare const Refresh: (ref: RefObject<TableState>) => Promise<void>;
 export declare const SetSelectedRows: (ref: RefObject<TableState>) => (model: GridRowSelectionModel) => void;
+export declare const SetCellRenderer: (ref: RefObject<TableState>, cellRenderer: (ref: RefObject<TableState>) => (params: GridRenderCellParams) => (undefined | JSX.Element) | null) => void;
+export declare const GetCellRenderer: (ref: RefObject<TableState>) => ((params: GridRenderCellParams) => (undefined | JSX.Element) | null) | undefined;
 export declare const ModalCellRendererWrapper: (ref: RefObject<TableState>) => (params: GridRenderCellParams) => import("react/jsx-runtime").JSX.Element | undefined;
 export declare const UITable: FC<Props>;
 //# sourceMappingURL=grid.d.ts.map
