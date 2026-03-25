@@ -1015,6 +1015,8 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 		row_details: n,
 		fetch_params: null,
 		endpoint: t,
+		register_component: a,
+		refKey: r,
 		modal_title: null
 	}, k(() => (c(l.current), () => c(null)), [c]), /* @__PURE__ */ T(ie, {
 		apiRef: h,
@@ -1185,8 +1187,8 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 		},
 		...o
 	});
-}, Nt = ({ api: e, title: t, grid_endpoint: n, row_details: r, buttons: i, refKey: a, register_component: o }) => {
-	let s = i?.map((e) => e);
+}, Nt = ({ buttons: e, endpoint: t, title: n, ...r }) => {
+	let i = e?.map((e) => e);
 	return /* @__PURE__ */ E(g, {
 		direction: "column",
 		gap: 2,
@@ -1201,7 +1203,7 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 					overflow: "hidden",
 					textOverflow: "ellipsis"
 				},
-				children: t
+				children: n
 			}), /* @__PURE__ */ T(g, {
 				direction: "row",
 				gap: 1,
@@ -1209,14 +1211,11 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 					justifyContent: "flex-end",
 					width: "20%"
 				},
-				children: s
+				children: i
 			})]
 		}), /* @__PURE__ */ T(Et, {
-			api: e,
-			endpoint: n,
-			row_details: r,
-			refKey: a,
-			register_component: o
+			...r,
+			endpoint: t
 		})]
 	});
 }, Pt = ({ children: e }) => /* @__PURE__ */ E(t, {

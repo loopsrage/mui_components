@@ -21,7 +21,7 @@ import DownloadIcon from '@mui/icons-material/Download';
 import CloseIcon from '@mui/icons-material/Close';
 import type {FormBuilderState} from "@/utility/form_builder";
 
-export interface TableState {
+export interface TableState extends IBaseRefProps {
     gridRef: RefObject<GridApi | null>;
     index: number
     headers: GridColDef[]
@@ -499,6 +499,8 @@ export const UITable: FC<Props> = ({ api, endpoint, row_details, refKey, cellRen
             row_details: row_details,
             fetch_params: null,
             endpoint: endpoint,
+            register_component: register_component,
+            refKey: refKey,
             modal_title: null
         }
     }

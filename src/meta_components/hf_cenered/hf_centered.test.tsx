@@ -108,11 +108,10 @@ test('should load and display server-side data', async () => {
                         <GridWithButtons
                             title={"Review Classifications"}
                             api={mockApi}
-                            grid_endpoint={"list"}
                             buttons={buttons}
                             row_details={true}
                             refKey={"test_grid"}
-                            register_component={true} />
+                            register_component={true} endpoint={"list"} />
                     </Paper>
 
                     <Typography  align="center" sx={{ width: '100%' }}>

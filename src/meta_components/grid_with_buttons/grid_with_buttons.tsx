@@ -1,19 +1,13 @@
 import {type FC, type ReactElement} from "react";
-import { UITable} from "@/components/grid/grid";
-import type {ApiClient} from "@/utility/api";
+import {type Props, UITable} from "@/components/grid/grid";
 import { Stack, Typography} from "@mui/material";
-import type {IBaseRefProps} from "@/ibase/ibase";
 
-export interface GridWithButtonsProps extends IBaseRefProps {
-    api: ApiClient;
-    grid_endpoint: string;
-
+export interface GridWithButtonsProps extends Props {
     title: string;
-    row_details: boolean;
     buttons?: ReactElement[] | null;
 }
 
-export const GridWithButtons: FC<GridWithButtonsProps> = ({api, title, grid_endpoint, row_details, buttons, refKey, register_component}) => {
+export const GridWithButtons: FC<GridWithButtonsProps> = ({buttons, endpoint, title, ...props}) => {
     const headerButtons = buttons?.map((button) => button)
     return (
         <Stack direction={"column"} gap={2} sx={{width: "100%"}}>
@@ -35,7 +29,7 @@ export const GridWithButtons: FC<GridWithButtonsProps> = ({api, title, grid_endp
                     {headerButtons}
                 </Stack>
             </Stack>
-            <UITable api={api} endpoint={grid_endpoint} row_details={row_details} refKey={refKey} register_component={register_component}/>
+            <UITable {...props} endpoint={endpoint}/>
         </Stack>
     )
 }

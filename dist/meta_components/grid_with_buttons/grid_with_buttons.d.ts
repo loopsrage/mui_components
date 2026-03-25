@@ -1,11 +1,7 @@
 import { FC, ReactElement } from 'react';
-import { ApiClient } from '../../utility/api';
-import { IBaseRefProps } from '../../ibase/ibase';
-export interface GridWithButtonsProps extends IBaseRefProps {
-    api: ApiClient;
-    grid_endpoint: string;
+import { Props } from '../../components/grid/grid';
+export interface GridWithButtonsProps extends Props {
     title: string;
-    row_details: boolean;
     buttons?: ReactElement[] | null;
 }
 export declare const GridWithButtons: FC<GridWithButtonsProps>;

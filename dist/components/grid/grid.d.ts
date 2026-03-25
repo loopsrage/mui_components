@@ -3,7 +3,7 @@ import { GridApi, GridColDef, GridDataSource, GridFilterModel, GridGetRowsParams
 import { Container } from '../../utility/containers';
 import { ApiClient } from '../../utility/api';
 import { IBaseRefProps } from '../../ibase/ibase';
-export interface TableState {
+export interface TableState extends IBaseRefProps {
     gridRef: RefObject<GridApi | null>;
     index: number;
     headers: GridColDef[];
