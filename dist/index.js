@@ -850,7 +850,7 @@ var V = ({ endpoint: e, handleErr: t }) => {
 		headerName: N(e.split(".").pop(), "_"),
 		flex: 2,
 		type: "string",
-		hideable: e !== "row.id"
+		hideable: e !== "id"
 	}));
 	if (t.row_details) {
 		let t = {
@@ -1275,10 +1275,13 @@ var V = ({ endpoint: e, handleErr: t }) => {
 		value: n,
 		children: e
 	});
-}, Ht = ne({ typography: {
-	fontFamily: "Inter, Arial, sans-serif",
-	allVariants: { fontFamily: "Inter, Arial, sans-serif" }
-} }), Ut = ({ children: e, theme: t }) => {
+}, Ht = ne({
+	typography: {
+		fontFamily: "Inter, Arial, sans-serif",
+		allVariants: { fontFamily: "Inter, Arial, sans-serif" }
+	},
+	components: { MuiButton: { styleOverrides: { root: { textTransform: "capitalize" } } } }
+}), Ut = ({ children: e, theme: t }) => {
 	let n = Ht;
 	return t || (n = Ht), /* @__PURE__ */ C(Vt, { children: /* @__PURE__ */ w(b, {
 		theme: n,

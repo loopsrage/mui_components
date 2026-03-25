@@ -15,6 +15,15 @@ const defaultTheme = createTheme({
             fontFamily: 'Inter, Arial, sans-serif',
         },
     },
+    components: {
+        MuiButton: {
+            styleOverrides: {
+                root: {
+                    textTransform: 'capitalize',
+                },
+            },
+        },
+    },
 });
 
 export const HFCenteredLayout: FC<HFCenteredLayoutProps> = ({children, theme}) => {

@@ -150,7 +150,7 @@ export const GetHeaders = (ref: RefObject<TableState>) => {
         headerName: TitleCase(path.split('.').pop(), "_"),
         flex: 2,
         type: 'string',
-        hideable: path !== 'row.id'
+        hideable: path !== 'id'
     } as GridColDef));
 
     if (st.row_details) {
