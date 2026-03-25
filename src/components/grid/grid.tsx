@@ -390,14 +390,16 @@ export const ModalCellRendererWrapper = (ref: RefObject<TableState>) => {
             }
         }
 
-        const handleRejectCallback = () => {
+        const handleRejectCallback = async () => {
             setRejected(true);
             setComments("")
-
+            handleShow(false)
+            await Refresh(ref)
         }
 
-        const handleApproveCallback = () => {
+        const handleApproveCallback = async () => {
             handleShow(false)
+            await Refresh(ref)
         }
 
         const input_params =  {footerButtons: [
@@ -420,7 +422,7 @@ export const ModalCellRendererWrapper = (ref: RefObject<TableState>) => {
             rejected && (<Button onClick={() => setRejected(false)}>
                 {"Cancel"}
             </Button>),
-            !rejected && (<Button onClick={() => setRejected(true)}>Reject</Button>),
+            !rejected && (<Button sx={{backgroundColor: "red"}} onClick={() => setRejected(true)}>Reject</Button>),
             rejected && (<ApiButton
                 api={st.api}
                 endpoint={"reject"}
