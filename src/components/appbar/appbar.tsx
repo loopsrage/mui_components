@@ -4,8 +4,9 @@ import BugReportIcon from '@mui/icons-material/BugReport';
 
 export const UIAppBar: FC = () => {
     return (
-        <AppBar position="static" sx={{
-            minHeight: 80,
+        <AppBar position="static"  sx={{
+            minHeight: 50,
+            px: 2,
             mt: 'auto',
             backgroundColor: "black",
             width: '100%',

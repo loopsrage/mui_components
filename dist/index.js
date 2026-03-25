@@ -21,7 +21,8 @@ import De from "@mui/icons-material/Send";
 var Oe = (e, t) => () => (t || e((t = { exports: {} }).exports, t), t.exports), O = () => /* @__PURE__ */ S(e, {
 	position: "static",
 	sx: {
-		minHeight: 80,
+		minHeight: 50,
+		px: 2,
 		mt: "auto",
 		backgroundColor: "black",
 		width: "100%",
