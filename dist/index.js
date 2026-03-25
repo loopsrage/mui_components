@@ -98,12 +98,9 @@ var Oe = (e, t) => () => (t || e((t = { exports: {} }).exports, t), t.exports), 
 		minHeight: "100vh",
 		...n
 	},
-	children: /* @__PURE__ */ S(i, {
-		maxWidth: "sm",
-		children: /* @__PURE__ */ S(g, {
-			direction: "column",
-			children: e
-		})
+	children: /* @__PURE__ */ S(g, {
+		direction: "column",
+		children: e
 	})
 }), j = ({ title: e, body: t, show: n, footer: r, title_sx: i, footer_sx: l, content_sx: u }) => /* @__PURE__ */ C(a, {
 	open: n,

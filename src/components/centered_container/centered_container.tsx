@@ -1,4 +1,4 @@
-import {Box, Container,  Stack} from "@mui/material";
+import {Box, Stack} from "@mui/material";
 import type {FC, ReactElement} from "react";
 
 export interface ICenteredContainer {
@@ -18,11 +18,9 @@ export const CenteredContainer: FC<ICenteredContainer> = ({children, sx = {}}) =
                 ...sx
             }}
         >
-            <Container maxWidth="sm">
-                <Stack direction={"column"}>
-                    {children}
-                </Stack>
-            </Container>
+            <Stack direction={"column"}>
+                {children}
+            </Stack>
         </Box>
     )
 }
