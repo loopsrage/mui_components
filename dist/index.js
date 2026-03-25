@@ -1232,6 +1232,7 @@ var V = ({ endpoint: e, handleErr: t }) => {
 			direction: "row",
 			children: [/* @__PURE__ */ C(S, {
 				sx: {
+					m: 2,
 					whiteSpace: "nowrap",
 					overflow: "hidden",
 					textOverflow: "ellipsis"
