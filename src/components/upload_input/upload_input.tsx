@@ -61,6 +61,7 @@ export interface UploadInputProps {
     onSend: unknown;
     onDropSuccess: (ref: RefObject<UploadInputState>, acceptedFiles: File[]) => void;
 
+    hidden?: boolean;
     textFieldSx?: object;
     textFieldProps?: object;
 
@@ -94,7 +95,7 @@ export const SetLoading = (ref: RefObject<UploadInputState>, loading: boolean) =
 }
 
 
-export const UIInput: FC<UploadInputProps> = ({refKey, register_component, onDropSuccess, onSend, textFieldSx, textFieldProps, sendButtonProps}) => {
+export const UIInput: FC<UploadInputProps> = ({refKey, register_component, hidden, onDropSuccess, onSend, textFieldSx, textFieldProps, sendButtonProps}) => {
     const [text, setText] = useState("");
     const [loading, setLoading] = useState(false)
     const [progress, setProgress] = useState(0)
@@ -184,6 +185,7 @@ export const UIInput: FC<UploadInputProps> = ({refKey, register_component, onDro
                 '& .MuiOutlinedInput-root': {
                     transition: 'background-color 0.2s',
                 },
+                visibility: hidden ? 'visible' : 'hidden',
                 ...textFieldSx
             }}
             {...textFieldProps}

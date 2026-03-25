@@ -12,6 +12,7 @@ export interface UploadInputProps {
     register_component: boolean;
     onSend: unknown;
     onDropSuccess: (ref: RefObject<UploadInputState>, acceptedFiles: File[]) => void;
+    hidden?: boolean;
     textFieldSx?: object;
     textFieldProps?: object;
     sendButtonProps?: object;

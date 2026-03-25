@@ -4,7 +4,7 @@ import {Box, Button, Stack} from "@mui/material";
 import {
     CenteredConfirmCancelModal
 } from "../../components/centered_modal_confirm_cancel/centered_confirm_cancel_modal.jsx";
-import {HandleGet} from "../../utility/api.js";
+import {HandleGet} from "@/utility/api.js";
 
 export const Create = ({refreshGrid, api}) => {
     const handleOnSave = (output) => {
