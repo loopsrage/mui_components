@@ -1,6 +1,6 @@
-import { AppBar as e, Box as t, Button as n, CircularProgress as r, Container as i, Dialog as a, DialogActions as o, DialogContent as s, DialogTitle as c, FormControl as l, IconButton as u, Input as d, InputAdornment as f, InputLabel as p, Paper as m, Select as h, Stack as g, Switch as _, Tab as v, Tabs as ee, TextField as y, Toolbar as te, Typography as b } from "@mui/material";
-import ne from "@mui/icons-material/BugReport";
-import { Fragment as x, jsx as S, jsxs as C } from "react/jsx-runtime";
+import { AppBar as e, Box as t, Button as n, CircularProgress as r, Container as i, Dialog as a, DialogActions as o, DialogContent as s, DialogTitle as c, FormControl as l, IconButton as u, Input as d, InputAdornment as f, InputLabel as p, Paper as m, Select as h, Stack as g, Switch as _, Tab as v, Tabs as y, TextField as ee, Toolbar as b, Typography as x } from "@mui/material";
+import te from "@mui/icons-material/BugReport";
+import { Fragment as ne, jsx as S, jsxs as C } from "react/jsx-runtime";
 import re, { createContext as ie, useCallback as ae, useContext as oe, useEffect as w, useLayoutEffect as T, useMemo as se, useRef as E, useState as D } from "react";
 import { DataGrid as ce, GridGetRowsError as le, useGridApiRef as ue } from "@mui/x-data-grid";
 import { LexicalComposer as de } from "@lexical/react/LexicalComposer";
@@ -30,7 +30,7 @@ var Oe = (e, t) => () => (t || e((t = { exports: {} }).exports, t), t.exports), 
 		flexDirection: "column",
 		justifyContent: "flex-end"
 	},
-	children: /* @__PURE__ */ C(te, {
+	children: /* @__PURE__ */ C(b, {
 		disableGutters: !0,
 		children: [
 			/* @__PURE__ */ S(t, {
@@ -42,7 +42,7 @@ var Oe = (e, t) => () => (t || e((t = { exports: {} }).exports, t), t.exports), 
 				alt: "Logo",
 				src: "/logo.png"
 			}),
-			/* @__PURE__ */ S(b, {
+			/* @__PURE__ */ S(x, {
 				variant: "h6",
 				component: "div",
 				sx: { flexGrow: 1 },
@@ -52,7 +52,7 @@ var Oe = (e, t) => () => (t || e((t = { exports: {} }).exports, t), t.exports), 
 				size: "small",
 				sx: { color: "white" },
 				onClick: () => console.log("Debug Clicked"),
-				children: /* @__PURE__ */ S(ne, { fontSize: "small" })
+				children: /* @__PURE__ */ S(te, { fontSize: "small" })
 			})
 		]
 	})
@@ -451,9 +451,9 @@ var W = ({ endpoint: e, handleErr: t }) => {
 	}, []), /* @__PURE__ */ S(h, {
 		...n,
 		defaultValue: n.defaultValue,
-		children: [...r || /* @__PURE__ */ S(x, {})]
+		children: [...r || /* @__PURE__ */ S(ne, {})]
 	}, e);
-}, He = ({ jsxKey: e, key: t, inputProps: n }) => {
+}, K = ({ jsxKey: e, key: t, inputProps: n }) => {
 	let r;
 	return t.charAt(t.length - 1) === "D" && t.charAt(t.length - 2) === "I" || t.charAt(t.length - 1) === "S" && t.charAt(t.length - 2) === "D" ? (t.charAt(t.length - 1) === "D" && t.charAt(t.length - 2) === "I" && (r = t.slice(5, t.length - 2)), t.charAt(t.length - 1) === "S" && t.charAt(t.length - 2) === "D" && (r = t.slice(5, t.length - 3), n = {
 		...n,
@@ -463,8 +463,8 @@ var W = ({ endpoint: e, handleErr: t }) => {
 		jsxKey: e,
 		inputProps: n
 	})) : null;
-}, Ue = () => ({ formRef: e, jsxKey: t, key: n, currentType: r, inputProps: i }) => {
-	let a = He({
+}, He = () => ({ formRef: e, jsxKey: t, key: n, currentType: r, inputProps: i }) => {
+	let a = K({
 		jsxKey: t,
 		key: n,
 		inputProps: i
@@ -502,9 +502,9 @@ var W = ({ endpoint: e, handleErr: t }) => {
 		defaultChecked: i.defaultValue
 	}, t);
 	if (r === "object") {
-		if (i.defaultValue.Subtype === 17) return /* @__PURE__ */ S(ze, { data: z(q(e), n.slice(0, n.lastIndexOf(".")))?.value.Data }, t);
+		if (i.defaultValue.Subtype === 17) return /* @__PURE__ */ S(ze, { data: z(J(e), n.slice(0, n.lastIndexOf(".")))?.value.Data }, t);
 		if (i.defaultValue.Subtype === 16 || i.defaultValue.Subtype === 0) {
-			let r = z(q(e), n.slice(0, n.lastIndexOf(".")));
+			let r = z(J(e), n.slice(0, n.lastIndexOf(".")));
 			return i.name = n.slice(0, n.lastIndexOf(".")) + ".Data", /* @__PURE__ */ S(H, {
 				fileData: JSON.stringify(r?.value.Data, null, 2),
 				inputProps: i,
@@ -512,7 +512,7 @@ var W = ({ endpoint: e, handleErr: t }) => {
 			}, t);
 		}
 		if (i.defaultValue.Subtype === 18) {
-			let r = z(q(e), n.slice(0, n.lastIndexOf(".")));
+			let r = z(J(e), n.slice(0, n.lastIndexOf(".")));
 			return i.name = n.slice(0, n.lastIndexOf(".")) + ".Data", /* @__PURE__ */ S(H, {
 				fileData: r?.value.Data,
 				inputProps: i,
@@ -536,7 +536,7 @@ var W = ({ endpoint: e, handleErr: t }) => {
 		});
 	}
 	return a;
-}, We = (e, t = {}) => ({
+}, Ue = (e, t = {}) => ({
 	index: 0,
 	elements: {},
 	nameIndex: {},
@@ -544,19 +544,19 @@ var W = ({ endpoint: e, handleErr: t }) => {
 	element_component: {},
 	container: void 0,
 	handleOnClose: void 0,
-	elementSelector: e || Ue(),
+	elementSelector: e || He(),
 	context: t
-}), Ge = (e) => {
+}), We = (e) => {
 	e.current.handleOnClose();
-}, Ke = (e, t) => {
+}, Ge = (e, t) => {
 	let n = e.current;
 	n.handleClose = t, e.current = n;
-}, K = (e, t) => {
+}, q = (e, t) => {
 	let n = e.current;
 	N(n) || (n.container = t), e.current = n;
-}, q = (e) => e.current.container, qe = (e, n) => {
+}, J = (e) => e.current.container, Ke = (e, n) => {
 	let r = e.current, i = r.labels[n], a = r.element_component[n];
-	return i === "None" ? /* @__PURE__ */ S(x, { children: a }) : /* @__PURE__ */ C(g, {
+	return i === "None" ? /* @__PURE__ */ S(ne, { children: a }) : /* @__PURE__ */ C(g, {
 		direction: "row",
 		gap: 1,
 		sx: {
@@ -577,16 +577,16 @@ var W = ({ endpoint: e, handleErr: t }) => {
 			children: a
 		})]
 	}, n);
-}, Je = (e) => {
+}, qe = (e) => {
 	let t = {};
 	return Object.keys(e.current.nameIndex).map((n, r) => {
-		t[n] = qe(e, r);
+		t[n] = Ke(e, r);
 	}), /* @__PURE__ */ S(g, {
 		direction: "column",
 		gap: 0,
 		children: Object.keys(t).map((e) => t[e])
 	});
-}, Ye = (e) => {
+}, Je = (e) => {
 	let t = e.current;
 	return { onChange: (n) => {
 		let r = n.target.value, i = n.target.selectedOptions;
@@ -598,16 +598,16 @@ var W = ({ endpoint: e, handleErr: t }) => {
 		let a = n.target.name, o = t.nameIndex[a];
 		N(o) && (t.nameIndex[a] = t.index, o = t.index, e.current = t), t.elements[o] = r;
 		let s = a.split("."), c = s.slice(0, s.length - 1).join("."), l = s.slice(s.length - 1);
-		N(z(q(e), c)) && (c = s.slice(0, s.length - 2).join(".")), n.target.type === "checkbox" && (r = n.currentTarget.checked), e.current = t, K(e, Me(q(e), c, l, r)), e.current = t;
+		N(z(J(e), c)) && (c = s.slice(0, s.length - 2).join(".")), n.target.type === "checkbox" && (r = n.currentTarget.checked), e.current = t, q(e, Me(J(e), c, l, r)), e.current = t;
 	} };
-}, Xe = (e, t) => {
+}, Ye = (e, t) => {
 	let n = e.current, r = n.nameIndex[t];
 	return n.elements[r];
-}, Ze = (e, t, n) => {
+}, Xe = (e, t, n) => {
 	let r = typeof n, i = e.current, a = t + i.index, o = {
 		name: t,
-		defaultValue: Xe(e, t),
-		onChange: Ye(e).onChange,
+		defaultValue: Ye(e, t),
+		onChange: Je(e).onChange,
 		sx: { width: "100%" }
 	};
 	return i.elementSelector({
@@ -617,11 +617,11 @@ var W = ({ endpoint: e, handleErr: t }) => {
 		currentType: r,
 		inputProps: o
 	});
-}, J = (e, t, n) => {
+}, Y = (e, t, n) => {
 	let r = e.current;
 	if (N(r.nameIndex[t])) {
 		r.nameIndex[t] = r.index, r.elements[r.index] = n;
-		let i = Ze(e, t, n);
+		let i = Xe(e, t, n);
 		if (!N(i)) {
 			let e = P(t.replace(/root\./, ""), "."), n = e.split(" "), a = n[n.length - 1];
 			/^\d+$/.test(a) ? r.labels[r.index] = "None" : r.labels[r.index] = /* @__PURE__ */ S(p, {
@@ -631,54 +631,54 @@ var W = ({ endpoint: e, handleErr: t }) => {
 		}
 	}
 	e.current = r;
-}, Qe = (e, t) => e.current.nameIndex[t], $e = (e, t) => {
+}, Ze = (e, t) => e.current.nameIndex[t], Qe = (e, t) => {
 	let n = e.current;
-	delete n.labels[Qe(e, t)], e.current = n;
-}, et = ({ formRef: e, container: t }) => {
+	delete n.labels[Ze(e, t)], e.current = n;
+}, $e = ({ formRef: e, container: t }) => {
 	je(t, (t) => {
 		let n = t.path, r = t.value;
 		if (Array.isArray(r)) {
 			let t = [];
 			Object.keys(r).forEach((e) => {
 				N(r[e]) || Array.isArray(r[e]) || t.push(r[e]);
-			}), t.length > 0 && J(e, n, t);
+			}), t.length > 0 && Y(e, n, t);
 			return;
 		}
 		Object.keys(r).forEach((t) => {
 			N(r[t]) || (typeof r[t] == "object" && Object.keys(r[t]).forEach((i) => {
 				let a = {};
-				a[i] = r[t][i], J(e, n + "." + t + "." + i, a);
-			}), M(r[t]) && J(e, n + "." + t, r[t]));
+				a[i] = r[t][i], Y(e, n + "." + t + "." + i, a);
+			}), M(r[t]) && Y(e, n + "." + t, r[t]));
 		});
 	});
-}, Y = ie(null), X = () => oe(Y), tt = (e) => {
-	let t = X();
+}, X = ie(null), Z = () => oe(X), et = (e) => {
+	let t = Z();
 	return (n) => {
 		n ? t?.register(e, n) : t?.unregister(e);
 	};
-}, Z = (e, t = !0) => {
-	let n = X();
+}, Q = (e, t = !0) => {
+	let n = Z();
 	return (r) => {
 		t && r ? n?.register(e, r) : n?.unregister(e);
 	};
-}, nt = ({ title: e, getSchema: n, handleSave: r, elementSelector: i, footerButtons: a, refKey: o, register_component: s = !1 }) => {
-	let c = Z(o, s), l = E(null), [d, f] = D(!1), p = () => {
+}, tt = ({ title: e, getSchema: n, handleSave: r, elementSelector: i, footerButtons: a, refKey: o, register_component: s = !1 }) => {
+	let c = Q(o, s), l = E(null), [d, f] = D(!1), p = () => {
 		f(!1);
 	};
-	l.current ||= We(i, { setShow: (e) => {
+	l.current ||= Ue(i, { setShow: (e) => {
 		f(e);
 	} }), T(() => (c(l.current), () => c(null)), [c]);
-	let [m, h] = D(void 0), [_, y] = D(0);
+	let [m, h] = D(void 0), [_, ee] = D(0);
 	return a ||= [], /* @__PURE__ */ C(g, {
 		direction: "row",
 		gap: 3,
 		children: [/* @__PURE__ */ S(u, {
 			onClick: async () => {
 				try {
-					K(l, V(null, [], ".", await n())), Ke(l, p), et({
+					q(l, V(null, [], ".", await n())), Ge(l, p), $e({
 						formRef: l,
-						container: q(l)
-					}), h(Je(l)), f(!0);
+						container: J(l)
+					}), h(qe(l)), f(!0);
 				} catch (e) {
 					console.error("Failed to load schema:", e);
 				}
@@ -694,9 +694,9 @@ var W = ({ endpoint: e, handleErr: t }) => {
 							borderBottom: 1,
 							borderColor: "divider"
 						},
-						children: /* @__PURE__ */ C(ee, {
+						children: /* @__PURE__ */ C(y, {
 							value: _,
-							onChange: (e, t) => y(t),
+							onChange: (e, t) => ee(t),
 							"aria-label": "custom tabs",
 							children: [/* @__PURE__ */ S(v, { label: "File Upload" }), /* @__PURE__ */ S(v, { label: "File Viewer" })]
 						})
@@ -711,7 +711,7 @@ var W = ({ endpoint: e, handleErr: t }) => {
 					}),
 					_ === 1 && /* @__PURE__ */ S(t, {
 						sx: { p: 3 },
-						children: /* @__PURE__ */ S("pre", { children: JSON.stringify(q(l)?.value, null, 2) })
+						children: /* @__PURE__ */ S("pre", { children: JSON.stringify(J(l)?.value, null, 2) })
 					})
 				]
 			}),
@@ -723,7 +723,7 @@ var W = ({ endpoint: e, handleErr: t }) => {
 			}
 		})]
 	});
-}, rt = ({ refreshGrid: e, api: t, id: n, title: r, footerButtons: i }) => /* @__PURE__ */ S(nt, {
+}, nt = ({ refreshGrid: e, api: t, id: n, title: r, footerButtons: i }) => /* @__PURE__ */ S(tt, {
 	title: r,
 	button_title: "Update",
 	getSchema: G(t, n),
@@ -733,19 +733,19 @@ var W = ({ endpoint: e, handleErr: t }) => {
 	footerButtons: i,
 	register_component: !0,
 	refKey: "update_modal"
-}), it = ({ handleRefreshGrid: e, api: t, id: n, params: r }) => /* @__PURE__ */ S(g, {
+}), rt = ({ handleRefreshGrid: e, api: t, id: n, params: r }) => /* @__PURE__ */ S(g, {
 	direction: "row",
 	gap: 1,
-	children: /* @__PURE__ */ S(rt, {
+	children: /* @__PURE__ */ S(nt, {
 		...r,
 		refreshGrid: e,
 		api: t,
 		id: n
 	})
-}), at = (e, t) => {
+}), it = (e, t) => {
 	let n = e.current;
 	n && (n.endpoint = t);
-}, ot = (e) => e.current.endpoint, st = (e, t) => {
+}, at = (e) => e.current.endpoint, ot = (e, t) => {
 	let n = e.current;
 	B(t, (e) => {
 		let t = e.value, r = e.path, i = typeof t;
@@ -757,7 +757,7 @@ var W = ({ endpoint: e, handleErr: t }) => {
 			headerName: r
 		}, n.rows[n.index] = [], n.headers_ri[r] = n.index, n.index++;
 	}), e.current = n;
-}, ct = (e, t) => {
+}, st = (e, t) => {
 	let n = e.current;
 	n && (n.rows = [], n.row_count = 0, n.headers.forEach(() => {
 		n.rows.push([]);
@@ -767,7 +767,7 @@ var W = ({ endpoint: e, handleErr: t }) => {
 			t !== void 0 && n.rows[t].push(e.value);
 		}
 	}), e.current = n);
-}, lt = (e) => {
+}, ct = (e) => {
 	let t = e.current;
 	if (!t || !t.rows || t.rows.length === 0) return [];
 	let n = t.rows[0].length;
@@ -778,7 +778,7 @@ var W = ({ endpoint: e, handleErr: t }) => {
 			r[e.field] = a ? a[n] : null;
 		}), r.id = r.id, r;
 	});
-}, ut = (e) => {
+}, lt = (e) => {
 	let t = e.current, n = Object.keys(t.headers_ri).map((e) => ({
 		field: e,
 		sortable: !0,
@@ -796,36 +796,36 @@ var W = ({ endpoint: e, handleErr: t }) => {
 		pinnable: !0,
 		flex: 1,
 		type: "actions",
-		renderCell: Ct(e)
+		renderCell: St(e)
 	}), n;
-}, dt = (e) => e.current.paginationModel, ft = (e, t) => {
+}, ut = (e) => e.current.paginationModel, dt = (e, t) => {
 	let n = e.current;
 	n && (n.args = t, e.current = n, n.refresh());
-}, pt = (e, t) => {
+}, ft = (e, t) => {
 	let n = e.current;
 	n && (n.args = {
 		...n.args,
 		...t
 	}, e.current = n, n.refresh());
-}, mt = (e, t) => {
+}, pt = (e, t) => {
 	let n = e.current;
 	n && (n.args.sortModel = JSON.stringify(t), e.current = n);
-}, ht = (e, t) => {
+}, mt = (e, t) => {
 	let n = e.current;
 	n && (n.args.filterModel = JSON.stringify(t), e.current = n);
-}, gt = (e, t) => () => {
+}, ht = (e, t) => () => {
 	let n = e.current;
 	n && (n.paginationModel = t, n.args.paginationModel = JSON.stringify(t), e.current = n);
-}, _t = (e, t) => {
+}, gt = (e, t) => {
 	let n = e.current;
 	n && (n.fetch_params = t, e.current = n);
-}, vt = (e) => e.current.fetch_params, yt = (e, t) => ({ getRows: async (n) => {
+}, _t = (e) => e.current.fetch_params, vt = (e, t) => ({ getRows: async (n) => {
 	let r = e.current;
 	if (!r) return {
 		rows: [],
 		rowCount: 0
 	};
-	ht(e, n.filterModel), mt(e, n.sortModel);
+	mt(e, n.filterModel), pt(e, n.sortModel);
 	let { page: i, pageSize: a } = n.paginationModel ?? {
 		page: 0,
 		pageSize: 10
@@ -841,23 +841,23 @@ var W = ({ endpoint: e, handleErr: t }) => {
 	let c = await r.api.at("/" + r.endpoint, {
 		fetchParams: {
 			method: "GET",
-			...vt(e)
+			..._t(e)
 		},
 		args: s
 	}), l = V(null, [], ".", c.results);
-	return st(e, l), ct(e, l), r.row_count = c.pagination?.total || 0, e.current = r, t(), {
-		rows: lt(e),
+	return ot(e, l), st(e, l), r.row_count = c.pagination?.total || 0, e.current = r, t(), {
+		rows: ct(e),
 		rowCount: c.pagination?.total || 0
 	};
-} }), bt = (e, t) => {
+} }), yt = (e, t) => {
 	let n = e.current;
 	n && (n.args.search = t, e.current = n);
-}, Q = (e) => e.current.datasource, xt = async (e) => {
+}, $ = (e) => e.current.datasource, bt = async (e) => {
 	let t = e.current;
 	if (!t) return;
 	let n = t.gridRef.current;
 	n.dataSource.cache.clear(), await n.dataSource.fetchRows(), t.refresh();
-}, St = (e) => (t) => {
+}, xt = (e) => (t) => {
 	let n = e.current;
 	if (!n || n.rows.length === 0) return;
 	let r = t.ids, i = n.rows[0].length, a = Array.from({ length: i }, (e, t) => t).filter((e) => {
@@ -865,8 +865,8 @@ var W = ({ endpoint: e, handleErr: t }) => {
 		return r.has(t);
 	});
 	n.selected_data = n.rows.map((e) => a.map((t) => e[t])), n.selected_ids = t, e.current = n;
-}, Ct = (e) => {
-	let r = X();
+}, St = (e) => {
+	let r = Z();
 	return (i) => {
 		let a = e.current;
 		if (!a) return;
@@ -913,7 +913,7 @@ var W = ({ endpoint: e, handleErr: t }) => {
 				children: [i.row.code, i.row.description]
 			})]
 		});
-		return /* @__PURE__ */ S(it, {
+		return /* @__PURE__ */ S(rt, {
 			params: {
 				footerButtons: [
 					/* @__PURE__ */ S(n, {
@@ -943,13 +943,13 @@ var W = ({ endpoint: e, handleErr: t }) => {
 				title: s,
 				...i.row
 			},
-			handleRefreshGrid: async () => await xt(e),
+			handleRefreshGrid: async () => await bt(e),
 			api: a.api,
 			id: i.id
 		});
 	};
-}, wt = ({ api: e, endpoint: t, row_details: n, refKey: r, register_component: i = !1, toolbar: a = !1, checkbox_select: o = !1 }) => {
-	let s = Z(r, i), c = E(null), [, l] = D(!1), [u, d] = D({
+}, Ct = ({ api: e, endpoint: t, row_details: n, refKey: r, register_component: i = !1, toolbar: a = !1, checkbox_select: o = !1 }) => {
+	let s = Q(r, i), c = E(null), [, l] = D(!1), [u, d] = D({
 		page: 0,
 		pageSize: 5
 	}), [f, p] = D(0), m = ue(), h = () => {
@@ -962,7 +962,7 @@ var W = ({ endpoint: e, handleErr: t }) => {
 		headers_ri: {},
 		rows: [],
 		row_count: 0,
-		datasource: yt(c, h),
+		datasource: vt(c, h),
 		paginationModel: {
 			page: 0,
 			pageSize: 5
@@ -1019,8 +1019,8 @@ var W = ({ endpoint: e, handleErr: t }) => {
 			"& .MuiDataGrid-menuIcon": { color: "white" },
 			"& .MuiDataGrid-columnSeparator": { color: "#333" }
 		},
-		columns: ut(c),
-		dataSource: Q(c),
+		columns: lt(c),
+		dataSource: $(c),
 		pageSizeOptions: [
 			5,
 			10,
@@ -1032,7 +1032,7 @@ var W = ({ endpoint: e, handleErr: t }) => {
 		onPaginationModelChange: (e) => {
 			d(e);
 		},
-		onRowSelectionModelChange: (e) => St(c)(e),
+		onRowSelectionModelChange: (e) => xt(c)(e),
 		paginationMode: "server",
 		sortingMode: "server",
 		filterMode: "server",
@@ -1048,7 +1048,7 @@ var W = ({ endpoint: e, handleErr: t }) => {
 			console.error("DataGrid Error Type:", e.name), console.error("DataGrid Error Message:", e.message), e.cause && (console.group("Original Error Cause"), console.error("Message:", e.cause.message), console.error("Stack:", e.cause.stack), console.groupEnd()), e instanceof le ? console.warn("Fetch failed. Check your API mock or network.") : console.warn("Row update failed.");
 		}
 	});
-}, Tt = ({ loading: e, value: n }) => /* @__PURE__ */ S(t, {
+}, wt = ({ loading: e, value: n }) => /* @__PURE__ */ S(t, {
 	sx: {
 		position: "relative",
 		display: "inline-flex"
@@ -1070,7 +1070,7 @@ var W = ({ endpoint: e, handleErr: t }) => {
 				alignItems: "center",
 				justifyContent: "center"
 			},
-			children: /* @__PURE__ */ S(b, {
+			children: /* @__PURE__ */ S(x, {
 				variant: "caption",
 				component: "div",
 				sx: { color: "text.secondary" },
@@ -1078,17 +1078,17 @@ var W = ({ endpoint: e, handleErr: t }) => {
 			})
 		})]
 	})
-}), Et = ({ ...e }) => /* @__PURE__ */ S(u, {
+}), Tt = ({ ...e }) => /* @__PURE__ */ S(u, {
 	...e,
 	children: /* @__PURE__ */ S(De, {})
-}), Dt = (e, t) => {
+}), Et = (e, t) => {
 	let n = e.current;
 	n && (n.setProgressValue(t), n.progressValue = t, e.current = n);
-}, Ot = (e) => !e || !e.current ? 1 : e.current.progressValue, kt = (e, t) => {
+}, Dt = (e) => !e || !e.current ? 1 : e.current.progressValue, Ot = (e, t) => {
 	let n = e.current;
 	n && n.handleToggle(t);
-}, At = ({ refKey: e, register_component: t, onDropSuccess: n, onSend: r }) => {
-	let [i, a] = D(""), [o, s] = D(!1), [c, l] = D(0), d = Z(e, t), p = E({
+}, kt = ({ refKey: e, register_component: t, onDropSuccess: n, onSend: r }) => {
+	let [i, a] = D(""), [o, s] = D(!1), [c, l] = D(0), d = Q(e, t), p = E({
 		handleToggle: (e) => {
 			s(e);
 		},
@@ -1106,14 +1106,14 @@ var W = ({ endpoint: e, handleErr: t }) => {
 		multiple: !1
 	});
 	T(() => (d(p.current), () => d(null)), [d]);
-	let { ref: v, ...ee } = m(), te = o ? /* @__PURE__ */ S(Tt, {
+	let { ref: v, ...y } = m(), b = o ? /* @__PURE__ */ S(wt, {
 		loading: !0,
 		value: c
-	}) : /* @__PURE__ */ S(Et, {
+	}) : /* @__PURE__ */ S(Tt, {
 		onClick: r,
 		sx: { color: c === 100 ? "red" : "inherit" }
 	});
-	return /* @__PURE__ */ S(y, {
+	return /* @__PURE__ */ S(ee, {
 		variant: "outlined",
 		value: i,
 		onChange: (e) => {
@@ -1124,7 +1124,7 @@ var W = ({ endpoint: e, handleErr: t }) => {
 		slotProps: {
 			htmlInput: { inputMode: "numeric" },
 			input: {
-				...ee,
+				...y,
 				inputRef: v,
 				startAdornment: /* @__PURE__ */ C(f, {
 					position: "start",
@@ -1133,7 +1133,7 @@ var W = ({ endpoint: e, handleErr: t }) => {
 						children: /* @__PURE__ */ S(Ee, {})
 					})]
 				}),
-				endAdornment: te
+				endAdornment: b
 			}
 		},
 		sx: {
@@ -1141,16 +1141,17 @@ var W = ({ endpoint: e, handleErr: t }) => {
 			"& .MuiOutlinedInput-root": { transition: "background-color 0.2s" }
 		}
 	});
-}, jt = ({ api: e, title: t, grid_endpoint: n, row_details: r, buttons: i, refKey: a, register_component: o }) => {
+}, At = ({ api: e, title: t, grid_endpoint: n, row_details: r, buttons: i, refKey: a, register_component: o }) => {
 	let s = i?.map((e) => e);
 	return /* @__PURE__ */ C(g, {
 		direction: "column",
 		gap: 2,
+		sx: { width: "100%" },
 		children: [/* @__PURE__ */ C(g, {
 			justifyContent: "space-between",
 			alignItems: "center",
 			direction: "row",
-			children: [/* @__PURE__ */ S(b, {
+			children: [/* @__PURE__ */ S(x, {
 				sx: {
 					whiteSpace: "nowrap",
 					overflow: "hidden",
@@ -1162,11 +1163,11 @@ var W = ({ endpoint: e, handleErr: t }) => {
 				gap: 1,
 				sx: {
 					justifyContent: "flex-end",
-					width: "50%"
+					width: "20%"
 				},
 				children: s
 			})]
-		}), /* @__PURE__ */ S(wt, {
+		}), /* @__PURE__ */ S(Ct, {
 			api: e,
 			endpoint: n,
 			row_details: r,
@@ -1174,11 +1175,14 @@ var W = ({ endpoint: e, handleErr: t }) => {
 			register_component: o
 		})]
 	});
-}, Mt = ({ children: e }) => /* @__PURE__ */ C(x, { children: [
-	/* @__PURE__ */ S(O, {}),
-	e,
-	/* @__PURE__ */ S(k, {})
-] }), $ = ({ children: e }) => {
+}, jt = ({ children: e }) => /* @__PURE__ */ C(t, {
+	sx: { width: "100%" },
+	children: [
+		/* @__PURE__ */ S(O, {}),
+		e,
+		/* @__PURE__ */ S(k, {})
+	]
+}), Mt = ({ children: e }) => {
 	let t = E({}), n = se(() => ({
 		register: (e, n) => {
 			t.current[e] = n;
@@ -1189,11 +1193,11 @@ var W = ({ endpoint: e, handleErr: t }) => {
 		get: (e) => t.current[e] || null,
 		registry: () => t.current
 	}), []);
-	return /* @__PURE__ */ S(Y.Provider, {
+	return /* @__PURE__ */ S(X.Provider, {
 		value: n,
 		children: e
 	});
-}, Nt = ({ children: e }) => /* @__PURE__ */ S($, { children: /* @__PURE__ */ S(Mt, { children: /* @__PURE__ */ S(g, {
+}, Nt = ({ children: e }) => /* @__PURE__ */ S(Mt, { children: /* @__PURE__ */ S(jt, { children: /* @__PURE__ */ S(g, {
 	direction: "column",
 	gap: 2,
 	alignItems: "center",
@@ -1201,4 +1205,4 @@ var W = ({ endpoint: e, handleErr: t }) => {
 	children: e
 }) }) });
 //#endregion
-export { J as AddElement, W as Api, A as ApiButton, ke as CenteredContainer, j as CenteredModal, Ge as Close, yt as DataSourceWrapper, $e as DeleteLabel, q as GetContainer, Q as GetDatasource, Qe as GetElementIndex, Ze as GetElementTypes, Xe as GetElementValue, Je as GetElements, ot as GetEndpoint, vt as GetFetchParams, ut as GetHeaders, dt as GetPaginationModel, Ot as GetProgressValue, lt as GetRows, qe as GetSet, jt as GridWithButtons, Nt as HFCenteredLayout, G as HandleGet, Mt as HeaderFooterLayout, We as InitialTypeFormBuilderRefState, N as IsNullOrUndefined, M as IsPrimitive, Ct as ModalCellRendererWrapper, Tt as ProgressAdornment, Y as RefIndexContext, $ as RefProvider, xt as Refresh, He as SelectAssociation, Et as SendIconButton, ft as SetArgs, K as SetContainer, at as SetEndpoint, _t as SetFetchParams, ht as SetFilterModel, Ke as SetHandleClose, st as SetHeadersFromJson, kt as SetLoading, pt as SetOrAddArgs, gt as SetPaginationModel, Dt as SetProgressValue, ct as SetRowsFromJson, bt as SetSearch, St as SetSelectedRows, mt as SetSortModel, P as TitleCase, et as TypeFormBuilder, O as UIAppBar, k as UIBottomNav, At as UIInput, wt as UITable, Ye as UpdateElementValues, Z as useConditionalRef, tt as useManagedRef, X as useRefIndex };
+export { Y as AddElement, W as Api, A as ApiButton, ke as CenteredContainer, j as CenteredModal, We as Close, vt as DataSourceWrapper, Qe as DeleteLabel, J as GetContainer, $ as GetDatasource, Ze as GetElementIndex, Xe as GetElementTypes, Ye as GetElementValue, qe as GetElements, at as GetEndpoint, _t as GetFetchParams, lt as GetHeaders, ut as GetPaginationModel, Dt as GetProgressValue, ct as GetRows, Ke as GetSet, At as GridWithButtons, Nt as HFCenteredLayout, G as HandleGet, jt as HeaderFooterLayout, Ue as InitialTypeFormBuilderRefState, N as IsNullOrUndefined, M as IsPrimitive, St as ModalCellRendererWrapper, wt as ProgressAdornment, X as RefIndexContext, Mt as RefProvider, bt as Refresh, K as SelectAssociation, Tt as SendIconButton, dt as SetArgs, q as SetContainer, it as SetEndpoint, gt as SetFetchParams, mt as SetFilterModel, Ge as SetHandleClose, ot as SetHeadersFromJson, Ot as SetLoading, ft as SetOrAddArgs, ht as SetPaginationModel, Et as SetProgressValue, st as SetRowsFromJson, yt as SetSearch, xt as SetSelectedRows, pt as SetSortModel, P as TitleCase, $e as TypeFormBuilder, O as UIAppBar, k as UIBottomNav, kt as UIInput, Ct as UITable, Je as UpdateElementValues, Q as useConditionalRef, et as useManagedRef, Z as useRefIndex };

@@ -16,7 +16,7 @@ export interface GridWithButtonsProps extends IBaseRefProps {
 export const GridWithButtons: FC<GridWithButtonsProps> = ({api, title, grid_endpoint, row_details, buttons, refKey, register_component}) => {
     const headerButtons = buttons?.map((button) => button)
     return (
-        <Stack direction={"column"} gap={2}>
+        <Stack direction={"column"} gap={2} sx={{width: "100%"}}>
             <Stack
                 justifyContent="space-between"
                 alignItems="center"
@@ -30,7 +30,7 @@ export const GridWithButtons: FC<GridWithButtonsProps> = ({api, title, grid_endp
                 </Typography>
                 <Stack direction={"row"} gap={1}   sx={{
                     justifyContent: 'flex-end',
-                    width: '50%'
+                    width: '20%'
                 }}>
                     {headerButtons}
                 </Stack>
