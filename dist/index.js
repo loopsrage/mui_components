@@ -801,13 +801,13 @@ var W = ({ endpoint: e, handleErr: t }) => {
 	}), n;
 }, ut = (e) => e.current.paginationModel, dt = (e, t) => {
 	let n = e.current;
-	n && (n.args = t, e.current = n);
+	n && (n.args = t, e.current = n, n.refresh());
 }, ft = (e, t) => {
 	let n = e.current;
 	n && (n.args = {
 		...n.args,
 		...t
-	}, e.current = n);
+	}, e.current = n, n.refresh());
 }, pt = (e, t) => {
 	let n = e.current;
 	n && (n.args.sortModel = JSON.stringify(t), e.current = n);
@@ -855,7 +855,7 @@ var W = ({ endpoint: e, handleErr: t }) => {
 	n && (n.args.search = t, e.current = n);
 }, $ = (e) => e.current.datasource, bt = (e) => {
 	let t = e.current;
-	t && t.refresh();
+	t && (t.gridRef.current && (t.gridRef.current?.dataSource.cache.clear(), t.gridRef.current?.dataSource.fetchRows()), t.refresh());
 }, xt = (e) => (t) => {
 	let n = e.current;
 	if (!n || n.rows.length === 0) return;
@@ -951,14 +951,17 @@ var W = ({ endpoint: e, handleErr: t }) => {
 	let s = Q(r, i), c = E(null), [, l] = D(!1), [u, d] = D({
 		page: 0,
 		pageSize: 5
-	}), [f, p] = D(0), m = ue(), h = () => ({
+	}), [f, p] = D(0), m = ue(), h = () => {
+		c.current && p(c.current.row_count), l((e) => !e);
+	};
+	return c.current ||= {
 		gridRef: m,
 		index: 0,
 		headers: [],
 		headers_ri: {},
 		rows: [],
 		row_count: 0,
-		datasource: vt(c, g),
+		datasource: vt(c, h),
 		paginationModel: {
 			page: 0,
 			pageSize: 5
@@ -966,17 +969,14 @@ var W = ({ endpoint: e, handleErr: t }) => {
 		args: {},
 		selected_data: [],
 		selected_ids: null,
-		refresh: g,
+		refresh: h,
 		filter_model: null,
 		api: e,
 		row_details: n,
 		fetch_params: null,
 		endpoint: t,
 		modal_title: null
-	}), g = () => {
-		c.current && p(c.current.row_count), l((e) => !e);
-	};
-	return c.current ||= h(), T(() => (s(c.current), () => s(null)), [s]), /* @__PURE__ */ S(ce, {
+	}, T(() => (s(c.current), () => s(null)), [s]), /* @__PURE__ */ S(ce, {
 		disableVirtualization: !0,
 		rowCount: f,
 		sx: {

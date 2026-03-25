@@ -174,6 +174,7 @@ export const SetArgs = (ref: RefObject<TableState>, args: Record<string, string 
     if (!st) return;
     st.args = args
     ref.current = st
+    st.refresh();
 }
 
 export const SetOrAddArgs = (ref: React.RefObject<TableState>, args: { item_ids: number[] }) => {
@@ -182,6 +183,7 @@ export const SetOrAddArgs = (ref: React.RefObject<TableState>, args: { item_ids:
 
     st.args = {...st.args, ...args};
     ref.current = st;
+    st.refresh();
 }
 
 export const SetSortModel = (ref: RefObject<TableState>, sortModel: GridSortModel) => {
@@ -300,6 +302,10 @@ export const GetDatasource = (ref: RefObject<TableState>) => {
 export const Refresh = (ref: RefObject<TableState>) => {
     const st = ref.current;
     if (!st) return;
+    if (st.gridRef.current) {
+        st.gridRef.current?.dataSource.cache.clear();
+        st.gridRef.current?.dataSource.fetchRows();
+    }
     st.refresh()
 }
 
@@ -402,6 +408,14 @@ export const UITable: FC<Props> = ({ api, endpoint, row_details, refKey, registe
     const [rowCount, setRowCount] = useState(0);
 
     const apiRef = useGridApiRef();
+
+    const handleToggle = () => {
+        if (localRef.current) {
+            setRowCount(localRef.current.row_count);
+        }
+        setToggle(prev => !prev);
+    };
+
     const initialRef = () => {
         return {
             gridRef: apiRef,
@@ -424,13 +438,6 @@ export const UITable: FC<Props> = ({ api, endpoint, row_details, refKey, registe
             modal_title: null
         }
     }
-
-    const handleToggle = () => {
-        if (localRef.current) {
-            setRowCount(localRef.current.row_count);
-        }
-        setToggle(prev => !prev);
-    };
 
     if (!localRef.current) {
         (localRef as RefObject<TableState>).current = initialRef()
