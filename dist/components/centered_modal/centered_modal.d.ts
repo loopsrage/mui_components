@@ -11,6 +11,7 @@ export interface CenteredModalProps {
     title_sx?: object;
     content_sx?: object;
     footer_sx?: object;
+    paper_sx?: object;
 }
 export declare const CenteredModal: React.FC<CenteredModalProps>;
 //# sourceMappingURL=centered_modal.d.ts.map

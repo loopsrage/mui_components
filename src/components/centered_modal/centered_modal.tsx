@@ -15,15 +15,26 @@ export interface CenteredModalProps {
     title_sx?: object;
     content_sx?: object;
     footer_sx?: object;
+    paper_sx?: object;
 }
 
-export const CenteredModal: React.FC<CenteredModalProps> = ({title, body, show, footer, title_sx, footer_sx, content_sx}) => {
+export const CenteredModal: React.FC<CenteredModalProps> = ({title, body, show, footer, title_sx, footer_sx, content_sx, paper_sx}) => {
     return (
         <Dialog
             open={show}
             maxWidth="lg"
             fullWidth={true}
             scroll="paper"
+            slotProps={{
+                paper: {
+                    sx: {
+                        maxHeight: "70vh",
+                        display: 'flex',
+                        flexDirection: 'column',
+                        ...paper_sx,
+                    }
+                }
+            }}
             aria-labelledby="centered-modal-title"
         >
             <DialogTitle id="centered-modal-title" sx={{

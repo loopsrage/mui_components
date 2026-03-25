@@ -103,11 +103,17 @@ var we = (e, t) => () => (t || e((t = { exports: {} }).exports, t), t.exports), 
 		sx: { width: "100%" },
 		children: e
 	})
-}), F = ({ title: e, body: t, show: n, footer: r, title_sx: i, footer_sx: l, content_sx: u }) => /* @__PURE__ */ E(a, {
+}), F = ({ title: e, body: t, show: n, footer: r, title_sx: i, footer_sx: l, content_sx: u, paper_sx: d }) => /* @__PURE__ */ E(a, {
 	open: n,
 	maxWidth: "lg",
 	fullWidth: !0,
 	scroll: "paper",
+	slotProps: { paper: { sx: {
+		maxHeight: "70vh",
+		display: "flex",
+		flexDirection: "column",
+		...d
+	} } },
 	"aria-labelledby": "centered-modal-title",
 	children: [
 		/* @__PURE__ */ T(c, {
