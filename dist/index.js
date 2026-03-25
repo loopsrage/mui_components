@@ -503,9 +503,9 @@ var W = ({ endpoint: e, handleErr: t }) => {
 		defaultChecked: i.defaultValue
 	}, t);
 	if (r === "object") {
-		if (i.defaultValue.Subtype === 17) return /* @__PURE__ */ S(ze, { data: z(X(e), n.slice(0, n.lastIndexOf(".")))?.value.Data }, t);
+		if (i.defaultValue.Subtype === 17) return /* @__PURE__ */ S(ze, { data: z(J(e), n.slice(0, n.lastIndexOf(".")))?.value.Data }, t);
 		if (i.defaultValue.Subtype === 16 || i.defaultValue.Subtype === 0) {
-			let r = z(X(e), n.slice(0, n.lastIndexOf(".")));
+			let r = z(J(e), n.slice(0, n.lastIndexOf(".")));
 			return i.name = n.slice(0, n.lastIndexOf(".")) + ".Data", /* @__PURE__ */ S(H, {
 				fileData: JSON.stringify(r?.value.Data, null, 2),
 				inputProps: i,
@@ -513,7 +513,7 @@ var W = ({ endpoint: e, handleErr: t }) => {
 			}, t);
 		}
 		if (i.defaultValue.Subtype === 18) {
-			let r = z(X(e), n.slice(0, n.lastIndexOf(".")));
+			let r = z(J(e), n.slice(0, n.lastIndexOf(".")));
 			return i.name = n.slice(0, n.lastIndexOf(".")) + ".Data", /* @__PURE__ */ S(H, {
 				fileData: r?.value.Data,
 				inputProps: i,
@@ -537,7 +537,7 @@ var W = ({ endpoint: e, handleErr: t }) => {
 		});
 	}
 	return a;
-}, q = (e, t = {}) => ({
+}, Ue = (e, t = {}) => ({
 	index: 0,
 	elements: {},
 	nameIndex: {},
@@ -547,15 +547,15 @@ var W = ({ endpoint: e, handleErr: t }) => {
 	handleOnClose: void 0,
 	elementSelector: e || He(),
 	context: t
-}), Ue = (e) => {
+}), We = (e) => {
 	e.current.handleOnClose();
-}, J = (e, t) => {
+}, Ge = (e, t) => {
 	let n = e.current;
 	n.handleClose = t, e.current = n;
-}, Y = (e, t) => {
+}, q = (e, t) => {
 	let n = e.current;
 	N(n) || (n.container = t), e.current = n;
-}, X = (e) => e.current.container, We = (e, n) => {
+}, J = (e) => e.current.container, Ke = (e, n) => {
 	let r = e.current, i = r.labels[n], a = r.element_component[n];
 	return i === "None" ? /* @__PURE__ */ S(ne, { children: a }) : /* @__PURE__ */ C(g, {
 		direction: "row",
@@ -578,16 +578,16 @@ var W = ({ endpoint: e, handleErr: t }) => {
 			children: a
 		})]
 	}, n);
-}, Ge = (e) => {
+}, qe = (e) => {
 	let t = {};
 	return Object.keys(e.current.nameIndex).map((n, r) => {
-		t[n] = We(e, r);
+		t[n] = Ke(e, r);
 	}), /* @__PURE__ */ S(g, {
 		direction: "column",
 		gap: 0,
 		children: Object.keys(t).map((e) => t[e])
 	});
-}, Ke = (e) => {
+}, Je = (e) => {
 	let t = e.current;
 	return { onChange: (n) => {
 		let r = n.target.value, i = n.target.selectedOptions;
@@ -599,16 +599,16 @@ var W = ({ endpoint: e, handleErr: t }) => {
 		let a = n.target.name, o = t.nameIndex[a];
 		N(o) && (t.nameIndex[a] = t.index, o = t.index, e.current = t), t.elements[o] = r;
 		let s = a.split("."), c = s.slice(0, s.length - 1).join("."), l = s.slice(s.length - 1);
-		N(z(X(e), c)) && (c = s.slice(0, s.length - 2).join(".")), n.target.type === "checkbox" && (r = n.currentTarget.checked), e.current = t, Y(e, Me(X(e), c, l, r)), e.current = t;
+		N(z(J(e), c)) && (c = s.slice(0, s.length - 2).join(".")), n.target.type === "checkbox" && (r = n.currentTarget.checked), e.current = t, q(e, Me(J(e), c, l, r)), e.current = t;
 	} };
-}, qe = (e, t) => {
+}, Ye = (e, t) => {
 	let n = e.current, r = n.nameIndex[t];
 	return n.elements[r];
-}, Je = (e, t, n) => {
+}, Xe = (e, t, n) => {
 	let r = typeof n, i = e.current, a = t + i.index, o = {
 		name: t,
-		defaultValue: qe(e, t),
-		onChange: Ke(e).onChange,
+		defaultValue: Ye(e, t),
+		onChange: Je(e).onChange,
 		sx: { width: "100%" }
 	};
 	return i.elementSelector({
@@ -618,11 +618,11 @@ var W = ({ endpoint: e, handleErr: t }) => {
 		currentType: r,
 		inputProps: o
 	});
-}, Z = (e, t, n) => {
+}, Y = (e, t, n) => {
 	let r = e.current;
 	if (N(r.nameIndex[t])) {
 		r.nameIndex[t] = r.index, r.elements[r.index] = n;
-		let i = Je(e, t, n);
+		let i = Xe(e, t, n);
 		if (!N(i)) {
 			let e = P(t.replace(/root\./, ""), "."), n = e.split(" "), a = n[n.length - 1];
 			/^\d+$/.test(a) ? r.labels[r.index] = "None" : r.labels[r.index] = /* @__PURE__ */ S(p, {
@@ -632,36 +632,41 @@ var W = ({ endpoint: e, handleErr: t }) => {
 		}
 	}
 	e.current = r;
-}, Ye = (e, t) => e.current.nameIndex[t], Xe = (e, t) => {
+}, Ze = (e, t) => e.current.nameIndex[t], Qe = (e, t) => {
 	let n = e.current;
-	delete n.labels[Ye(e, t)], e.current = n;
-}, Ze = ({ formRef: e, container: t }) => {
+	delete n.labels[Ze(e, t)], e.current = n;
+}, $e = ({ formRef: e, container: t }) => {
 	je(t, (t) => {
 		let n = t.path, r = t.value;
 		if (Array.isArray(r)) {
 			let t = [];
 			Object.keys(r).forEach((e) => {
 				N(r[e]) || Array.isArray(r[e]) || t.push(r[e]);
-			}), t.length > 0 && Z(e, n, t);
+			}), t.length > 0 && Y(e, n, t);
 			return;
 		}
 		Object.keys(r).forEach((t) => {
 			N(r[t]) || (typeof r[t] == "object" && Object.keys(r[t]).forEach((i) => {
 				let a = {};
-				a[i] = r[t][i], Z(e, n + "." + t + "." + i, a);
-			}), M(r[t]) && Z(e, n + "." + t, r[t]));
+				a[i] = r[t][i], Y(e, n + "." + t + "." + i, a);
+			}), M(r[t]) && Y(e, n + "." + t, r[t]));
 		});
 	});
-}, Qe = ie(null), $e = () => oe(Qe), Q = (e, t = !0) => {
-	let n = $e();
+}, X = ie(null), Z = () => oe(X), et = (e) => {
+	let t = Z();
+	return (n) => {
+		n ? t?.register(e, n) : t?.unregister(e);
+	};
+}, Q = (e, t = !0) => {
+	let n = Z();
 	return (r) => {
 		t && r ? n?.register(e, r) : n?.unregister(e);
 	};
-}, et = ({ title: e, getSchema: n, handleSave: r, elementSelector: i, footerButtons: a, refKey: o, register_component: s = !1 }) => {
+}, tt = ({ title: e, getSchema: n, handleSave: r, elementSelector: i, footerButtons: a, refKey: o, register_component: s = !1 }) => {
 	let c = Q(o, s), l = E(null), [d, f] = D(!1), p = () => {
 		f(!1);
 	};
-	l.current ||= q(i, { setShow: (e) => {
+	l.current ||= Ue(i, { setShow: (e) => {
 		f(e);
 	} }), T(() => (c(l.current), () => c(null)), [c]);
 	let [m, h] = D(void 0), [_, ee] = D(0);
@@ -671,10 +676,10 @@ var W = ({ endpoint: e, handleErr: t }) => {
 		children: [/* @__PURE__ */ S(u, {
 			onClick: async () => {
 				try {
-					Y(l, V(null, [], ".", await n())), J(l, p), Ze({
+					q(l, V(null, [], ".", await n())), Ge(l, p), $e({
 						formRef: l,
-						container: X(l)
-					}), h(Ge(l)), f(!0);
+						container: J(l)
+					}), h(qe(l)), f(!0);
 				} catch (e) {
 					console.error("Failed to load schema:", e);
 				}
@@ -707,7 +712,7 @@ var W = ({ endpoint: e, handleErr: t }) => {
 					}),
 					_ === 1 && /* @__PURE__ */ S(t, {
 						sx: { p: 3 },
-						children: /* @__PURE__ */ S("pre", { children: JSON.stringify(X(l)?.value, null, 2) })
+						children: /* @__PURE__ */ S("pre", { children: JSON.stringify(J(l)?.value, null, 2) })
 					})
 				]
 			}),
@@ -719,7 +724,7 @@ var W = ({ endpoint: e, handleErr: t }) => {
 			}
 		})]
 	});
-}, tt = ({ refreshGrid: e, api: t, id: n, title: r, footerButtons: i }) => /* @__PURE__ */ S(et, {
+}, nt = ({ refreshGrid: e, api: t, id: n, title: r, footerButtons: i }) => /* @__PURE__ */ S(tt, {
 	title: r,
 	button_title: "Update",
 	getSchema: G(t, n),
@@ -729,19 +734,19 @@ var W = ({ endpoint: e, handleErr: t }) => {
 	footerButtons: i,
 	register_component: !0,
 	refKey: "update_modal"
-}), nt = ({ handleRefreshGrid: e, api: t, id: n, params: r }) => /* @__PURE__ */ S(g, {
+}), rt = ({ handleRefreshGrid: e, api: t, id: n, params: r }) => /* @__PURE__ */ S(g, {
 	direction: "row",
 	gap: 1,
-	children: /* @__PURE__ */ S(tt, {
+	children: /* @__PURE__ */ S(nt, {
 		...r,
 		refreshGrid: e,
 		api: t,
 		id: n
 	})
-}), rt = (e, t) => {
+}), it = (e, t) => {
 	let n = e.current;
 	n && (n.endpoint = t);
-}, it = (e) => e.current.endpoint, at = (e, t) => {
+}, at = (e) => e.current.endpoint, ot = (e, t) => {
 	let n = e.current;
 	B(t, (e) => {
 		let t = e.value, r = e.path, i = typeof t;
@@ -753,7 +758,7 @@ var W = ({ endpoint: e, handleErr: t }) => {
 			headerName: r
 		}, n.rows[n.index] = [], n.headers_ri[r] = n.index, n.index++;
 	}), e.current = n;
-}, ot = (e, t) => {
+}, st = (e, t) => {
 	let n = e.current;
 	n && (n.rows = [], n.row_count = 0, n.headers.forEach(() => {
 		n.rows.push([]);
@@ -763,7 +768,7 @@ var W = ({ endpoint: e, handleErr: t }) => {
 			t !== void 0 && n.rows[t].push(e.value);
 		}
 	}), e.current = n);
-}, st = (e) => {
+}, ct = (e) => {
 	let t = e.current;
 	if (!t || !t.rows || t.rows.length === 0) return [];
 	let n = t.rows[0].length;
@@ -774,7 +779,7 @@ var W = ({ endpoint: e, handleErr: t }) => {
 			r[e.field] = a ? a[n] : null;
 		}), r.id = r.id, r;
 	});
-}, ct = (e) => {
+}, lt = (e) => {
 	let t = e.current, n = Object.keys(t.headers_ri).map((e) => ({
 		field: e,
 		sortable: !0,
@@ -792,36 +797,36 @@ var W = ({ endpoint: e, handleErr: t }) => {
 		pinnable: !0,
 		flex: 1,
 		type: "actions",
-		renderCell: xt(e)
+		renderCell: St(e)
 	}), n;
-}, lt = (e) => e.current.paginationModel, ut = (e, t) => {
+}, ut = (e) => e.current.paginationModel, dt = (e, t) => {
 	let n = e.current;
 	n && (n.args = t, e.current = n);
-}, dt = (e, t) => {
+}, ft = (e, t) => {
 	let n = e.current;
 	n && (n.args = {
 		...n.args,
 		...t
 	}, e.current = n);
-}, $ = (e, t) => {
+}, pt = (e, t) => {
 	let n = e.current;
 	n && (n.args.sortModel = JSON.stringify(t), e.current = n);
-}, ft = (e, t) => {
-	let n = e.current;
-	n && (n.args.filterModel = JSON.stringify(t), e.current = n);
-}, pt = (e, t) => () => {
-	let n = e.current;
-	n && (n.paginationModel = t, n.args.paginationModel = JSON.stringify(t), e.current = n);
 }, mt = (e, t) => {
 	let n = e.current;
+	n && (n.args.filterModel = JSON.stringify(t), e.current = n);
+}, ht = (e, t) => () => {
+	let n = e.current;
+	n && (n.paginationModel = t, n.args.paginationModel = JSON.stringify(t), e.current = n);
+}, gt = (e, t) => {
+	let n = e.current;
 	n && (n.fetch_params = t, e.current = n);
-}, ht = (e) => e.current.fetch_params, gt = (e, t) => ({ getRows: async (n) => {
+}, _t = (e) => e.current.fetch_params, vt = (e, t) => ({ getRows: async (n) => {
 	let r = e.current;
 	if (!r) return {
 		rows: [],
 		rowCount: 0
 	};
-	ft(e, n.filterModel), $(e, n.sortModel);
+	mt(e, n.filterModel), pt(e, n.sortModel);
 	let { page: i, pageSize: a } = n.paginationModel ?? {
 		page: 0,
 		pageSize: 10
@@ -837,21 +842,21 @@ var W = ({ endpoint: e, handleErr: t }) => {
 	let c = await r.api.at("/" + r.endpoint, {
 		fetchParams: {
 			method: "GET",
-			...ht(e)
+			..._t(e)
 		},
 		args: s
 	}), l = V(null, [], ".", c.results);
-	return at(e, l), ot(e, l), r.row_count = c.pagination?.total || 0, e.current = r, t(), {
-		rows: st(e),
+	return ot(e, l), st(e, l), r.row_count = c.pagination?.total || 0, e.current = r, t(), {
+		rows: ct(e),
 		rowCount: c.pagination?.total || 0
 	};
-} }), _t = (e, t) => {
+} }), yt = (e, t) => {
 	let n = e.current;
 	n && (n.args.search = t, e.current = n);
-}, vt = (e) => e.current.datasource, yt = (e) => {
+}, $ = (e) => e.current.datasource, bt = (e) => {
 	let t = e.current;
 	t && t.refresh();
-}, bt = (e) => (t) => {
+}, xt = (e) => (t) => {
 	let n = e.current;
 	if (!n || n.rows.length === 0) return;
 	let r = t.ids, i = n.rows[0].length, a = Array.from({ length: i }, (e, t) => t).filter((e) => {
@@ -859,8 +864,8 @@ var W = ({ endpoint: e, handleErr: t }) => {
 		return r.has(t);
 	});
 	n.selected_data = n.rows.map((e) => a.map((t) => e[t])), n.selected_ids = t, e.current = n;
-}, xt = (e) => {
-	let r = $e();
+}, St = (e) => {
+	let r = Z();
 	return (i) => {
 		let a = e.current;
 		if (!a) return;
@@ -907,7 +912,7 @@ var W = ({ endpoint: e, handleErr: t }) => {
 				children: [i.row.code, i.row.description]
 			})]
 		});
-		return /* @__PURE__ */ S(nt, {
+		return /* @__PURE__ */ S(rt, {
 			params: {
 				footerButtons: [
 					/* @__PURE__ */ S(n, {
@@ -937,12 +942,12 @@ var W = ({ endpoint: e, handleErr: t }) => {
 				title: s,
 				...i.row
 			},
-			handleRefreshGrid: () => yt(e),
+			handleRefreshGrid: () => bt(e),
 			api: a.api,
 			id: i.id
 		});
 	};
-}, St = ({ api: e, endpoint: t, row_details: n, refKey: r, register_component: i = !1, toolbar: a = !1, checkbox_select: o = !1 }) => {
+}, Ct = ({ api: e, endpoint: t, row_details: n, refKey: r, register_component: i = !1, toolbar: a = !1, checkbox_select: o = !1 }) => {
 	let s = Q(r, i), c = E(null), [, l] = D(!1), [u, d] = D({
 		page: 0,
 		pageSize: 5
@@ -953,7 +958,7 @@ var W = ({ endpoint: e, handleErr: t }) => {
 		headers_ri: {},
 		rows: [],
 		row_count: 0,
-		datasource: gt(c, g),
+		datasource: vt(c, g),
 		paginationModel: {
 			page: 0,
 			pageSize: 5
@@ -1012,8 +1017,8 @@ var W = ({ endpoint: e, handleErr: t }) => {
 			"& .MuiDataGrid-menuIcon": { color: "white" },
 			"& .MuiDataGrid-columnSeparator": { color: "#333" }
 		},
-		columns: ct(c),
-		dataSource: vt(c),
+		columns: lt(c),
+		dataSource: $(c),
 		pageSizeOptions: [
 			5,
 			10,
@@ -1025,7 +1030,7 @@ var W = ({ endpoint: e, handleErr: t }) => {
 		onPaginationModelChange: (e) => {
 			d(e);
 		},
-		onRowSelectionModelChange: (e) => bt(c)(e),
+		onRowSelectionModelChange: (e) => xt(c)(e),
 		paginationMode: "server",
 		sortingMode: "server",
 		filterMode: "server",
@@ -1041,7 +1046,7 @@ var W = ({ endpoint: e, handleErr: t }) => {
 			console.error("DataGrid Error Type:", e.name), console.error("DataGrid Error Message:", e.message), e.cause && (console.group("Original Error Cause"), console.error("Message:", e.cause.message), console.error("Stack:", e.cause.stack), console.groupEnd()), e instanceof le ? console.warn("Fetch failed. Check your API mock or network.") : console.warn("Row update failed.");
 		}
 	});
-}, Ct = ({ loading: e, value: n }) => /* @__PURE__ */ S(t, {
+}, wt = ({ loading: e, value: n }) => /* @__PURE__ */ S(t, {
 	sx: {
 		position: "relative",
 		display: "inline-flex"
@@ -1071,13 +1076,13 @@ var W = ({ endpoint: e, handleErr: t }) => {
 			})
 		})]
 	})
-}), wt = ({ ...e }) => /* @__PURE__ */ S(u, {
+}), Tt = ({ ...e }) => /* @__PURE__ */ S(u, {
 	...e,
 	children: /* @__PURE__ */ S(De, {})
-}), Tt = (e, t) => {
+}), Et = (e, t) => {
 	let n = e.current;
 	n && (n.setProgressValue(t), n.progressValue = t, e.current = n);
-}, Et = (e) => !e || !e.current ? 1 : e.current.progressValue, Dt = ({ refKey: e, register_component: t, onDropSuccess: n, onSend: r }) => {
+}, Dt = (e) => !e || !e.current ? 1 : e.current.progressValue, Ot = ({ refKey: e, register_component: t, onDropSuccess: n, onSend: r }) => {
 	let [i, a] = D(""), [o, s] = D(!1), [c, l] = D(0), d = Q(e, t), p = E({
 		progressValue: 0,
 		setProgressValue: l
@@ -1093,10 +1098,10 @@ var W = ({ endpoint: e, handleErr: t }) => {
 		multiple: !1
 	});
 	T(() => (d(p.current), () => d(null)), [d]);
-	let { ref: v, ...y } = m(), b = o || c == 100 ? /* @__PURE__ */ S(Ct, {
+	let { ref: v, ...y } = m(), b = o || c == 100 ? /* @__PURE__ */ S(wt, {
 		loading: !0,
 		value: c
-	}) : /* @__PURE__ */ S(wt, {
+	}) : /* @__PURE__ */ S(Tt, {
 		onClick: r,
 		sx: { color: c === 100 ? "red" : "inherit" }
 	});
@@ -1121,7 +1126,7 @@ var W = ({ endpoint: e, handleErr: t }) => {
 			"& .MuiOutlinedInput-root": { transition: "background-color 0.2s" }
 		}
 	});
-}, Ot = ({ api: e, title: t, grid_endpoint: n, row_details: r, buttons: i, refKey: a }) => {
+}, kt = ({ api: e, title: t, grid_endpoint: n, row_details: r, buttons: i, refKey: a }) => {
 	let o = i?.map((e) => e);
 	return /* @__PURE__ */ C(g, {
 		direction: "column",
@@ -1146,18 +1151,18 @@ var W = ({ endpoint: e, handleErr: t }) => {
 				},
 				children: o
 			})]
-		}), /* @__PURE__ */ S(St, {
+		}), /* @__PURE__ */ S(Ct, {
 			api: e,
 			endpoint: n,
 			row_details: r,
 			refKey: a
 		})]
 	});
-}, kt = ({ children: e }) => /* @__PURE__ */ C(t, { children: [
+}, At = ({ children: e }) => /* @__PURE__ */ C(t, { children: [
 	/* @__PURE__ */ S(O, {}),
 	e,
 	/* @__PURE__ */ S(k, {})
-] }), At = ({ children: e }) => {
+] }), jt = ({ children: e }) => {
 	let t = E({}), n = se(() => ({
 		register: (e, n) => {
 			t.current[e] = n;
@@ -1168,14 +1173,14 @@ var W = ({ endpoint: e, handleErr: t }) => {
 		get: (e) => t.current[e] || null,
 		registry: () => t.current
 	}), []);
-	return /* @__PURE__ */ S(Qe.Provider, {
+	return /* @__PURE__ */ S(X.Provider, {
 		value: n,
 		children: e
 	});
-}, jt = ({ children: e }) => /* @__PURE__ */ S(At, { children: /* @__PURE__ */ S(kt, { children: /* @__PURE__ */ S(g, {
+}, Mt = ({ children: e }) => /* @__PURE__ */ S(jt, { children: /* @__PURE__ */ S(At, { children: /* @__PURE__ */ S(g, {
 	direction: "column",
 	gap: 2,
 	children: e
 }) }) });
 //#endregion
-export { Z as AddElement, W as Api, A as ApiButton, ke as CenteredContainer, j as CenteredModal, Ue as Close, gt as DataSourceWrapper, Xe as DeleteLabel, X as GetContainer, vt as GetDatasource, Ye as GetElementIndex, Je as GetElementTypes, qe as GetElementValue, Ge as GetElements, it as GetEndpoint, ht as GetFetchParams, ct as GetHeaders, lt as GetPaginationModel, Et as GetProgressValue, st as GetRows, We as GetSet, Ot as GridWithButtons, jt as HFCenteredLayout, G as HandleGet, kt as HeaderFooterLayout, q as InitialTypeFormBuilderRefState, N as IsNullOrUndefined, M as IsPrimitive, xt as ModalCellRendererWrapper, Ct as ProgressAdornment, At as RefProvider, yt as Refresh, K as SelectAssociation, wt as SendIconButton, ut as SetArgs, Y as SetContainer, rt as SetEndpoint, mt as SetFetchParams, ft as SetFilterModel, J as SetHandleClose, at as SetHeadersFromJson, dt as SetOrAddArgs, pt as SetPaginationModel, Tt as SetProgressValue, ot as SetRowsFromJson, _t as SetSearch, bt as SetSelectedRows, $ as SetSortModel, P as TitleCase, Ze as TypeFormBuilder, O as UIAppBar, k as UIBottomNav, Dt as UIInput, St as UITable, Ke as UpdateElementValues };
+export { Y as AddElement, W as Api, A as ApiButton, ke as CenteredContainer, j as CenteredModal, We as Close, vt as DataSourceWrapper, Qe as DeleteLabel, J as GetContainer, $ as GetDatasource, Ze as GetElementIndex, Xe as GetElementTypes, Ye as GetElementValue, qe as GetElements, at as GetEndpoint, _t as GetFetchParams, lt as GetHeaders, ut as GetPaginationModel, Dt as GetProgressValue, ct as GetRows, Ke as GetSet, kt as GridWithButtons, Mt as HFCenteredLayout, G as HandleGet, At as HeaderFooterLayout, Ue as InitialTypeFormBuilderRefState, N as IsNullOrUndefined, M as IsPrimitive, St as ModalCellRendererWrapper, wt as ProgressAdornment, X as RefIndexContext, jt as RefProvider, bt as Refresh, K as SelectAssociation, Tt as SendIconButton, dt as SetArgs, q as SetContainer, it as SetEndpoint, gt as SetFetchParams, mt as SetFilterModel, Ge as SetHandleClose, ot as SetHeadersFromJson, ft as SetOrAddArgs, ht as SetPaginationModel, Et as SetProgressValue, st as SetRowsFromJson, yt as SetSearch, xt as SetSelectedRows, pt as SetSortModel, P as TitleCase, $e as TypeFormBuilder, O as UIAppBar, k as UIBottomNav, Ot as UIInput, Ct as UITable, Je as UpdateElementValues, Q as useConditionalRef, et as useManagedRef, Z as useRefIndex };

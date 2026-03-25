@@ -14,6 +14,7 @@ export * from './meta_components/hf_cenered/hf_centered';
 
 // Context & Utilities
 export * from './context/context';
+export * from './context/context_index';
 export * from './ibase/ibase';
 
 // Note: For .jsx/.js files with .d.ts files, Vite will still
