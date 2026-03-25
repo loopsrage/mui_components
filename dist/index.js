@@ -850,7 +850,7 @@ var V = ({ endpoint: e, handleErr: t }) => {
 		headerName: N(e.split(".").pop(), "_"),
 		flex: 2,
 		type: "string",
-		hideable: e !== "id"
+		hideable: !0
 	}));
 	if (t.row_details) {
 		let t = {
@@ -1056,8 +1056,8 @@ var V = ({ endpoint: e, handleErr: t }) => {
 }, Mt = ({ api: e, endpoint: t, row_details: n, refKey: r, cellRenderer: i, register_component: a = !1, toolbar: o = !1, checkbox_select: s = !1, datagrid_sx: c = void 0 }) => {
 	let l = Z(r, a), u = D(null), [, d] = O(!1), [f, p] = O({
 		page: 0,
-		pageSize: 5
-	}), [m, h] = O(0), [g, _] = O({ "row.id": !1 }), v = fe(), y = () => {
+		pageSize: 25
+	}), [m, h] = O(0), [g, _] = O({ id: !1 }), v = fe(), y = () => {
 		u.current && h(u.current.row_count), d((e) => !e);
 	};
 	return u.current ||= {
@@ -1098,8 +1098,6 @@ var V = ({ endpoint: e, handleErr: t }) => {
 		columns: _t(u),
 		dataSource: Ot(u),
 		pageSizeOptions: [
-			5,
-			10,
 			25,
 			50,
 			100
@@ -1276,11 +1274,18 @@ var V = ({ endpoint: e, handleErr: t }) => {
 		children: e
 	});
 }, Ht = ne({
+	shape: { borderRadius: 8 },
 	typography: {
 		fontFamily: "Inter, Arial, sans-serif",
 		allVariants: { fontFamily: "Inter, Arial, sans-serif" }
 	},
-	components: { MuiButton: { styleOverrides: { root: { textTransform: "capitalize" } } } }
+	components: {
+		MuiButton: { styleOverrides: { root: {
+			textTransform: "capitalize",
+			borderRadius: 12
+		} } },
+		MuiOutlinedInput: { styleOverrides: { root: { borderRadius: 8 } } }
+	}
 }), Ut = ({ children: e, theme: t }) => {
 	let n = Ht;
 	return t || (n = Ht), /* @__PURE__ */ C(Vt, { children: /* @__PURE__ */ w(b, {

@@ -150,7 +150,7 @@ export const GetHeaders = (ref: RefObject<TableState>) => {
         headerName: TitleCase(path.split('.').pop(), "_"),
         flex: 2,
         type: 'string',
-        hideable: path !== 'id'
+        hideable: true
     } as GridColDef));
 
     if (st.row_details) {
@@ -470,10 +470,10 @@ export const UITable: FC<Props> = ({ api, endpoint, row_details, refKey, cellRen
     const setRegistryRef = useConditionalRef(refKey, register_component)
     const localRef = useRef<TableState>(null as unknown as TableState);
     const [, setToggle] = useState(false);
-    const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 5 });
+    const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 25 });
     const [rowCount, setRowCount] = useState(0);
     const [columnVisibilityModel, setColumnVisibilityModel] = useState<GridColumnVisibilityModel>({
-        'row.id': false,
+        'id': false,
     });
     const apiRef = useGridApiRef();
 
@@ -532,7 +532,7 @@ export const UITable: FC<Props> = ({ api, endpoint, row_details, refKey, cellRen
             }}
             columns={GetHeaders(localRef)}
             dataSource={GetDatasource(localRef)}
-            pageSizeOptions={[5, 10, 25, 50, 100]}
+            pageSizeOptions={[25, 50, 100]}
             paginationModel={paginationModel}
             onPaginationModelChange={(model) => {
                 setPaginationModel(model);

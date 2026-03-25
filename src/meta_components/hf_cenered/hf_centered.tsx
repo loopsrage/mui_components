@@ -9,6 +9,9 @@ export interface HFCenteredLayoutProps {
 }
 
 const defaultTheme = createTheme({
+    shape: {
+        borderRadius: 8,
+    },
     typography: {
         fontFamily: 'Inter, Arial, sans-serif',
         allVariants: {
@@ -20,6 +23,14 @@ const defaultTheme = createTheme({
             styleOverrides: {
                 root: {
                     textTransform: 'capitalize',
+                    borderRadius: 12,
+                },
+            },
+        },
+        MuiOutlinedInput: {
+            styleOverrides: {
+                root: {
+                    borderRadius: 8,
                 },
             },
         },
