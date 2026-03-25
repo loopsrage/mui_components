@@ -65,6 +65,7 @@ export interface UploadInputProps {
 export interface UploadInputState {
     setProgressValue: (value: number) => void;
     progressValue: number;
+    handleToggle: (loading: boolean) => void;
 }
 
 export const SetProgressValue = (ref: RefObject<UploadInputState>, value: number) => {
@@ -81,6 +82,12 @@ export const GetProgressValue = (ref: RefObject<UploadInputState>) => {
     return ref.current.progressValue
 }
 
+export const SetLoading = (ref: RefObject<UploadInputState>, loading: boolean) => {
+    const st = ref.current;
+    if (!st) return;
+    st.handleToggle(loading)
+}
+
 
 export const UIInput: FC<UploadInputProps> = ({refKey, register_component, onDropSuccess, onSend}) => {
     const [text, setText] = useState("");
@@ -89,7 +96,12 @@ export const UIInput: FC<UploadInputProps> = ({refKey, register_component, onDro
 
     const setRegistryRef = useConditionalRef(refKey, register_component)
 
+    const handleToggle = (isLoading: boolean) =>{
+        setLoading(isLoading)
+    }
+
     const localRef = useRef<UploadInputState>({
+        handleToggle,
         progressValue: 0,
         setProgressValue: setProgress
     });
@@ -116,10 +128,9 @@ export const UIInput: FC<UploadInputProps> = ({refKey, register_component, onDro
         return () => setRegistryRef(null);
     }, [setRegistryRef]);
 
-
     const { ref, ...rootProps } = getRootProps();
 
-    const currentEndAdornment = loading || progress == 100 ? (
+    const currentEndAdornment = loading ? (
         <ProgressAdornment loading={true} value={progress} />
     ) : (
         <SendIconButton
@@ -128,12 +139,24 @@ export const UIInput: FC<UploadInputProps> = ({refKey, register_component, onDro
         />
     );
 
+    const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const newValue = e.target.value;
+
+        if (/^[0-9,]*$/.test(newValue)) {
+            setText(newValue);
+        }
+    };
+
     return (
         <TextField
             variant="outlined"
             value={text}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => setText(e.target.value)}
+            onChange={handleTextChange}
+            placeholder="3186815,3192062,3107146,3192072...."
             slotProps={{
+                htmlInput: {
+                    inputMode: "numeric",
+                } as object | undefined,
                 input: {
                     ...rootProps,
                     inputRef: ref,

@@ -1082,8 +1082,14 @@ var W = ({ endpoint: e, handleErr: t }) => {
 }), Et = (e, t) => {
 	let n = e.current;
 	n && (n.setProgressValue(t), n.progressValue = t, e.current = n);
-}, Dt = (e) => !e || !e.current ? 1 : e.current.progressValue, Ot = ({ refKey: e, register_component: t, onDropSuccess: n, onSend: r }) => {
+}, Dt = (e) => !e || !e.current ? 1 : e.current.progressValue, Ot = (e, t) => {
+	let n = e.current;
+	n && n.handleToggle(t);
+}, kt = ({ refKey: e, register_component: t, onDropSuccess: n, onSend: r }) => {
 	let [i, a] = D(""), [o, s] = D(!1), [c, l] = D(0), d = Q(e, t), p = E({
+		handleToggle: (e) => {
+			s(e);
+		},
 		progressValue: 0,
 		setProgressValue: l
 	}), { getRootProps: m, getInputProps: h, open: g, isDragActive: _ } = Te({
@@ -1098,7 +1104,7 @@ var W = ({ endpoint: e, handleErr: t }) => {
 		multiple: !1
 	});
 	T(() => (d(p.current), () => d(null)), [d]);
-	let { ref: v, ...y } = m(), b = o || c == 100 ? /* @__PURE__ */ S(wt, {
+	let { ref: v, ...y } = m(), b = o ? /* @__PURE__ */ S(wt, {
 		loading: !0,
 		value: c
 	}) : /* @__PURE__ */ S(Tt, {
@@ -1108,25 +1114,32 @@ var W = ({ endpoint: e, handleErr: t }) => {
 	return /* @__PURE__ */ S(ee, {
 		variant: "outlined",
 		value: i,
-		onChange: (e) => a(e.target.value),
-		slotProps: { input: {
-			...y,
-			inputRef: v,
-			startAdornment: /* @__PURE__ */ C(f, {
-				position: "start",
-				children: [/* @__PURE__ */ S("input", { ...h() }), /* @__PURE__ */ S(u, {
-					onClick: g,
-					children: /* @__PURE__ */ S(Ee, {})
-				})]
-			}),
-			endAdornment: b
-		} },
+		onChange: (e) => {
+			let t = e.target.value;
+			/^[0-9,]*$/.test(t) && a(t);
+		},
+		placeholder: "3186815,3192062,3107146,3192072....",
+		slotProps: {
+			htmlInput: { inputMode: "numeric" },
+			input: {
+				...y,
+				inputRef: v,
+				startAdornment: /* @__PURE__ */ C(f, {
+					position: "start",
+					children: [/* @__PURE__ */ S("input", { ...h() }), /* @__PURE__ */ S(u, {
+						onClick: g,
+						children: /* @__PURE__ */ S(Ee, {})
+					})]
+				}),
+				endAdornment: b
+			}
+		},
 		sx: {
 			backgroundColor: _ ? "action.hover" : "inherit",
 			"& .MuiOutlinedInput-root": { transition: "background-color 0.2s" }
 		}
 	});
-}, kt = ({ api: e, title: t, grid_endpoint: n, row_details: r, buttons: i, refKey: a }) => {
+}, At = ({ api: e, title: t, grid_endpoint: n, row_details: r, buttons: i, refKey: a }) => {
 	let o = i?.map((e) => e);
 	return /* @__PURE__ */ C(g, {
 		direction: "column",
@@ -1158,11 +1171,11 @@ var W = ({ endpoint: e, handleErr: t }) => {
 			refKey: a
 		})]
 	});
-}, At = ({ children: e }) => /* @__PURE__ */ C(t, { children: [
+}, jt = ({ children: e }) => /* @__PURE__ */ C(t, { children: [
 	/* @__PURE__ */ S(O, {}),
 	e,
 	/* @__PURE__ */ S(k, {})
-] }), jt = ({ children: e }) => {
+] }), Mt = ({ children: e }) => {
 	let t = E({}), n = se(() => ({
 		register: (e, n) => {
 			t.current[e] = n;
@@ -1177,10 +1190,10 @@ var W = ({ endpoint: e, handleErr: t }) => {
 		value: n,
 		children: e
 	});
-}, Mt = ({ children: e }) => /* @__PURE__ */ S(jt, { children: /* @__PURE__ */ S(At, { children: /* @__PURE__ */ S(g, {
+}, Nt = ({ children: e }) => /* @__PURE__ */ S(Mt, { children: /* @__PURE__ */ S(jt, { children: /* @__PURE__ */ S(g, {
 	direction: "column",
 	gap: 2,
 	children: e
 }) }) });
 //#endregion
-export { Y as AddElement, W as Api, A as ApiButton, ke as CenteredContainer, j as CenteredModal, We as Close, vt as DataSourceWrapper, Qe as DeleteLabel, J as GetContainer, $ as GetDatasource, Ze as GetElementIndex, Xe as GetElementTypes, Ye as GetElementValue, qe as GetElements, at as GetEndpoint, _t as GetFetchParams, lt as GetHeaders, ut as GetPaginationModel, Dt as GetProgressValue, ct as GetRows, Ke as GetSet, kt as GridWithButtons, Mt as HFCenteredLayout, G as HandleGet, At as HeaderFooterLayout, Ue as InitialTypeFormBuilderRefState, N as IsNullOrUndefined, M as IsPrimitive, St as ModalCellRendererWrapper, wt as ProgressAdornment, X as RefIndexContext, jt as RefProvider, bt as Refresh, K as SelectAssociation, Tt as SendIconButton, dt as SetArgs, q as SetContainer, it as SetEndpoint, gt as SetFetchParams, mt as SetFilterModel, Ge as SetHandleClose, ot as SetHeadersFromJson, ft as SetOrAddArgs, ht as SetPaginationModel, Et as SetProgressValue, st as SetRowsFromJson, yt as SetSearch, xt as SetSelectedRows, pt as SetSortModel, P as TitleCase, $e as TypeFormBuilder, O as UIAppBar, k as UIBottomNav, Ot as UIInput, Ct as UITable, Je as UpdateElementValues, Q as useConditionalRef, et as useManagedRef, Z as useRefIndex };
+export { Y as AddElement, W as Api, A as ApiButton, ke as CenteredContainer, j as CenteredModal, We as Close, vt as DataSourceWrapper, Qe as DeleteLabel, J as GetContainer, $ as GetDatasource, Ze as GetElementIndex, Xe as GetElementTypes, Ye as GetElementValue, qe as GetElements, at as GetEndpoint, _t as GetFetchParams, lt as GetHeaders, ut as GetPaginationModel, Dt as GetProgressValue, ct as GetRows, Ke as GetSet, At as GridWithButtons, Nt as HFCenteredLayout, G as HandleGet, jt as HeaderFooterLayout, Ue as InitialTypeFormBuilderRefState, N as IsNullOrUndefined, M as IsPrimitive, St as ModalCellRendererWrapper, wt as ProgressAdornment, X as RefIndexContext, Mt as RefProvider, bt as Refresh, K as SelectAssociation, Tt as SendIconButton, dt as SetArgs, q as SetContainer, it as SetEndpoint, gt as SetFetchParams, mt as SetFilterModel, Ge as SetHandleClose, ot as SetHeadersFromJson, Ot as SetLoading, ft as SetOrAddArgs, ht as SetPaginationModel, Et as SetProgressValue, st as SetRowsFromJson, yt as SetSearch, xt as SetSelectedRows, pt as SetSortModel, P as TitleCase, $e as TypeFormBuilder, O as UIAppBar, k as UIBottomNav, kt as UIInput, Ct as UITable, Je as UpdateElementValues, Q as useConditionalRef, et as useManagedRef, Z as useRefIndex };
