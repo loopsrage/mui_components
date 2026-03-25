@@ -12,6 +12,9 @@ export interface UploadInputProps {
     register_component: boolean;
     onSend: unknown;
     onDropSuccess: (ref: RefObject<UploadInputState>, acceptedFiles: File[]) => void;
+    textFieldSx?: object;
+    textFieldProps?: object;
+    sendButtonProps?: object;
 }
 export interface UploadInputState {
     setProgressValue: (value: number) => void;

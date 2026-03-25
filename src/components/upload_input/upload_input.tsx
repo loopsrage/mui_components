@@ -60,6 +60,11 @@ export interface UploadInputProps {
 
     onSend: unknown;
     onDropSuccess: (ref: RefObject<UploadInputState>, acceptedFiles: File[]) => void;
+
+    textFieldSx?: object;
+    textFieldProps?: object;
+
+    sendButtonProps?: object;
 }
 
 export interface UploadInputState {
@@ -89,7 +94,7 @@ export const SetLoading = (ref: RefObject<UploadInputState>, loading: boolean) =
 }
 
 
-export const UIInput: FC<UploadInputProps> = ({refKey, register_component, onDropSuccess, onSend}) => {
+export const UIInput: FC<UploadInputProps> = ({refKey, register_component, onDropSuccess, onSend, textFieldSx, textFieldProps, sendButtonProps}) => {
     const [text, setText] = useState("");
     const [loading, setLoading] = useState(false)
     const [progress, setProgress] = useState(0)
@@ -136,6 +141,7 @@ export const UIInput: FC<UploadInputProps> = ({refKey, register_component, onDro
         <SendIconButton
             onClick={onSend}
             sx={{ color: progress === 100 ? 'red' : 'inherit' }}
+            {...sendButtonProps}
         />
     );
 
@@ -177,8 +183,10 @@ export const UIInput: FC<UploadInputProps> = ({refKey, register_component, onDro
                 backgroundColor: isDragActive ? 'action.hover' : 'inherit',
                 '& .MuiOutlinedInput-root': {
                     transition: 'background-color 0.2s',
-                }
+                },
+                ...textFieldSx
             }}
+            {...textFieldProps}
         />
     );
 };
