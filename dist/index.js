@@ -849,7 +849,8 @@ var Re = ({ endpoint: e, handleErr: t }) => {
 		filterable: !0,
 		headerName: R(e.split(".").pop(), "_"),
 		flex: 2,
-		type: "string"
+		type: "string",
+		hideable: e !== "row.id"
 	}));
 	if (t.row_details) {
 		let t = {
@@ -857,7 +858,6 @@ var Re = ({ endpoint: e, handleErr: t }) => {
 			headerName: "Details / Approvals",
 			sortable: !1,
 			filterable: !1,
-			width: 100,
 			flex: 1,
 			type: "actions",
 			renderCell: Dt(e)
@@ -1057,17 +1057,17 @@ var Re = ({ endpoint: e, handleErr: t }) => {
 	let l = Q(r, a), u = A(null), [, d] = j(!1), [f, p] = j({
 		page: 0,
 		pageSize: 5
-	}), [m, h] = j(0), g = oe(), _ = () => {
+	}), [m, h] = j(0), [g, _] = j({ "row.id": !1 }), v = oe(), y = () => {
 		u.current && h(u.current.row_count), d((e) => !e);
 	};
 	return u.current ||= {
-		gridRef: g,
+		gridRef: v,
 		index: 0,
 		headers: [],
 		headers_ri: {},
 		rows: [],
 		row_count: 0,
-		datasource: St(u, _),
+		datasource: St(u, y),
 		paginationModel: {
 			page: 0,
 			pageSize: 5
@@ -1075,7 +1075,7 @@ var Re = ({ endpoint: e, handleErr: t }) => {
 		args: {},
 		selected_data: [],
 		selected_ids: null,
-		refresh: _,
+		refresh: y,
 		cellRenderer: i,
 		filter_model: null,
 		api: e,
@@ -1086,8 +1086,10 @@ var Re = ({ endpoint: e, handleErr: t }) => {
 		refKey: r,
 		modal_title: null
 	}, k(() => (l(u.current), () => l(null)), [l]), /* @__PURE__ */ T(ie, {
-		apiRef: g,
+		apiRef: v,
 		disableVirtualization: !0,
+		columnVisibilityModel: g,
+		onColumnVisibilityModelChange: (e) => _(e),
 		rowCount: m,
 		sx: {
 			width: "80hv",

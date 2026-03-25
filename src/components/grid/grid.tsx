@@ -1,7 +1,7 @@
 import {type FC, type JSX, type RefObject, useLayoutEffect, useRef, useState} from "react";
 import {
     DataGrid, type GridApi,
-    type GridColDef,
+    type GridColDef, type GridColumnVisibilityModel,
     type GridDataSource, type GridFilterModel,
     GridGetRowsError,
     type GridGetRowsParams,
@@ -150,6 +150,7 @@ export const GetHeaders = (ref: RefObject<TableState>) => {
         headerName: TitleCase(path.split('.').pop(), "_"),
         flex: 2,
         type: 'string',
+        hideable: path !== 'row.id'
     } as GridColDef));
 
     if (st.row_details) {
@@ -158,7 +159,6 @@ export const GetHeaders = (ref: RefObject<TableState>) => {
             headerName: "Details / Approvals",
             sortable: false,
             filterable: false,
-            width: 100,
             flex: 1,
             type: 'actions',
             renderCell: GetCellRenderer(ref),
@@ -472,7 +472,9 @@ export const UITable: FC<Props> = ({ api, endpoint, row_details, refKey, cellRen
     const [, setToggle] = useState(false);
     const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 5 });
     const [rowCount, setRowCount] = useState(0);
-
+    const [columnVisibilityModel, setColumnVisibilityModel] = useState<GridColumnVisibilityModel>({
+        'row.id': false,
+    });
     const apiRef = useGridApiRef();
 
     const handleToggle = () => {
@@ -521,6 +523,8 @@ export const UITable: FC<Props> = ({ api, endpoint, row_details, refKey, cellRen
         <DataGrid
             apiRef={apiRef}
             disableVirtualization
+            columnVisibilityModel={columnVisibilityModel}
+            onColumnVisibilityModelChange={(newModel) => setColumnVisibilityModel(newModel)}
             rowCount={rowCount}
             sx={{
                 width: "80hv",
