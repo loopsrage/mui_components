@@ -9,7 +9,7 @@ import {
     type GridValidRowModel, useGridApiRef
 } from '@mui/x-data-grid';
 import {BuildContainerTree, type Container, RangePrimitiveValues} from "@/utility/containers";
-import {IsNullOrUndefined, IsPrimitive} from "@/utility/validation";
+import {IsNullOrUndefined, IsPrimitive, TitleCase} from "@/utility/validation";
 import type {ApiClient} from "@/utility/api";
 
 import {EditCellRenderer} from "@/meta_components/crud_elements/crud_elements";
@@ -54,6 +54,7 @@ export interface Props extends IBaseRefProps {
     checkbox_select?: boolean | undefined
     toolbar?: boolean | undefined
     cellRenderer?:  (ref: RefObject<TableState>) => (params: GridRenderCellParams) => (undefined | JSX.Element) | null
+    datagrid_sx?: object | undefined;
 }
 
 export const SetEndpoint = (ref: RefObject<TableState>, endpoint: string) => {
@@ -146,7 +147,7 @@ export const GetHeaders = (ref: RefObject<TableState>) => {
         field: path,
         sortable: true,
         filterable: true,
-        headerName: path.split('.').pop(),
+        headerName: TitleCase(path.split('.').pop(), "_"),
         flex: 2,
         type: 'string',
     } as GridColDef));
@@ -465,7 +466,7 @@ export const ModalCellRendererWrapper = (ref: RefObject<TableState>) => {
     }
 }
 
-export const UITable: FC<Props> = ({ api, endpoint, row_details, refKey, cellRenderer, register_component=false, toolbar=false, checkbox_select=false}) => {
+export const UITable: FC<Props> = ({ api, endpoint, row_details, refKey, cellRenderer, register_component=false, toolbar=false, checkbox_select=false, datagrid_sx=undefined}) => {
     const setRegistryRef = useConditionalRef(refKey, register_component)
     const localRef = useRef<TableState>(null as unknown as TableState);
     const [, setToggle] = useState(false);
@@ -523,59 +524,7 @@ export const UITable: FC<Props> = ({ api, endpoint, row_details, refKey, cellRen
             rowCount={rowCount}
             sx={{
                 width: "80hv",
-                // Sticky Header
-                '& .MuiDataGrid-columnHeader[data-field="edit"]': {
-                    position: 'sticky',
-                    right: 0,
-                    backgroundColor: 'black !important',
-                    color: 'white',
-                    zIndex: 3,
-                },
-                // Sticky Cells
-                '& .MuiDataGrid-cell[data-field="edit"]': {
-                    position: 'sticky',
-                    right: 0,
-                    backgroundColor: 'white',
-                    zIndex: 2,
-                    boxShadow: '-4px 0px 4px -2px rgba(0,0,0,0.1)', // Subtle shadow "floats" it
-                },
-                // Ensure the container doesn't clip the sticky effect
-                '& .MuiDataGrid-main': {
-                    overflow: 'auto',
-                },
-                '& .MuiDataGrid-cell--pinnedRight': {
-                    boxShadow: '-2px 0px 4px rgba(0,0,0,0.1)',
-                    backgroundColor: '#fff',
-                },
-                '& .MuiDataGrid-columnHeader--pinnedRight': {
-                    backgroundColor: 'black', // Matches your header theme
-                    color: 'white'
-                },
-                // 1. Target the actual row container inside the headers
-                '& .MuiDataGrid-columnHeaders div[role="row"]': {
-                    backgroundColor: 'black !important',
-                    color: 'white',
-                },
-                // 2. Ensure individual header cells also inherit the color
-                '& .MuiDataGrid-columnHeader': {
-                    backgroundColor: 'black !important',
-                    color: 'white',
-                },
-                // 3. Style the "filler" space (empty space after the last column)
-                '& .MuiDataGrid-filler': {
-                    backgroundColor: 'black !important',
-                },
-                // 4. Make sort icons and menu dots white
-                '& .MuiDataGrid-iconButtonContainer': {
-                    color: 'white',
-                },
-                '& .MuiDataGrid-menuIcon': {
-                    color: 'white',
-                },
-                // 5. Change the column separator color so it's visible on black
-                '& .MuiDataGrid-columnSeparator': {
-                    color: '#333',
-                },
+                ...datagrid_sx
             }}
             columns={GetHeaders(localRef)}
             dataSource={GetDatasource(localRef)}
