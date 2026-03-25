@@ -1137,6 +1137,7 @@ var W = ({ endpoint: e, handleErr: t }) => {
 			}
 		},
 		sx: {
+			width: "100%",
 			backgroundColor: _ ? "action.hover" : "inherit",
 			"& .MuiOutlinedInput-root": { transition: "background-color 0.2s" }
 		}

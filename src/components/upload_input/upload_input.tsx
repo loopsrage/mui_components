@@ -172,6 +172,7 @@ export const UIInput: FC<UploadInputProps> = ({refKey, register_component, onDro
                 } as object | undefined,
             }}
             sx={{
+                width: "100%",
                 // Change background color when a file is being dragged over
                 backgroundColor: isDragActive ? 'action.hover' : 'inherit',
                 '& .MuiOutlinedInput-root': {
