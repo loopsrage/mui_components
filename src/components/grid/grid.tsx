@@ -398,7 +398,7 @@ export const ModalCellRendererWrapper = (ref: RefObject<TableState>) => {
                 variant="contained"
                 endpoint={"Approve"}>Approve</ApiButton>,
             ], title: title, ...params.row};
-        return <EditCellRenderer  params={input_params} handleRefreshGrid={() => Refresh(ref)} api={st.api} id={params.id} />
+        return <EditCellRenderer  params={input_params} handleRefreshGrid={async () =>await  Refresh(ref)} api={st.api} id={params.id} />
     }
 }
 

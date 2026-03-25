@@ -944,7 +944,7 @@ var W = ({ endpoint: e, handleErr: t }) => {
 				title: s,
 				...i.row
 			},
-			handleRefreshGrid: () => bt(e),
+			handleRefreshGrid: async () => await bt(e),
 			api: a.api,
 			id: i.id
 		});
