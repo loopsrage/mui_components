@@ -392,6 +392,8 @@ export const ModalCellRendererWrapper = (ref: RefObject<TableState>) => {
 
         const handleRejectCallback = () => {
             setRejected(true);
+            setComments("")
+
         }
 
         const handleApproveCallback = () => {
@@ -403,6 +405,7 @@ export const ModalCellRendererWrapper = (ref: RefObject<TableState>) => {
                 label="Reason for rejection"
                 multiline
                 rows={4}
+                sx={{ mb: 2 }}
                 variant="outlined"
                 fullWidth
                 defaultValue={comments}
@@ -414,22 +417,25 @@ export const ModalCellRendererWrapper = (ref: RefObject<TableState>) => {
                 startIcon={<DownloadIcon/>}
             >Extract</Button>,
             <Box key="spacer" sx={{ flexGrow: 1 }} />,
-            <ApiButton
+            rejected && (<Button onClick={() => setRejected(false)}>
+                {"Cancel"}
+            </Button>),
+            !rejected && (<Button onClick={() => setRejected(true)}>Reject</Button>),
+            rejected && (<ApiButton
                 api={st.api}
                 endpoint={"reject"}
                 sx={{backgroundColor: "red"}}
                 variant="contained"
                 get_args={handleGetArgs}
                 callback={handleRejectCallback}
-            >Reject</ApiButton>,
-            rejected && (<ApiButton
+            >Reject</ApiButton>),
+            !rejected && (<ApiButton
                 api={st.api}
                 sx={{backgroundColor: "green"}}
                 variant="contained"
                 endpoint={"approve"}
                 get_args={handleGetArgs}
                 callback={handleApproveCallback}
-                hidden={rejected}
             >Approve</ApiButton>),
             ], title: title, ...params.row};
         return <EditCellRenderer  params={input_params} handleRefreshGrid={async () =>await  Refresh(ref)} api={st.api} id={params.id} />

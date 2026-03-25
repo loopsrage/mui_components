@@ -923,6 +923,7 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 						label: "Reason for rejection",
 						multiline: !0,
 						rows: 4,
+						sx: { mb: 2 },
 						variant: "outlined",
 						fullWidth: !0,
 						defaultValue: s,
@@ -939,18 +940,26 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 						children: "Extract"
 					}),
 					/* @__PURE__ */ T(t, { sx: { flexGrow: 1 } }, "spacer"),
-					/* @__PURE__ */ T(N, {
+					a && /* @__PURE__ */ T(n, {
+						onClick: () => o(!1),
+						children: "Cancel"
+					}),
+					!a && /* @__PURE__ */ T(n, {
+						onClick: () => o(!0),
+						children: "Reject"
+					}),
+					a && /* @__PURE__ */ T(N, {
 						api: l.api,
 						endpoint: "reject",
 						sx: { backgroundColor: "red" },
 						variant: "contained",
 						get_args: m,
 						callback: () => {
-							o(!0);
+							o(!0), c("");
 						},
 						children: "Reject"
 					}),
-					a && /* @__PURE__ */ T(N, {
+					!a && /* @__PURE__ */ T(N, {
 						api: l.api,
 						sx: { backgroundColor: "green" },
 						variant: "contained",
@@ -959,7 +968,6 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 						callback: () => {
 							f(!1);
 						},
-						hidden: a,
 						children: "Approve"
 					})
 				],
