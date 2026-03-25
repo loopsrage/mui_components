@@ -1141,7 +1141,7 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 			width: "100%",
 			backgroundColor: b ? "action.hover" : "inherit",
 			"& .MuiOutlinedInput-root": { transition: "background-color 0.2s" },
-			visibility: n ? "visible" : "hidden",
+			display: n ? "none" : "flex",
 			...a
 		},
 		...o

@@ -185,7 +185,7 @@ export const UIInput: FC<UploadInputProps> = ({refKey, register_component, hidde
                 '& .MuiOutlinedInput-root': {
                     transition: 'background-color 0.2s',
                 },
-                visibility: hidden ? 'visible' : 'hidden',
+                display: hidden ? 'none' : 'flex',
                 ...textFieldSx
             }}
             {...textFieldProps}
