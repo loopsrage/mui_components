@@ -16,6 +16,7 @@ export const GridWithButtons: FC<GridWithButtonsProps> = ({buttons, endpoint, ti
                 alignItems="center"
                 direction={"row"} >
                 <Typography sx={{
+                    m:2,
                     whiteSpace: 'nowrap',
                     overflow: 'hidden',
                     textOverflow: 'ellipsis'
