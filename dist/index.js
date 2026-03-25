@@ -916,7 +916,7 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 			item_id: i.row.item_id,
 			comments: i.row.comments
 		});
-		return console.log(JSON.stringify(i, null, 2)), /* @__PURE__ */ C(it, {
+		return /* @__PURE__ */ C(it, {
 			params: {
 				footerButtons: [
 					/* @__PURE__ */ C(n, {

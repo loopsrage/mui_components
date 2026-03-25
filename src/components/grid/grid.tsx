@@ -388,7 +388,6 @@ export const ModalCellRendererWrapper = (ref: RefObject<TableState>) => {
                 comments: params.row["comments"],
             }
         }
-        console.log(JSON.stringify(params, null, 2));
         const input_params =  {footerButtons: [
             <Button
                 variant='outlined'
