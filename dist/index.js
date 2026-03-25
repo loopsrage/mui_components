@@ -919,13 +919,13 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 		return /* @__PURE__ */ T(it, {
 			params: {
 				footerButtons: [
-					/* @__PURE__ */ T(b, {
+					a && /* @__PURE__ */ T(b, {
 						label: "Reason for rejection",
 						multiline: !0,
 						rows: 4,
 						variant: "outlined",
 						fullWidth: !0,
-						hidden: a,
+						defaultValue: s,
 						onChange: (e) => c(e.target.value)
 					}),
 					/* @__PURE__ */ T(n, {
@@ -950,7 +950,7 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 						},
 						children: "Reject"
 					}),
-					/* @__PURE__ */ T(N, {
+					a && /* @__PURE__ */ T(N, {
 						api: l.api,
 						sx: { backgroundColor: "green" },
 						variant: "contained",

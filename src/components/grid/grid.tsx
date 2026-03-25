@@ -399,15 +399,15 @@ export const ModalCellRendererWrapper = (ref: RefObject<TableState>) => {
         }
 
         const input_params =  {footerButtons: [
-            <TextField
+            rejected && (<TextField
                 label="Reason for rejection"
                 multiline
                 rows={4}
                 variant="outlined"
                 fullWidth
-                hidden={rejected}
+                defaultValue={comments}
                 onChange={(event) => setComments(event.target.value)}
-            />,
+            />),
             <Button
                 variant='outlined'
                 sx={{color: "black", backgroundColor: "white", borderColor: "black"}}
@@ -422,7 +422,7 @@ export const ModalCellRendererWrapper = (ref: RefObject<TableState>) => {
                 get_args={handleGetArgs}
                 callback={handleRejectCallback}
             >Reject</ApiButton>,
-            <ApiButton
+            rejected && (<ApiButton
                 api={st.api}
                 sx={{backgroundColor: "green"}}
                 variant="contained"
@@ -430,7 +430,7 @@ export const ModalCellRendererWrapper = (ref: RefObject<TableState>) => {
                 get_args={handleGetArgs}
                 callback={handleApproveCallback}
                 hidden={rejected}
-            >Approve</ApiButton>,
+            >Approve</ApiButton>),
             ], title: title, ...params.row};
         return <EditCellRenderer  params={input_params} handleRefreshGrid={async () =>await  Refresh(ref)} api={st.api} id={params.id} />
     }
