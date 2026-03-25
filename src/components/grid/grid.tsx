@@ -452,6 +452,7 @@ export const UITable: FC<Props> = ({ api, endpoint, row_details, refKey, registe
 
     return (
         <DataGrid
+            apiRef={apiRef}
             disableVirtualization
             rowCount={rowCount}
             sx={{

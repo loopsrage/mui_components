@@ -979,6 +979,7 @@ var W = ({ endpoint: e, handleErr: t }) => {
 		endpoint: t,
 		modal_title: null
 	}, T(() => (s(c.current), () => s(null)), [s]), /* @__PURE__ */ S(ce, {
+		apiRef: m,
 		disableVirtualization: !0,
 		rowCount: f,
 		sx: {
@@ -1141,8 +1142,8 @@ var W = ({ endpoint: e, handleErr: t }) => {
 			"& .MuiOutlinedInput-root": { transition: "background-color 0.2s" }
 		}
 	});
-}, At = ({ api: e, title: t, grid_endpoint: n, row_details: r, buttons: i, refKey: a }) => {
-	let o = i?.map((e) => e);
+}, At = ({ api: e, title: t, grid_endpoint: n, row_details: r, buttons: i, refKey: a, register_component: o }) => {
+	let s = i?.map((e) => e);
 	return /* @__PURE__ */ C(g, {
 		direction: "column",
 		gap: 2,
@@ -1164,13 +1165,14 @@ var W = ({ endpoint: e, handleErr: t }) => {
 					justifyContent: "flex-end",
 					width: "50%"
 				},
-				children: o
+				children: s
 			})]
 		}), /* @__PURE__ */ S(Ct, {
 			api: e,
 			endpoint: n,
 			row_details: r,
-			refKey: a
+			refKey: a,
+			register_component: o
 		})]
 	});
 }, jt = ({ children: e }) => /* @__PURE__ */ C(t, { children: [

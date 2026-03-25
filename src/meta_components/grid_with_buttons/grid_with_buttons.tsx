@@ -13,7 +13,7 @@ export interface GridWithButtonsProps extends IBaseRefProps {
     buttons?: ReactElement[] | null;
 }
 
-export const GridWithButtons: FC<GridWithButtonsProps> = ({api, title, grid_endpoint, row_details, buttons, refKey}) => {
+export const GridWithButtons: FC<GridWithButtonsProps> = ({api, title, grid_endpoint, row_details, buttons, refKey, register_component}) => {
     const headerButtons = buttons?.map((button) => button)
     return (
         <Stack direction={"column"} gap={2}>
@@ -35,7 +35,7 @@ export const GridWithButtons: FC<GridWithButtonsProps> = ({api, title, grid_endp
                     {headerButtons}
                 </Stack>
             </Stack>
-            <UITable api={api} endpoint={grid_endpoint} row_details={row_details} refKey={refKey}/>
+            <UITable api={api} endpoint={grid_endpoint} row_details={row_details} refKey={refKey} register_component={register_component}/>
         </Stack>
     )
 }
