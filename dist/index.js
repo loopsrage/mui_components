@@ -723,7 +723,31 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 			}
 		})]
 	});
-}, rt = ({ refreshGrid: e, api: t, id: n, title: r, footerButtons: i }) => /* @__PURE__ */ T(nt, {
+}, rt = ({ title: e, show: t, onCancel: r, onConfirm: i }) => /* @__PURE__ */ T(F, {
+	title: e || "Are you sure?",
+	show: t,
+	footer: /* @__PURE__ */ E(g, {
+		direction: "column",
+		gap: 3,
+		children: [/* @__PURE__ */ T(n, {
+			onClick: () => {
+				L(r) || r();
+			},
+			children: "Cancel"
+		}), /* @__PURE__ */ T(n, {
+			onClick: () => {
+				L(i) || i();
+			},
+			children: "Confirm"
+		})]
+	})
+}), it = ({ refreshGrid: e, api: t }) => /* @__PURE__ */ T(nt, {
+	title: "Create",
+	getSchema: t.schema,
+	handleSave: (n) => {
+		t.create(n).then(() => e());
+	}
+}), at = ({ refreshGrid: e, api: t, id: n, title: r, footerButtons: i }) => /* @__PURE__ */ T(nt, {
 	title: r,
 	button_title: "Update",
 	getSchema: Be(t, n),
@@ -733,19 +757,53 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 	footerButtons: i,
 	register_component: !0,
 	refKey: "update_modal"
-}), it = ({ handleRefreshGrid: e, api: t, id: n, params: r }) => /* @__PURE__ */ T(g, {
+}), ot = ({ refreshGrid: e, api: t, handleSelectedIds: r }) => {
+	let [i, a] = j(!1);
+	return /* @__PURE__ */ E(g, {
+		direction: "horizontal",
+		gap: 2,
+		children: [/* @__PURE__ */ T(n, {
+			onClick: () => {
+				a(!i);
+			},
+			children: "Delete"
+		}), /* @__PURE__ */ T(rt, {
+			onConfirm: () => {
+				t.deleteIds(r()).then(e()), a(!1);
+			},
+			show: i
+		})]
+	});
+}, st = ({ refreshGrid: e, api: t, id: r }) => {
+	let [i, a] = j(!1);
+	return /* @__PURE__ */ E(g, {
+		direction: "row",
+		gap: 3,
+		children: [/* @__PURE__ */ T(n, {
+			onClick: () => {
+				a(!i);
+			},
+			children: "Delete"
+		}), /* @__PURE__ */ T(rt, {
+			onConfirm: () => {
+				t.deleteId(r).then(e());
+			},
+			show: i
+		})]
+	});
+}, ct = ({ handleRefreshGrid: e, api: t, id: n, params: r }) => /* @__PURE__ */ T(g, {
 	direction: "row",
 	gap: 1,
-	children: /* @__PURE__ */ T(rt, {
+	children: /* @__PURE__ */ T(at, {
 		...r,
 		refreshGrid: e,
 		api: t,
 		id: n
 	})
-}), at = (e, t) => {
+}), lt = (e, t) => {
 	let n = e.current;
 	n && (n.endpoint = t);
-}, ot = (e) => e.current.endpoint, st = (e, t) => {
+}, ut = (e) => e.current.endpoint, dt = (e, t) => {
 	let n = e.current;
 	W(t, (e) => {
 		let t = e.value, r = e.path, i = typeof t;
@@ -757,7 +815,7 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 			headerName: r
 		}, n.rows[n.index] = [], n.headers_ri[r] = n.index, n.index++;
 	}), e.current = n;
-}, ct = (e, t) => {
+}, ft = (e, t) => {
 	let n = e.current;
 	n && (n.rows = [], n.row_count = 0, n.headers.forEach(() => {
 		n.rows.push([]);
@@ -767,7 +825,7 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 			t !== void 0 && n.rows[t].push(e.value);
 		}
 	}), e.current = n);
-}, lt = (e) => {
+}, pt = (e) => {
 	let t = e.current;
 	if (!t || !t.rows || t.rows.length === 0) return [];
 	let n = t.rows[0].length;
@@ -778,7 +836,7 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 			r[e.field] = a ? a[n] : null;
 		}), r.id = r.id, r;
 	});
-}, ut = (e) => {
+}, mt = (e) => {
 	let t = e.current, n = Object.keys(t.headers_ri).map((e) => ({
 		field: e,
 		sortable: !0,
@@ -796,36 +854,36 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 		pinnable: !0,
 		flex: 1,
 		type: "actions",
-		renderCell: wt(e)
+		renderCell: Ot(e)
 	}), n;
-}, dt = (e) => e.current.paginationModel, ft = (e, t) => {
+}, ht = (e) => e.current.paginationModel, gt = (e, t) => {
 	let n = e.current;
 	n && (n.args = t, e.current = n, n.refresh());
-}, pt = (e, t) => {
+}, _t = (e, t) => {
 	let n = e.current;
 	n && (n.args = {
 		...n.args,
 		...t
 	}, e.current = n, n.refresh());
-}, mt = (e, t) => {
+}, vt = (e, t) => {
 	let n = e.current;
 	n && (n.args.sortModel = JSON.stringify(t), e.current = n);
-}, ht = (e, t) => {
+}, yt = (e, t) => {
 	let n = e.current;
 	n && (n.args.filterModel = JSON.stringify(t), e.current = n);
-}, gt = (e, t) => () => {
+}, bt = (e, t) => () => {
 	let n = e.current;
 	n && (n.paginationModel = t, n.args.paginationModel = JSON.stringify(t), e.current = n);
-}, _t = (e, t) => {
+}, xt = (e, t) => {
 	let n = e.current;
 	n && (n.fetch_params = t, e.current = n);
-}, vt = (e) => e.current.fetch_params, yt = (e, t) => ({ getRows: async (n) => {
+}, St = (e) => e.current.fetch_params, Ct = (e, t) => ({ getRows: async (n) => {
 	let r = e.current;
 	if (!r) return {
 		rows: [],
 		rowCount: 0
 	};
-	ht(e, n.filterModel), mt(e, n.sortModel);
+	yt(e, n.filterModel), vt(e, n.sortModel);
 	let { page: i, pageSize: a } = n.paginationModel ?? {
 		page: 0,
 		pageSize: 10
@@ -841,23 +899,23 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 	let c = await r.api.at("/" + r.endpoint, {
 		fetchParams: {
 			method: "GET",
-			...vt(e)
+			...St(e)
 		},
 		args: s
 	}), l = G(null, [], ".", c.results);
-	return st(e, l), ct(e, l), r.row_count = c.pagination?.total || 0, e.current = r, t(), {
-		rows: lt(e),
+	return dt(e, l), ft(e, l), r.row_count = c.pagination?.total || 0, e.current = r, t(), {
+		rows: pt(e),
 		rowCount: c.pagination?.total || 0
 	};
-} }), bt = (e, t) => {
+} }), wt = (e, t) => {
 	let n = e.current;
 	n && (n.args.search = t, e.current = n);
-}, xt = (e) => e.current.datasource, Q = async (e) => {
+}, Tt = (e) => e.current.datasource, Q = async (e) => {
 	let t = e.current;
 	if (!t) return;
 	let n = t.gridRef.current;
 	n.dataSource.cache.clear(), await n.dataSource.fetchRows(), t.refresh();
-}, St = (e) => (t) => {
+}, Et = (e) => (t) => {
 	let n = e.current;
 	if (!n || n.rows.length === 0) return;
 	let r = t.ids, i = n.rows[0].length, a = Array.from({ length: i }, (e, t) => t).filter((e) => {
@@ -865,13 +923,13 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 		return r.has(t);
 	});
 	n.selected_data = n.rows.map((e) => a.map((t) => e[t])), n.selected_ids = t, e.current = n;
-}, Ct = (e, t) => {
+}, Dt = (e, t) => {
 	let n = e.current;
 	n && (n.cellRenderer = t, e.current = n);
-}, wt = (e) => {
+}, Ot = (e) => {
 	let t = e.current;
-	if (t) return t.cellRenderer ? t.cellRenderer(e) : Tt(e);
-}, Tt = (e) => {
+	if (t) return t.cellRenderer ? t.cellRenderer(e) : kt(e);
+}, kt = (e) => {
 	let r = X();
 	return (i) => {
 		let [a, o] = j(!1), [s, c] = j(""), l = e.current;
@@ -922,7 +980,7 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 			item_id: i.row.item_id,
 			comments: s
 		});
-		return /* @__PURE__ */ T(it, {
+		return /* @__PURE__ */ T(ct, {
 			params: {
 				footerButtons: [
 					a && /* @__PURE__ */ T(b, {
@@ -986,7 +1044,7 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 			id: i.id
 		});
 	};
-}, Et = ({ api: e, endpoint: t, row_details: n, refKey: r, cellRenderer: i, register_component: a = !1, toolbar: o = !1, checkbox_select: s = !1 }) => {
+}, At = ({ api: e, endpoint: t, row_details: n, refKey: r, cellRenderer: i, register_component: a = !1, toolbar: o = !1, checkbox_select: s = !1 }) => {
 	let c = Z(r, a), l = A(null), [, u] = j(!1), [d, f] = j({
 		page: 0,
 		pageSize: 5
@@ -1000,7 +1058,7 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 		headers_ri: {},
 		rows: [],
 		row_count: 0,
-		datasource: yt(l, g),
+		datasource: Ct(l, g),
 		paginationModel: {
 			page: 0,
 			pageSize: 5
@@ -1060,8 +1118,8 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 			"& .MuiDataGrid-menuIcon": { color: "white" },
 			"& .MuiDataGrid-columnSeparator": { color: "#333" }
 		},
-		columns: ut(l),
-		dataSource: xt(l),
+		columns: mt(l),
+		dataSource: Tt(l),
 		pageSizeOptions: [
 			5,
 			10,
@@ -1073,7 +1131,7 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 		onPaginationModelChange: (e) => {
 			f(e);
 		},
-		onRowSelectionModelChange: (e) => St(l)(e),
+		onRowSelectionModelChange: (e) => Et(l)(e),
 		paginationMode: "server",
 		sortingMode: "server",
 		filterMode: "server",
@@ -1089,7 +1147,7 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 			console.error("DataGrid Error Type:", e.name), console.error("DataGrid Error Message:", e.message), e.cause && (console.group("Original Error Cause"), console.error("Message:", e.cause.message), console.error("Stack:", e.cause.stack), console.groupEnd()), e instanceof ae ? console.warn("Fetch failed. Check your API mock or network.") : console.warn("Row update failed.");
 		}
 	});
-}, Dt = ({ loading: e, value: n }) => /* @__PURE__ */ T(t, {
+}, jt = ({ loading: e, value: n }) => /* @__PURE__ */ T(t, {
 	sx: {
 		position: "relative",
 		display: "inline-flex"
@@ -1119,16 +1177,16 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 			})
 		})]
 	})
-}), Ot = ({ ...e }) => /* @__PURE__ */ T(u, {
+}), Mt = ({ ...e }) => /* @__PURE__ */ T(u, {
 	...e,
 	children: /* @__PURE__ */ T(Ce, {})
-}), kt = (e, t) => {
+}), Nt = (e, t) => {
 	let n = e.current;
 	n && (n.setProgressValue(t), n.progressValue = t, e.current = n);
-}, At = (e) => !e || !e.current ? 1 : e.current.progressValue, jt = (e, t) => {
+}, Pt = (e) => !e || !e.current ? 1 : e.current.progressValue, Ft = (e, t) => {
 	let n = e.current;
 	n && n.handleToggle(t);
-}, Mt = ({ refKey: e, register_component: t, hidden: n, onDropSuccess: r, onSend: i, textFieldSx: a, textFieldProps: o, sendButtonProps: s }) => {
+}, It = ({ refKey: e, register_component: t, hidden: n, onDropSuccess: r, onSend: i, textFieldSx: a, textFieldProps: o, sendButtonProps: s }) => {
 	let [c, l] = j(""), [d, p] = j(!1), [m, h] = j(0), g = Z(e, t), _ = A({
 		handleToggle: (e) => {
 			p(e);
@@ -1147,10 +1205,10 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 		multiple: !1
 	});
 	k(() => (g(_.current), () => g(null)), [g]);
-	let { ref: C, ...w } = v(), D = d ? /* @__PURE__ */ T(Dt, {
+	let { ref: C, ...w } = v(), D = d ? /* @__PURE__ */ T(jt, {
 		loading: !0,
 		value: m
-	}) : /* @__PURE__ */ T(Ot, {
+	}) : /* @__PURE__ */ T(Mt, {
 		onClick: i,
 		sx: { color: m === 100 ? "red" : "inherit" },
 		...s
@@ -1187,7 +1245,7 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 		},
 		...o
 	});
-}, Nt = ({ buttons: e, endpoint: t, title: n, ...r }) => {
+}, Lt = ({ buttons: e, endpoint: t, title: n, ...r }) => {
 	let i = e?.map((e) => e);
 	return /* @__PURE__ */ E(g, {
 		direction: "column",
@@ -1213,12 +1271,12 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 				},
 				children: i
 			})]
-		}), /* @__PURE__ */ T(Et, {
+		}), /* @__PURE__ */ T(At, {
 			...r,
 			endpoint: t
 		})]
 	});
-}, Pt = ({ children: e }) => /* @__PURE__ */ E(t, {
+}, Rt = ({ children: e }) => /* @__PURE__ */ E(t, {
 	sx: { width: "100%" },
 	children: [
 		/* @__PURE__ */ T(M, {}),
@@ -1240,7 +1298,7 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 		value: n,
 		children: e
 	});
-}, Ft = ({ children: e }) => /* @__PURE__ */ T($, { children: /* @__PURE__ */ T(Pt, { children: /* @__PURE__ */ T(g, {
+}, zt = ({ children: e }) => /* @__PURE__ */ T($, { children: /* @__PURE__ */ T(Rt, { children: /* @__PURE__ */ T(g, {
 	direction: "column",
 	gap: 2,
 	alignItems: "center",
@@ -1248,4 +1306,4 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 	children: e
 }) }) });
 //#endregion
-export { J as AddElement, ze as Api, P as ApiButton, Te as CenteredContainer, F as CenteredModal, Ge as Close, yt as DataSourceWrapper, $e as DeleteLabel, wt as GetCellRenderer, q as GetContainer, xt as GetDatasource, Qe as GetElementIndex, Ze as GetElementTypes, Xe as GetElementValue, Je as GetElements, ot as GetEndpoint, vt as GetFetchParams, ut as GetHeaders, dt as GetPaginationModel, At as GetProgressValue, lt as GetRows, qe as GetSet, Nt as GridWithButtons, Ft as HFCenteredLayout, Be as HandleGet, Pt as HeaderFooterLayout, We as InitialTypeFormBuilderRefState, L as IsNullOrUndefined, I as IsPrimitive, Tt as ModalCellRendererWrapper, Dt as ProgressAdornment, Y as RefIndexContext, $ as RefProvider, Q as Refresh, He as SelectAssociation, Ot as SendIconButton, ft as SetArgs, Ct as SetCellRenderer, K as SetContainer, at as SetEndpoint, _t as SetFetchParams, ht as SetFilterModel, Ke as SetHandleClose, st as SetHeadersFromJson, jt as SetLoading, pt as SetOrAddArgs, gt as SetPaginationModel, kt as SetProgressValue, ct as SetRowsFromJson, bt as SetSearch, St as SetSelectedRows, mt as SetSortModel, R as TitleCase, et as TypeFormBuilder, M as UIAppBar, N as UIBottomNav, Mt as UIInput, Et as UITable, Ye as UpdateElementValues, Z as useConditionalRef, tt as useManagedRef, X as useRefIndex };
+export { J as AddElement, ze as Api, P as ApiButton, Te as CenteredContainer, F as CenteredModal, Ge as Close, it as Create, Ct as DataSourceWrapper, st as Delete, $e as DeleteLabel, ot as DeleteMany, ct as EditCellRenderer, Ot as GetCellRenderer, q as GetContainer, Tt as GetDatasource, Qe as GetElementIndex, Ze as GetElementTypes, Xe as GetElementValue, Je as GetElements, ut as GetEndpoint, St as GetFetchParams, mt as GetHeaders, ht as GetPaginationModel, Pt as GetProgressValue, pt as GetRows, qe as GetSet, Lt as GridWithButtons, zt as HFCenteredLayout, Be as HandleGet, Rt as HeaderFooterLayout, We as InitialTypeFormBuilderRefState, L as IsNullOrUndefined, I as IsPrimitive, kt as ModalCellRendererWrapper, jt as ProgressAdornment, Y as RefIndexContext, $ as RefProvider, Q as Refresh, He as SelectAssociation, Mt as SendIconButton, gt as SetArgs, Dt as SetCellRenderer, K as SetContainer, lt as SetEndpoint, xt as SetFetchParams, yt as SetFilterModel, Ke as SetHandleClose, dt as SetHeadersFromJson, Ft as SetLoading, _t as SetOrAddArgs, bt as SetPaginationModel, Nt as SetProgressValue, ft as SetRowsFromJson, wt as SetSearch, Et as SetSelectedRows, vt as SetSortModel, R as TitleCase, et as TypeFormBuilder, M as UIAppBar, N as UIBottomNav, It as UIInput, At as UITable, at as Update, Ye as UpdateElementValues, Z as useConditionalRef, tt as useManagedRef, X as useRefIndex };

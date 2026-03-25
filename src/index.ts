@@ -8,6 +8,7 @@ export * from './components/grid/grid';
 export * from './components/upload_input/upload_input';
 
 // Meta Components
+export * from './meta_components/crud_elements/crud_elements';
 export * from './meta_components/grid_with_buttons/grid_with_buttons';
 export * from './meta_components/header_footer_layout/header_footer_layout';
 export * from './meta_components/hf_cenered/hf_centered';
