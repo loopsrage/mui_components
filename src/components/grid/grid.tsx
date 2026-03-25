@@ -454,7 +454,7 @@ export const UITable: FC<Props> = ({ api, endpoint, row_details, refKey, registe
             disableVirtualization
             rowCount={rowCount}
             sx={{
-                width: "100%",
+                width: "80hv",
                 // Sticky Header
                 '& .MuiDataGrid-columnHeader[data-field="edit"]': {
                     position: 'sticky',

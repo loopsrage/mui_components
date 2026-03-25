@@ -982,7 +982,7 @@ var W = ({ endpoint: e, handleErr: t }) => {
 		disableVirtualization: !0,
 		rowCount: f,
 		sx: {
-			width: "100%",
+			width: "80hv",
 			"& .MuiDataGrid-columnHeader[data-field=\"edit\"]": {
 				position: "sticky",
 				right: 0,
