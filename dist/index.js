@@ -1196,6 +1196,8 @@ var W = ({ endpoint: e, handleErr: t }) => {
 }, Nt = ({ children: e }) => /* @__PURE__ */ S($, { children: /* @__PURE__ */ S(Mt, { children: /* @__PURE__ */ S(g, {
 	direction: "column",
 	gap: 2,
+	alignItems: "center",
+	sx: { width: "100%" },
 	children: e
 }) }) });
 //#endregion
