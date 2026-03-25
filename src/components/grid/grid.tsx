@@ -304,10 +304,8 @@ export const Refresh = async (ref: RefObject<TableState>) => {
     if (!st) return;
     const api = st.gridRef.current as GridApi;
 
-    if (api) {
-        api.dataSource.cache.clear();
-        await api.dataSource.fetchRows();
-    }
+    api.dataSource.cache.clear();
+    await api.dataSource.fetchRows();
     st.refresh()
 }
 

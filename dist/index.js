@@ -857,7 +857,7 @@ var W = ({ endpoint: e, handleErr: t }) => {
 	let t = e.current;
 	if (!t) return;
 	let n = t.gridRef.current;
-	n && (n.dataSource.cache.clear(), await n.dataSource.fetchRows()), t.refresh();
+	n.dataSource.cache.clear(), await n.dataSource.fetchRows(), t.refresh();
 }, xt = (e) => (t) => {
 	let n = e.current;
 	if (!n || n.rows.length === 0) return;
