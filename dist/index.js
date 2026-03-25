@@ -629,7 +629,7 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 		r.nameIndex[t] = r.index, r.elements[r.index] = n;
 		let i = Ze(e, t, n);
 		if (!L(i)) {
-			let e = R(t.replace(/root\./, ""), "."), n = e.split(" "), a = n[n.length - 1];
+			let e = R(t.replace(/root\./, ""), "_"), n = e.split(" "), a = n[n.length - 1];
 			/^\d+$/.test(a) ? r.labels[r.index] = "None" : r.labels[r.index] = /* @__PURE__ */ T(p, {
 				column: t,
 				children: e
