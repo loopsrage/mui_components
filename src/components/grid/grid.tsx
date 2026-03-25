@@ -1,4 +1,4 @@
-import {type FC, type RefObject, useLayoutEffect, useRef, useState} from "react";
+import {type FC, type JSX, type RefObject, useLayoutEffect, useRef, useState} from "react";
 import {
     DataGrid, type GridApi,
     type GridColDef,
@@ -29,6 +29,7 @@ export interface TableState {
     rows: unknown[][]
     row_count: number
     row_details?: boolean | null
+    cellRenderer?: (ref: RefObject<TableState>) => (params: GridRenderCellParams) => (undefined | JSX.Element) | null
     datasource: GridDataSource
     paginationModel: GridPaginationModel | undefined
 
@@ -52,6 +53,7 @@ export interface Props extends IBaseRefProps {
     row_details?: boolean | null
     checkbox_select?: boolean | undefined
     toolbar?: boolean | undefined
+    cellRenderer?:  (ref: RefObject<TableState>) => (params: GridRenderCellParams) => (undefined | JSX.Element) | null
 }
 
 export const SetEndpoint = (ref: RefObject<TableState>, endpoint: string) => {
@@ -331,6 +333,23 @@ export const SetSelectedRows = (ref: RefObject<TableState>) => {
     }
 }
 
+export const SetCellRenderer = (ref: RefObject<TableState>, cellRenderer:  (ref: RefObject<TableState>) => (params: GridRenderCellParams) => (undefined | JSX.Element) | null) => {
+    const st = ref.current;
+    if (!st) return;
+
+    st.cellRenderer = cellRenderer
+
+    ref.current = st;
+}
+
+export const GetCellRenderer = (ref: RefObject<TableState>) => {
+    const st = ref.current;
+    if (!st) return;
+    return st.cellRenderer
+        ? st.cellRenderer(ref)
+        : ModalCellRendererWrapper(ref)
+}
+
 export const ModalCellRendererWrapper = (ref: RefObject<TableState>) => {
     const context = useRefIndex();
     return (params: GridRenderCellParams) => {
@@ -444,7 +463,7 @@ export const ModalCellRendererWrapper = (ref: RefObject<TableState>) => {
     }
 }
 
-export const UITable: FC<Props> = ({ api, endpoint, row_details, refKey, register_component=false, toolbar=false, checkbox_select=false}) => {
+export const UITable: FC<Props> = ({ api, endpoint, row_details, refKey, cellRenderer, register_component=false, toolbar=false, checkbox_select=false}) => {
     const setRegistryRef = useConditionalRef(refKey, register_component)
     const localRef = useRef<TableState>(null as unknown as TableState);
     const [, setToggle] = useState(false);
@@ -474,6 +493,7 @@ export const UITable: FC<Props> = ({ api, endpoint, row_details, refKey, registe
             selected_data: [],
             selected_ids: null,
             refresh: handleToggle,
+            cellRenderer: cellRenderer,
             filter_model: null,
             api: api,
             row_details: row_details,
