@@ -152,17 +152,19 @@ export const GetHeaders = (ref: RefObject<TableState>) => {
     } as GridColDef));
 
     if (st.row_details) {
-        headers.push({
+        const editColumn: GridColDef = {
+            field: "edit",
+            headerName: "Details / Approvals",
             sortable: false,
             filterable: false,
             width: 100,
-            field: "edit",
-            headerName: "Edit",
-            pinnable: true,
             flex: 1,
             type: 'actions',
             renderCell: GetCellRenderer(ref),
-        } as GridColDef)
+        };
+
+        const insertPosition = Math.max(0, headers.length - 1);
+        headers.splice(insertPosition, 0, editColumn);
     }
     return headers;
 }

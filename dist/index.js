@@ -851,17 +851,20 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 		flex: 2,
 		type: "string"
 	}));
-	return t.row_details && n.push({
-		sortable: !1,
-		filterable: !1,
-		width: 100,
-		field: "edit",
-		headerName: "Edit",
-		pinnable: !0,
-		flex: 1,
-		type: "actions",
-		renderCell: Ot(e)
-	}), n;
+	if (t.row_details) {
+		let t = {
+			field: "edit",
+			headerName: "Details / Approvals",
+			sortable: !1,
+			filterable: !1,
+			width: 100,
+			flex: 1,
+			type: "actions",
+			renderCell: Ot(e)
+		}, r = Math.max(0, n.length - 1);
+		n.splice(r, 0, t);
+	}
+	return n;
 }, ht = (e) => e.current.paginationModel, gt = (e, t) => {
 	let n = e.current;
 	n && (n.args = t, e.current = n, n.refresh());
