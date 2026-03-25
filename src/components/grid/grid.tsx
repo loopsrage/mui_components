@@ -381,20 +381,33 @@ export const ModalCellRendererWrapper = (ref: RefObject<TableState>) => {
                 </Stack>
             </Stack>
         )
+
+        const handleGetArgs = () => {
+            return {
+                item_id: params.row["item_id"],
+                comments: params.row["comments"],
+            }
+        }
+        console.log(JSON.stringify(params, null, 2));
         const input_params =  {footerButtons: [
             <Button
                 variant='outlined'
                 sx={{color: "black", backgroundColor: "white", borderColor: "black"}}
-                startIcon={<DownloadIcon/>}>Extract</Button>,
+                startIcon={<DownloadIcon/>}
+            >Extract</Button>,
             <Box key="spacer" sx={{ flexGrow: 1 }} />,
-            <Button
+            <ApiButton
+                api={st.api}
+                endpoint={"reject"}
                 sx={{backgroundColor: "red"}}
-                variant="contained">Reject</Button>,
+                variant="contained"
+                get_args={handleGetArgs}>Reject</ApiButton>,
             <ApiButton
                 api={st.api}
                 sx={{backgroundColor: "green"}}
                 variant="contained"
-                endpoint={"Approve"}>Approve</ApiButton>,
+                endpoint={"approve"}
+                get_args={handleGetArgs}>Approve</ApiButton>,
             ], title: title, ...params.row};
         return <EditCellRenderer  params={input_params} handleRefreshGrid={async () =>await  Refresh(ref)} api={st.api} id={params.id} />
     }

@@ -1,10 +1,10 @@
 
 import React, {useLayoutEffect, useRef, useState} from "react";
 
-import {BuildContainerTree, NewObject, ReadFromContainers} from "../../utility/containers.js";
+import {BuildContainerTree, NewObject, ReadFromContainers} from "@/utility/containers.js";
 import {Box, Button, IconButton, Stack, Tab, Tabs} from "@mui/material";
-import {IsNullOrUndefined} from "../../utility/validation.js";
-import {CenteredModal} from "../centered_modal/centered_modal.jsx";
+import {IsNullOrUndefined} from "@/utility/validation.js";
+import {CenteredModal} from "@";
 import {
     AddElement,
     GetContainer, GetElements,

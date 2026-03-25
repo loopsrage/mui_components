@@ -912,8 +912,11 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 				direction: "row",
 				children: [i.row.code, i.row.description]
 			})]
+		}), c = () => ({
+			item_id: i.row.item_id,
+			comments: i.row.comments
 		});
-		return /* @__PURE__ */ C(it, {
+		return console.log(JSON.stringify(i, null, 2)), /* @__PURE__ */ C(it, {
 			params: {
 				footerButtons: [
 					/* @__PURE__ */ C(n, {
@@ -927,16 +930,20 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 						children: "Extract"
 					}),
 					/* @__PURE__ */ C(t, { sx: { flexGrow: 1 } }, "spacer"),
-					/* @__PURE__ */ C(n, {
+					/* @__PURE__ */ C(M, {
+						api: a.api,
+						endpoint: "reject",
 						sx: { backgroundColor: "red" },
 						variant: "contained",
+						get_args: c,
 						children: "Reject"
 					}),
 					/* @__PURE__ */ C(M, {
 						api: a.api,
 						sx: { backgroundColor: "green" },
 						variant: "contained",
-						endpoint: "Approve",
+						endpoint: "approve",
+						get_args: c,
 						children: "Approve"
 					})
 				],
