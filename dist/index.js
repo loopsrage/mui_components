@@ -853,9 +853,11 @@ var W = ({ endpoint: e, handleErr: t }) => {
 } }), yt = (e, t) => {
 	let n = e.current;
 	n && (n.args.search = t, e.current = n);
-}, $ = (e) => e.current.datasource, bt = (e) => {
+}, $ = (e) => e.current.datasource, bt = async (e) => {
 	let t = e.current;
-	t && (t.gridRef.current && (t.gridRef.current?.dataSource.cache.clear(), t.gridRef.current?.dataSource.fetchRows()), t.refresh());
+	if (!t) return;
+	let n = t.gridRef.current;
+	n && (n.dataSource.cache.clear(), await n.dataSource.fetchRows()), t.refresh();
 }, xt = (e) => (t) => {
 	let n = e.current;
 	if (!n || n.rows.length === 0) return;

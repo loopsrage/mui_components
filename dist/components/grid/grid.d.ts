@@ -61,7 +61,7 @@ export declare const DataSourceWrapper: (ref: RefObject<TableState>, handleToggl
 };
 export declare const SetSearch: (ref: RefObject<TableState>, value: string) => void;
 export declare const GetDatasource: (ref: RefObject<TableState>) => GridDataSource;
-export declare const Refresh: (ref: RefObject<TableState>) => void;
+export declare const Refresh: (ref: RefObject<TableState>) => Promise<void>;
 export declare const SetSelectedRows: (ref: RefObject<TableState>) => (model: GridRowSelectionModel) => void;
 export declare const ModalCellRendererWrapper: (ref: RefObject<TableState>) => (params: GridRenderCellParams) => import("react/jsx-runtime").JSX.Element | undefined;
 export declare const UITable: FC<Props>;

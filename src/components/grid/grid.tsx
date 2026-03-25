@@ -299,12 +299,14 @@ export const GetDatasource = (ref: RefObject<TableState>) => {
     return ref.current.datasource
 }
 
-export const Refresh = (ref: RefObject<TableState>) => {
+export const Refresh = async (ref: RefObject<TableState>) => {
     const st = ref.current;
     if (!st) return;
-    if (st.gridRef.current) {
-        st.gridRef.current?.dataSource.cache.clear();
-        st.gridRef.current?.dataSource.fetchRows();
+    const api = st.gridRef.current as GridApi;
+
+    if (api) {
+        api.dataSource.cache.clear();
+        await api.dataSource.fetchRows();
     }
     st.refresh()
 }
