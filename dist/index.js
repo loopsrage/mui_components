@@ -239,12 +239,13 @@ var Oe = (e, t) => () => (t || e((t = { exports: {} }).exports, t), t.exports), 
 	let [r] = he(), i = E("");
 	return w(() => {
 		e && (async () => {
-			let t = "";
-			t = typeof e == "object" && e ? e || JSON.stringify(e, null, 2) : String(e), t !== i.current && (i.current = t, r.update(() => {
+			if (!e) return;
+			let t = String(e).replace(/^"|"$/g, "").replace(/\\n/g, "<br/>");
+			t !== i.current && (i.current = t, r.update(() => {
 				let e = ve();
 				e.clear();
-				let n = new DOMParser(), i = t.includes("<") && t.includes(">") ? t : `<div>${t.replace(/\n/g, "<br/>")}</div>`, a = _e(r, n.parseFromString(i, "text/html"));
-				a.length > 0 && e.append(...a);
+				let n = _e(r, new DOMParser().parseFromString(`<div>${t}</div>`, "text/html"));
+				n.length > 0 && e.append(...n);
 			}));
 		})();
 	}, [e, r]), w(() => r.registerUpdateListener(({ editorState: e }) => {

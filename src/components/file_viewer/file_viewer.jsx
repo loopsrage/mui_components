@@ -5,7 +5,6 @@ import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { $generateHtmlFromNodes, $generateNodesFromDOM } from "@lexical/html";
-// IMPORT THE NODE CLASSES
 import { $getRoot, $createTextNode, ParagraphNode, TextNode } from "lexical";
 import { Box, Paper } from "@mui/material";
 
@@ -17,30 +16,21 @@ const DataSyncPlugin = ({ fileData, onChange, name }) => {
         if (!fileData) return;
 
         const processData = async () => {
-            let decoded = "";
+            if (!fileData) return;
 
-            // FIX 1: Safely extract the text string from your object
-            if (typeof fileData === 'object' && fileData !== null) {
-                // If your payload has 'reasoning', use it, otherwise stringify the whole thing
-                decoded = fileData || JSON.stringify(fileData, null, 2);
-            } else {
-                decoded = String(fileData);
-            }
+            let cleanText = String(fileData)
+                .replace(/^"|"$/g, '')
+                .replace(/\\n/g, '<br/>');
 
-            // Guard: Prevent infinite loop clearing the editor
-            if (decoded === lastContentRef.current) return;
-            lastContentRef.current = decoded;
+            if (cleanText === lastContentRef.current) return;
+            lastContentRef.current = cleanText;
 
             editor.update(() => {
                 const root = $getRoot();
                 root.clear();
 
                 const parser = new DOMParser();
-                // FIX 2: Ensure we pass a string to replace
-                const isHtml = decoded.includes('<') && decoded.includes('>');
-                const htmlContent = isHtml ? decoded : `<div>${decoded.replace(/\n/g, '<br/>')}</div>`;
-
-                const dom = parser.parseFromString(htmlContent, "text/html");
+                const dom = parser.parseFromString(`<div>${cleanText}</div>`, "text/html");
                 const nodes = $generateNodesFromDOM(editor, dom);
 
                 if (nodes.length > 0) {
@@ -48,7 +38,6 @@ const DataSyncPlugin = ({ fileData, onChange, name }) => {
                 }
             });
         };
-
         processData();
     }, [fileData, editor]);
 
@@ -68,7 +57,6 @@ const DataSyncPlugin = ({ fileData, onChange, name }) => {
 export const DataViewer = ({ fileData, subtype, inputProps }) => {
     const initialConfig = {
         namespace: "MyEditor",
-        // FIX 3: Register the nodes here or Lexical will crash
         nodes: [ParagraphNode, TextNode],
         theme: {},
         onError: (error) => console.error("Lexical Error:", error),
