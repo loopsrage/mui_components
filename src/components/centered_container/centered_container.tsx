@@ -18,7 +18,7 @@ export const CenteredContainer: FC<ICenteredContainer> = ({children, sx = {}}) =
                 ...sx
             }}
         >
-            <Stack direction={"column"}>
+            <Stack direction={"column"} sx={{ width: '100%' }}>
                 {children}
             </Stack>
         </Box>
