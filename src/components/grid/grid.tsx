@@ -161,7 +161,7 @@ export const GetHeaders = (ref: RefObject<TableState>) => {
             pinnable: true,
             flex: 1,
             type: 'actions',
-            renderCell: ModalCellRendererWrapper(ref),
+            renderCell: GetCellRenderer(ref),
         } as GridColDef)
     }
     return headers;

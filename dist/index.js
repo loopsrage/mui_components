@@ -796,7 +796,7 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 		pinnable: !0,
 		flex: 1,
 		type: "actions",
-		renderCell: $(e)
+		renderCell: wt(e)
 	}), n;
 }, dt = (e) => e.current.paginationModel, ft = (e, t) => {
 	let n = e.current;
@@ -870,8 +870,8 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 	n && (n.cellRenderer = t, e.current = n);
 }, wt = (e) => {
 	let t = e.current;
-	if (t) return t.cellRenderer ? t.cellRenderer(e) : $(e);
-}, $ = (e) => {
+	if (t) return t.cellRenderer ? t.cellRenderer(e) : Tt(e);
+}, Tt = (e) => {
 	let r = X();
 	return (i) => {
 		let [a, o] = j(!1), [s, c] = j(""), l = e.current;
@@ -986,7 +986,7 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 			id: i.id
 		});
 	};
-}, Tt = ({ api: e, endpoint: t, row_details: n, refKey: r, cellRenderer: i, register_component: a = !1, toolbar: o = !1, checkbox_select: s = !1 }) => {
+}, Et = ({ api: e, endpoint: t, row_details: n, refKey: r, cellRenderer: i, register_component: a = !1, toolbar: o = !1, checkbox_select: s = !1 }) => {
 	let c = Z(r, a), l = A(null), [, u] = j(!1), [d, f] = j({
 		page: 0,
 		pageSize: 5
@@ -1087,7 +1087,7 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 			console.error("DataGrid Error Type:", e.name), console.error("DataGrid Error Message:", e.message), e.cause && (console.group("Original Error Cause"), console.error("Message:", e.cause.message), console.error("Stack:", e.cause.stack), console.groupEnd()), e instanceof ae ? console.warn("Fetch failed. Check your API mock or network.") : console.warn("Row update failed.");
 		}
 	});
-}, Et = ({ loading: e, value: n }) => /* @__PURE__ */ T(t, {
+}, Dt = ({ loading: e, value: n }) => /* @__PURE__ */ T(t, {
 	sx: {
 		position: "relative",
 		display: "inline-flex"
@@ -1117,16 +1117,16 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 			})
 		})]
 	})
-}), Dt = ({ ...e }) => /* @__PURE__ */ T(u, {
+}), Ot = ({ ...e }) => /* @__PURE__ */ T(u, {
 	...e,
 	children: /* @__PURE__ */ T(Ce, {})
-}), Ot = (e, t) => {
+}), kt = (e, t) => {
 	let n = e.current;
 	n && (n.setProgressValue(t), n.progressValue = t, e.current = n);
-}, kt = (e) => !e || !e.current ? 1 : e.current.progressValue, At = (e, t) => {
+}, At = (e) => !e || !e.current ? 1 : e.current.progressValue, jt = (e, t) => {
 	let n = e.current;
 	n && n.handleToggle(t);
-}, jt = ({ refKey: e, register_component: t, hidden: n, onDropSuccess: r, onSend: i, textFieldSx: a, textFieldProps: o, sendButtonProps: s }) => {
+}, Mt = ({ refKey: e, register_component: t, hidden: n, onDropSuccess: r, onSend: i, textFieldSx: a, textFieldProps: o, sendButtonProps: s }) => {
 	let [c, l] = j(""), [d, p] = j(!1), [m, h] = j(0), g = Z(e, t), _ = A({
 		handleToggle: (e) => {
 			p(e);
@@ -1145,10 +1145,10 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 		multiple: !1
 	});
 	k(() => (g(_.current), () => g(null)), [g]);
-	let { ref: C, ...w } = v(), D = d ? /* @__PURE__ */ T(Et, {
+	let { ref: C, ...w } = v(), D = d ? /* @__PURE__ */ T(Dt, {
 		loading: !0,
 		value: m
-	}) : /* @__PURE__ */ T(Dt, {
+	}) : /* @__PURE__ */ T(Ot, {
 		onClick: i,
 		sx: { color: m === 100 ? "red" : "inherit" },
 		...s
@@ -1185,7 +1185,7 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 		},
 		...o
 	});
-}, Mt = ({ api: e, title: t, grid_endpoint: n, row_details: r, buttons: i, refKey: a, register_component: o }) => {
+}, Nt = ({ api: e, title: t, grid_endpoint: n, row_details: r, buttons: i, refKey: a, register_component: o }) => {
 	let s = i?.map((e) => e);
 	return /* @__PURE__ */ E(g, {
 		direction: "column",
@@ -1211,7 +1211,7 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 				},
 				children: s
 			})]
-		}), /* @__PURE__ */ T(Tt, {
+		}), /* @__PURE__ */ T(Et, {
 			api: e,
 			endpoint: n,
 			row_details: r,
@@ -1219,14 +1219,14 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 			register_component: o
 		})]
 	});
-}, Nt = ({ children: e }) => /* @__PURE__ */ E(t, {
+}, Pt = ({ children: e }) => /* @__PURE__ */ E(t, {
 	sx: { width: "100%" },
 	children: [
 		/* @__PURE__ */ T(M, {}),
 		e,
 		/* @__PURE__ */ T(N, {})
 	]
-}), Pt = ({ children: e }) => {
+}), $ = ({ children: e }) => {
 	let t = A({}), n = re(() => ({
 		register: (e, n) => {
 			t.current[e] = n;
@@ -1241,7 +1241,7 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 		value: n,
 		children: e
 	});
-}, Ft = ({ children: e }) => /* @__PURE__ */ T(Pt, { children: /* @__PURE__ */ T(Nt, { children: /* @__PURE__ */ T(g, {
+}, Ft = ({ children: e }) => /* @__PURE__ */ T($, { children: /* @__PURE__ */ T(Pt, { children: /* @__PURE__ */ T(g, {
 	direction: "column",
 	gap: 2,
 	alignItems: "center",
@@ -1249,4 +1249,4 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 	children: e
 }) }) });
 //#endregion
-export { J as AddElement, ze as Api, P as ApiButton, Te as CenteredContainer, F as CenteredModal, Ge as Close, yt as DataSourceWrapper, $e as DeleteLabel, wt as GetCellRenderer, q as GetContainer, xt as GetDatasource, Qe as GetElementIndex, Ze as GetElementTypes, Xe as GetElementValue, Je as GetElements, ot as GetEndpoint, vt as GetFetchParams, ut as GetHeaders, dt as GetPaginationModel, kt as GetProgressValue, lt as GetRows, qe as GetSet, Mt as GridWithButtons, Ft as HFCenteredLayout, Be as HandleGet, Nt as HeaderFooterLayout, We as InitialTypeFormBuilderRefState, L as IsNullOrUndefined, I as IsPrimitive, $ as ModalCellRendererWrapper, Et as ProgressAdornment, Y as RefIndexContext, Pt as RefProvider, Q as Refresh, He as SelectAssociation, Dt as SendIconButton, ft as SetArgs, Ct as SetCellRenderer, K as SetContainer, at as SetEndpoint, _t as SetFetchParams, ht as SetFilterModel, Ke as SetHandleClose, st as SetHeadersFromJson, At as SetLoading, pt as SetOrAddArgs, gt as SetPaginationModel, Ot as SetProgressValue, ct as SetRowsFromJson, bt as SetSearch, St as SetSelectedRows, mt as SetSortModel, R as TitleCase, et as TypeFormBuilder, M as UIAppBar, N as UIBottomNav, jt as UIInput, Tt as UITable, Ye as UpdateElementValues, Z as useConditionalRef, tt as useManagedRef, X as useRefIndex };
+export { J as AddElement, ze as Api, P as ApiButton, Te as CenteredContainer, F as CenteredModal, Ge as Close, yt as DataSourceWrapper, $e as DeleteLabel, wt as GetCellRenderer, q as GetContainer, xt as GetDatasource, Qe as GetElementIndex, Ze as GetElementTypes, Xe as GetElementValue, Je as GetElements, ot as GetEndpoint, vt as GetFetchParams, ut as GetHeaders, dt as GetPaginationModel, At as GetProgressValue, lt as GetRows, qe as GetSet, Nt as GridWithButtons, Ft as HFCenteredLayout, Be as HandleGet, Pt as HeaderFooterLayout, We as InitialTypeFormBuilderRefState, L as IsNullOrUndefined, I as IsPrimitive, Tt as ModalCellRendererWrapper, Dt as ProgressAdornment, Y as RefIndexContext, $ as RefProvider, Q as Refresh, He as SelectAssociation, Ot as SendIconButton, ft as SetArgs, Ct as SetCellRenderer, K as SetContainer, at as SetEndpoint, _t as SetFetchParams, ht as SetFilterModel, Ke as SetHandleClose, st as SetHeadersFromJson, jt as SetLoading, pt as SetOrAddArgs, gt as SetPaginationModel, kt as SetProgressValue, ct as SetRowsFromJson, bt as SetSearch, St as SetSelectedRows, mt as SetSortModel, R as TitleCase, et as TypeFormBuilder, M as UIAppBar, N as UIBottomNav, Mt as UIInput, Et as UITable, Ye as UpdateElementValues, Z as useConditionalRef, tt as useManagedRef, X as useRefIndex };
