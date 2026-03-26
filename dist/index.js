@@ -1282,8 +1282,8 @@ var V = ({ endpoint: e, handleErr: t }) => {
 }, Ht = ne({
 	shape: { borderRadius: 8 },
 	typography: {
-		fontFamily: "Roboto",
-		allVariants: { fontFamily: "Roboto" }
+		fontFamily: "Inter, Arial, sans-serif",
+		allVariants: { fontFamily: "Inter, Arial, sans-serif" }
 	},
 	components: {
 		MuiButton: { styleOverrides: { root: {
