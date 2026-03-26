@@ -259,12 +259,7 @@ export const AddElement = (ref, key, element) => {
             const pathSegments = keyNoRoot.split('.');
             const lastSegment = pathSegments[pathSegments.length - 1];
             const isSubtype = lastSegment.toLowerCase() === "subtype"
-            const isInsideData = pathSegments.includes("data");
             const isArrayIndex = /^\d+$/.test(lastSegment);
-
-            if (isInsideData) {
-                return
-            }
 
             if (!isArrayIndex && !isSubtype) {
                 st.labels[st.index] = <InputLabel key={"Label" + key + st.index} column={key}>{keyNoRoot}</InputLabel>

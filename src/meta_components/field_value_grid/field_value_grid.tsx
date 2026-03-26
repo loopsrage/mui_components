@@ -1,4 +1,4 @@
-import {type FC, useLayoutEffect, useState} from "react";
+import {type FC, useEffect, useState} from "react";
 import {
     GetRawHeaders, GetRows,
     type Props, Refresh,
@@ -23,7 +23,7 @@ export const FieldValueGrid: FC<KeyValueProps> = ({data, ...props}) => {
         return { current: gridState };
     };
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         const ref = getGridRef();
 
         SetKeyValueHeaders(ref);
@@ -36,7 +36,7 @@ export const FieldValueGrid: FC<KeyValueProps> = ({data, ...props}) => {
         });
 
         Refresh(ref);
-    }, [data, context]);
+    }, [])
 
     return (
         <UITable  {...props} grid_options={{

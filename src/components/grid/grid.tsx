@@ -30,7 +30,7 @@ export interface TableState extends IBaseRefProps {
     row_count: number
     row_details?: boolean | null
     cellRenderer?: (ref: RefObject<TableState>) => (params: GridRenderCellParams) => (undefined | JSX.Element) | null
-    datasource: GridDataSource
+    datasource?: GridDataSource | undefined
     paginationModel: GridPaginationModel | undefined
 
     refresh: () => void
@@ -352,7 +352,7 @@ export const SetSearch = (ref: RefObject<TableState>, value: string) => {
 }
 
 export const GetDatasource = (ref: RefObject<TableState>) => {
-    return ref.current.datasource
+    return ref.current?.datasource
 }
 
 export const Refresh = async (ref: RefObject<TableState>) => {
@@ -543,7 +543,7 @@ export const UITable: FC<Props> = ({ api, endpoint, row_details, refKey, cellRen
             headers_ri: {},
             rows: [],
             row_count: 0,
-            datasource: DataSourceWrapper(localRef, handleToggle),
+            datasource: endpoint ? DataSourceWrapper(localRef, handleToggle) : undefined,
             paginationModel: { page: 0, pageSize: 5 },
             args: {},
             selected_data: [],

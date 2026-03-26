@@ -607,9 +607,8 @@ var qe = ({ endpoint: e, handleErr: t }) => {
 		r.nameIndex[t] = r.index, r.elements[r.index] = n;
 		let i = nt(e, t, n);
 		if (!N(i)) {
-			let e = P(t.replace(/root\./, ""), "_"), n = e.split("."), a = n[n.length - 1], o = a.toLowerCase() === "subtype", s = n.includes("data"), c = /^\d+$/.test(a);
-			if (s) return;
-			!c && !o ? r.labels[r.index] = /* @__PURE__ */ C(m, {
+			let e = P(t.replace(/root\./, ""), "_"), n = e.split("."), a = n[n.length - 1], o = a.toLowerCase() === "subtype";
+			!/^\d+$/.test(a) && !o ? r.labels[r.index] = /* @__PURE__ */ C(m, {
 				column: t,
 				children: e
 			}, "Label" + t + r.index) : r.labels[r.index] = "None", r.element_component[r.index] = i, r.index++;
@@ -922,7 +921,7 @@ var qe = ({ endpoint: e, handleErr: t }) => {
 } }), jt = (e, t) => {
 	let n = e.current;
 	n && (n.args.search = t, e.current = n);
-}, Z = (e) => e.current.datasource, Q = async (e) => {
+}, Z = (e) => e.current?.datasource, Q = async (e) => {
 	let t = e.current;
 	if (!t) return;
 	let n = t.gridRef.current;
@@ -1070,7 +1069,7 @@ var qe = ({ endpoint: e, handleErr: t }) => {
 		headers_ri: {},
 		rows: [],
 		row_count: 0,
-		datasource: At(d, b),
+		datasource: t ? At(d, b) : void 0,
 		paginationModel: {
 			page: 0,
 			pageSize: 5
@@ -1313,13 +1312,13 @@ var qe = ({ endpoint: e, handleErr: t }) => {
 		rows: [],
 		columns: []
 	}), a = () => ({ current: n?.get("key_value_grid") });
-	return E(() => {
+	return T(() => {
 		let t = a();
 		_t(t), vt(t, B(null, [], ".", e)), i({
 			rows: X(t),
 			columns: bt(t)
 		}), Q(t);
-	}, [e, n]), /* @__PURE__ */ C($, {
+	}, []), /* @__PURE__ */ C($, {
 		...t,
 		grid_options: {
 			columns: r.columns,

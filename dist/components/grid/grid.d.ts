@@ -12,7 +12,7 @@ export interface TableState extends IBaseRefProps {
     row_count: number;
     row_details?: boolean | null;
     cellRenderer?: (ref: RefObject<TableState>) => (params: GridRenderCellParams) => (undefined | JSX.Element) | null;
-    datasource: GridDataSource;
+    datasource?: GridDataSource | undefined;
     paginationModel: GridPaginationModel | undefined;
     refresh: () => void;
     selected_ids: GridRowSelectionModel | null;
@@ -67,7 +67,7 @@ export declare const DataSourceWrapper: (ref: RefObject<TableState>, handleToggl
     }>;
 };
 export declare const SetSearch: (ref: RefObject<TableState>, value: string) => void;
-export declare const GetDatasource: (ref: RefObject<TableState>) => GridDataSource;
+export declare const GetDatasource: (ref: RefObject<TableState>) => GridDataSource | undefined;
 export declare const Refresh: (ref: RefObject<TableState>) => Promise<void>;
 export declare const SetSelectedRows: (ref: RefObject<TableState>) => (model: GridRowSelectionModel) => void;
 export declare const SetCellRenderer: (ref: RefObject<TableState>, cellRenderer: (ref: RefObject<TableState>) => (params: GridRenderCellParams) => (undefined | JSX.Element) | null) => void;
