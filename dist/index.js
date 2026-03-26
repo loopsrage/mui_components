@@ -1220,8 +1220,8 @@ var V = ({ endpoint: e, handleErr: t }) => {
 		},
 		...o
 	});
-}, zt = ({ buttons: e, endpoint: t, title: n, ...r }) => {
-	let i = e?.map((e) => e);
+}, zt = ({ buttons: e, endpoint: t, title: n, title_topology_params: r, button_stack_params: i, ...a }) => {
+	let o = e?.map((e) => e);
 	return /* @__PURE__ */ w(_, {
 		direction: "column",
 		gap: 2,
@@ -1231,24 +1231,29 @@ var V = ({ endpoint: e, handleErr: t }) => {
 			alignItems: "center",
 			direction: "row",
 			children: [/* @__PURE__ */ C(S, {
+				variant: "h6",
 				sx: {
 					m: 2,
 					whiteSpace: "nowrap",
 					overflow: "hidden",
 					textOverflow: "ellipsis"
 				},
+				...r,
 				children: n
 			}), /* @__PURE__ */ C(_, {
 				direction: "row",
-				gap: 1,
+				gap: 2,
 				sx: {
+					pr: 16,
+					pl: 16,
 					justifyContent: "flex-end",
 					width: "20%"
 				},
-				children: i
+				...i,
+				children: o
 			})]
 		}), /* @__PURE__ */ C(Mt, {
-			...r,
+			...a,
 			endpoint: t
 		})]
 	});
@@ -1277,8 +1282,8 @@ var V = ({ endpoint: e, handleErr: t }) => {
 }, Ht = ne({
 	shape: { borderRadius: 8 },
 	typography: {
-		fontFamily: "Inter, Arial, sans-serif",
-		allVariants: { fontFamily: "Inter, Arial, sans-serif" }
+		fontFamily: "Roboto",
+		allVariants: { fontFamily: "Roboto" }
 	},
 	components: {
 		MuiButton: { styleOverrides: { root: {

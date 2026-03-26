@@ -13,9 +13,9 @@ const defaultTheme = createTheme({
         borderRadius: 8,
     },
     typography: {
-        fontFamily: 'Inter, Arial, sans-serif',
+        fontFamily: 'Roboto',
         allVariants: {
-            fontFamily: 'Inter, Arial, sans-serif',
+            fontFamily: 'Roboto',
         },
     },
     components: {
