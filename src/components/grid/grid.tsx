@@ -133,16 +133,21 @@ export const SetKeyValueRows = (ref: RefObject<TableState>, data: Container) => 
     st.rows = [[], []];
     st.row_count = 0;
 
-    RangePrimitiveValues(data, (cont) => {
-        if (IsPrimitive(cont.value)) {
-            console.log(cont.path, cont.value)
-            const fieldIndex = st.headers_ri["Field"];
-            const valueIndex = st.headers_ri["Value"];
-            if (fieldIndex !== undefined) st.rows[fieldIndex].push(TitleCase(cont.path.split('.').pop(), "_"));
-            if (valueIndex !== undefined) st.rows[valueIndex].push(cont.value);
-            st.row_count!++;
+    const fieldIndex = st.headers_ri["Field"];
+    const valueIndex = st.headers_ri["Value"];
+
+    Object.entries(data).forEach(([key, value]) => {
+        if (fieldIndex !== undefined) {
+            st.rows[fieldIndex].push(TitleCase(key, "_"));
         }
-    })
+
+        if (valueIndex !== undefined) {
+            const finalValue = Array.isArray(value) ? value.join(", ") : value;
+            st.rows[valueIndex].push(finalValue);
+        }
+        st.row_count!++;
+    });
+
     ref.current = st
 }
 
