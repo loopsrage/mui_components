@@ -16,6 +16,7 @@ export interface KeyValueProps extends Omit<Props, 'api' | 'endpoint' | 'refKey'
 
 export const FieldValueGrid: FC<KeyValueProps> = ({data, ...props}) => {
     const context = useRefIndex();
+    console.log(data)
 
     const getGridRef = () => {
         const gridState = context?.get("key_value_grid") as TableState

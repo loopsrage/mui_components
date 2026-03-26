@@ -1331,7 +1331,9 @@ var qe = ({ endpoint: e, handleErr: t }) => {
 		}) })]
 	}) });
 }, qt = ({ data: e, ...t }) => {
-	let n = Y(), r = () => ({ current: n?.get("key_value_grid") });
+	let n = Y();
+	console.log(e);
+	let r = () => ({ current: n?.get("key_value_grid") });
 	return E(() => {
 		let t = r();
 		gt(t), _t(t, B(null, [], ".", e));
