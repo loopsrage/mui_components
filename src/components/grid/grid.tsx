@@ -37,8 +37,8 @@ export interface TableState extends IBaseRefProps {
     selected_ids: GridRowSelectionModel | null
     filter_model:  GridFilterModel | null
     selected_data: unknown[]
-    api: ApiClient
-    endpoint: string;
+    api?: ApiClient | null
+    endpoint?: string | undefined;
     args: Record<string, string | number | boolean | undefined | null | number[] | string[] >
     fetch_params: Record<string, string | number | boolean | undefined | null> | null
     modal_title: string | undefined | null
@@ -47,14 +47,16 @@ export interface TableState extends IBaseRefProps {
 }
 
 export interface Props extends IBaseRefProps {
-    api: ApiClient
+    api?: ApiClient | null
 
-    endpoint: string;
+    endpoint?: string | undefined;
     row_details?: boolean | null
     checkbox_select?: boolean | undefined
     toolbar?: boolean | undefined
     cellRenderer?:  (ref: RefObject<TableState>) => (params: GridRenderCellParams) => (undefined | JSX.Element) | null
     datagrid_sx?: object | undefined;
+
+    grid_options?: object | undefined;
 }
 
 export const SetEndpoint = (ref: RefObject<TableState>, endpoint: string) => {
@@ -94,6 +96,47 @@ export const SetHeadersFromJson = (ref: RefObject<TableState>, data: Container) 
         st.rows[st.index] = []
         st.headers_ri[path] = st.index;
         st.index++;
+    })
+    ref.current = st
+}
+
+export const SetKeyValueHeaders = (ref: RefObject<TableState>) => {
+    const st = ref.current;
+    if (!st) return;
+
+    ["Field", "Value"].map((i) => {
+        const path = i;
+        st.headers[st.index] = {
+            field: path,
+            sortable: true,
+            filterable: true,
+            flex: 2,
+            type: 'string',
+            headerName: i
+        };
+        st.rows[st.index] = []
+        st.headers_ri[path] = st.index;
+        st.index++;
+    })
+    ref.current = st
+}
+
+export const SetKeyValueRows = (ref: RefObject<TableState>, data: Container) => {
+    const st = ref.current;
+    if (!st) return;
+
+    st.rows = []
+    st.row_count = 0;
+
+    RangePrimitiveValues(data, (cont) => {
+        if (IsPrimitive(cont.value)) {
+            ["Field", "Value"].map((i) => {
+                const columnIndex = st.headers_ri[i]
+                if (columnIndex !== undefined) {
+                    st.rows[columnIndex].push(cont.value)
+                }
+            })
+        }
     })
     ref.current = st
 }
@@ -139,6 +182,12 @@ export const GetRows = (ref: RefObject<TableState>): GridValidRowModel[] => {
 
         return rowObj;
     });
+}
+
+export const GetRawHeaders =  (ref: RefObject<TableState>) => {
+    const st = ref.current;
+    if (!st) return;
+    return st.headers;
 }
 
 export const GetHeaders = (ref: RefObject<TableState>) => {
@@ -271,7 +320,7 @@ export const DataSourceWrapper = (ref: RefObject<TableState>, handleToggle: () =
                 }
             }
 
-            const result = await st.api.at("/" + st.endpoint, {
+            const result = await st.api?.at("/" + st.endpoint, {
                 fetchParams: {
                     method: "GET",
                     ...GetFetchParams(ref),
@@ -466,7 +515,7 @@ export const ModalCellRendererWrapper = (ref: RefObject<TableState>) => {
     }
 }
 
-export const UITable: FC<Props> = ({ api, endpoint, row_details, refKey, cellRenderer, register_component=false, toolbar=false, checkbox_select=false, datagrid_sx=undefined}) => {
+export const UITable: FC<Props> = ({ api, endpoint, row_details, refKey, cellRenderer, register_component=false, toolbar=false, checkbox_select=false, datagrid_sx=undefined, grid_options=undefined}) => {
     const setRegistryRef = useConditionalRef(refKey, register_component)
     const localRef = useRef<TableState>(null as unknown as TableState);
     const [, setToggle] = useState(false);
@@ -567,7 +616,7 @@ export const UITable: FC<Props> = ({ api, endpoint, row_details, refKey, cellRen
                     console.warn("Row update failed.");
                 }
             }}
-
+            {...grid_options}
         />
     );
 };

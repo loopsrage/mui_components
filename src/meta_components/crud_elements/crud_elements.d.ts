@@ -27,7 +27,7 @@ export interface DeleteManyProps extends BaseProps {
 
 export interface EditCellRendererProps {
     handleRefreshGrid: () => Promise<void>;
-    api: CrudApi;
+    api?: CrudApi | null;
     id: string | number;
     params: object;
 }

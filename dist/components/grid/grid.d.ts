@@ -18,27 +18,31 @@ export interface TableState extends IBaseRefProps {
     selected_ids: GridRowSelectionModel | null;
     filter_model: GridFilterModel | null;
     selected_data: unknown[];
-    api: ApiClient;
-    endpoint: string;
+    api?: ApiClient | null;
+    endpoint?: string | undefined;
     args: Record<string, string | number | boolean | undefined | null | number[] | string[]>;
     fetch_params: Record<string, string | number | boolean | undefined | null> | null;
     modal_title: string | undefined | null;
     context?: Record<string, unknown> | null | undefined;
 }
 export interface Props extends IBaseRefProps {
-    api: ApiClient;
-    endpoint: string;
+    api?: ApiClient | null;
+    endpoint?: string | undefined;
     row_details?: boolean | null;
     checkbox_select?: boolean | undefined;
     toolbar?: boolean | undefined;
     cellRenderer?: (ref: RefObject<TableState>) => (params: GridRenderCellParams) => (undefined | JSX.Element) | null;
     datagrid_sx?: object | undefined;
+    grid_options?: object | undefined;
 }
 export declare const SetEndpoint: (ref: RefObject<TableState>, endpoint: string) => void;
-export declare const GetEndpoint: (ref: RefObject<TableState>) => string;
+export declare const GetEndpoint: (ref: RefObject<TableState>) => string | undefined;
 export declare const SetHeadersFromJson: (ref: RefObject<TableState>, data: Container) => void;
+export declare const SetKeyValueHeaders: (ref: RefObject<TableState>) => void;
+export declare const SetKeyValueRows: (ref: RefObject<TableState>, data: Container) => void;
 export declare const SetRowsFromJson: (ref: RefObject<TableState>, data: Container) => void;
 export declare const GetRows: (ref: RefObject<TableState>) => GridValidRowModel[];
+export declare const GetRawHeaders: (ref: RefObject<TableState>) => GridColDef[] | undefined;
 export declare const GetHeaders: (ref: RefObject<TableState>) => GridColDef[];
 export declare const GetPaginationModel: (ref: RefObject<TableState>) => GridPaginationModel | undefined;
 export declare const SetArgs: (ref: RefObject<TableState>, args: Record<string, string | number | boolean | undefined | null>) => void;

@@ -2,7 +2,7 @@ import { FC, ReactElement } from 'react';
 import { ButtonProps } from '@mui/material';
 import { ApiClient } from '../../utility/api';
 interface ApiButtonProps extends ButtonProps {
-    api: ApiClient;
+    api?: ApiClient | null;
     endpoint: string | null;
     children?: ReactElement | ReactElement[] | null | string;
     get_args?: () => object;

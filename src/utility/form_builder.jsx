@@ -5,6 +5,7 @@ import {KeyValue} from "../components/key_value/key_value.jsx";
 import {DataViewer} from "../components/file_viewer/file_viewer.jsx";
 import {DataImage} from "../components/image_viewer/image_viewer.jsx";
 import {SelectOptions} from "../components/select_options/select_options.jsx";
+import {FieldValueGrid} from "@";
 
 const formatDate = (date) => {
     return date.toISOString().slice(0, 16);
@@ -73,6 +74,11 @@ const defaultSelector = () => {
         }
 
         if (currentType === 'object') {
+            if (inputProps.defaultValue["Subtype"] === 19) {
+                const container = ReadFromContainers(GetContainer(formRef), key.slice(0, key.lastIndexOf(".")))
+                return <FieldValueGrid data={container?.value["Data"]} />
+            }
+
             if (inputProps.defaultValue["Subtype"] === 17) {
                 const container = ReadFromContainers(GetContainer(formRef), key.slice(0, key.lastIndexOf(".")))
                 return <DataImage key={jsxKey} data={container?.value["Data"]} />

@@ -3,7 +3,7 @@ import {Button, type ButtonProps} from "@mui/material";
 import type {ApiClient} from "../../utility/api";
 
 interface ApiButtonProps extends ButtonProps {
-    api: ApiClient;
+    api?: ApiClient | null;
     endpoint: string | null;
 
     children?: ReactElement | ReactElement[] | null | string;
@@ -28,7 +28,7 @@ export const ApiButton: FC<ApiButtonProps> = ({ api, endpoint, children, get_arg
                 fetchParams = {...fetchParams, ...fetch_params()}
             }
 
-            const result = await api.at("/" + endpoint, {
+            const result = await api?.at("/" + endpoint, {
                 fetchParams: fetchParams,
                 args: args
             });

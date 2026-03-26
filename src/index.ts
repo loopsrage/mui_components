@@ -12,6 +12,7 @@ export * from './meta_components/crud_elements/crud_elements';
 export * from './meta_components/grid_with_buttons/grid_with_buttons';
 export * from './meta_components/header_footer_layout/header_footer_layout';
 export * from './meta_components/hf_cenered/hf_centered';
+export * from './meta_components/field_value_grid/field_value_grid';
 
 // Context & Utilities
 export * from './context/context';
