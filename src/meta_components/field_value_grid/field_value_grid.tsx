@@ -37,6 +37,11 @@ export const FieldValueGrid: FC<KeyValueProps> = ({data, ...props}) => {
             filterMode: "client",
             rowSelection: false,
             disableVirtualization: true,
+            sx: {
+                height: 400,
+                width: '100%',
+                ...props.datagrid_sx
+            },
             getRowId: (row: {key: string}) => row.key
         }} refKey={"key_value_grid"} />
     )

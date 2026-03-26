@@ -1346,6 +1346,11 @@ var qe = ({ endpoint: e, handleErr: t }) => {
 			filterMode: "client",
 			rowSelection: !1,
 			disableVirtualization: !0,
+			sx: {
+				height: 400,
+				width: "100%",
+				...t.datagrid_sx
+			},
 			getRowId: (e) => e.key
 		},
 		refKey: "key_value_grid"
