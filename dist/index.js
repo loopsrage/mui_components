@@ -794,7 +794,8 @@ var Ve = ({ endpoint: e, handleErr: t }) => {
 			field: n,
 			sortable: !0,
 			filterable: !0,
-			width: 200,
+			flex: 1,
+			minWidth: 150,
 			type: "string",
 			headerName: e
 		}, t.rows[t.index] = [], t.headers_ri[n] = t.index, t.index++;
@@ -1339,7 +1340,6 @@ var Ve = ({ endpoint: e, handleErr: t }) => {
 			right: 0,
 			borderLeft: "1px solid #e0e0e0"
 		},
-		"& .MuiDataGrid-main": { overflow: "auto" },
 		"& .MuiSvgIcon-root MuiSvgIcon-fontSizeSmall MuiDataGrid-sortIcon": { color: "#fff" },
 		"& .MuiDataGrid-columnHeaderTitle": {
 			fontSize: "1rem",
@@ -1355,7 +1355,12 @@ var Ve = ({ endpoint: e, handleErr: t }) => {
 		},
 		"& .MuiDataGrid-filler": { backgroundColor: "black !important" },
 		"& .MuiDataGrid-menuIcon": { color: "white" },
-		"& .MuiDataGrid-columnSeparator": { color: "#333" }
+		"& .MuiDataGrid-columnSeparator": { color: "#333" },
+		"& .MuiDataGrid-main": {
+			overflow: "auto",
+			minWidth: "100%"
+		},
+		"&": { width: "100%" }
 	};
 }, qt = ({ data: e, ...t }) => {
 	let n = Y(), [r, i] = j({

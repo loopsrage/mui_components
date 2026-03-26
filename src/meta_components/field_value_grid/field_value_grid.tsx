@@ -47,10 +47,6 @@ export const DatagridSx = () => {
             right: 0,
             borderLeft: '1px solid #e0e0e0', // Optional: visual separator
         },
-        // Ensure the container doesn't clip the sticky effect
-        '& .MuiDataGrid-main': {
-            overflow: 'auto',
-        },
         "& .MuiSvgIcon-root MuiSvgIcon-fontSizeSmall MuiDataGrid-sortIcon": {
             color: '#fff',
         },
@@ -75,6 +71,14 @@ export const DatagridSx = () => {
         '& .MuiDataGrid-columnSeparator': {
             color: '#333',
         },
+        '& .MuiDataGrid-main': {
+            overflow: 'auto',
+            minWidth: '100%', // Add this to force container expansion
+        },
+        // Ensure the root container takes full width
+        '&': {
+            width: '100%',
+        }
     }
 }
 

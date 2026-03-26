@@ -30,9 +30,6 @@ export declare const DatagridSx: () => {
         zIndex: number;
         backgroundColor: string;
     };
-    '& .MuiDataGrid-main': {
-        overflow: string;
-    };
     "& .MuiSvgIcon-root MuiSvgIcon-fontSizeSmall MuiDataGrid-sortIcon": {
         color: string;
     };
@@ -56,6 +53,13 @@ export declare const DatagridSx: () => {
     };
     '& .MuiDataGrid-columnSeparator': {
         color: string;
+    };
+    '& .MuiDataGrid-main': {
+        overflow: string;
+        minWidth: string;
+    };
+    '&': {
+        width: string;
     };
 };
 export declare const FieldValueGrid: FC<KeyValueProps>;
