@@ -1346,7 +1346,7 @@ var qe = ({ endpoint: e, handleErr: t }) => {
 			paginationMode: "client",
 			sortingMode: "client",
 			filterMode: "client",
-			datasource: void 0,
+			dataSource: void 0,
 			rowSelection: !1,
 			disableVirtualization: !0,
 			sx: {

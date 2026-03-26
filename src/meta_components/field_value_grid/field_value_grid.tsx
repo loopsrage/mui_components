@@ -53,7 +53,7 @@ export const FieldValueGrid: FC<KeyValueProps> = ({data, ...props}) => {
             paginationMode: "client",
             sortingMode: "client",
             filterMode: "client",
-            datasource: undefined,
+            dataSource: undefined,
             rowSelection: false,
             disableVirtualization: true,
             sx: {
