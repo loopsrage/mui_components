@@ -1099,7 +1099,8 @@ var qe = ({ endpoint: e, handleErr: t }) => {
 		endpoint: t,
 		register_component: a,
 		refKey: r,
-		modal_title: null
+		modal_title: null,
+		...l
 	}, E(() => (u(d.current), () => u(null)), [u]), /* @__PURE__ */ C(ue, {
 		apiRef: y,
 		disableVirtualization: !0,

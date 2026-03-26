@@ -579,7 +579,8 @@ export const UITable: FC<Props> = ({ api, endpoint, row_details, refKey, cellRen
             endpoint: endpoint,
             register_component: register_component,
             refKey: refKey,
-            modal_title: null
+            modal_title: null,
+            ...grid_options
         }
     }
 
