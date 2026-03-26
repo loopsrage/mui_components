@@ -623,10 +623,10 @@ var He = ({ endpoint: e, handleErr: t }) => {
 			r.nameIndex[t] = r.index, r.elements[r.index] = n;
 			let o = et(e, t, n);
 			if (!L(o)) {
-				let e = a[a.length - 1], n = e.toLowerCase() === "subtype", s = /^\d+$/.test(e);
-				r.useLabels[r.index] = !s || !n, r.labels[r.index] = /* @__PURE__ */ E(m, {
+				let e = a[a.length - 1], n = e.toLowerCase() === "subtype", s = /^\d+$/.test(e), c = i;
+				n && a.length > 1 && (c = a[a.length - 2]), r.useLabels[r.index] = n ? !0 : !s, r.labels[r.index] = /* @__PURE__ */ E(m, {
 					column: t,
-					children: i
+					children: c
 				}, "Label" + t + r.index), r.element_component[r.index] = o, r.index++;
 			}
 		}
