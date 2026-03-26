@@ -14,6 +14,55 @@ export interface KeyValueProps extends Omit<Props, 'api' | 'endpoint' | 'refKey'
     data: object;
 }
 
+export const DatagridSx = () => {
+    return {
+        // // Sticky Header
+        // '& .MuiDataGrid-columnHeader[data-field="edit"]': {
+        //     position: 'sticky',
+        //     right: 0,
+        //     backgroundColor: 'black !important',
+        //     color: 'white',
+        //     zIndex: 3,
+        // },
+        // Sticky Cells
+        '& .MuiDataGrid-cell[data-field="edit"]': {
+            position: 'sticky',
+            right: 0,
+            width: 'auto',
+            backgroundColor: 'white',
+            zIndex: 2,
+        },
+        // Ensure the container doesn't clip the sticky effect
+        '& .MuiDataGrid-main': {
+            overflow: 'auto',
+        },
+        "& .MuiSvgIcon-root MuiSvgIcon-fontSizeSmall MuiDataGrid-sortIcon": {
+            color: '#fff',
+        },
+        '& .MuiDataGrid-columnHeaderTitle': {
+            fontSize: '1rem',
+            fontWeight: 'bold',
+        },
+        '& .MuiDataGrid-columnHeaders div[role="row"]': {
+            backgroundColor: '#191E23 !important',
+            color: 'white',
+        },
+        '& .MuiDataGrid-columnHeader': {
+            backgroundColor: '#191E23 !important',
+            color: 'white',
+        },
+        '& .MuiDataGrid-filler': {
+            backgroundColor: 'black !important',
+        },
+        '& .MuiDataGrid-menuIcon': {
+            color: 'white',
+        },
+        '& .MuiDataGrid-columnSeparator': {
+            color: '#333',
+        },
+    }
+}
+
 export const FieldValueGrid: FC<KeyValueProps> = ({data, ...props}) => {
     const context = useRefIndex();
     const [gridData, setGridData] = useState<Record<string, object[]>>({ rows: [], columns: [] });
@@ -40,7 +89,7 @@ export const FieldValueGrid: FC<KeyValueProps> = ({data, ...props}) => {
     }, [data, context]);
 
     return (
-        <UITable register_component={true} datagrid_sx={props.datagrid_sx}  {...props} grid_options={{
+        <UITable register_component={true} datagrid_sx={DatagridSx()}  {...props} grid_options={{
             columns: gridData.columns,
             rows: gridData.rows,
             paginationMode: "client",
