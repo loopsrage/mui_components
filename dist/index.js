@@ -812,6 +812,7 @@ var He = ({ endpoint: e, handleErr: t }) => {
 			sortable: !0,
 			filterable: !0,
 			flex: 1,
+			width: 500,
 			minWidth: 250,
 			type: "string",
 			headerName: e

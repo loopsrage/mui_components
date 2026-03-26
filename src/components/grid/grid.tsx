@@ -116,6 +116,7 @@ export const SetKeyValueHeaders = (ref: RefObject<TableState>) => {
             sortable: true,
             filterable: true,
             flex: 1,
+            width: 500,
             minWidth: 250,
             type: 'string',
             headerName: i
