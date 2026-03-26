@@ -249,14 +249,16 @@ export const GetElementTypes = (ref, key, element) => {
 
 export const AddElement = (ref, key, element) => {
     const st = ref.current
+    const keyNoRoot = TitleCase(key.replace(/root\./, ""), '_')
+    const pathSegments = keyNoRoot.split('.');
+    const isInsideData = pathSegments.some(s => s.toLowerCase() === "data")
+    if (isInsideData) return;
     if (IsNullOrUndefined(st.nameIndex[key])){
         st.nameIndex[key] = st.index
         st.elements[st.index] = element
         const elm = GetElementTypes(ref, key, element)
-
         if (!IsNullOrUndefined(elm)) {
-            const keyNoRoot = TitleCase(key.replace(/root\./, ""), '_')
-            const pathSegments = keyNoRoot.split('.');
+
             const lastSegment = pathSegments[pathSegments.length - 1];
             const isSubtype = lastSegment.toLowerCase() === "subtype"
             const isArrayIndex = /^\d+$/.test(lastSegment);

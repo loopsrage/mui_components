@@ -27,7 +27,7 @@ export interface TableState extends IBaseRefProps {
     headers: GridColDef[]
     headers_ri: Record<string, number>
     rows: unknown[][]
-    row_count: number
+    row_count?: number | undefined
     row_details?: boolean | null
     cellRenderer?: (ref: RefObject<TableState>) => (params: GridRenderCellParams) => (undefined | JSX.Element) | null
     datasource?: GridDataSource | undefined
@@ -530,7 +530,7 @@ export const UITable: FC<Props> = ({ api, endpoint, row_details, refKey, cellRen
 
     const handleToggle = () => {
         if (localRef.current) {
-            setRowCount(localRef.current.row_count);
+            setRowCount(localRef.current?.row_count ?? 0);
         }
         setToggle(prev => !prev);
     };
@@ -542,7 +542,7 @@ export const UITable: FC<Props> = ({ api, endpoint, row_details, refKey, cellRen
             headers: [],
             headers_ri: {},
             rows: [],
-            row_count: 0,
+            row_count: endpoint ? 0 : undefined,
             datasource: endpoint ? DataSourceWrapper(localRef, handleToggle) : undefined,
             paginationModel: { page: 0, pageSize: 5 },
             args: {},
@@ -578,7 +578,7 @@ export const UITable: FC<Props> = ({ api, endpoint, row_details, refKey, cellRen
             onColumnVisibilityModelChange={(newModel) => setColumnVisibilityModel(newModel)}
             rowCount={rowCount}
             sx={{
-                width: "80hv",
+                width: "100%",
                 ...datagrid_sx
             }}
             columns={GetHeaders(localRef)}

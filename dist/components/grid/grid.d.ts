@@ -9,7 +9,7 @@ export interface TableState extends IBaseRefProps {
     headers: GridColDef[];
     headers_ri: Record<string, number>;
     rows: unknown[][];
-    row_count: number;
+    row_count?: number | undefined;
     row_details?: boolean | null;
     cellRenderer?: (ref: RefObject<TableState>) => (params: GridRenderCellParams) => (undefined | JSX.Element) | null;
     datasource?: GridDataSource | undefined;

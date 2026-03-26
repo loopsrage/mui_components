@@ -602,19 +602,21 @@ var qe = ({ endpoint: e, handleErr: t }) => {
 		inputProps: o
 	});
 }, K = (e, t, n) => {
-	let r = e.current;
-	if (N(r.nameIndex[t])) {
-		r.nameIndex[t] = r.index, r.elements[r.index] = n;
-		let i = nt(e, t, n);
-		if (!N(i)) {
-			let e = P(t.replace(/root\./, ""), "_"), n = e.split("."), a = n[n.length - 1], o = a.toLowerCase() === "subtype";
-			!/^\d+$/.test(a) && !o ? r.labels[r.index] = /* @__PURE__ */ C(m, {
-				column: t,
-				children: e
-			}, "Label" + t + r.index) : r.labels[r.index] = "None", r.element_component[r.index] = i, r.index++;
+	let r = e.current, i = P(t.replace(/root\./, ""), "_"), a = i.split(".");
+	if (!a.some((e) => e.toLowerCase() === "data")) {
+		if (N(r.nameIndex[t])) {
+			r.nameIndex[t] = r.index, r.elements[r.index] = n;
+			let o = nt(e, t, n);
+			if (!N(o)) {
+				let e = a[a.length - 1], n = e.toLowerCase() === "subtype";
+				!/^\d+$/.test(e) && !n ? r.labels[r.index] = /* @__PURE__ */ C(m, {
+					column: t,
+					children: i
+				}, "Label" + t + r.index) : r.labels[r.index] = "None", r.element_component[r.index] = o, r.index++;
+			}
 		}
+		e.current = r;
 	}
-	e.current = r;
 }, rt = (e, t) => e.current.nameIndex[t], it = (e, t) => {
 	let n = e.current;
 	delete n.labels[rt(e, t)], e.current = n;
@@ -1060,7 +1062,7 @@ var qe = ({ endpoint: e, handleErr: t }) => {
 		page: 0,
 		pageSize: 25
 	}), [h, g] = O(0), [_, v] = O({ id: !1 }), y = fe(), b = () => {
-		d.current && g(d.current.row_count), f((e) => !e);
+		d.current && g(d.current?.row_count ?? 0), f((e) => !e);
 	};
 	return d.current ||= {
 		gridRef: y,
@@ -1068,7 +1070,7 @@ var qe = ({ endpoint: e, handleErr: t }) => {
 		headers: [],
 		headers_ri: {},
 		rows: [],
-		row_count: 0,
+		row_count: t ? 0 : void 0,
 		datasource: t ? At(d, b) : void 0,
 		paginationModel: {
 			page: 0,
@@ -1094,7 +1096,7 @@ var qe = ({ endpoint: e, handleErr: t }) => {
 		onColumnVisibilityModelChange: (e) => v(e),
 		rowCount: h,
 		sx: {
-			width: "80hv",
+			width: "100%",
 			...c
 		},
 		columns: xt(d),
