@@ -288,9 +288,10 @@ export const AddElement = (ref, key, element) => {
             const keyNoRoot = TitleCase(key.replace(/root\./, ""), '_')
             const pathSegments = keyNoRoot.split('.');
             const lastSegment = pathSegments[pathSegments.length - 1];
+            const isSubtype = lastSegment === "Subtype"
             const isArrayIndex = /^\d+$/.test(lastSegment);
 
-            if (!isArrayIndex) {
+            if (!isArrayIndex && !isSubtype) {
                 st.labels[st.index] = <InputLabel key={"Label" + key + st.index} column={key}>{keyNoRoot}</InputLabel>
             } else {
                 st.labels[st.index] = "None";

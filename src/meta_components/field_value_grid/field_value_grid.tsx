@@ -1,6 +1,6 @@
 import {type FC, useLayoutEffect} from "react";
 import {
-    GetRawHeaders,
+    GetRawHeaders, GetRows,
     type Props,
     SetKeyValueHeaders,
     SetKeyValueRows,
@@ -16,7 +16,6 @@ export interface KeyValueProps extends Omit<Props, 'api' | 'endpoint' | 'refKey'
 
 export const FieldValueGrid: FC<KeyValueProps> = ({data, ...props}) => {
     const context = useRefIndex();
-    console.log(data)
 
     const getGridRef = () => {
         const gridState = context?.get("key_value_grid") as TableState
@@ -32,9 +31,11 @@ export const FieldValueGrid: FC<KeyValueProps> = ({data, ...props}) => {
     return (
         <UITable  {...props} grid_options={{
             columns: GetRawHeaders(getGridRef()),
+            rows: GetRows(getGridRef()),
             paginationMode: "client",
             sortingMode: "client",
             filterMode: "client",
+            datasource: undefined,
             rowSelection: false,
             disableVirtualization: true,
             sx: {
