@@ -36,37 +36,10 @@ const defaultSelector = () => {
         if (!IsNullOrUndefined(elem)){
             return elem
         }
-        const cleanInputSx = {
-            width: '100%',
-            '&:before, &:after': {
-                display: 'none !important',
-            },
-            '&:hover:not(.Mui-disabled):before': {
-                display: 'none !important',
-            },
-            '& .MuiInput-input': {
-                padding: '4px 0',
-                cursor: 'default',
-                '&::-webkit-outer-spin-button, &::-webkit-inner-spin-button': {
-                    '-webkit-appearance': 'none',
-                    margin: 0,
-                },
-                '&[type=number]': {
-                    '-moz-appearance': 'textfield',
-                },
-            },
-        };
-        elem = <Input type="text"
-                      disableUnderline={true}
-                      readOnly={true}
-                      sx={cleanInputSx}
-                      key={jsxKey} {...inputProps} />
+
+        elem = <Input type="text" key={jsxKey} {...inputProps} />
         if (currentType === 'number' || currentType === 'bigint') {
-            return <Input type='number'
-                          disableUnderline={true}
-                          readOnly={true}
-                          sx={cleanInputSx}
-                          key={jsxKey} {...inputProps} />
+            return <Input type='number' key={jsxKey} {...inputProps} />
         }
 
         if (currentType === 'boolean') {
@@ -107,9 +80,6 @@ const defaultSelector = () => {
                     return (<Input
                         type="text"
                         key={jsxKey}
-                        disableUnderline={true}
-                        readOnly={true}
-                        sx={cleanInputSx}
                         {...inputProps}
                         defaultValue={inputProps.defaultValue[i]}/>)
                 })
@@ -289,7 +259,7 @@ export const AddElement = (ref, key, element) => {
             const pathSegments = keyNoRoot.split('.');
             const lastSegment = pathSegments[pathSegments.length - 1];
             const isSubtype = lastSegment.toLowerCase() === "subtype"
-            const isInsideData = pathSegments.includes("Data");
+            const isInsideData = pathSegments.includes("data");
             const isArrayIndex = /^\d+$/.test(lastSegment);
 
             if (isInsideData) {

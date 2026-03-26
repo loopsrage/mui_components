@@ -135,7 +135,7 @@ var Ae = (e, t) => () => (t || e((t = { exports: {} }).exports, t), t.exports), 
 	if (e === null) return !0;
 	let t = typeof e;
 	return t === "string" || t === "number" || t === "boolean" || t === "undefined" || t === "symbol" || t === "bigint" || t === "int";
-}, N = (e) => e == null, P = (e, t) => N(e) ? "" : e.toLowerCase().split(t).map((e) => e.charAt(0).toUpperCase() + e.slice(1)).join(" "), F = "Values", I = "Containers", L = (e, t, n, r) => {
+}, N = (e) => e == null, P = (e, t) => N(e) ? "" : e.split(t).map((e) => e.charAt(0).toUpperCase() + e.slice(1)).join(" "), F = "Values", I = "Containers", L = (e, t, n, r) => {
 	let i = r || {
 		[F]: /* @__PURE__ */ new Map(),
 		[I]: /* @__PURE__ */ new Map()
@@ -476,31 +476,11 @@ var qe = ({ endpoint: e, handleErr: t }) => {
 		inputProps: i
 	});
 	if (!N(a)) return a;
-	let o = {
-		width: "100%",
-		"&:before, &:after": { display: "none !important" },
-		"&:hover:not(.Mui-disabled):before": { display: "none !important" },
-		"& .MuiInput-input": {
-			padding: "4px 0",
-			cursor: "default",
-			"&::-webkit-outer-spin-button, &::-webkit-inner-spin-button": {
-				"-webkit-appearance": "none",
-				margin: 0
-			},
-			"&[type=number]": { "-moz-appearance": "textfield" }
-		}
-	};
 	if (a = /* @__PURE__ */ C(f, {
 		type: "text",
-		disableUnderline: !0,
-		readOnly: !0,
-		sx: o,
 		...i
 	}, t), r === "number" || r === "bigint") return /* @__PURE__ */ C(f, {
 		type: "number",
-		disableUnderline: !0,
-		readOnly: !0,
-		sx: o,
 		...i
 	}, t);
 	if (r === "boolean") return /* @__PURE__ */ C(v, {
@@ -529,9 +509,6 @@ var qe = ({ endpoint: e, handleErr: t }) => {
 		if (!N(i.defaultValue.Subtype) || !N(i.defaultValue.Data)) return null;
 		if (Array.isArray(i.defaultValue)) return Object.keys(i.defaultValue).map((e) => /* @__PURE__ */ C(f, {
 			type: "text",
-			disableUnderline: !0,
-			readOnly: !0,
-			sx: o,
 			...i,
 			defaultValue: i.defaultValue[e]
 		}, t));
@@ -630,7 +607,7 @@ var qe = ({ endpoint: e, handleErr: t }) => {
 		r.nameIndex[t] = r.index, r.elements[r.index] = n;
 		let i = nt(e, t, n);
 		if (!N(i)) {
-			let e = P(t.replace(/root\./, ""), "_"), n = e.split("."), a = n[n.length - 1], o = a.toLowerCase() === "subtype", s = n.includes("Data"), c = /^\d+$/.test(a);
+			let e = P(t.replace(/root\./, ""), "_"), n = e.split("."), a = n[n.length - 1], o = a.toLowerCase() === "subtype", s = n.includes("data"), c = /^\d+$/.test(a);
 			if (s) return;
 			!c && !o ? r.labels[r.index] = /* @__PURE__ */ C(m, {
 				column: t,
