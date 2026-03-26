@@ -1326,11 +1326,17 @@ var qe = ({ endpoint: e, handleErr: t }) => {
 		columns: []
 	});
 	return T(() => {
-		let t = { current: n?.get("key_value_grid") };
-		t.current && (gt(t), _t(t, B(null, [], ".", e)), i({
-			rows: [...yt(t)],
-			columns: [...xt(t)]
-		}), Q(t));
+		(async () => {
+			let t = n?.get("key_value_grid");
+			if (!t) return;
+			let r = { current: t };
+			gt(r), _t(r, B(null, [], ".", e));
+			let a = yt(r), o = xt(r);
+			i({
+				rows: [...a],
+				columns: [...o]
+			}), await Q(r);
+		})();
 	}, [e, n]), /* @__PURE__ */ C($, {
 		...t,
 		grid_options: {
