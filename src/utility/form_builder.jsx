@@ -106,6 +106,7 @@ export const InitialTypeFormBuilderRefState = (elementSelector, context={}) => {
         elements: {},
         nameIndex: {},
         labels: {},
+        useLabels: {},
         element_component: {},
         container: undefined,
         handleOnClose: undefined,
@@ -141,8 +142,18 @@ export const GetSet = (ref, ind) => {
     const st = ref.current
     const la = st.labels[ind]
     const cm = st.element_component[ind]
-    if (la === "None") {
-        return <>{cm}</>;
+    const sl = st.useLabels[st.index]
+    if (sl) {
+        return (
+            <Stack key={ind} direction="column" spacing={1} sx={{ width: '100%', pb: 1 }}>
+                <Box sx={{ width: '100%'}}>
+                    {la}
+                </Box>
+                <Box sx={{ width: '100%' }}>
+                    {cm}
+                </Box>
+            </Stack>
+        );
     }
     return (
         <Stack
@@ -262,12 +273,8 @@ export const AddElement = (ref, key, element) => {
             const lastSegment = pathSegments[pathSegments.length - 1];
             const isSubtype = lastSegment.toLowerCase() === "subtype"
             const isArrayIndex = /^\d+$/.test(lastSegment);
-
-            if (!isArrayIndex && !isSubtype) {
-                st.labels[st.index] = <InputLabel key={"Label" + key + st.index} column={key}>{keyNoRoot}</InputLabel>
-            } else {
-                st.labels[st.index] = "None";
-            }
+            st.useLabels[st.index] = (!isArrayIndex && !isSubtype)
+            st.labels[st.index] = <InputLabel key={"Label" + key + st.index} column={key}>{keyNoRoot}</InputLabel>
             st.element_component[st.index] = elm
             st.index++
         }

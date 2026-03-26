@@ -48,6 +48,7 @@ export interface FormBuilderState {
     elements: Record<string, unknown>;
     nameIndex: Record<string, unknown>;
     labels: Record<string, string>;
+    useLabels: Record<string, boolean>;
     element_component: Record<string, unknown>;
     container: Container | undefined;
     elementSelector: (params: SelectorParams) => React.JSX.Element | null | undefined;
