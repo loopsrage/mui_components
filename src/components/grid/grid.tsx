@@ -104,7 +104,12 @@ export const SetKeyValueHeaders = (ref: RefObject<TableState>) => {
     const st = ref.current;
     if (!st) return;
 
-    ["Field", "Value"].map((i) => {
+    st.index = 0;
+    st.headers = [];
+    st.rows = [];
+    st.headers_ri = {};
+
+    ["Field", "Value"].forEach((i) => {
         const path = i;
         st.headers[st.index] = {
             field: path,
@@ -114,10 +119,10 @@ export const SetKeyValueHeaders = (ref: RefObject<TableState>) => {
             type: 'string',
             headerName: i
         };
-        st.rows[st.index] = []
+        st.rows[st.index] = [];
         st.headers_ri[path] = st.index;
         st.index++;
-    })
+    });
     ref.current = st
 }
 
@@ -125,7 +130,7 @@ export const SetKeyValueRows = (ref: RefObject<TableState>, data: Container) => 
     const st = ref.current;
     if (!st) return;
 
-    st.rows = []
+    st.rows = [[], []];
     st.row_count = 0;
 
     RangePrimitiveValues(data, (cont) => {
@@ -133,7 +138,11 @@ export const SetKeyValueRows = (ref: RefObject<TableState>, data: Container) => 
             ["Field", "Value"].map((i) => {
                 const columnIndex = st.headers_ri[i]
                 if (columnIndex !== undefined) {
-                    st.rows[columnIndex].push(cont.value)
+                    const fieldIndex = st.headers_ri["Field"];
+                    const valueIndex = st.headers_ri["Value"];
+                    if (fieldIndex !== undefined) st.rows[fieldIndex].push(cont.path);
+                    if (valueIndex !== undefined) st.rows[valueIndex].push(cont.value);
+                    st.row_count!++;
                 }
             })
         }

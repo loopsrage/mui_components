@@ -803,7 +803,7 @@ var qe = ({ endpoint: e, handleErr: t }) => {
 	}), e.current = n;
 }, gt = (e) => {
 	let t = e.current;
-	t && (["Field", "Value"].map((e) => {
+	t && (t.index = 0, t.headers = [], t.rows = [], t.headers_ri = {}, ["Field", "Value"].forEach((e) => {
 		let n = e;
 		t.headers[t.index] = {
 			field: n,
@@ -816,10 +816,12 @@ var qe = ({ endpoint: e, handleErr: t }) => {
 	}), e.current = t);
 }, _t = (e, t) => {
 	let n = e.current;
-	n && (n.rows = [], n.row_count = 0, z(t, (e) => {
+	n && (n.rows = [[], []], n.row_count = 0, z(t, (e) => {
 		M(e.value) && ["Field", "Value"].map((t) => {
-			let r = n.headers_ri[t];
-			r !== void 0 && n.rows[r].push(e.value);
+			if (n.headers_ri[t] !== void 0) {
+				let t = n.headers_ri.Field, r = n.headers_ri.Value;
+				t !== void 0 && n.rows[t].push(e.path), r !== void 0 && n.rows[r].push(e.value), n.row_count++;
+			}
 		});
 	}), e.current = n);
 }, vt = (e, t) => {
@@ -1330,12 +1332,10 @@ var qe = ({ endpoint: e, handleErr: t }) => {
 		(async () => {
 			let t = n?.get("key_value_grid");
 			if (!t) return;
-			let r = { current: t };
-			gt(r), _t(r, B(null, [], ".", e));
-			let a = yt(r), o = xt(r);
-			i({
-				rows: [...a],
-				columns: [...o]
+			let r = { current: { ...t } };
+			gt(r), _t(r, B(null, [], ".", e)), i({
+				rows: [...yt(r)],
+				columns: [...xt(r)]
 			}), await Q(r);
 		})();
 	}, [e, n]), /* @__PURE__ */ C($, {

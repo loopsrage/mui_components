@@ -22,28 +22,24 @@ export const FieldValueGrid: FC<KeyValueProps> = ({data, ...props}) => {
     useEffect(() => {
         const updateGrid = async () => {
             const gridState = context?.get("key_value_grid") as TableState;
-
             if (!gridState) return;
 
-            const ref = { current: gridState };
+            const ref = { current: { ...gridState } };
 
             SetKeyValueHeaders(ref);
-            const newRowsRaw = BuildContainerTree(null, [], ".", data);
-            SetKeyValueRows(ref, newRowsRaw);
-
-            const mappedRows = GetKeyValueRows(ref);
-            const headers = GetRawHeaders(ref);
+            const rawRows = BuildContainerTree(null, [], ".", data);
+            SetKeyValueRows(ref, rawRows);
 
             setGridData({
-                rows: [...mappedRows],
-                columns: [...headers]
+                rows: [...GetKeyValueRows(ref)],
+                columns: [...GetRawHeaders(ref)]
             });
 
             await Refresh(ref);
         };
 
         updateGrid();
-    }, [data, context]);// Reacts when data changes OR when context registry updates
+    }, [data, context]);
 
     return (
         <UITable register_component={true} datagrid_sx={props.datagrid_sx}  {...props} grid_options={{
