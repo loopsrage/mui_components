@@ -1351,7 +1351,7 @@ var qe = ({ endpoint: e, handleErr: t }) => {
 			dataSource: void 0,
 			rowSelection: !1,
 			disableVirtualization: !0,
-			getRowId: (e) => e.key,
+			getRowId: (e) => e.id || e.key,
 			rowCount: void 0
 		},
 		refKey: "key_value_grid"
