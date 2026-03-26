@@ -630,8 +630,9 @@ var qe = ({ endpoint: e, handleErr: t }) => {
 		r.nameIndex[t] = r.index, r.elements[r.index] = n;
 		let i = nt(e, t, n);
 		if (!N(i)) {
-			let e = P(t.replace(/root\./, ""), "_"), n = e.split("."), a = n[n.length - 1], o = a.toLowerCase() === "subtype";
-			!/^\d+$/.test(a) && !o ? r.labels[r.index] = /* @__PURE__ */ C(m, {
+			let e = P(t.replace(/root\./, ""), "_"), n = e.split("."), a = n[n.length - 1], o = a.toLowerCase() === "subtype", s = n.includes("Data"), c = /^\d+$/.test(a);
+			if (s) return;
+			!c && !o ? r.labels[r.index] = /* @__PURE__ */ C(m, {
 				column: t,
 				children: e
 			}, "Label" + t + r.index) : r.labels[r.index] = "None", r.element_component[r.index] = i, r.index++;
@@ -1331,15 +1332,21 @@ var qe = ({ endpoint: e, handleErr: t }) => {
 		}) })]
 	}) });
 }, qt = ({ data: e, ...t }) => {
-	let n = J(), r = () => ({ current: n?.get("key_value_grid") });
+	let n = J(), [r, i] = O({
+		rows: [],
+		columns: []
+	}), a = () => ({ current: n?.get("key_value_grid") });
 	return E(() => {
-		let t = r();
-		_t(t), vt(t, B(null, [], ".", e)), Q(t);
-	}, [e]), /* @__PURE__ */ C($, {
+		let t = a();
+		_t(t), vt(t, B(null, [], ".", e)), i({
+			rows: X(t),
+			columns: bt(t)
+		}), Q(t);
+	}, [e, n]), /* @__PURE__ */ C($, {
 		...t,
 		grid_options: {
-			columns: bt(r()),
-			rows: X(r()),
+			columns: r.columns,
+			rows: r.rows,
 			paginationMode: "client",
 			sortingMode: "client",
 			filterMode: "client",

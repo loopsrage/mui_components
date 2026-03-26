@@ -1,4 +1,4 @@
-import {type FC, useLayoutEffect} from "react";
+import {type FC, useLayoutEffect, useState} from "react";
 import {
     GetRawHeaders, GetRows,
     type Props, Refresh,
@@ -16,23 +16,32 @@ export interface KeyValueProps extends Omit<Props, 'api' | 'endpoint' | 'refKey'
 
 export const FieldValueGrid: FC<KeyValueProps> = ({data, ...props}) => {
     const context = useRefIndex();
+    const [gridData, setGridData] = useState<Record<string, object[]>>({ rows: [], columns: [] });
 
     const getGridRef = () => {
-        const gridState = context?.get("key_value_grid") as TableState
-        return {current: gridState}
-    }
+        const gridState = context?.get("key_value_grid") as TableState;
+        return { current: gridState };
+    };
 
     useLayoutEffect(() => {
-        const ref = getGridRef()
-        SetKeyValueHeaders(ref)
-        SetKeyValueRows(ref, BuildContainerTree(null, [], ".", data))
-        Refresh(ref)
-    }, [data]);
+        const ref = getGridRef();
+
+        SetKeyValueHeaders(ref);
+        const newRows = BuildContainerTree(null, [], ".", data);
+        SetKeyValueRows(ref, newRows);
+
+        setGridData({
+            rows: GetRows(ref),
+            columns: GetRawHeaders(ref)
+        });
+
+        Refresh(ref);
+    }, [data, context]);
 
     return (
         <UITable  {...props} grid_options={{
-            columns: GetRawHeaders(getGridRef()),
-            rows: GetRows(getGridRef()),
+            columns: gridData.columns,
+            rows: gridData.rows,
             paginationMode: "client",
             sortingMode: "client",
             filterMode: "client",
