@@ -41,6 +41,7 @@ export declare const SetHeadersFromJson: (ref: RefObject<TableState>, data: Cont
 export declare const SetKeyValueHeaders: (ref: RefObject<TableState>) => void;
 export declare const SetKeyValueRows: (ref: RefObject<TableState>, data: Container) => void;
 export declare const SetRowsFromJson: (ref: RefObject<TableState>, data: Container) => void;
+export declare const GetKeyValueRows: (ref: RefObject<TableState>) => GridValidRowModel[];
 export declare const GetRows: (ref: RefObject<TableState>) => GridValidRowModel[];
 export declare const GetRawHeaders: (ref: RefObject<TableState>) => GridColDef[];
 export declare const GetHeaders: (ref: RefObject<TableState>) => GridColDef[];

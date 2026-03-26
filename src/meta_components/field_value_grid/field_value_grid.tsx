@@ -1,6 +1,7 @@
 import {type FC, useEffect, useState} from "react";
 import {
-    GetRawHeaders, GetRows,
+    GetKeyValueRows,
+    GetRawHeaders,
     type Props, Refresh,
     SetKeyValueHeaders,
     SetKeyValueRows,
@@ -18,25 +19,22 @@ export const FieldValueGrid: FC<KeyValueProps> = ({data, ...props}) => {
     const context = useRefIndex();
     const [gridData, setGridData] = useState<Record<string, object[]>>({ rows: [], columns: [] });
 
-    const getGridRef = () => {
-        const gridState = context?.get("key_value_grid") as TableState;
-        return { current: gridState };
-    };
-
     useEffect(() => {
-        const ref = getGridRef();
+        const gridState = context?.get("key_value_grid") as TableState;
+        const ref = { current: gridState };
+
+        if (!ref.current) return;
 
         SetKeyValueHeaders(ref);
         const newRows = BuildContainerTree(null, [], ".", data);
         SetKeyValueRows(ref, newRows);
-
         setGridData({
-            rows: GetRows(ref),
-            columns: GetRawHeaders(ref)
+            rows: [...GetKeyValueRows(ref)],
+            columns: [...GetRawHeaders(ref)]
         });
 
         Refresh(ref);
-    }, [])
+    }, [data, context])
 
     return (
         <UITable  {...props} grid_options={{

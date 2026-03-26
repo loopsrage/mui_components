@@ -162,6 +162,28 @@ export const SetRowsFromJson = (ref: RefObject<TableState>, data: Container) => 
     ref.current = st
 }
 
+export const GetKeyValueRows = (ref: RefObject<TableState>): GridValidRowModel[] => {
+    const st = ref.current;
+    if (!st || !st.rows || st.rows.length === 0) return [];
+
+    const idColumn = st.rows[0];
+    const rowCount = idColumn.length;
+
+    return Array.from({ length: rowCount }).map((_, rowIndex) => {
+        const rowObj: Record<string, unknown> = {};
+
+        st.headers.forEach((colDef, colIndex) => {
+            const columnData = st.rows[colIndex];
+            rowObj[colDef.field] = columnData ? columnData[rowIndex] : null;
+        });
+
+        const persistentId = rowObj["key"];
+        rowObj.id = persistentId;
+
+        return rowObj;
+    });
+}
+
 export const GetRows = (ref: RefObject<TableState>): GridValidRowModel[] => {
     const st = ref.current;
     if (!st || !st.rows || st.rows.length === 0) return [];
