@@ -52,8 +52,7 @@ export const FieldValueGrid: FC<KeyValueProps> = ({data, ...props}) => {
             rowSelection: false,
             disableVirtualization: true,
             getRowId: (row: any) => {
-                console.log(row)
-                return row.id || row.key
+                return row.id || row.Field
             },
             rowCount: undefined,
         }} refKey={"key_value_grid"} />
