@@ -541,7 +541,7 @@ var He = ({ endpoint: e, handleErr: t }) => {
 	L(n) || (n.container = t), e.current = n;
 }, G = (e) => e.current.container, Xe = (e, n) => {
 	let r = e.current, i = r.labels[n], a = r.element_component[n];
-	return r.useLabels[r.index] ? /* @__PURE__ */ D(_, {
+	return r.useLabels[n] ? /* @__PURE__ */ D(_, {
 		direction: "column",
 		spacing: 1,
 		sx: {
@@ -623,8 +623,10 @@ var He = ({ endpoint: e, handleErr: t }) => {
 			r.nameIndex[t] = r.index, r.elements[r.index] = n;
 			let o = et(e, t, n);
 			if (!L(o)) {
-				let e = a[a.length - 1], n = e.toLowerCase() === "subtype", s = /^\d+$/.test(e), c = i;
-				n && a.length > 1 && (c = a[a.length - 2]), r.useLabels[r.index] = n ? !0 : !s, r.labels[r.index] = /* @__PURE__ */ E(m, {
+				let e = a[a.length - 1], n = e.toLowerCase() === "subtype", s = /^\d+$/.test(e);
+				r.useLabels[r.index] = n || !s;
+				let c = i;
+				n && a.length > 1 && (c = a[a.length - 2]), r.labels[r.index] = /* @__PURE__ */ E(m, {
 					column: t,
 					children: c
 				}, "Label" + t + r.index), r.element_component[r.index] = o, r.index++;

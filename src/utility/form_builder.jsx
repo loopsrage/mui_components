@@ -142,8 +142,8 @@ export const GetSet = (ref, ind) => {
     const st = ref.current
     const la = st.labels[ind]
     const cm = st.element_component[ind]
-    const sl = st.useLabels[st.index]
-    if (sl) {
+    const useLabelOnTop = st.useLabels[ind];
+    if (useLabelOnTop) {
         return (
             <Stack key={ind} direction="column" spacing={1} sx={{ width: '100%', pb: 1 }}>
                 <Box sx={{ width: '100%'}}>
@@ -274,12 +274,12 @@ export const AddElement = (ref, key, element) => {
             const isSubtype = lastSegment.toLowerCase() === "subtype"
             const isArrayIndex = /^\d+$/.test(lastSegment);
 
+            st.useLabels[st.index] = isSubtype || !isArrayIndex;
             let displayName = keyNoRoot;
             if (isSubtype && pathSegments.length > 1) {
                 displayName = pathSegments[pathSegments.length - 2];
             }
 
-            st.useLabels[st.index] = isSubtype ? true : !isArrayIndex;
             st.labels[st.index] = (
                 <InputLabel key={"Label" + key + st.index} column={key}>
                     {displayName}
