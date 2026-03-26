@@ -1336,7 +1336,8 @@ var qe = ({ endpoint: e, handleErr: t }) => {
 				width: "100%",
 				...t.datagrid_sx
 			},
-			getRowId: (e) => e.key
+			getRowId: (e) => e.key,
+			rowCount: void 0
 		},
 		refKey: "key_value_grid"
 	});
