@@ -135,16 +135,12 @@ export const SetKeyValueRows = (ref: RefObject<TableState>, data: Container) => 
 
     RangePrimitiveValues(data, (cont) => {
         if (IsPrimitive(cont.value)) {
-            ["Field", "Value"].map((i) => {
-                const columnIndex = st.headers_ri[i]
-                if (columnIndex !== undefined) {
-                    const fieldIndex = st.headers_ri["Field"];
-                    const valueIndex = st.headers_ri["Value"];
-                    if (fieldIndex !== undefined) st.rows[fieldIndex].push(cont.path);
-                    if (valueIndex !== undefined) st.rows[valueIndex].push(cont.value);
-                    st.row_count!++;
-                }
-            })
+            console.log(cont.path, cont.value)
+            const fieldIndex = st.headers_ri["Field"];
+            const valueIndex = st.headers_ri["Value"];
+            if (fieldIndex !== undefined) st.rows[fieldIndex].push(cont.path);
+            if (valueIndex !== undefined) st.rows[valueIndex].push(cont.value);
+            st.row_count!++;
         }
     })
     ref.current = st
@@ -186,8 +182,8 @@ export const GetKeyValueRows = (ref: RefObject<TableState>): GridValidRowModel[]
             rowObj[colDef.field] = columnData ? columnData[rowIndex] : null;
         });
 
-        const persistentId = rowObj["key"];
-        rowObj.id = persistentId;
+        const persistentId = rowObj["Field"];
+        rowObj.Field = persistentId;
 
         return rowObj;
     });

@@ -817,12 +817,11 @@ var qe = ({ endpoint: e, handleErr: t }) => {
 }, _t = (e, t) => {
 	let n = e.current;
 	n && (n.rows = [[], []], n.row_count = 0, z(t, (e) => {
-		M(e.value) && ["Field", "Value"].map((t) => {
-			if (n.headers_ri[t] !== void 0) {
-				let t = n.headers_ri.Field, r = n.headers_ri.Value;
-				t !== void 0 && n.rows[t].push(e.path), r !== void 0 && n.rows[r].push(e.value), n.row_count++;
-			}
-		});
+		if (M(e.value)) {
+			console.log(e.path, e.value);
+			let t = n.headers_ri.Field, r = n.headers_ri.Value;
+			t !== void 0 && n.rows[t].push(e.path), r !== void 0 && n.rows[r].push(e.value), n.row_count++;
+		}
 	}), e.current = n);
 }, vt = (e, t) => {
 	let n = e.current;
@@ -843,7 +842,7 @@ var qe = ({ endpoint: e, handleErr: t }) => {
 		return t.headers.forEach((e, i) => {
 			let a = t.rows[i];
 			r[e.field] = a ? a[n] : null;
-		}), r.id = r.key, r;
+		}), r.Field = r.Field, r;
 	});
 }, bt = (e) => {
 	let t = e.current;
