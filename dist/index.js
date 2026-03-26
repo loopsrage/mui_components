@@ -809,7 +809,7 @@ var B = ({ endpoint: e, handleErr: t }) => {
 			field: n,
 			sortable: !0,
 			filterable: !0,
-			flex: 2,
+			flex: 1,
 			type: "string",
 			headerName: e
 		}, t.rows[t.index] = [], t.headers_ri[n] = t.index, t.index++;
