@@ -288,7 +288,7 @@ export const AddElement = (ref, key, element) => {
             const keyNoRoot = TitleCase(key.replace(/root\./, ""), '_')
             const pathSegments = keyNoRoot.split('.');
             const lastSegment = pathSegments[pathSegments.length - 1];
-            const isSubtype = lastSegment === "Subtype"
+            const isSubtype = lastSegment.toLowerCase() === "subtype"
             const isArrayIndex = /^\d+$/.test(lastSegment);
 
             if (!isArrayIndex && !isSubtype) {

@@ -1,7 +1,7 @@
 import {type FC, useLayoutEffect} from "react";
 import {
     GetRawHeaders, GetRows,
-    type Props,
+    type Props, Refresh,
     SetKeyValueHeaders,
     SetKeyValueRows,
     type TableState,
@@ -26,6 +26,7 @@ export const FieldValueGrid: FC<KeyValueProps> = ({data, ...props}) => {
         const ref = getGridRef()
         SetKeyValueHeaders(ref)
         SetKeyValueRows(ref, BuildContainerTree(null, [], ".", data))
+        Refresh(ref)
     }, [data]);
 
     return (

@@ -630,7 +630,7 @@ var qe = ({ endpoint: e, handleErr: t }) => {
 		r.nameIndex[t] = r.index, r.elements[r.index] = n;
 		let i = nt(e, t, n);
 		if (!N(i)) {
-			let e = P(t.replace(/root\./, ""), "_"), n = e.split("."), a = n[n.length - 1], o = a === "Subtype";
+			let e = P(t.replace(/root\./, ""), "_"), n = e.split("."), a = n[n.length - 1], o = a.toLowerCase() === "subtype";
 			!/^\d+$/.test(a) && !o ? r.labels[r.index] = /* @__PURE__ */ C(m, {
 				column: t,
 				children: e
@@ -1334,7 +1334,7 @@ var qe = ({ endpoint: e, handleErr: t }) => {
 	let n = J(), r = () => ({ current: n?.get("key_value_grid") });
 	return E(() => {
 		let t = r();
-		_t(t), vt(t, B(null, [], ".", e));
+		_t(t), vt(t, B(null, [], ".", e)), Q(t);
 	}, [e]), /* @__PURE__ */ C($, {
 		...t,
 		grid_options: {
