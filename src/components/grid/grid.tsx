@@ -126,7 +126,7 @@ export const SetKeyValueHeaders = (ref: RefObject<TableState>) => {
     ref.current = st
 }
 
-export const SetKeyValueRows = (ref: RefObject<TableState>, data: Container) => {
+export const SetKeyValueRows = (ref: RefObject<TableState>, data: object) => {
     const st = ref.current;
     if (!st) return;
 

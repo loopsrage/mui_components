@@ -39,7 +39,7 @@ export declare const SetEndpoint: (ref: RefObject<TableState>, endpoint: string)
 export declare const GetEndpoint: (ref: RefObject<TableState>) => string | undefined;
 export declare const SetHeadersFromJson: (ref: RefObject<TableState>, data: Container) => void;
 export declare const SetKeyValueHeaders: (ref: RefObject<TableState>) => void;
-export declare const SetKeyValueRows: (ref: RefObject<TableState>, data: Container) => void;
+export declare const SetKeyValueRows: (ref: RefObject<TableState>, data: object) => void;
 export declare const SetRowsFromJson: (ref: RefObject<TableState>, data: Container) => void;
 export declare const GetKeyValueRows: (ref: RefObject<TableState>) => GridValidRowModel[];
 export declare const GetRows: (ref: RefObject<TableState>) => GridValidRowModel[];

@@ -9,7 +9,6 @@ import {
     UITable
 } from "@/components/grid/grid";
 import {useRefIndex} from "@/context/context_index";
-import {BuildContainerTree} from "@/utility/containers";
 
 export interface KeyValueProps extends Omit<Props, 'api' | 'endpoint' | 'refKey'> {
     data: object;
@@ -27,9 +26,7 @@ export const FieldValueGrid: FC<KeyValueProps> = ({data, ...props}) => {
             const ref = { current: { ...gridState } };
 
             SetKeyValueHeaders(ref);
-            console.log(data)
-            const rawRows = BuildContainerTree(null, [], ".", data);
-            SetKeyValueRows(ref, rawRows);
+            SetKeyValueRows(ref, data);
 
             setGridData({
                 rows: [...GetKeyValueRows(ref)],
