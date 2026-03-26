@@ -15,22 +15,37 @@ export interface KeyValueProps extends Omit<Props, 'api' | 'endpoint' | 'refKey'
 }
 
 export const DatagridSx = () => {
+    const stickyCommon = {
+        position: 'sticky',
+        zIndex: 2, // Cells sit above normal content
+        backgroundColor: 'white', // Crucial to hide content scrolling behind
+    };
+
+    const stickyHeaderCommon = {
+        position: 'sticky',
+        zIndex: 3, // Headers sit above sticky cells
+        backgroundColor: '#191E23 !important', // Match your header color
+    };
     return {
-        // // Sticky Header
-        // '& .MuiDataGrid-columnHeader[data-field="edit"]': {
-        //     position: 'sticky',
-        //     right: 0,
-        //     backgroundColor: 'black !important',
-        //     color: 'white',
-        //     zIndex: 3,
-        // },
-        // Sticky Cells
-        '& .MuiDataGrid-cell[data-field="edit"]': {
-            position: 'sticky',
+        '& .MuiDataGrid-columnHeader[data-field="Field"]': {
+            ...stickyHeaderCommon,
+            left: 0,
+        },
+        '& .MuiDataGrid-cell[data-field="Field"]': {
+            ...stickyCommon,
+            left: 0,
+            borderRight: '1px solid #e0e0e0', // Optional: visual separator
+        },
+
+        // --- 2. Pin "Value" to the RIGHT ---
+        '& .MuiDataGrid-columnHeader[data-field="Value"]': {
+            ...stickyHeaderCommon,
             right: 0,
-            width: 'auto',
-            backgroundColor: 'white',
-            zIndex: 2,
+        },
+        '& .MuiDataGrid-cell[data-field="Value"]': {
+            ...stickyCommon,
+            right: 0,
+            borderLeft: '1px solid #e0e0e0', // Optional: visual separator
         },
         // Ensure the container doesn't clip the sticky effect
         '& .MuiDataGrid-main': {

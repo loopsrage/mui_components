@@ -4,12 +4,31 @@ export interface KeyValueProps extends Omit<Props, 'api' | 'endpoint' | 'refKey'
     data: object;
 }
 export declare const DatagridSx: () => {
-    '& .MuiDataGrid-cell[data-field="edit"]': {
+    '& .MuiDataGrid-columnHeader[data-field="Field"]': {
+        left: number;
         position: string;
-        right: number;
-        width: string;
-        backgroundColor: string;
         zIndex: number;
+        backgroundColor: string;
+    };
+    '& .MuiDataGrid-cell[data-field="Field"]': {
+        left: number;
+        borderRight: string;
+        position: string;
+        zIndex: number;
+        backgroundColor: string;
+    };
+    '& .MuiDataGrid-columnHeader[data-field="Value"]': {
+        right: number;
+        position: string;
+        zIndex: number;
+        backgroundColor: string;
+    };
+    '& .MuiDataGrid-cell[data-field="Value"]': {
+        right: number;
+        borderLeft: string;
+        position: string;
+        zIndex: number;
+        backgroundColor: string;
     };
     '& .MuiDataGrid-main': {
         overflow: string;

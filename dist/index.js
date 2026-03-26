@@ -794,7 +794,6 @@ var Ve = ({ endpoint: e, handleErr: t }) => {
 			field: n,
 			sortable: !0,
 			filterable: !0,
-			flex: 1,
 			width: 200,
 			type: "string",
 			headerName: e
@@ -1311,32 +1310,54 @@ var Ve = ({ endpoint: e, handleErr: t }) => {
 			children: e
 		}) })]
 	}) });
-}, Kt = () => ({
-	"& .MuiDataGrid-cell[data-field=\"edit\"]": {
+}, Kt = () => {
+	let e = {
 		position: "sticky",
-		right: 0,
-		width: "auto",
-		backgroundColor: "white",
-		zIndex: 2
-	},
-	"& .MuiDataGrid-main": { overflow: "auto" },
-	"& .MuiSvgIcon-root MuiSvgIcon-fontSizeSmall MuiDataGrid-sortIcon": { color: "#fff" },
-	"& .MuiDataGrid-columnHeaderTitle": {
-		fontSize: "1rem",
-		fontWeight: "bold"
-	},
-	"& .MuiDataGrid-columnHeaders div[role=\"row\"]": {
-		backgroundColor: "#191E23 !important",
-		color: "white"
-	},
-	"& .MuiDataGrid-columnHeader": {
-		backgroundColor: "#191E23 !important",
-		color: "white"
-	},
-	"& .MuiDataGrid-filler": { backgroundColor: "black !important" },
-	"& .MuiDataGrid-menuIcon": { color: "white" },
-	"& .MuiDataGrid-columnSeparator": { color: "#333" }
-}), qt = ({ data: e, ...t }) => {
+		zIndex: 2,
+		backgroundColor: "white"
+	}, t = {
+		position: "sticky",
+		zIndex: 3,
+		backgroundColor: "#191E23 !important"
+	};
+	return {
+		"& .MuiDataGrid-columnHeader[data-field=\"Field\"]": {
+			...t,
+			left: 0
+		},
+		"& .MuiDataGrid-cell[data-field=\"Field\"]": {
+			...e,
+			left: 0,
+			borderRight: "1px solid #e0e0e0"
+		},
+		"& .MuiDataGrid-columnHeader[data-field=\"Value\"]": {
+			...t,
+			right: 0
+		},
+		"& .MuiDataGrid-cell[data-field=\"Value\"]": {
+			...e,
+			right: 0,
+			borderLeft: "1px solid #e0e0e0"
+		},
+		"& .MuiDataGrid-main": { overflow: "auto" },
+		"& .MuiSvgIcon-root MuiSvgIcon-fontSizeSmall MuiDataGrid-sortIcon": { color: "#fff" },
+		"& .MuiDataGrid-columnHeaderTitle": {
+			fontSize: "1rem",
+			fontWeight: "bold"
+		},
+		"& .MuiDataGrid-columnHeaders div[role=\"row\"]": {
+			backgroundColor: "#191E23 !important",
+			color: "white"
+		},
+		"& .MuiDataGrid-columnHeader": {
+			backgroundColor: "#191E23 !important",
+			color: "white"
+		},
+		"& .MuiDataGrid-filler": { backgroundColor: "black !important" },
+		"& .MuiDataGrid-menuIcon": { color: "white" },
+		"& .MuiDataGrid-columnSeparator": { color: "#333" }
+	};
+}, qt = ({ data: e, ...t }) => {
 	let n = Y(), [r, i] = j({
 		rows: [],
 		columns: []
