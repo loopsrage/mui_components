@@ -273,7 +273,7 @@ export const AddElement = (ref, key, element) => {
             const lastSegment = pathSegments[pathSegments.length - 1];
             const isSubtype = lastSegment.toLowerCase() === "subtype"
             const isArrayIndex = /^\d+$/.test(lastSegment);
-            st.useLabels[st.index] = (!isArrayIndex || isSubtype)
+            st.useLabels[st.index] = (!isArrayIndex || !isSubtype)
             st.labels[st.index] = <InputLabel key={"Label" + key + st.index} column={key}>{keyNoRoot}</InputLabel>
             st.element_component[st.index] = elm
             st.index++

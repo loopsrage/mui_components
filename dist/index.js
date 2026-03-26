@@ -624,7 +624,7 @@ var He = ({ endpoint: e, handleErr: t }) => {
 			let o = et(e, t, n);
 			if (!L(o)) {
 				let e = a[a.length - 1], n = e.toLowerCase() === "subtype", s = /^\d+$/.test(e);
-				r.useLabels[r.index] = !s || n, r.labels[r.index] = /* @__PURE__ */ E(m, {
+				r.useLabels[r.index] = !s || !n, r.labels[r.index] = /* @__PURE__ */ E(m, {
 					column: t,
 					children: i
 				}, "Label" + t + r.index), r.element_component[r.index] = o, r.index++;
