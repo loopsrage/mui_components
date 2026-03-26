@@ -1339,6 +1339,8 @@ var qe = ({ endpoint: e, handleErr: t }) => {
 			}), await Q(r);
 		})();
 	}, [e, n]), /* @__PURE__ */ C($, {
+		register_component: !0,
+		datagrid_sx: t.datagrid_sx,
 		...t,
 		grid_options: {
 			columns: r.columns,
@@ -1349,11 +1351,6 @@ var qe = ({ endpoint: e, handleErr: t }) => {
 			dataSource: void 0,
 			rowSelection: !1,
 			disableVirtualization: !0,
-			sx: {
-				height: 400,
-				width: "100%",
-				...t.datagrid_sx
-			},
 			getRowId: (e) => e.key,
 			rowCount: void 0
 		},

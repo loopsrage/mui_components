@@ -45,9 +45,8 @@ export const FieldValueGrid: FC<KeyValueProps> = ({data, ...props}) => {
         updateGrid();
     }, [data, context]);// Reacts when data changes OR when context registry updates
 
-
     return (
-        <UITable  {...props} grid_options={{
+        <UITable register_component={true} datagrid_sx={props.datagrid_sx}  {...props} grid_options={{
             columns: gridData.columns,
             rows: gridData.rows,
             paginationMode: "client",
@@ -56,11 +55,6 @@ export const FieldValueGrid: FC<KeyValueProps> = ({data, ...props}) => {
             dataSource: undefined,
             rowSelection: false,
             disableVirtualization: true,
-            sx: {
-                height: 400,
-                width: '100%',
-                ...props.datagrid_sx
-            },
             getRowId: (row: {key: string}) => row.key,
             rowCount: undefined,
         }} refKey={"key_value_grid"} />
