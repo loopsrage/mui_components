@@ -27,6 +27,7 @@ export const FieldValueGrid: FC<KeyValueProps> = ({data, ...props}) => {
             const ref = { current: { ...gridState } };
 
             SetKeyValueHeaders(ref);
+            console.log(data)
             const rawRows = BuildContainerTree(null, [], ".", data);
             SetKeyValueRows(ref, rawRows);
 

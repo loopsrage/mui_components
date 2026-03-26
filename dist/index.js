@@ -1332,7 +1332,7 @@ var qe = ({ endpoint: e, handleErr: t }) => {
 			let t = n?.get("key_value_grid");
 			if (!t) return;
 			let r = { current: { ...t } };
-			gt(r), _t(r, B(null, [], ".", e)), i({
+			gt(r), console.log(e), _t(r, B(null, [], ".", e)), i({
 				rows: [...yt(r)],
 				columns: [...xt(r)]
 			}), await Q(r);
