@@ -866,7 +866,7 @@ var qe = ({ endpoint: e, handleErr: t }) => {
 	});
 }, bt = (e) => {
 	let t = e.current;
-	if (t) return t.headers;
+	return !t || !t.headers ? [] : t.headers;
 }, xt = (e) => {
 	let t = e.current, n = Object.keys(t.headers_ri).map((e) => ({
 		field: e,

@@ -186,7 +186,9 @@ export const GetRows = (ref: RefObject<TableState>): GridValidRowModel[] => {
 
 export const GetRawHeaders =  (ref: RefObject<TableState>) => {
     const st = ref.current;
-    if (!st) return;
+    if (!st || !st.headers) {
+        return [];
+    }
     return st.headers;
 }
 
