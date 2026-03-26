@@ -820,7 +820,7 @@ var qe = ({ endpoint: e, handleErr: t }) => {
 		if (M(e.value)) {
 			console.log(e.path, e.value);
 			let t = n.headers_ri.Field, r = n.headers_ri.Value;
-			t !== void 0 && n.rows[t].push(e.path), r !== void 0 && n.rows[r].push(e.value), n.row_count++;
+			t !== void 0 && n.rows[t].push(P(e.path.split(".").pop(), "_")), r !== void 0 && n.rows[r].push(e.value), n.row_count++;
 		}
 	}), e.current = n);
 }, vt = (e, t) => {

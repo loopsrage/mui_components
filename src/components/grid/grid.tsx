@@ -138,7 +138,7 @@ export const SetKeyValueRows = (ref: RefObject<TableState>, data: Container) => 
             console.log(cont.path, cont.value)
             const fieldIndex = st.headers_ri["Field"];
             const valueIndex = st.headers_ri["Value"];
-            if (fieldIndex !== undefined) st.rows[fieldIndex].push(cont.path);
+            if (fieldIndex !== undefined) st.rows[fieldIndex].push(TitleCase(cont.path.split('.').pop(), "_"));
             if (valueIndex !== undefined) st.rows[valueIndex].push(cont.value);
             st.row_count!++;
         }
