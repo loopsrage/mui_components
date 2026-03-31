@@ -586,7 +586,10 @@ var Je = ({ endpoint: e, handleErr: t }) => {
 		defaultChecked: i.defaultValue
 	}, t);
 	if (r === "object") {
-		if (i.defaultValue.Subtype === 20) return /* @__PURE__ */ S(V, { data: I(G(e), n.slice(0, n.lastIndexOf(".")))?.value.Data }, t);
+		if (i.defaultValue.Subtype === 20) {
+			let r = I(G(e), n.slice(0, n.lastIndexOf(".")));
+			return /* @__PURE__ */ S(V, { data: JSON.parse(r?.value.Data ?? "{}") }, t);
+		}
 		if (i.defaultValue.Subtype === 19) return /* @__PURE__ */ S(Yt, { data: I(G(e), n.slice(0, n.lastIndexOf(".")))?.value.Data });
 		if (i.defaultValue.Subtype === 17) return /* @__PURE__ */ S(Ge, { data: I(G(e), n.slice(0, n.lastIndexOf(".")))?.value.Data }, t);
 		if (i.defaultValue.Subtype === 16 || i.defaultValue.Subtype === 0) {
