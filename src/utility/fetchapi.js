@@ -61,11 +61,17 @@ export const FetchApi = (coreUrl, {baseHeaders, handleErr, handleFinally, debug}
             endpoint = ""
         }
         let fetchUrl = coreUrl + endpoint
+        const mergedHeaders = { ...header, ...inputHeaders };
+        Object.keys(mergedHeaders).forEach(key => {
+            if (IsNullOrUndefined(mergedHeaders[key])) {
+                delete mergedHeaders[key];
+            }
+        });
+
         const options = {
             method: "GET",
             headers: {
-                ...header,
-                ...inputHeaders,
+                ...mergedHeaders,
             },
             ...fetchParams,
         }
