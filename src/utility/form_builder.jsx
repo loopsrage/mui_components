@@ -63,13 +63,6 @@ const defaultSelector = () => {
                 return <DataViewer key={jsxKey} fileData={JSON.stringify(container?.value["Data"], null, 2)} inputProps={inputProps} subtype={inputProps.defaultValue["Subtype"]} />
             }
 
-            if (inputProps.defaultValue["Subtype"] === 18) {
-                const container = ReadFromContainers(GetContainer(formRef), key.slice(0, key.lastIndexOf(".")))
-                inputProps.name = key.slice(0, key.lastIndexOf("."))+".Data"
-                return <DataViewer key={jsxKey} fileData={container?.value["Data"]} inputProps={inputProps} subtype={inputProps.defaultValue["Subtype"]} />
-            }
-
-
             if (!IsNullOrUndefined(inputProps.defaultValue["Subtype"]) ||
                 !IsNullOrUndefined(inputProps.defaultValue["Data"])) {
                 return null
