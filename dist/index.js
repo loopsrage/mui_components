@@ -351,14 +351,18 @@ var Te = (e, t) => () => (t || e((t = { exports: {} }).exports, t), t.exports), 
 	}, s = ({ endpoint: t, inputHeaders: s, fetchParams: c, args: l }) => {
 		L(t) && (t = "");
 		let u = e + t, d = {
+			...a,
+			...s
+		};
+		Object.keys(d).forEach((e) => {
+			(d[e] === null || L(d[e])) && delete d[e];
+		});
+		let f = {
 			method: "GET",
-			headers: {
-				...a,
-				...s
-			},
+			headers: { ...d },
 			...c
 		};
-		return L(l) || (d.method === "POST" && (d.body = JSON.stringify(l)), d.method === "GET" && (u += Be(l))), fetch(u, d).catch((e) => n(e)).finally(() => {
+		return L(l) || (f.method === "POST" && (f.body = JSON.stringify(l)), f.method === "GET" && (u += Be(l))), fetch(u, f).catch((e) => n(e)).finally(() => {
 			i && o({
 				endpoint: t,
 				inputHeaders: s,
@@ -494,14 +498,6 @@ var He = ({ endpoint: e, handleErr: t }) => {
 			let r = U(G(e), n.slice(0, n.lastIndexOf(".")));
 			return i.name = n.slice(0, n.lastIndexOf(".")) + ".Data", /* @__PURE__ */ E(Pe, {
 				fileData: JSON.stringify(r?.value.Data, null, 2),
-				inputProps: i,
-				subtype: i.defaultValue.Subtype
-			}, t);
-		}
-		if (i.defaultValue.Subtype === 18) {
-			let r = U(G(e), n.slice(0, n.lastIndexOf(".")));
-			return i.name = n.slice(0, n.lastIndexOf(".")) + ".Data", /* @__PURE__ */ E(Pe, {
-				fileData: r?.value.Data,
 				inputProps: i,
 				subtype: i.defaultValue.Subtype
 			}, t);
