@@ -351,18 +351,14 @@ var Te = (e, t) => () => (t || e((t = { exports: {} }).exports, t), t.exports), 
 	}, s = ({ endpoint: t, inputHeaders: s, fetchParams: c, args: l }) => {
 		L(t) && (t = "");
 		let u = e + t, d = {
-			...a,
-			...s
-		};
-		Object.keys(d).forEach((e) => {
-			(d[e] === null || L(d[e])) && delete d[e];
-		});
-		let f = {
 			method: "GET",
-			headers: { ...d },
+			headers: {
+				...a,
+				...s
+			},
 			...c
 		};
-		return L(l) || (f.method === "POST" && (f.body = JSON.stringify(l)), f.method === "GET" && (u += Be(l))), fetch(u, f).catch((e) => n(e)).finally(() => {
+		return L(l) || (d.method === "POST" && (d.body = JSON.stringify(l)), d.method === "GET" && (u += Be(l))), fetch(u, d).catch((e) => n(e)).finally(() => {
 			i && o({
 				endpoint: t,
 				inputHeaders: s,
