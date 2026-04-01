@@ -37,6 +37,8 @@ export interface Props extends IBaseRefProps {
 }
 export declare const SetEndpoint: (ref: RefObject<TableState>, endpoint: string) => void;
 export declare const GetEndpoint: (ref: RefObject<TableState>) => string | undefined;
+export declare const GetApi: (ref: RefObject<TableState>) => ApiClient | null | undefined;
+export declare const SetApi: (ref: RefObject<TableState>, api: ApiClient) => void;
 export declare const SetHeadersFromJson: (ref: RefObject<TableState>, data: Container) => void;
 export declare const SetKeyValueHeaders: (ref: RefObject<TableState>) => void;
 export declare const SetKeyValueRows: (ref: RefObject<TableState>, data: object) => void;

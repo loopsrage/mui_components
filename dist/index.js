@@ -495,7 +495,7 @@ var Ve = ({ endpoint: e, handleErr: t }) => {
 				...i,
 				children: o
 			})]
-		}), /* @__PURE__ */ E($, {
+		}), /* @__PURE__ */ E(Q, {
 			...a,
 			endpoint: t
 		})]
@@ -592,7 +592,7 @@ var Ve = ({ endpoint: e, handleErr: t }) => {
 			refKey: "csv_grid",
 			register_component: !0
 		});
-		if (i.defaultValue.Subtype === 19) return /* @__PURE__ */ E(Yt, { data: U(K(e), n.slice(0, n.lastIndexOf(".")))?.value.Data });
+		if (i.defaultValue.Subtype === 19) return /* @__PURE__ */ E(Zt, { data: U(K(e), n.slice(0, n.lastIndexOf(".")))?.value.Data });
 		if (i.defaultValue.Subtype === 17) return /* @__PURE__ */ E(Re, { data: U(K(e), n.slice(0, n.lastIndexOf(".")))?.value.Data }, t);
 		if (i.defaultValue.Subtype === 16 || i.defaultValue.Subtype === 0) {
 			let r = U(K(e), n.slice(0, n.lastIndexOf(".")));
@@ -887,7 +887,9 @@ var Ve = ({ endpoint: e, handleErr: t }) => {
 }), mt = (e, t) => {
 	let n = e.current;
 	n && (n.endpoint = t);
-}, ht = (e) => e.current.endpoint, gt = (e, t) => {
+}, ht = (e) => e.current.endpoint, gt = (e) => e.current.api, _t = (e, t) => {
+	e.current && (e.current.api = t);
+}, vt = (e, t) => {
 	let n = e.current;
 	W(t, (e) => {
 		let t = e.value, r = e.path, i = typeof t;
@@ -899,7 +901,7 @@ var Ve = ({ endpoint: e, handleErr: t }) => {
 			headerName: r
 		}, n.rows[n.index] = [], n.headers_ri[r] = n.index, n.index++;
 	}), e.current = n;
-}, _t = (e) => {
+}, yt = (e) => {
 	let t = e.current;
 	t && (t.index = 0, t.headers = [], t.rows = [], t.headers_ri = {}, ["Field", "Value"].forEach((e) => {
 		let n = e;
@@ -914,7 +916,7 @@ var Ve = ({ endpoint: e, handleErr: t }) => {
 			headerName: e
 		}, t.rows[t.index] = [], t.headers_ri[n] = t.index, t.index++;
 	}), e.current = t);
-}, vt = (e, t) => {
+}, bt = (e, t) => {
 	let n = e.current;
 	if (!n) return;
 	n.rows = [[], []], n.row_count = 0;
@@ -926,7 +928,7 @@ var Ve = ({ endpoint: e, handleErr: t }) => {
 		}
 		n.row_count++;
 	}), e.current = n;
-}, yt = (e, t) => {
+}, xt = (e, t) => {
 	let n = e.current;
 	n && (n.rows = [], n.row_count = 0, n.headers.forEach(() => {
 		n.rows.push([]);
@@ -936,7 +938,7 @@ var Ve = ({ endpoint: e, handleErr: t }) => {
 			t !== void 0 && n.rows[t].push(e.value);
 		}
 	}), e.current = n);
-}, bt = (e) => {
+}, St = (e) => {
 	let t = e.current;
 	if (!t || !t.rows || t.rows.length === 0) return [];
 	let n = t.rows[0].length;
@@ -947,7 +949,7 @@ var Ve = ({ endpoint: e, handleErr: t }) => {
 			r[e.field] = a ? a[n] : null;
 		}), r.Field = r.Field, r;
 	});
-}, xt = (e) => {
+}, Ct = (e) => {
 	let t = e.current;
 	if (!t || !t.rows || t.rows.length === 0) return [];
 	let n = t.rows[0].length;
@@ -958,10 +960,10 @@ var Ve = ({ endpoint: e, handleErr: t }) => {
 			r[e.field] = a ? a[n] : null;
 		}), r.id = r.id, r;
 	});
-}, St = (e) => {
+}, wt = (e) => {
 	let t = e.current;
 	return !t || !t.headers ? [] : t.headers;
-}, Ct = (e) => {
+}, Tt = (e) => {
 	let t = e.current, n = Object.keys(t.headers_ri).map((e) => ({
 		field: e,
 		sortable: !0,
@@ -979,39 +981,39 @@ var Ve = ({ endpoint: e, handleErr: t }) => {
 			filterable: !1,
 			flex: 1,
 			type: "actions",
-			renderCell: It(e)
+			renderCell: zt(e)
 		}, r = Math.max(0, n.length - 1);
 		n.splice(r, 0, t);
 	}
 	return n;
-}, wt = (e) => e.current.paginationModel, Tt = (e, t) => {
+}, Et = (e) => e.current.paginationModel, Dt = (e, t) => {
 	let n = e.current;
 	n && (n.args = t, e.current = n, n.refresh());
-}, Et = (e, t) => {
+}, Ot = (e, t) => {
 	let n = e.current;
 	n && (n.args = {
 		...n.args,
 		...t
 	}, e.current = n, n.refresh());
-}, Dt = (e, t) => {
+}, kt = (e, t) => {
 	let n = e.current;
 	n && (n.args.sortModel = JSON.stringify(t), e.current = n);
-}, Ot = (e, t) => {
-	let n = e.current;
-	n && (n.args.filterModel = JSON.stringify(t), e.current = n);
-}, kt = (e, t) => () => {
-	let n = e.current;
-	n && (n.paginationModel = t, n.args.paginationModel = JSON.stringify(t), e.current = n);
 }, At = (e, t) => {
 	let n = e.current;
+	n && (n.args.filterModel = JSON.stringify(t), e.current = n);
+}, jt = (e, t) => () => {
+	let n = e.current;
+	n && (n.paginationModel = t, n.args.paginationModel = JSON.stringify(t), e.current = n);
+}, Mt = (e, t) => {
+	let n = e.current;
 	n && (n.fetch_params = t, e.current = n);
-}, jt = (e) => e.current.fetch_params, Mt = (e, t) => ({ getRows: async (n) => {
+}, Nt = (e) => e.current.fetch_params, Pt = (e, t) => ({ getRows: async (n) => {
 	let r = e.current;
 	if (!r) return {
 		rows: [],
 		rowCount: 0
 	};
-	Ot(e, n.filterModel), Dt(e, n.sortModel);
+	At(e, n.filterModel), kt(e, n.sortModel);
 	let { page: i, pageSize: a } = n.paginationModel ?? {
 		page: 0,
 		pageSize: 10
@@ -1027,23 +1029,23 @@ var Ve = ({ endpoint: e, handleErr: t }) => {
 	let c = await r.api?.at("/" + r.endpoint, {
 		fetchParams: {
 			method: "GET",
-			...jt(e)
+			...Nt(e)
 		},
 		args: s
 	}), l = Ae(null, [], ".", c.results);
-	return gt(e, l), yt(e, l), r.row_count = c.pagination?.total || 0, e.current = r, t(), {
-		rows: xt(e),
+	return vt(e, l), xt(e, l), r.row_count = c.pagination?.total || 0, e.current = r, t(), {
+		rows: Ct(e),
 		rowCount: c.pagination?.total || 0
 	};
-} }), Nt = (e, t) => {
+} }), Ft = (e, t) => {
 	let n = e.current;
 	n && (n.args.search = t, e.current = n);
-}, Pt = (e) => e.current?.datasource, Z = async (e) => {
+}, It = (e) => e.current?.datasource, Z = async (e) => {
 	let t = e.current;
 	if (!t) return;
 	let n = t.gridRef.current;
 	n.dataSource.cache.clear(), await n.dataSource.fetchRows(), t.refresh();
-}, Q = (e) => (t) => {
+}, Lt = (e) => (t) => {
 	let n = e.current;
 	if (!n || n.rows.length === 0) return;
 	let r = t.ids, i = n.rows[0].length, a = Array.from({ length: i }, (e, t) => t).filter((e) => {
@@ -1051,13 +1053,13 @@ var Ve = ({ endpoint: e, handleErr: t }) => {
 		return r.has(t);
 	});
 	n.selected_data = n.rows.map((e) => a.map((t) => e[t])), n.selected_ids = t, e.current = n;
-}, Ft = (e, t) => {
+}, Rt = (e, t) => {
 	let n = e.current;
 	n && (n.cellRenderer = t, e.current = n);
-}, It = (e) => {
+}, zt = (e) => {
 	let t = e.current;
-	if (t) return t.cellRenderer ? t.cellRenderer(e) : Lt(e);
-}, Lt = (e) => {
+	if (t) return t.cellRenderer ? t.cellRenderer(e) : Bt(e);
+}, Bt = (e) => {
 	let r = Y();
 	return (i) => {
 		let [a, o] = j(!1), [s, c] = j(""), l = e.current;
@@ -1172,7 +1174,7 @@ var Ve = ({ endpoint: e, handleErr: t }) => {
 			id: i.id
 		});
 	};
-}, $ = ({ api: e, endpoint: t, row_details: n, refKey: r, cellRenderer: i, register_component: a = !1, toolbar: o = !1, checkbox_select: s = !1, datagrid_sx: c = void 0, grid_options: l = void 0 }) => {
+}, Q = ({ api: e, endpoint: t, row_details: n, refKey: r, cellRenderer: i, register_component: a = !1, toolbar: o = !1, checkbox_select: s = !1, datagrid_sx: c = void 0, grid_options: l = void 0 }) => {
 	let u = X(r, a), d = A(null), [, f] = j(!1), [p, m] = j({
 		page: 0,
 		pageSize: 25
@@ -1186,7 +1188,7 @@ var Ve = ({ endpoint: e, handleErr: t }) => {
 		headers_ri: {},
 		rows: [],
 		row_count: t ? 0 : void 0,
-		datasource: t ? Mt(d, b) : void 0,
+		datasource: t ? Pt(d, b) : void 0,
 		paginationModel: {
 			page: 0,
 			pageSize: 5
@@ -1215,8 +1217,8 @@ var Ve = ({ endpoint: e, handleErr: t }) => {
 			width: "100%",
 			...c
 		},
-		columns: Ct(d),
-		dataSource: Pt(d),
+		columns: Tt(d),
+		dataSource: It(d),
 		pageSizeOptions: [
 			25,
 			50,
@@ -1226,7 +1228,7 @@ var Ve = ({ endpoint: e, handleErr: t }) => {
 		onPaginationModelChange: (e) => {
 			m(e);
 		},
-		onRowSelectionModelChange: (e) => Q(d)(e),
+		onRowSelectionModelChange: (e) => Lt(d)(e),
 		paginationMode: "server",
 		sortingMode: "server",
 		filterMode: "server",
@@ -1243,7 +1245,7 @@ var Ve = ({ endpoint: e, handleErr: t }) => {
 		},
 		...l
 	});
-}, Rt = ({ loading: e, value: n }) => /* @__PURE__ */ E(t, {
+}, $ = ({ loading: e, value: n }) => /* @__PURE__ */ E(t, {
 	sx: {
 		position: "relative",
 		display: "inline-flex"
@@ -1273,16 +1275,16 @@ var Ve = ({ endpoint: e, handleErr: t }) => {
 			})
 		})]
 	})
-}), zt = ({ ...e }) => /* @__PURE__ */ E(d, {
+}), Vt = ({ ...e }) => /* @__PURE__ */ E(d, {
 	...e,
 	children: /* @__PURE__ */ E(we, {})
-}), Bt = (e, t) => {
+}), Ht = (e, t) => {
 	let n = e.current;
 	n && (n.setProgressValue(t), n.progressValue = t, e.current = n);
-}, Vt = (e) => !e || !e.current ? 1 : e.current.progressValue, Ht = (e, t) => {
+}, Ut = (e) => !e || !e.current ? 1 : e.current.progressValue, Wt = (e, t) => {
 	let n = e.current;
 	n && n.handleToggle(t);
-}, Ut = ({ refKey: e, register_component: t, hidden: n, onDropSuccess: r, onSend: i, textFieldSx: a, textFieldProps: o, sendButtonProps: s }) => {
+}, Gt = ({ refKey: e, register_component: t, hidden: n, onDropSuccess: r, onSend: i, textFieldSx: a, textFieldProps: o, sendButtonProps: s }) => {
 	let [c, l] = j(""), [u, f] = j(!1), [m, h] = j(0), g = X(e, t), _ = A({
 		handleToggle: (e) => {
 			f(e);
@@ -1301,10 +1303,10 @@ var Ve = ({ endpoint: e, handleErr: t }) => {
 		multiple: !1
 	});
 	k(() => (g(_.current), () => g(null)), [g]);
-	let { ref: C, ...w } = v(), T = u ? /* @__PURE__ */ E(Rt, {
+	let { ref: C, ...w } = v(), T = u ? /* @__PURE__ */ E($, {
 		loading: !0,
 		value: m
-	}) : /* @__PURE__ */ E(zt, {
+	}) : /* @__PURE__ */ E(Vt, {
 		onClick: i,
 		sx: { color: m === 100 ? "red" : "inherit" },
 		...s
@@ -1341,14 +1343,14 @@ var Ve = ({ endpoint: e, handleErr: t }) => {
 		},
 		...o
 	});
-}, Wt = ({ children: e }) => /* @__PURE__ */ D(t, {
+}, Kt = ({ children: e }) => /* @__PURE__ */ D(t, {
 	sx: { width: "100%" },
 	children: [
 		/* @__PURE__ */ E(M, {}),
 		e,
 		/* @__PURE__ */ E(N, {})
 	]
-}), Gt = ({ children: e }) => {
+}), qt = ({ children: e }) => {
 	let t = A({}), n = ie(() => ({
 		register: (e, n) => {
 			t.current[e] = n;
@@ -1363,7 +1365,7 @@ var Ve = ({ endpoint: e, handleErr: t }) => {
 		value: n,
 		children: e
 	});
-}, Kt = C({
+}, Jt = C({
 	shape: { borderRadius: 8 },
 	typography: {
 		fontFamily: "Inter, Arial, sans-serif",
@@ -1376,11 +1378,11 @@ var Ve = ({ endpoint: e, handleErr: t }) => {
 		} } },
 		MuiOutlinedInput: { styleOverrides: { root: { borderRadius: 8 } } }
 	}
-}), qt = ({ children: e, theme: t }) => {
-	let n = Kt;
-	return t || (n = Kt), /* @__PURE__ */ E(Gt, { children: /* @__PURE__ */ D(b, {
+}), Yt = ({ children: e, theme: t }) => {
+	let n = Jt;
+	return t || (n = Jt), /* @__PURE__ */ E(qt, { children: /* @__PURE__ */ D(b, {
 		theme: n,
-		children: [/* @__PURE__ */ E(a, {}), /* @__PURE__ */ E(Wt, { children: /* @__PURE__ */ E(_, {
+		children: [/* @__PURE__ */ E(a, {}), /* @__PURE__ */ E(Kt, { children: /* @__PURE__ */ E(_, {
 			direction: "column",
 			gap: 2,
 			alignItems: "center",
@@ -1388,7 +1390,7 @@ var Ve = ({ endpoint: e, handleErr: t }) => {
 			children: e
 		}) })]
 	}) });
-}, Jt = () => {
+}, Xt = () => {
 	let e = {
 		position: "sticky",
 		zIndex: 2,
@@ -1439,7 +1441,7 @@ var Ve = ({ endpoint: e, handleErr: t }) => {
 		},
 		"&": { width: "100%" }
 	};
-}, Yt = ({ data: e, ...t }) => {
+}, Zt = ({ data: e, ...t }) => {
 	let n = Y(), [r, i] = j({
 		rows: [],
 		columns: []
@@ -1449,14 +1451,14 @@ var Ve = ({ endpoint: e, handleErr: t }) => {
 			let t = n?.get("key_value_grid");
 			if (!t) return;
 			let r = { current: { ...t } };
-			_t(r), vt(r, e), i({
-				rows: [...bt(r)],
-				columns: [...St(r)]
+			yt(r), bt(r, e), i({
+				rows: [...St(r)],
+				columns: [...wt(r)]
 			}), await Z(r);
 		})();
-	}, [e, n]), /* @__PURE__ */ E($, {
+	}, [e, n]), /* @__PURE__ */ E(Q, {
 		register_component: !0,
-		datagrid_sx: Jt(),
+		datagrid_sx: Xt(),
 		...t,
 		grid_options: {
 			columns: r.columns,
@@ -1474,4 +1476,4 @@ var Ve = ({ endpoint: e, handleErr: t }) => {
 	});
 };
 //#endregion
-export { q as AddElement, Ve as Api, P as ApiButton, Ee as CenteredContainer, F as CenteredModal, Xe as Close, lt as Create, Ge as CsvDatagridSx, Ke as CsvGrid, Mt as DataSourceWrapper, Jt as DatagridSx, ft as Delete, it as DeleteLabel, dt as DeleteMany, pt as EditCellRenderer, Yt as FieldValueGrid, It as GetCellRenderer, K as GetContainer, Pt as GetDatasource, rt as GetElementIndex, nt as GetElementTypes, tt as GetElementValue, $e as GetElements, ht as GetEndpoint, jt as GetFetchParams, Ct as GetHeaders, bt as GetKeyValueRows, wt as GetPaginationModel, Vt as GetProgressValue, St as GetRawHeaders, xt as GetRows, Qe as GetSet, We as GridWithButtons, qt as HFCenteredLayout, He as HandleGet, Wt as HeaderFooterLayout, Ye as InitialTypeFormBuilderRefState, L as IsNullOrUndefined, I as IsPrimitive, Lt as ModalCellRendererWrapper, Rt as ProgressAdornment, J as RefIndexContext, Gt as RefProvider, Z as Refresh, qe as SelectAssociation, zt as SendIconButton, Tt as SetArgs, Ft as SetCellRenderer, G as SetContainer, mt as SetEndpoint, At as SetFetchParams, Ot as SetFilterModel, Ze as SetHandleClose, gt as SetHeadersFromJson, _t as SetKeyValueHeaders, vt as SetKeyValueRows, Ht as SetLoading, Et as SetOrAddArgs, kt as SetPaginationModel, Bt as SetProgressValue, yt as SetRowsFromJson, Nt as SetSearch, Q as SetSelectedRows, Dt as SetSortModel, R as TitleCase, at as TypeFormBuilder, M as UIAppBar, N as UIBottomNav, Ut as UIInput, $ as UITable, ut as Update, et as UpdateElementValues, X as useConditionalRef, ot as useManagedRef, Y as useRefIndex };
+export { q as AddElement, Ve as Api, P as ApiButton, Ee as CenteredContainer, F as CenteredModal, Xe as Close, lt as Create, Ge as CsvDatagridSx, Ke as CsvGrid, Pt as DataSourceWrapper, Xt as DatagridSx, ft as Delete, it as DeleteLabel, dt as DeleteMany, pt as EditCellRenderer, Zt as FieldValueGrid, gt as GetApi, zt as GetCellRenderer, K as GetContainer, It as GetDatasource, rt as GetElementIndex, nt as GetElementTypes, tt as GetElementValue, $e as GetElements, ht as GetEndpoint, Nt as GetFetchParams, Tt as GetHeaders, St as GetKeyValueRows, Et as GetPaginationModel, Ut as GetProgressValue, wt as GetRawHeaders, Ct as GetRows, Qe as GetSet, We as GridWithButtons, Yt as HFCenteredLayout, He as HandleGet, Kt as HeaderFooterLayout, Ye as InitialTypeFormBuilderRefState, L as IsNullOrUndefined, I as IsPrimitive, Bt as ModalCellRendererWrapper, $ as ProgressAdornment, J as RefIndexContext, qt as RefProvider, Z as Refresh, qe as SelectAssociation, Vt as SendIconButton, _t as SetApi, Dt as SetArgs, Rt as SetCellRenderer, G as SetContainer, mt as SetEndpoint, Mt as SetFetchParams, At as SetFilterModel, Ze as SetHandleClose, vt as SetHeadersFromJson, yt as SetKeyValueHeaders, bt as SetKeyValueRows, Wt as SetLoading, Ot as SetOrAddArgs, jt as SetPaginationModel, Ht as SetProgressValue, xt as SetRowsFromJson, Ft as SetSearch, Lt as SetSelectedRows, kt as SetSortModel, R as TitleCase, at as TypeFormBuilder, M as UIAppBar, N as UIBottomNav, Gt as UIInput, Q as UITable, ut as Update, et as UpdateElementValues, X as useConditionalRef, ot as useManagedRef, Y as useRefIndex };

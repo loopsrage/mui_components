@@ -70,6 +70,17 @@ export const GetEndpoint = (ref: RefObject<TableState>) => {
     return ref.current.endpoint
 }
 
+export const GetApi = (ref: RefObject<TableState>) => {
+    return ref.current.api
+}
+
+export const SetApi = (ref: RefObject<TableState>, api: ApiClient) => {
+    const st = ref.current;
+    if (!st) return;
+
+    ref.current.api = api
+}
+
 export const SetHeadersFromJson = (ref: RefObject<TableState>, data: Container) => {
     const st = ref.current
     RangePrimitiveValues(data, (cont) => {
