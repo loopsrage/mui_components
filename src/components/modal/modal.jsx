@@ -62,12 +62,12 @@ export const TypeFormBuilderModal = ({title, getSchema, handleSave, elementSelec
     const getbody = () => {
         const handleChange = (event, newValue) => setActiveTab(newValue);
         return (<Box sx={{ width: '100%' }}>
-            tabs && (<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                <Tabs value={activeTab} onChange={handleChange} aria-label="custom tabs">
-                    <Tab label="File Upload" />
-                    <Tab label="File Viewer" />
-                </Tabs>
-            </Box>)
+                {context.tabs && (<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                    <Tabs value={activeTab} onChange={handleChange} aria-label="custom tabs">
+                        <Tab label="File Upload" />
+                        <Tab label="File Viewer" />
+                    </Tabs>
+                </Box>)}
             {/* Tab 1: File Upload */}
             {activeTab === 0 && (
                 <Box sx={{ borderBottom: 1, borderColor: 'divider', width: '100%' }}>

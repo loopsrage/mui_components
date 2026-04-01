@@ -1,5 +1,5 @@
 import React, {type ReactElement} from 'react';
-import { SelectorParams } from "../../utility/form_builder";
+import { SelectorParams } from "@/utility/form_builder";
 
 /**
  * Props for the TypeFormBuilderModal component.

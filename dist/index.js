@@ -589,6 +589,7 @@ var Ue = ({ endpoint: e, handleErr: t }) => {
 	}, t);
 	if (r === "object") {
 		if (i.defaultValue.Subtype === 20) return /* @__PURE__ */ T(Je, {
+			api: e.context.api,
 			refKey: "csv_grid",
 			register_component: !0
 		}, t);
@@ -791,8 +792,7 @@ var Ue = ({ endpoint: e, handleErr: t }) => {
 			body: /* @__PURE__ */ E(t, {
 				sx: { width: "100%" },
 				children: [
-					"tabs && (",
-					/* @__PURE__ */ T(t, {
+					c.tabs && /* @__PURE__ */ T(t, {
 						sx: {
 							borderBottom: 1,
 							borderColor: "divider"
@@ -804,7 +804,6 @@ var Ue = ({ endpoint: e, handleErr: t }) => {
 							children: [/* @__PURE__ */ T(y, { label: "File Upload" }), /* @__PURE__ */ T(y, { label: "File Viewer" })]
 						})
 					}),
-					")",
 					v === 0 && /* @__PURE__ */ T(t, {
 						sx: {
 							borderBottom: 1,
@@ -851,7 +850,7 @@ var Ue = ({ endpoint: e, handleErr: t }) => {
 	handleSave: (n) => {
 		t.create(n).then(() => e());
 	}
-}), ft = ({ refreshGrid: e, api: t, id: n, title: r, footerButtons: i }) => /* @__PURE__ */ T(lt, {
+}), ft = ({ refreshGrid: e, api: t, id: n, title: r, footerButtons: i, ...a }) => /* @__PURE__ */ T(lt, {
 	title: r,
 	button_title: "Update",
 	getSchema: We(t, n),
@@ -860,7 +859,8 @@ var Ue = ({ endpoint: e, handleErr: t }) => {
 	},
 	footerButtons: i,
 	register_component: !0,
-	refKey: "update_modal"
+	refKey: "update_modal",
+	...a
 }), pt = ({ refreshGrid: e, api: t, handleSelectedIds: r }) => {
 	let [i, a] = A(!1);
 	return /* @__PURE__ */ E(_, {

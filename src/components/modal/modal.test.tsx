@@ -1,7 +1,7 @@
 import { test } from 'vitest';
 import {TypeFormBuilderModal} from "./modal";
 import {render} from "@testing-library/react";
-import {Api} from "../../utility/api";
+import {Api} from "@/utility/api";
 
 
 test('should load and display server-side data', async () => {

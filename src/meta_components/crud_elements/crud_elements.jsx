@@ -13,7 +13,7 @@ export const Create = ({refreshGrid, api}) => {
     return <TypeFormBuilderModal title={"Create"} getSchema={api.schema} handleSave={handleOnSave}  />
 }
 
-export const Update = ({refreshGrid, api, id, title, footerButtons}) => {
+export const Update = ({refreshGrid, api, id, title, footerButtons, ...props}) => {
     const handleOnSave = (output) => {
         api.update(output, id).then(() => refreshGrid())
     }
@@ -22,7 +22,7 @@ export const Update = ({refreshGrid, api, id, title, footerButtons}) => {
         button_title={"Update"}
         getSchema={HandleGet(api, id)}
         handleSave={handleOnSave}
-        footerButtons={footerButtons} register_component={true} refKey={"update_modal"}/>
+        footerButtons={footerButtons} register_component={true} refKey={"update_modal"} {...props}/>
 }
 
 export const DeleteMany = ({refreshGrid, api, handleSelectedIds}) => {
