@@ -1,8 +1,5 @@
 import { FC } from 'react';
 import { Props } from '../../components/grid/grid';
-export interface CsvGridProps extends Omit<Props, 'api' | 'endpoint' | 'refKey'> {
-    data: object;
-}
 export declare const CsvDatagridSx: () => {
     '& .MuiDataGrid-columnHeader[data-field="Field"]': {
         left: number;
@@ -62,5 +59,5 @@ export declare const CsvDatagridSx: () => {
         width: string;
     };
 };
-export declare const CsvGrid: FC<CsvGridProps>;
+export declare const CsvGrid: FC<Props>;
 //# sourceMappingURL=csv_grid.d.ts.map

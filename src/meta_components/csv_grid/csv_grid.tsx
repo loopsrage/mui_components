@@ -1,16 +1,7 @@
-import {type FC, useEffect, useState} from "react";
-import {
-    GetHeaders, GetRows,
-    type Props, Refresh, SetHeadersFromJson, SetRowsFromJson,
-    type TableState,
-    UITable
-} from "@/components/grid/grid";
-import {useRefIndex} from "@/context/context_index";
-import {BuildContainerTree} from "@/utility/containers";
+import {type FC } from "react";
+import { type Props } from "@/components/grid/grid";
+import {GridWithButtons} from "@/meta_components/grid_with_buttons/grid_with_buttons";
 
-export interface CsvGridProps extends Omit<Props, 'api' | 'endpoint' | 'refKey'> {
-    data: object;
-}
 
 export const CsvDatagridSx = () => {
     const stickyCommon = {
@@ -80,46 +71,6 @@ export const CsvDatagridSx = () => {
     }
 }
 
-export const CsvGrid: FC<CsvGridProps> = ({data, ...props}) => {
-    const context = useRefIndex();
-    const [gridData, setGridData] = useState<Record<string, object[]>>({ rows: [], columns: [] });
-
-    useEffect(() => {
-        const updateGrid = async () => {
-            const gridState = context?.get("csv_grid") as TableState;
-            if (!gridState) return;
-
-            const ref = { current: { ...gridState } };
-
-            const cont = BuildContainerTree(null, [], ".", data)
-            SetHeadersFromJson(ref, cont);
-            SetRowsFromJson(ref, cont);
-
-            setGridData({
-                rows: [...GetRows(ref)],
-                columns: [...GetHeaders(ref)]
-            });
-
-            await Refresh(ref);
-        };
-
-        updateGrid();
-    }, [data, context]);
-
-    return (
-        <UITable register_component={true} datagrid_sx={CsvDatagridSx()}  {...props} grid_options={{
-            columns: gridData.columns,
-            rows: gridData.rows,
-            paginationMode: "client",
-            sortingMode: "client",
-            filterMode: "client",
-            dataSource: undefined,
-            rowSelection: false,
-            disableVirtualization: true,
-            getRowId: (row: any) => {
-                return row.id || row.Field
-            },
-            rowCount: undefined,
-        }} refKey={"csv_grid"} />
-    )
+export const CsvGrid: FC<Props> = ({api, endpoint, refKey, register_component, ...props}) => {
+    return <GridWithButtons api={api} endpoint={"get"} buttons={[]} title={""} refKey={refKey} register_component={register_component} {...props} />
 }
