@@ -553,7 +553,7 @@ var Ve = ({ endpoint: e, handleErr: t }) => {
 	};
 }, Ke = ({ api: e, endpoint: t, refKey: n, register_component: r, ...i }) => /* @__PURE__ */ E(We, {
 	api: e,
-	endpoint: "get",
+	endpoint: "get_paginated",
 	buttons: [],
 	title: "",
 	refKey: n,

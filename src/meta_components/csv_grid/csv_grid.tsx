@@ -72,5 +72,5 @@ export const CsvDatagridSx = () => {
 }
 
 export const CsvGrid: FC<Props> = ({api, endpoint, refKey, register_component, ...props}) => {
-    return <GridWithButtons api={api} endpoint={"get"} buttons={[]} title={""} refKey={refKey} register_component={register_component} {...props} />
+    return <GridWithButtons api={api} endpoint={"get_paginated"} buttons={[]} title={""} refKey={refKey} register_component={register_component} {...props} />
 }
