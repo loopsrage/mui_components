@@ -50,8 +50,7 @@ const defaultSelector = () => {
         if (currentType === 'object') {
             if (inputProps.defaultValue["Subtype"] === 20) {
                 const container = ReadFromContainers(GetContainer(formRef), key.slice(0, key.lastIndexOf(".")))
-                const data = JSON.parse(container?.value["Data"] ?? "{}")
-                return <CsvGrid data={data} key={jsxKey}  refKey={"csv_grid"} register_component={true}/>
+                return <CsvGrid data={container?.value["Data"]} key={jsxKey}  refKey={"csv_grid"} register_component={true}/>
             }
 
             if (inputProps.defaultValue["Subtype"] === 19) {
