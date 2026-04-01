@@ -589,10 +589,9 @@ var Ve = ({ endpoint: e, handleErr: t }) => {
 	}, t);
 	if (r === "object") {
 		if (i.defaultValue.Subtype === 20) return /* @__PURE__ */ E(Ke, {
-			data: U(K(e), n.slice(0, n.lastIndexOf(".")))?.value.Data,
 			refKey: "csv_grid",
 			register_component: !0
-		}, t);
+		});
 		if (i.defaultValue.Subtype === 19) return /* @__PURE__ */ E(Yt, { data: U(K(e), n.slice(0, n.lastIndexOf(".")))?.value.Data });
 		if (i.defaultValue.Subtype === 17) return /* @__PURE__ */ E(Re, { data: U(K(e), n.slice(0, n.lastIndexOf(".")))?.value.Data }, t);
 		if (i.defaultValue.Subtype === 16 || i.defaultValue.Subtype === 0) {
