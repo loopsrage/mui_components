@@ -590,7 +590,7 @@ var Ue = ({ endpoint: e, handleErr: t }) => {
 	}, t);
 	if (r === "object") {
 		if (i.defaultValue.Subtype === 20) return /* @__PURE__ */ T(Je, {
-			api: e.current.api,
+			context: { api: e.current.api },
 			refKey: "csv_grid",
 			register_component: !0
 		}, t);
@@ -845,12 +845,13 @@ var Ue = ({ endpoint: e, handleErr: t }) => {
 			children: "Confirm"
 		})]
 	})
-}), dt = ({ refreshGrid: e, api: t }) => /* @__PURE__ */ T(lt, {
+}), dt = ({ refreshGrid: e, api: t, ...n }) => /* @__PURE__ */ T(lt, {
 	title: "Create",
 	getSchema: t.schema,
 	handleSave: (n) => {
 		t.create(n).then(() => e());
-	}
+	},
+	...n
 }), ft = ({ refreshGrid: e, api: t, id: n, title: r, footerButtons: i, ...a }) => /* @__PURE__ */ T(lt, {
 	title: r,
 	button_title: "Update",
@@ -1196,21 +1197,22 @@ var Ue = ({ endpoint: e, handleErr: t }) => {
 			id: i.id
 		});
 	};
-}, $ = ({ api: e, endpoint: t, row_details: n, refKey: r, cellRenderer: i, register_component: a = !1, toolbar: o = !1, checkbox_select: s = !1, datagrid_sx: c = void 0, grid_options: l = void 0 }) => {
-	let u = X(r, a), d = k(null), [, f] = A(!1), [p, m] = A({
+}, $ = ({ api: e, endpoint: t, row_details: n, refKey: r, cellRenderer: i, register_component: a = !1, toolbar: o = !1, checkbox_select: s = !1, datagrid_sx: c = void 0, grid_options: l = void 0, context: u = void 0 }) => {
+	let d = X(r, a), f = k(null), [, p] = A(!1), [m, h] = A({
 		page: 0,
 		pageSize: 25
-	}), [h, g] = A(0), [_, v] = A({ id: !1 }), y = ue(), b = () => {
-		d.current && g(d.current?.row_count ?? 0), f((e) => !e);
+	}), [g, _] = A(0), [v, y] = A({ id: !1 }), b = ue(), x = () => {
+		f.current && _(f.current?.row_count ?? 0), p((e) => !e);
 	};
-	return d.current ||= {
-		gridRef: y,
+	return f.current ||= {
+		context: u,
+		gridRef: b,
 		index: 0,
 		headers: [],
 		headers_ri: {},
 		rows: [],
 		row_count: t ? 0 : void 0,
-		datasource: t ? Ft(d, b) : void 0,
+		datasource: t ? Ft(f, x) : void 0,
 		paginationModel: {
 			page: 0,
 			pageSize: 5
@@ -1218,7 +1220,7 @@ var Ue = ({ endpoint: e, handleErr: t }) => {
 		args: {},
 		selected_data: [],
 		selected_ids: null,
-		refresh: b,
+		refresh: x,
 		cellRenderer: i,
 		filter_model: null,
 		api: e,
@@ -1229,28 +1231,28 @@ var Ue = ({ endpoint: e, handleErr: t }) => {
 		refKey: r,
 		modal_title: null,
 		...l
-	}, O(() => (u(d.current), () => u(null)), [u]), /* @__PURE__ */ T(ce, {
-		apiRef: y,
+	}, O(() => (d(f.current), () => d(null)), [d]), /* @__PURE__ */ T(ce, {
+		apiRef: b,
 		disableVirtualization: !0,
-		columnVisibilityModel: _,
-		onColumnVisibilityModelChange: (e) => v(e),
-		rowCount: h,
+		columnVisibilityModel: v,
+		onColumnVisibilityModelChange: (e) => y(e),
+		rowCount: g,
 		sx: {
 			width: "100%",
 			...c
 		},
-		columns: Dt(d),
-		dataSource: Lt(d),
+		columns: Dt(f),
+		dataSource: Lt(f),
 		pageSizeOptions: [
 			25,
 			50,
 			100
 		],
-		paginationModel: p,
+		paginationModel: m,
 		onPaginationModelChange: (e) => {
-			m(e);
+			h(e);
 		},
-		onRowSelectionModelChange: (e) => Rt(d)(e),
+		onRowSelectionModelChange: (e) => Rt(f)(e),
 		paginationMode: "server",
 		sortingMode: "server",
 		filterMode: "server",

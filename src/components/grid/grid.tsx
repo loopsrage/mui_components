@@ -57,6 +57,7 @@ export interface Props extends IBaseRefProps {
     datagrid_sx?: object | undefined;
 
     grid_options?: object | undefined;
+    context?: Record<string, unknown> | null | undefined;
 }
 
 export const SetEndpoint = (ref: RefObject<TableState>, endpoint: string) => {
@@ -562,7 +563,7 @@ export const ModalCellRendererWrapper = (ref: RefObject<TableState>) => {
     }
 }
 
-export const UITable: FC<Props> = ({ api, endpoint, row_details, refKey, cellRenderer, register_component=false, toolbar=false, checkbox_select=false, datagrid_sx=undefined, grid_options=undefined}) => {
+export const UITable: FC<Props> = ({ api, endpoint, row_details, refKey, cellRenderer, register_component=false, toolbar=false, checkbox_select=false, datagrid_sx=undefined, grid_options=undefined, context=undefined}) => {
     const setRegistryRef = useConditionalRef(refKey, register_component)
     const localRef = useRef<TableState>(null as unknown as TableState);
     const [, setToggle] = useState(false);
@@ -582,6 +583,7 @@ export const UITable: FC<Props> = ({ api, endpoint, row_details, refKey, cellRen
 
     const initialRef = () => {
         return {
+            context: context,
             gridRef: apiRef,
             index: 0,
             headers: [],

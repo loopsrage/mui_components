@@ -6,11 +6,11 @@ import {
 } from "../../components/centered_modal_confirm_cancel/centered_confirm_cancel_modal.jsx";
 import {HandleGet} from "@/utility/api.js";
 
-export const Create = ({refreshGrid, api}) => {
+export const Create = ({refreshGrid, api, ...props}) => {
     const handleOnSave = (output) => {
         api.create(output).then(() => refreshGrid())
     }
-    return <TypeFormBuilderModal title={"Create"} getSchema={api.schema} handleSave={handleOnSave}  />
+    return <TypeFormBuilderModal title={"Create"} getSchema={api.schema} handleSave={handleOnSave} {...props} />
 }
 
 export const Update = ({refreshGrid, api, id, title, footerButtons, ...props}) => {

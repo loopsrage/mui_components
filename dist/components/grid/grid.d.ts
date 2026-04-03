@@ -34,6 +34,7 @@ export interface Props extends IBaseRefProps {
     cellRenderer?: (ref: RefObject<TableState>) => (params: GridRenderCellParams) => (undefined | JSX.Element) | null;
     datagrid_sx?: object | undefined;
     grid_options?: object | undefined;
+    context?: Record<string, unknown> | null | undefined;
 }
 export declare const SetEndpoint: (ref: RefObject<TableState>, endpoint: string) => void;
 export declare const GetEndpoint: (ref: RefObject<TableState>) => string | undefined;
