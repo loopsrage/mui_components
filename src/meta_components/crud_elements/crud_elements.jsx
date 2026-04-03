@@ -22,7 +22,10 @@ export const Update = ({refreshGrid, api, id, title, footerButtons, ...props}) =
         button_title={"Update"}
         getSchema={HandleGet(api, id)}
         handleSave={handleOnSave}
-        footerButtons={footerButtons} register_component={true} refKey={"update_modal"} {...props}/>
+        footerButtons={footerButtons}
+        register_component={true}
+        refKey={"update_modal"}
+        {...props}/>
 }
 
 export const DeleteMany = ({refreshGrid, api, handleSelectedIds}) => {

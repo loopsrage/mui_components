@@ -18,7 +18,7 @@ import { useDropzone as Te } from "react-dropzone";
 import Ee from "@mui/icons-material/CloudUpload";
 import De from "@mui/icons-material/Send";
 //#region \0rolldown/runtime.js
-var Oe = (e, t) => () => (t || e((t = { exports: {} }).exports, t), t.exports), j = () => /* @__PURE__ */ T(e, {
+var Oe = (e, t) => () => (t || e((t = { exports: {} }).exports, t), t.exports), j = ({ title: n, appbar_sx: r }) => /* @__PURE__ */ T(e, {
 	position: "static",
 	sx: {
 		minHeight: 50,
@@ -28,7 +28,8 @@ var Oe = (e, t) => () => (t || e((t = { exports: {} }).exports, t), t.exports), 
 		width: "100%",
 		display: "flex",
 		flexDirection: "column",
-		justifyContent: "flex-end"
+		justifyContent: "flex-end",
+		...r
 	},
 	children: /* @__PURE__ */ E(ee, {
 		disableGutters: !0,
@@ -46,7 +47,7 @@ var Oe = (e, t) => () => (t || e((t = { exports: {} }).exports, t), t.exports), 
 				variant: "h6",
 				component: "div",
 				sx: { flexGrow: 1 },
-				children: "HTS Product Classification"
+				children: n
 			}),
 			/* @__PURE__ */ T(d, {
 				size: "small",
@@ -792,7 +793,7 @@ var Ue = ({ endpoint: e, handleErr: t }) => {
 			body: /* @__PURE__ */ E(t, {
 				sx: { width: "100%" },
 				children: [
-					c.tabs && /* @__PURE__ */ T(t, {
+					u.current.tabs && /* @__PURE__ */ T(t, {
 						sx: {
 							borderBottom: 1,
 							borderColor: "divider"

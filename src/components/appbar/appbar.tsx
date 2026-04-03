@@ -2,9 +2,14 @@ import type {FC} from "react";
 import {AppBar, Box, IconButton, Toolbar, Typography} from "@mui/material";
 import BugReportIcon from '@mui/icons-material/BugReport';
 
-export const UIAppBar: FC = () => {
+export interface AppBarProps {
+    title?: string;
+    appbar_sx?: object;
+}
+
+export const UIAppBar: FC<AppBarProps> = ({title, appbar_sx}) => {
     return (
-        <AppBar position="static"  sx={{
+        <AppBar position="static" sx={{
             minHeight: 50,
             px: 2,
             mt: 'auto',
@@ -13,6 +18,7 @@ export const UIAppBar: FC = () => {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'flex-end',
+            ...appbar_sx,
         }}>
             <Toolbar disableGutters>
                 <Box
@@ -23,7 +29,7 @@ export const UIAppBar: FC = () => {
                 />
 
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                    HTS Product Classification
+                    {title}
                 </Typography>
 
                 <IconButton

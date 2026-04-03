@@ -1,3 +1,7 @@
 import { FC } from 'react';
-export declare const UIAppBar: FC;
+export interface AppBarProps {
+    title?: string;
+    appbar_sx?: object;
+}
+export declare const UIAppBar: FC<AppBarProps>;
 //# sourceMappingURL=appbar.d.ts.map

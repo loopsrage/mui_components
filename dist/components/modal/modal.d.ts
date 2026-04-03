@@ -24,6 +24,7 @@ export interface TypeFormBuilderModalProps {
     elementSelector?: (params: SelectorParams) => React.JSX.Element | null | undefined;
 
     footerButtons?: ReactElement[] | ReactElement | null;
+    context?: Record<string, unknown> | null | undefined;
 }
 
 /**
