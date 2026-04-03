@@ -852,7 +852,7 @@ var Ue = ({ endpoint: e, handleErr: t }) => {
 		t.create(n).then(() => e());
 	},
 	...n
-}), ft = ({ refreshGrid: e, api: t, id: n, title: r, footerButtons: i, ...a }) => /* @__PURE__ */ T(lt, {
+}), ft = ({ refreshGrid: e, api: t, id: n, title: r, footerButtons: i, ...a }) => (console.log(t, a), /* @__PURE__ */ T(lt, {
 	title: r,
 	button_title: "Update",
 	getSchema: We(t, n),
@@ -863,7 +863,7 @@ var Ue = ({ endpoint: e, handleErr: t }) => {
 	register_component: !0,
 	refKey: "update_modal",
 	...a
-}), pt = ({ refreshGrid: e, api: t, handleSelectedIds: r }) => {
+})), pt = ({ refreshGrid: e, api: t, handleSelectedIds: r }) => {
 	let [i, a] = A(!1);
 	return /* @__PURE__ */ E(_, {
 		direction: "horizontal",
