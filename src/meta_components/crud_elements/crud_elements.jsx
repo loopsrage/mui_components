@@ -17,6 +17,7 @@ export const Update = ({refreshGrid, api, id, title, footerButtons, ...props}) =
     const handleOnSave = (output) => {
         api.update(output, id).then(() => refreshGrid())
     }
+
     return <TypeFormBuilderModal
         title={title}
         button_title={"Update"}
@@ -67,11 +68,11 @@ export const Delete = ({refreshGrid, api, id}) => {
     )
 }
 
-export const EditCellRenderer = ({handleRefreshGrid, api, id, params}) => {
+export const EditCellRenderer = ({handleRefreshGrid, api, id, params, context}) => {
     const props = {...params, refreshGrid: handleRefreshGrid, api, id};
     return (
         <Stack direction="row" gap={1}>
-            <Update  {...props} />
+            <Update  {...props} context={context} />
         </Stack>
     )
 }

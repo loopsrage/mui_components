@@ -590,7 +590,7 @@ var Ue = ({ endpoint: e, handleErr: t }) => {
 	}, t);
 	if (r === "object") {
 		if (i.defaultValue.Subtype === 20) return /* @__PURE__ */ T(Je, {
-			api: e.context.api,
+			api: e.current.api,
 			refKey: "csv_grid",
 			register_component: !0
 		}, t);
@@ -896,14 +896,15 @@ var Ue = ({ endpoint: e, handleErr: t }) => {
 			show: i
 		})]
 	});
-}, ht = ({ handleRefreshGrid: e, api: t, id: n, params: r }) => /* @__PURE__ */ T(_, {
+}, ht = ({ handleRefreshGrid: e, api: t, id: n, params: r, context: i }) => /* @__PURE__ */ T(_, {
 	direction: "row",
 	gap: 1,
 	children: /* @__PURE__ */ T(ft, {
 		...r,
 		refreshGrid: e,
 		api: t,
-		id: n
+		id: n,
+		context: i
 	})
 }), gt = (e, t) => {
 	let n = e.current;
