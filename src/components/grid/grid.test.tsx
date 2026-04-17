@@ -1,7 +1,7 @@
 import { UITable} from "./grid";
 import {render} from '@testing-library/react'
 import { test } from 'vitest'
-import {Api} from "../../utility/api";
+import {Api} from "@/utility/api";
 
 test('should load and display server-side data', async () => {
 

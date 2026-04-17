@@ -17,7 +17,6 @@ export const Update = ({refreshGrid, api, id, title, footerButtons, ...props}) =
     const handleOnSave = (output) => {
         api.update(output, id).then(() => refreshGrid())
     }
-    console.log(api, props)
     return <TypeFormBuilderModal
         title={title}
         button_title={"Update"}

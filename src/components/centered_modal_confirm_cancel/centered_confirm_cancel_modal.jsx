@@ -1,6 +1,6 @@
-import {IsNullOrUndefined} from "../../utility/validation.js";
+import {IsNullOrUndefined} from "@/utility/validation.js";
 import {Button, Stack} from "@mui/material";
-import {CenteredModal} from "../centered_modal/centered_modal.jsx";
+import {CenteredModal} from "@";
 
 export const CenteredConfirmCancelModal = ({title, show, onCancel, onConfirm}) => {
 

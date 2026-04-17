@@ -23,6 +23,8 @@ export interface TableState extends IBaseRefProps {
     args: Record<string, string | number | boolean | undefined | null | number[] | string[]>;
     fetch_params: Record<string, string | number | boolean | undefined | null> | null;
     modal_title: string | undefined | null;
+    modal_header_sx: object | undefined | null;
+    modal_header_rows?: (undefined | JSX.Element | null)[] | null | undefined;
     context?: Record<string, unknown> | null | undefined;
 }
 export interface Props extends IBaseRefProps {

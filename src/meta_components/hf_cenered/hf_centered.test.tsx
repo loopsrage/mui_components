@@ -86,10 +86,10 @@ test('should load and display server-side data', async () => {
             <CenteredContainer sx={{minHeight: "10hv", display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                 <Stack gap={3} alignItems={"center"}>
                     <Typography   align="center" sx={{ fontWeight: 'bold', width: '100%'}} >
-                        HTS Code Lookup
+                       Default
                     </Typography>
                     <Typography  align="center" sx={{ width: '100%' }}>
-                        Upload CSV or paste / type in part numbers (one per line or comma-separated).
+                        Default
                     </Typography>
 
                     <Button
@@ -106,7 +106,7 @@ test('should load and display server-side data', async () => {
                     <UIInput onSend={handleOnSend} refKey={"csv_upload"} register_component={true} onDropSuccess={onDropSuccess} />
                     <Paper>
                         <GridWithButtons
-                            title={"Review Classifications"}
+                            title={"Default"}
                             api={mockApi}
                             buttons={buttons}
                             row_details={true}

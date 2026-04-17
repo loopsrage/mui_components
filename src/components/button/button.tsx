@@ -1,6 +1,6 @@
 import type {FC, ReactElement} from "react";
 import {Button, type ButtonProps} from "@mui/material";
-import type {ApiClient} from "../../utility/api";
+import type {ApiClient} from "@/utility/api";
 
 interface ApiButtonProps extends ButtonProps {
     api?: ApiClient | null;

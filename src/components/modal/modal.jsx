@@ -36,6 +36,7 @@ export const TypeFormBuilderModal = ({title, getSchema, handleSave, elementSelec
         })
     }
 
+
     useLayoutEffect(() => {
         setRegistryRef(formRef.current);
         return () => setRegistryRef(null);

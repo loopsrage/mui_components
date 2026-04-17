@@ -15,9 +15,7 @@ import type {ApiClient} from "@/utility/api";
 import {EditCellRenderer} from "@/meta_components/crud_elements/crud_elements";
 import type {IBaseRefProps} from "@/ibase/ibase";
 import {useConditionalRef, useRefIndex} from "@/context/context_index";
-import {Box, Button, IconButton, Stack, TextField} from "@mui/material";
-import {ApiButton} from "../button/button";
-import DownloadIcon from '@mui/icons-material/Download';
+import {Box, Button, IconButton, Stack} from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 import type {FormBuilderState} from "@/utility/form_builder";
 
@@ -42,7 +40,8 @@ export interface TableState extends IBaseRefProps {
     args: Record<string, string | number | boolean | undefined | null | number[] | string[] >
     fetch_params: Record<string, string | number | boolean | undefined | null> | null
     modal_title: string | undefined | null
-
+    modal_header_sx: object | undefined | null;
+    modal_header_rows?: (undefined | JSX.Element | null)[] | null | undefined;
     context?: Record<string, unknown> | null | undefined;
 }
 
@@ -453,19 +452,8 @@ export const GetCellRenderer = (ref: RefObject<TableState>) => {
 export const ModalCellRendererWrapper = (ref: RefObject<TableState>) => {
     const context = useRefIndex();
     return (params: GridRenderCellParams) => {
-        const [rejected, setRejected] = useState(false);
-        const [comments, setComments] = useState("");
         const st = ref.current;
         if (!st) return;
-
-        let bgc = "white"
-        if (params.row["stage"] === "rejected") {
-            bgc = "red"
-        }
-
-        if (params.row["stage"] === "approved") {
-            bgc = "green"
-        }
 
         const handleShow = (show: boolean = false) => {
             const update: FormBuilderState | null | undefined = context?.get("update_modal")
@@ -480,15 +468,8 @@ export const ModalCellRendererWrapper = (ref: RefObject<TableState>) => {
         const title = (
             <Stack direction="column" justifyContent="space-between" spacing={2} sx={{ width: '100%' }}>
                 <Stack gap={3} direction="row">
-                    {params.row["item_id"]}
-                    <Box sx={{
-                        backgroundColor: bgc,
-                        color: "black",
-                        borderRadius: 2,
-                        px: 1.5,
-                        fontSize: '0.875rem'
-                    }}>
-                        {params.row["stage"]}
+                    <Box sx={{...st.modal_header_sx}}>
+                        {"Update"}
                     </Box>
                     <Box key="spacer" sx={{ flexGrow: 1 }} />
                     <IconButton onClick={() => handleShow(false)} sx={{backgroundColor: "black", color: "white"}}>
@@ -496,69 +477,16 @@ export const ModalCellRendererWrapper = (ref: RefObject<TableState>) => {
                     </IconButton>
                 </Stack>
                 <Stack gap={3} direction="row">
-                    {params.row["code"]}
-                    {params.row["description"]}
+                    {Object.entries(st.modal_header_rows || []).map(k => k)}
                 </Stack>
             </Stack>
         )
 
-        const handleGetArgs = () => {
-            return {
-                item_id: params.row["item_id"],
-                comments: comments,
-            }
-        }
-
-        const handleRejectCallback = async () => {
-            setRejected(true);
-            setComments("")
-            handleShow(false)
-            await Refresh(ref)
-        }
-
-        const handleApproveCallback = async () => {
-            handleShow(false)
-            await Refresh(ref)
-        }
-
         const input_params =  {footerButtons: [
-            rejected && (<TextField
-                label="Reason for rejection"
-                multiline
-                rows={4}
-                sx={{ mb: 2 }}
-                variant="outlined"
-                fullWidth
-                defaultValue={comments}
-                onChange={(event) => setComments(event.target.value)}
-            />),
-            <Button
-                variant='outlined'
-                sx={{color: "black", backgroundColor: "white", borderColor: "black"}}
-                startIcon={<DownloadIcon/>}
-            >Extract</Button>,
+            <Button onClick={() => handleShow(false)}>{"Close"}</Button>,
             <Box key="spacer" sx={{ flexGrow: 1 }} />,
-            rejected && (<Button onClick={() => setRejected(false)}>
-                {"Cancel"}
-            </Button>),
-            !rejected && (<Button sx={{backgroundColor: "red"}} onClick={() => setRejected(true)}>Reject</Button>),
-            rejected && (<ApiButton
-                api={st.api}
-                endpoint={"reject"}
-                sx={{backgroundColor: "red"}}
-                variant="contained"
-                get_args={handleGetArgs}
-                callback={handleRejectCallback}
-            >Reject</ApiButton>),
-            !rejected && (<ApiButton
-                api={st.api}
-                sx={{backgroundColor: "green"}}
-                variant="contained"
-                endpoint={"approve"}
-                get_args={handleGetArgs}
-                callback={handleApproveCallback}
-            >Approve</ApiButton>),
-            ], title: title, ...params.row};
+            <Button sx={{backgroundColor: "red"}}>{"Update"}</Button>],
+            title: title, ...params.row}
         return <EditCellRenderer  params={input_params} handleRefreshGrid={async () =>await  Refresh(ref)} api={st.api} id={params.id} />
     }
 }
@@ -605,6 +533,9 @@ export const UITable: FC<Props> = ({ api, endpoint, row_details, refKey, cellRen
             register_component: register_component,
             refKey: refKey,
             modal_title: null,
+            modal_header_rows: null,
+            modal_header_sx: null,
+            modal_header_row: null,
             ...grid_options
         }
     }
