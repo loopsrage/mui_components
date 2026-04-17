@@ -52,9 +52,7 @@ export declare const GetRawHeaders: (ref: RefObject<TableState>) => GridColDef[]
 export declare const GetHeaders: (ref: RefObject<TableState>) => GridColDef[];
 export declare const GetPaginationModel: (ref: RefObject<TableState>) => GridPaginationModel | undefined;
 export declare const SetArgs: (ref: RefObject<TableState>, args: Record<string, string | number | boolean | undefined | null>) => void;
-export declare const SetOrAddArgs: (ref: React.RefObject<TableState>, args: {
-    item_ids: number[];
-}) => void;
+export declare const SetOrAddArgs: (ref: RefObject<TableState>, args: object) => void;
 export declare const SetSortModel: (ref: RefObject<TableState>, sortModel: GridSortModel) => void;
 export declare const SetFilterModel: (ref: RefObject<TableState>, filterModel: GridFilterModel) => void;
 export declare const SetPaginationModel: (ref: RefObject<TableState>, paginationModel: GridPaginationModel | undefined) => () => void;

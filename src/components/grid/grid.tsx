@@ -221,10 +221,7 @@ export const GetRows = (ref: RefObject<TableState>): GridValidRowModel[] => {
             const columnData = st.rows[colIndex];
             rowObj[colDef.field] = columnData ? columnData[rowIndex] : null;
         });
-
-        const persistentId = rowObj["id"];
-        rowObj.id = persistentId;
-
+        rowObj.id = rowObj.id = rowObj["id"] ?? rowIndex;
         return rowObj;
     });
 }
@@ -252,7 +249,7 @@ export const GetHeaders = (ref: RefObject<TableState>) => {
     if (st.row_details) {
         const editColumn: GridColDef = {
             field: "edit",
-            headerName: "Details / Approvals",
+            headerName: "Edit",
             sortable: false,
             filterable: false,
             flex: 1,
@@ -278,7 +275,7 @@ export const SetArgs = (ref: RefObject<TableState>, args: Record<string, string 
     st.refresh();
 }
 
-export const SetOrAddArgs = (ref: React.RefObject<TableState>, args: { item_ids: number[] }) => {
+export const SetOrAddArgs = (ref: RefObject<TableState>, args: object) => {
     const st = ref.current;
     if (!st) return;
 
@@ -373,7 +370,7 @@ export const DataSourceWrapper = (ref: RefObject<TableState>, handleToggle: () =
                 },
                 args: finalArgs,
             }) as ApiResponse;
-            console.log(st.endpoint)
+            console.log(st, finalArgs, result)
 
             const resultContainer = BuildContainerTree(null, [], ".", result.results)
             SetHeadersFromJson(ref, resultContainer)

@@ -1351,7 +1351,7 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 		},
 		"&": { width: "100%" }
 	};
-}, We = ({ api: e, endpoint: t, refKey: n, register_component: r, ...i }) => (console.log(e, t), /* @__PURE__ */ E(He, {
+}, We = ({ api: e, endpoint: t, refKey: n, register_component: r, ...i }) => /* @__PURE__ */ E(He, {
 	api: e,
 	endpoint: "get_paginated",
 	buttons: [],
@@ -1359,7 +1359,7 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 	refKey: n,
 	register_component: r,
 	...i
-})), Ge = ({ jsxKey: e, key: t, inputProps: n }) => {
+}), Ge = ({ jsxKey: e, key: t, inputProps: n }) => {
 	let r;
 	return t.charAt(t.length - 1) === "D" && t.charAt(t.length - 2) === "I" || t.charAt(t.length - 1) === "S" && t.charAt(t.length - 2) === "D" ? (t.charAt(t.length - 1) === "D" && t.charAt(t.length - 2) === "I" && (r = t.slice(5, t.length - 2)), t.charAt(t.length - 1) === "S" && t.charAt(t.length - 2) === "D" && (r = t.slice(5, t.length - 3), n = {
 		...n,
@@ -1780,7 +1780,7 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 		return t.headers.forEach((e, i) => {
 			let a = t.rows[i];
 			r[e.field] = a ? a[n] : null;
-		}), r.id = r.id, r;
+		}), r.id = r.id = r.id ?? n, r;
 	});
 }, wt = (e) => {
 	let t = e.current;
@@ -1798,7 +1798,7 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 	if (t.row_details) {
 		let t = {
 			field: "edit",
-			headerName: "Details / Approvals",
+			headerName: "Edit",
 			sortable: !1,
 			filterable: !1,
 			flex: 1,
@@ -1855,7 +1855,7 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 		},
 		args: s
 	});
-	console.log(r.endpoint);
+	console.log(r, s, c);
 	let l = Ee(null, [], ".", c.results);
 	return vt(e, l), xt(e, l), r.row_count = c.pagination?.total || 0, e.current = r, t(), {
 		rows: Ct(e),

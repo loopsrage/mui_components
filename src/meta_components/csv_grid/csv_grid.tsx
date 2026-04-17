@@ -1,5 +1,5 @@
-import {type FC } from "react";
-import { type Props } from "@/components/grid/grid";
+import {type FC} from "react";
+import {type Props} from "@/components/grid/grid";
 import {GridWithButtons} from "@/meta_components/grid_with_buttons/grid_with_buttons";
 
 
@@ -72,6 +72,5 @@ export const CsvDatagridSx = () => {
 }
 
 export const CsvGrid: FC<Props> = ({api, endpoint, refKey, register_component, ...props}) => {
-    console.log(api, endpoint)
     return <GridWithButtons api={api} endpoint={"get_paginated"} buttons={[]} title={""} refKey={refKey} register_component={register_component} {...props} />
 }
