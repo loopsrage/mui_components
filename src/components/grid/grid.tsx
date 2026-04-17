@@ -370,7 +370,6 @@ export const DataSourceWrapper = (ref: RefObject<TableState>, handleToggle: () =
                 },
                 args: finalArgs,
             }) as ApiResponse;
-            console.log(st, finalArgs, result)
 
             const resultContainer = BuildContainerTree(null, [], ".", result.results)
             SetHeadersFromJson(ref, resultContainer)
@@ -459,6 +458,7 @@ export const ModalCellRendererWrapper = (ref: RefObject<TableState>) => {
             if (!up) return;
 
             const ss = up.setShow as (show: boolean) => void;
+            SetOrAddArgs(ref, {id: params.row.id});
             ss(show)
         }
 

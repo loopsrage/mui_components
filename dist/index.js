@@ -1854,9 +1854,7 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 			...Nt(e)
 		},
 		args: s
-	});
-	console.log(r, s, c);
-	let l = Ee(null, [], ".", c.results);
+	}), l = Ee(null, [], ".", c.results);
 	return vt(e, l), xt(e, l), r.row_count = c.pagination?.total || 0, e.current = r, t(), {
 		rows: Ct(e),
 		rowCount: c.pagination?.total || 0
@@ -1888,11 +1886,11 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 	return (i) => {
 		let a = e.current;
 		if (!a) return;
-		let o = (e = !1) => {
-			let t = r?.get("update_modal")?.context;
-			if (!t) return;
-			let n = t.setShow;
-			n(e);
+		let o = (t = !1) => {
+			let n = r?.get("update_modal")?.context;
+			if (!n) return;
+			let a = n.setShow;
+			Ot(e, { id: i.row.id }), a(t);
 		}, s = /* @__PURE__ */ D(_, {
 			direction: "column",
 			justifyContent: "space-between",

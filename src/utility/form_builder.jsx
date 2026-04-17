@@ -5,8 +5,9 @@ import {KeyValue} from "../components/key_value/key_value.jsx";
 import {DataViewer} from "../components/file_viewer/file_viewer.jsx";
 import {DataImage} from "../components/image_viewer/image_viewer.jsx";
 import {SelectOptions} from "../components/select_options/select_options.jsx";
-import {FieldValueGrid, UITable} from "@";
+import {FieldValueGrid, UITable, useRefIndex} from "@";
 import {CsvGrid} from "@/meta_components/csv_grid/csv_grid.tsx";
+import {useEffect} from "react";
 
 const formatDate = (date) => {
     return date.toISOString().slice(0, 16);
