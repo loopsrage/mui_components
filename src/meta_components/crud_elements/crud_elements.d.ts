@@ -1,4 +1,5 @@
 import React from 'react';
+import type {ApiClient} from "@/utility/api";
 
 /**
  * Defines the shape of the 'api' prop used across your components.
@@ -14,7 +15,7 @@ export interface CrudApi {
 
 export interface BaseProps {
     refreshGrid: () => void;
-    api: CrudApi;
+    api: ApiClient;
 }
 
 export interface IdProps extends BaseProps {
@@ -27,7 +28,7 @@ export interface DeleteManyProps extends BaseProps {
 
 export interface EditCellRendererProps {
     handleRefreshGrid: () => Promise<void>;
-    api?: CrudApi | null;
+    api?: ApiClient | null;
     id: string | number;
     params: object;
     context?: Record<string, unknown> | null | undefined;

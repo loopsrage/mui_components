@@ -13,6 +13,9 @@ export default defineConfig({
       enforce: 'pre',
       resolveId(id) {
         // If it's any of our problematic libs, force it to be a clean external
+        if (process.env.VITEST || process.env.NODE_ENV === 'test') {
+          return null; // Let Vite/Vitest handle resolution normally
+        }
         if (
             id === 'react' ||
             id.startsWith('react/') ||

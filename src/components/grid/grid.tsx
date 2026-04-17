@@ -208,9 +208,9 @@ export const GetKeyValueRows = (ref: RefObject<TableState>): GridValidRowModel[]
 }
 
 export const GetRows = (ref: RefObject<TableState>): GridValidRowModel[] => {
+
     const st = ref.current;
     if (!st || !st.rows || st.rows.length === 0) return [];
-
     const idColumn = st.rows[0];
     const rowCount = idColumn.length;
 
@@ -366,7 +366,6 @@ export const DataSourceWrapper = (ref: RefObject<TableState>, handleToggle: () =
                     delete finalArgs["filterModel"];
                 }
             }
-
             const result = await st.api?.at("/" + st.endpoint, {
                 fetchParams: {
                     method: "GET",
@@ -374,6 +373,7 @@ export const DataSourceWrapper = (ref: RefObject<TableState>, handleToggle: () =
                 },
                 args: finalArgs,
             }) as ApiResponse;
+            console.log(st.endpoint)
 
             const resultContainer = BuildContainerTree(null, [], ".", result.results)
             SetHeadersFromJson(ref, resultContainer)
