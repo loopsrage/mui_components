@@ -1,7 +1,6 @@
 import {type FC } from "react";
 import { type Props } from "@/components/grid/grid";
 import {GridWithButtons} from "@/meta_components/grid_with_buttons/grid_with_buttons";
-import type {ApiClient} from "@/utility/api";
 
 
 export const CsvDatagridSx = () => {
@@ -72,6 +71,6 @@ export const CsvDatagridSx = () => {
     }
 }
 
-export const CsvGrid: FC<Props> = ({context, endpoint, refKey, register_component, ...props}) => {
-    return <GridWithButtons api={context?.api as ApiClient} endpoint={"get_paginated"} buttons={[]} title={""} refKey={refKey} register_component={register_component} {...props} />
+export const CsvGrid: FC<Props> = ({api, endpoint, refKey, register_component, ...props}) => {
+    return <GridWithButtons api={api} endpoint={"get_paginated"} buttons={[]} title={""} refKey={refKey} register_component={register_component} {...props} />
 }

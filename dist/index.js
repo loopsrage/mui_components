@@ -551,8 +551,8 @@ var He = ({ endpoint: e, handleErr: t }) => {
 		},
 		"&": { width: "100%" }
 	};
-}, qe = ({ context: e, endpoint: t, refKey: n, register_component: r, ...i }) => /* @__PURE__ */ T(Ge, {
-	api: e?.api,
+}, qe = ({ api: e, endpoint: t, refKey: n, register_component: r, ...i }) => /* @__PURE__ */ T(Ge, {
+	api: e,
 	endpoint: "get_paginated",
 	buttons: [],
 	title: "",
@@ -589,7 +589,7 @@ var He = ({ endpoint: e, handleErr: t }) => {
 	}, t);
 	if (r === "object") {
 		if (i.defaultValue.Subtype === 20) return /* @__PURE__ */ T(qe, {
-			context: { api: e.current.api },
+			api: e.current?.api,
 			refKey: "csv_grid",
 			register_component: !0
 		}, t);
