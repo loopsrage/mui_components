@@ -1,4 +1,4 @@
-import {type FC, type JSX, type RefObject, useLayoutEffect, useRef, useState} from "react";
+import {type FC, type JSX, type RefObject, useEffect, useLayoutEffect, useRef, useState} from "react";
 import {
     DataGrid, type GridApi,
     type GridColDef, type GridColumnVisibilityModel,
@@ -548,6 +548,12 @@ export const UITable: FC<Props> = ({ api, endpoint, row_details, refKey, cellRen
         setRegistryRef(localRef.current);
         return () => setRegistryRef(null);
     }, [setRegistryRef]);
+
+    useEffect(() => {
+        if (apiRef.current && endpoint) {
+            apiRef.current.dataSource?.fetchRows();
+        }
+    }, [endpoint, apiRef]);
 
     return (
         <DataGrid

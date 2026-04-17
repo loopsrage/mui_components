@@ -1178,7 +1178,9 @@ var He = ({ endpoint: e, handleErr: t }) => {
 		modal_header_sx: null,
 		modal_header_row: null,
 		...l
-	}, O(() => (d(f.current), () => d(null)), [d]), /* @__PURE__ */ T(ce, {
+	}, O(() => (d(f.current), () => d(null)), [d]), D(() => {
+		b.current && t && b.current.dataSource?.fetchRows();
+	}, [t, b]), /* @__PURE__ */ T(ce, {
 		apiRef: b,
 		disableVirtualization: !0,
 		columnVisibilityModel: v,
