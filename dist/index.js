@@ -551,15 +551,15 @@ var He = ({ endpoint: e, handleErr: t }) => {
 		},
 		"&": { width: "100%" }
 	};
-}, qe = ({ api: e, endpoint: t, refKey: n, register_component: r, ...i }) => (console.log(e, t, n, r, i), /* @__PURE__ */ T(Ge, {
-	api: e,
+}, qe = ({ context: e, endpoint: t, refKey: n, register_component: r, ...i }) => /* @__PURE__ */ T(Ge, {
+	api: e?.api,
 	endpoint: "get_paginated",
 	buttons: [],
 	title: "",
 	refKey: n,
 	register_component: r,
 	...i
-})), Je = ({ jsxKey: e, key: t, inputProps: n }) => {
+}), Je = ({ jsxKey: e, key: t, inputProps: n }) => {
 	let r;
 	return t.charAt(t.length - 1) === "D" && t.charAt(t.length - 2) === "I" || t.charAt(t.length - 1) === "S" && t.charAt(t.length - 2) === "D" ? (t.charAt(t.length - 1) === "D" && t.charAt(t.length - 2) === "I" && (r = t.slice(5, t.length - 2)), t.charAt(t.length - 1) === "S" && t.charAt(t.length - 2) === "D" && (r = t.slice(5, t.length - 3), n = {
 		...n,

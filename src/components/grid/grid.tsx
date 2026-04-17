@@ -46,7 +46,7 @@ export interface TableState extends IBaseRefProps {
 }
 
 export interface Props extends IBaseRefProps {
-    api?: ApiClient | null
+    api?: ApiClient | null | undefined;
 
     endpoint?: string | undefined;
     row_details?: boolean | null
