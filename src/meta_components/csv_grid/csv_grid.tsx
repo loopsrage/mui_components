@@ -1,6 +1,9 @@
-import {type FC} from "react";
-import {type Props} from "@/components/grid/grid";
+import {type FC, useEffect} from "react";
+import {
+    type Props, Refresh, SetOrAddArgs, type TableState
+} from "@/components/grid/grid";
 import {GridWithButtons} from "@/meta_components/grid_with_buttons/grid_with_buttons";
+import {useRefIndex} from "@/context/context_index";
 
 
 export const CsvDatagridSx = () => {
@@ -71,7 +74,22 @@ export const CsvDatagridSx = () => {
     }
 }
 
+
 export const CsvGrid: FC<Props> = ({api, endpoint, refKey, register_component, ...props}) => {
+    const context = useRefIndex();
+
+    useEffect(() => {
+        const updateGrid = async () => {
+            const gridState = context?.get(refKey) as TableState;
+            if (!gridState) return;
+
+            const ref = { current: { ...gridState } };
+            SetOrAddArgs({current: gridState}, {id: 17})
+            await Refresh(ref);
+        };
+
+        updateGrid();
+    }, [context]);
 
     return <GridWithButtons api={api} endpoint={"get_paginated"} buttons={[]} title={""} refKey={refKey} register_component={register_component} {...props} />
 }

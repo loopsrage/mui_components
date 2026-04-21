@@ -11,7 +11,7 @@ test('should load and display server-side data', async () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     render(
         <RefProvider>
-            <CsvGrid api={mockApi} endpoint={"list"} refKey={"test_grid"} register_component={true}/>
+            <CsvGrid api={mockApi} refKey={"csv_grid"} register_component={true}/>
         </RefProvider>)
 
     await new Promise(() => {});

@@ -50,6 +50,7 @@ const defaultSelector = () => {
 
         if (currentType === 'object') {
             if (inputProps.defaultValue["Subtype"] === 20) {
+
                 return <CsvGrid api={formRef.current?.api} key={jsxKey} refKey={"csv_grid"} register_component={true}/>
             }
 

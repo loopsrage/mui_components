@@ -30,7 +30,6 @@ export interface EditCellRendererProps {
     api?: ApiClient | null;
     id: string | number;
     params: object;
-    context?: Record<string, unknown> | null | undefined;
 }
 
 // Component Exports

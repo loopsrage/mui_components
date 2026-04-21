@@ -363,6 +363,7 @@ export const DataSourceWrapper = (ref: RefObject<TableState>, handleToggle: () =
                     delete finalArgs["filterModel"];
                 }
             }
+
             const result = await st.api?.at("/" + st.endpoint, {
                 fetchParams: {
                     method: "GET",
@@ -453,12 +454,10 @@ export const ModalCellRendererWrapper = (ref: RefObject<TableState>) => {
 
         const handleShow = (show: boolean = false) => {
             const update: FormBuilderState | null | undefined = context?.get("update_modal")
-
             const up = update?.context
-            if (!up) return;
 
+            if (!up) return;
             const ss = up.setShow as (show: boolean) => void;
-            SetOrAddArgs(ref, {id: params.row.id});
             ss(show)
         }
 
@@ -482,9 +481,13 @@ export const ModalCellRendererWrapper = (ref: RefObject<TableState>) => {
         const input_params =  {footerButtons: [
             <Button onClick={() => handleShow(false)}>{"Close"}</Button>,
             <Box key="spacer" sx={{ flexGrow: 1 }} />,
-            <Button sx={{backgroundColor: "red"}}>{"Update"}</Button>],
+            <Button>{"Update"}</Button>],
             title: title, ...params.row}
-        return <EditCellRenderer  params={input_params} handleRefreshGrid={async () =>await  Refresh(ref)} api={st.api} id={params.id} />
+        return <EditCellRenderer
+            params={input_params}
+            handleRefreshGrid={async () =>await  Refresh(ref)}
+            api={st.api}
+            id={params.id} />
     }
 }
 
