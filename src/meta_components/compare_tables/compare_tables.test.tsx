@@ -29,15 +29,28 @@ test('should load and display server-side data', async () => {
                     toolbar: true,
                     checkbox_select: true,
                     api: mockApi,
-                    endpoint: "list",
-                    refKey: "table2",
+                    endpoint: "source",
+                    refKey: "table3",
                     register_component: true,
-                    title: "table_2",
+                    title: "table_3",
                 }
             }
         ]
+        const compareFunc = async (state: Record<string, string>) => {
+            const result = await mockApi.at("/compare", {
+                fetchParams: {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({data: state}),
+                },
+            })
+            console.log(result)
+        }
+
         return <Stack direction={"row"}>
-                <CompareTables tables={tables} />
+                <CompareTables tables={tables} compare={compareFunc} />
             </Stack>
     }
 

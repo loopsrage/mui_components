@@ -1,4 +1,4 @@
-import {type FC} from "react";
+import {type FC, type RefObject, useRef} from "react";
 import {Button, Stack} from "@mui/material";
 import {type GridWithButtonsProps} from "@/meta_components/grid_with_buttons/grid_with_buttons";
 import {type TableState, type UITable} from "@/components/grid/grid";
@@ -13,22 +13,42 @@ export interface TableGroup {
 
 export interface CompareTablesProps {
     tables: TableGroup[];
+    compare: (state: Record<string, string>) => void;
 }
 
-export const CompareTables: FC<CompareTablesProps> = ({tables}) => {
+export interface CompareTablesRef {
+    state: Record<string, string>;
+}
+
+export const SetTableState = (ref: RefObject<CompareTablesRef>, refKey: string, value: string) => {
+    const st = ref.current
+    if (!st) return
+
+    st.state[refKey] = value
+    ref.current = st
+}
+
+export const CompareTables: FC<CompareTablesProps> = ({tables, compare}) => {
     const context = useRefIndex()
+    const localRef = useRef<CompareTablesRef>({state: {}})
     const handleRowSelect = (refKey: string) => {
         return (newModel: GridRowSelectionModel) =>{
             const ref: TableState | undefined | null = context?.get(refKey)
             const selectionArray = Array.from(newModel.ids);
             const gridApi = ref?.gridRef.current
             const rows = selectionArray.map(x => gridApi?.getRow(x))
-            console.log(rows)
+            SetTableState(localRef, refKey, JSON.stringify(rows))
         }
+    }
+
+    const handleOnClick = () => {
+        const st = localRef.current
+        compare(st.state)
     }
 
     return (
         <Stack direction={"column"}>
+            <Button key={0} onClick={handleOnClick}>Compare</Button>
             <Stack direction={"row"} gap={2} sx={{width: "100%"}}>
                 <>
                     {
@@ -43,7 +63,6 @@ export const CompareTables: FC<CompareTablesProps> = ({tables}) => {
                     }
                 </>
             </Stack>
-            <Button key={0}>Compare</Button>
         </Stack>
     )
 }
