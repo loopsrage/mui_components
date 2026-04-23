@@ -23,6 +23,7 @@ export const DatagridSx = () => {
 
     const stickyHeaderCommon = {
         position: 'sticky',
+        width: "100%",
         zIndex: 3, // Headers sit above sticky cells
         backgroundColor: '#191E23 !important', // Match your header color
     };

@@ -2175,6 +2175,7 @@ var Be = ({ endpoint: e, handleErr: t }) => {
 		backgroundColor: "white"
 	}, t = {
 		position: "sticky",
+		width: "100%",
 		zIndex: 3,
 		backgroundColor: "#191E23 !important"
 	};

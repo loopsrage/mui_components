@@ -12,6 +12,7 @@ export declare const DatagridSx: () => {
     '& .MuiDataGrid-columnHeader[data-field="Field"]': {
         left: number;
         position: string;
+        width: string;
         zIndex: number;
         backgroundColor: string;
     };
@@ -25,6 +26,7 @@ export declare const DatagridSx: () => {
     '& .MuiDataGrid-columnHeader[data-field="Value"]': {
         right: number;
         position: string;
+        width: string;
         zIndex: number;
         backgroundColor: string;
     };
