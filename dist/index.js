@@ -2190,11 +2190,13 @@ var Be = ({ endpoint: e, handleErr: t }) => {
 		},
 		"& .MuiDataGrid-columnHeader[data-field=\"Value\"]": {
 			...t,
-			right: 0
+			right: 0,
+			width: "100%"
 		},
 		"& .MuiDataGrid-cell[data-field=\"Value\"]": {
 			...e,
 			right: 0,
+			width: "100%",
 			borderLeft: "1px solid #e0e0e0"
 		},
 		"& .MuiSvgIcon-root MuiSvgIcon-fontSizeSmall MuiDataGrid-sortIcon": { color: "#fff" },

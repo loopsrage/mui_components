@@ -10,29 +10,29 @@ test('should load and display server-side data', async () => {
 
     const mockApi = Api({endpoint: "http://localhost:8000"})
     const TestWrapper = () => {
+        const options = {
+            api: mockApi,
+            register_component: true,
+            toolbar: true,
+            checkbox_select: true,
+        }
         const tables = [
             {
                 table: UITable,
                 props: {
-                    api: mockApi,
                     endpoint: "list",
                     refKey: "table1",
-                    register_component: true,
-                    toolbar: true,
-                    checkbox_select: true,
                     title: "table_1",
+                    ...options,
                 }
             },
             {
                 table: UITable,
                 props: {
-                    toolbar: true,
-                    checkbox_select: true,
-                    api: mockApi,
                     endpoint: "source",
                     refKey: "table3",
-                    register_component: true,
                     title: "table_3",
+                    ...options,
                 }
             }
         ]

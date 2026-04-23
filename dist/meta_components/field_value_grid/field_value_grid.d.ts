@@ -19,12 +19,14 @@ export declare const DatagridSx: () => {
     };
     '& .MuiDataGrid-columnHeader[data-field="Value"]': {
         right: number;
+        width: string;
         position: string;
         zIndex: number;
         backgroundColor: string;
     };
     '& .MuiDataGrid-cell[data-field="Value"]': {
         right: number;
+        width: string;
         borderLeft: string;
         position: string;
         zIndex: number;

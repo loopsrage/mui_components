@@ -41,11 +41,13 @@ export const DatagridSx = () => {
         '& .MuiDataGrid-columnHeader[data-field="Value"]': {
             ...stickyHeaderCommon,
             right: 0,
+            width: "100%"
         },
         '& .MuiDataGrid-cell[data-field="Value"]': {
             ...stickyCommon,
             right: 0,
-            borderLeft: '1px solid #e0e0e0', // Optional: visual separator
+            width: "100%",
+            borderLeft: '1px solid #e0e0e0' // Optional: visual separator
         },
         "& .MuiSvgIcon-root MuiSvgIcon-fontSizeSmall MuiDataGrid-sortIcon": {
             color: '#fff',
