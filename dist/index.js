@@ -2179,6 +2179,11 @@ var Be = ({ endpoint: e, handleErr: t }) => {
 		backgroundColor: "#191E23 !important"
 	};
 	return {
+		"& .MuiDataGrid-cell": {
+			whiteSpace: "normal",
+			display: "flex",
+			alignItems: "center"
+		},
 		"& .MuiDataGrid-columnHeader[data-field=\"Field\"]": {
 			...t,
 			left: 0
@@ -2190,13 +2195,11 @@ var Be = ({ endpoint: e, handleErr: t }) => {
 		},
 		"& .MuiDataGrid-columnHeader[data-field=\"Value\"]": {
 			...t,
-			right: 0,
-			width: "100%"
+			right: 0
 		},
 		"& .MuiDataGrid-cell[data-field=\"Value\"]": {
 			...e,
 			right: 0,
-			width: "100%",
 			borderLeft: "1px solid #e0e0e0"
 		},
 		"& .MuiSvgIcon-root MuiSvgIcon-fontSizeSmall MuiDataGrid-sortIcon": { color: "#fff" },
@@ -2215,11 +2218,11 @@ var Be = ({ endpoint: e, handleErr: t }) => {
 		"& .MuiDataGrid-filler": { backgroundColor: "black !important" },
 		"& .MuiDataGrid-menuIcon": { color: "white" },
 		"& .MuiDataGrid-columnSeparator": { color: "#333" },
-		"& .MuiDataGrid-main": {
-			overflow: "auto",
-			minWidth: "100%"
-		},
-		"&": { width: "100%" }
+		"& .MuiDataGrid-main": { overflow: "auto" },
+		"&": {
+			width: "100%",
+			display: "flex"
+		}
 	};
 }, en = ({ data: e, ...t }) => {
 	let n = Y(), [r, i] = j({

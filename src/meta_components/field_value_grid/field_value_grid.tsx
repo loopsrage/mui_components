@@ -27,6 +27,12 @@ export const DatagridSx = () => {
         backgroundColor: '#191E23 !important', // Match your header color
     };
     return {
+            // Optional: Ensure cells wrap text if "Value" is very long
+            '& .MuiDataGrid-cell': {
+              whiteSpace: 'normal',
+              display: 'flex',
+              alignItems: 'center',
+            },
         '& .MuiDataGrid-columnHeader[data-field="Field"]': {
             ...stickyHeaderCommon,
             left: 0,
@@ -41,12 +47,10 @@ export const DatagridSx = () => {
         '& .MuiDataGrid-columnHeader[data-field="Value"]': {
             ...stickyHeaderCommon,
             right: 0,
-            width: "100%"
         },
         '& .MuiDataGrid-cell[data-field="Value"]': {
             ...stickyCommon,
             right: 0,
-            width: "100%",
             borderLeft: '1px solid #e0e0e0' // Optional: visual separator
         },
         "& .MuiSvgIcon-root MuiSvgIcon-fontSizeSmall MuiDataGrid-sortIcon": {
@@ -75,11 +79,11 @@ export const DatagridSx = () => {
         },
         '& .MuiDataGrid-main': {
             overflow: 'auto',
-            minWidth: '100%', // Add this to force container expansion
         },
         // Ensure the root container takes full width
         '&': {
             width: '100%',
+            display: 'flex',
         }
     }
 }

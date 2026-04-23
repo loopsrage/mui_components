@@ -4,6 +4,11 @@ export interface KeyValueProps extends Omit<Props, 'api' | 'endpoint' | 'refKey'
     data: object;
 }
 export declare const DatagridSx: () => {
+    '& .MuiDataGrid-cell': {
+        whiteSpace: string;
+        display: string;
+        alignItems: string;
+    };
     '& .MuiDataGrid-columnHeader[data-field="Field"]': {
         left: number;
         position: string;
@@ -19,14 +24,12 @@ export declare const DatagridSx: () => {
     };
     '& .MuiDataGrid-columnHeader[data-field="Value"]': {
         right: number;
-        width: string;
         position: string;
         zIndex: number;
         backgroundColor: string;
     };
     '& .MuiDataGrid-cell[data-field="Value"]': {
         right: number;
-        width: string;
         borderLeft: string;
         position: string;
         zIndex: number;
@@ -58,10 +61,10 @@ export declare const DatagridSx: () => {
     };
     '& .MuiDataGrid-main': {
         overflow: string;
-        minWidth: string;
     };
     '&': {
         width: string;
+        display: string;
     };
 };
 export declare const FieldValueGrid: FC<KeyValueProps>;
