@@ -4,7 +4,7 @@ export interface KeyValueProps extends Omit<Props, 'api' | 'endpoint' | 'refKey'
     data: object;
 }
 export declare const DatagridSx: () => {
-    '& .MuiDataGrid-columnHeaderTitleContainer': {};
+    '& .MuiDataGrid-columnHeader-last': {};
     '& .MuiDataGrid-columnHeader[data-field="Field"]': {
         left: number;
         position: string;

@@ -28,7 +28,7 @@ export const DatagridSx = () => {
         backgroundColor: '#191E23 !important', // Match your header color
     };
     return {
-        '& .MuiDataGrid-columnHeaderTitleContainer': {
+        '& .MuiDataGrid-columnHeader-last': {
 
         },
         '& .MuiDataGrid-columnHeader[data-field="Field"]': {

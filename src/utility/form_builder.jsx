@@ -184,7 +184,7 @@ export const GetElements = (ref) => {
         sets[key] = GetSet(ref, value)
     })
     return (
-        <Stack direction={"column"} gap={0} >
+        <Stack direction={"column"} gap={0} sx={{flexGrow: 1, width: "100%"}}>
             {Object.keys(sets).map(x => sets[x])}
         </Stack>
     )

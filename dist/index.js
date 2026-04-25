@@ -1500,6 +1500,10 @@ var Be = ({ endpoint: e, handleErr: t }) => {
 	}), /* @__PURE__ */ E(_, {
 		direction: "column",
 		gap: 0,
+		sx: {
+			flexGrow: 1,
+			width: "100%"
+		},
 		children: Object.keys(t).map((e) => t[e])
 	});
 }, nt = (e) => {
@@ -2179,7 +2183,7 @@ var Be = ({ endpoint: e, handleErr: t }) => {
 		backgroundColor: "#191E23 !important"
 	};
 	return {
-		"& .MuiDataGrid-columnHeaderTitleContainer": {},
+		"& .MuiDataGrid-columnHeader-last": {},
 		"& .MuiDataGrid-columnHeader[data-field=\"Field\"]": {
 			...t,
 			left: 0
