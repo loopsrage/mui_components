@@ -1742,7 +1742,6 @@ var Be = ({ endpoint: e, handleErr: t }) => {
 			sortable: !0,
 			filterable: !0,
 			flex: 1,
-			width: 500,
 			minWidth: 250,
 			type: "string",
 			headerName: e
@@ -2180,34 +2179,22 @@ var Be = ({ endpoint: e, handleErr: t }) => {
 		backgroundColor: "#191E23 !important"
 	};
 	return {
-		"& .MuiDataGrid-cell": {
-			whiteSpace: "normal",
-			display: "flex",
-			alignItems: "center"
-		},
+		"& .MuiDataGrid-columnHeaderTitleContainer": {},
 		"& .MuiDataGrid-columnHeader[data-field=\"Field\"]": {
 			...t,
-			width: "100%",
-			flex: 1,
 			left: 0
 		},
 		"& .MuiDataGrid-cell[data-field=\"Field\"]": {
 			...e,
-			width: "100%",
 			left: 0,
-			flex: 1,
 			borderRight: "1px solid #e0e0e0"
 		},
 		"& .MuiDataGrid-columnHeader[data-field=\"Value\"]": {
 			...t,
-			flex: 2,
-			right: 0,
-			width: "100%"
+			right: 0
 		},
 		"& .MuiDataGrid-cell[data-field=\"Value\"]": {
 			...e,
-			flex: 2,
-			width: "100%",
 			right: 0,
 			borderLeft: "1px solid #e0e0e0"
 		},
