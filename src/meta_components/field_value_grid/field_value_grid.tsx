@@ -36,21 +36,29 @@ export const DatagridSx = () => {
             },
         '& .MuiDataGrid-columnHeader[data-field="Field"]': {
             ...stickyHeaderCommon,
+            width: "100%",
+            flex: 1,
             left: 0,
         },
         '& .MuiDataGrid-cell[data-field="Field"]': {
             ...stickyCommon,
+            width: "100%",
             left: 0,
+            flex: 1,
             borderRight: '1px solid #e0e0e0', // Optional: visual separator
         },
 
         // --- 2. Pin "Value" to the RIGHT ---
         '& .MuiDataGrid-columnHeader[data-field="Value"]': {
             ...stickyHeaderCommon,
+            flex: 2,
             right: 0,
+            width: "100%"
         },
         '& .MuiDataGrid-cell[data-field="Value"]': {
             ...stickyCommon,
+            flex: 2,
+            width: "100%",
             right: 0,
             borderLeft: '1px solid #e0e0e0' // Optional: visual separator
         },

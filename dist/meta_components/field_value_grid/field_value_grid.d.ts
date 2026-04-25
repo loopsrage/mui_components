@@ -10,27 +10,33 @@ export declare const DatagridSx: () => {
         alignItems: string;
     };
     '& .MuiDataGrid-columnHeader[data-field="Field"]': {
+        width: string;
+        flex: number;
         left: number;
         position: string;
-        width: string;
         zIndex: number;
         backgroundColor: string;
     };
     '& .MuiDataGrid-cell[data-field="Field"]': {
+        width: string;
         left: number;
+        flex: number;
         borderRight: string;
         position: string;
         zIndex: number;
         backgroundColor: string;
     };
     '& .MuiDataGrid-columnHeader[data-field="Value"]': {
+        flex: number;
         right: number;
-        position: string;
         width: string;
+        position: string;
         zIndex: number;
         backgroundColor: string;
     };
     '& .MuiDataGrid-cell[data-field="Value"]': {
+        flex: number;
+        width: string;
         right: number;
         borderLeft: string;
         position: string;

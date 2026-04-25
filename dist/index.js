@@ -2187,19 +2187,27 @@ var Be = ({ endpoint: e, handleErr: t }) => {
 		},
 		"& .MuiDataGrid-columnHeader[data-field=\"Field\"]": {
 			...t,
+			width: "100%",
+			flex: 1,
 			left: 0
 		},
 		"& .MuiDataGrid-cell[data-field=\"Field\"]": {
 			...e,
+			width: "100%",
 			left: 0,
+			flex: 1,
 			borderRight: "1px solid #e0e0e0"
 		},
 		"& .MuiDataGrid-columnHeader[data-field=\"Value\"]": {
 			...t,
-			right: 0
+			flex: 2,
+			right: 0,
+			width: "100%"
 		},
 		"& .MuiDataGrid-cell[data-field=\"Value\"]": {
 			...e,
+			flex: 2,
+			width: "100%",
 			right: 0,
 			borderLeft: "1px solid #e0e0e0"
 		},
