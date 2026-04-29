@@ -140,7 +140,7 @@ export const UIInput: FC<UploadInputProps> = ({refKey, register_component, hidde
         <ProgressAdornment loading={true} value={progress} />
     ) : (
         <SendIconButton
-            onClick={onSend(ref)}
+            onClick={onSend(localRef)}
             sx={{ color: progress === 100 ? 'red' : 'inherit' }}
             {...sendButtonProps}
         />
