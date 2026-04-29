@@ -10,8 +10,8 @@ export declare const SendIconButton: ({ ...props }: {
 export interface UploadInputProps {
     refKey: string;
     register_component: boolean;
-    onSend: () => ((ref: RefObject<UploadInputState>) => void);
-    onDropSuccess: (ref: RefObject<UploadInputState>, acceptedFiles: File[]) => void;
+    onSend: () => ((ref: RefObject<UploadInputState>) => void | Promise<void>);
+    onDropSuccess: (ref: RefObject<UploadInputState>, acceptedFiles: File[]) => void | Promise<void>;
     hidden?: boolean;
     textFieldSx?: object;
     textFieldProps?: object;
