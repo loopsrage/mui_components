@@ -5,6 +5,7 @@ export * from './components/button/button';
 export * from './components/centered_container/centered_container';
 export * from './components/centered_modal/centered_modal';
 export * from './components/grid/grid';
+export * from './components/modal/modal';
 export * from './components/upload_input/upload_input';
 
 // Meta Components

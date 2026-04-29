@@ -4,6 +4,7 @@ export * from './components/button/button';
 export * from './components/centered_container/centered_container';
 export * from './components/centered_modal/centered_modal';
 export * from './components/grid/grid';
+export * from './components/modal/modal';
 export * from './components/upload_input/upload_input';
 export * from './meta_components/crud_elements/crud_elements';
 export * from './meta_components/grid_with_buttons/grid_with_buttons';
