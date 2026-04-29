@@ -74,11 +74,13 @@ test('should load and display server-side data', async () => {
             {"Send To OTM/GTM"}
         </ApiButton>
     )]
-    const handleOnSend = async () => {
-        const result = await mockApi.at("/upload", {fetchParams: {method: "POST"},args: {
-            item_ids: [1,2,3,4,6],
-        }})
-        console.log(result)
+    const handleOnSend = (ref: RefObject<UploadInputState>) => {
+        return async () => {
+            const result = await mockApi.at("/upload", {fetchParams: {method: "POST"},args: {
+                item_ids: [1,2,3,4,6],
+            }})
+            console.log(result, ref.current)
+        }
     }
 
     render(
