@@ -25,7 +25,7 @@ test('should load and display server-side data', async () => {
                 refKey={"test_input"}
                 register_component={true}
                 onDropSuccess={onDropSuccess}
-                onSend={(ref: RefObject<UploadInputState>) => () => {console.log(ref.current)}} />
+                onSend={() => (ref: RefObject<UploadInputState>) => {console.log(ref.current)}} />
         </RefProvider>
     );
 

@@ -2108,7 +2108,7 @@ var Ve = ({ endpoint: e, handleErr: t }) => {
 		loading: !0,
 		value: m
 	}) : /* @__PURE__ */ T(Wt, {
-		onClick: i(C),
+		onClick: i()(C),
 		sx: { color: m === 100 ? "red" : "inherit" },
 		...s
 	});

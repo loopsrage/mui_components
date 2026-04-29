@@ -58,7 +58,7 @@ export interface UploadInputProps {
     refKey: string;
     register_component: boolean;
 
-    onSend: (ref: RefObject<UploadInputState>) => (() => void);
+    onSend: () => ((ref: RefObject<UploadInputState>) => void);
     onDropSuccess: (ref: RefObject<UploadInputState>, acceptedFiles: File[]) => void;
 
     hidden?: boolean;
@@ -140,7 +140,7 @@ export const UIInput: FC<UploadInputProps> = ({refKey, register_component, hidde
         <ProgressAdornment loading={true} value={progress} />
     ) : (
         <SendIconButton
-            onClick={onSend(ref)}
+            onClick={onSend()(ref)}
             sx={{ color: progress === 100 ? 'red' : 'inherit' }}
             {...sendButtonProps}
         />
