@@ -15,7 +15,7 @@ import {
 import DescriptionIcon from '@mui/icons-material/Description'
 import {useConditionalRef} from "@/context/context_index.ts";
 
-export const TypeFormBuilderModal = ({title, getSchema, handleSave, elementSelector, footerButtons, refKey, register_component=false, context=null}) => {
+export const TypeFormBuilderModal = ({title, tabs, getSchema, handleSave, elementSelector, footerButtons, refKey, register_component=false, context=null}) => {
     const setRegistryRef = useConditionalRef(refKey, register_component)
     const formRef = useRef(null)
     const [show, setShow] = useState(false);
@@ -63,7 +63,7 @@ export const TypeFormBuilderModal = ({title, getSchema, handleSave, elementSelec
     const getbody = () => {
         const handleChange = (event, newValue) => setActiveTab(newValue);
         return (<Box sx={{ width: '100%' }}>
-                {formRef.current.tabs && (<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                {tabs && (<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <Tabs value={activeTab} onChange={handleChange} aria-label="custom tabs">
                         <Tab label="File Upload" />
                         <Tab label="File Viewer" />
@@ -96,7 +96,11 @@ export const TypeFormBuilderModal = ({title, getSchema, handleSave, elementSelec
     }
 
     if (!footerButtons) {
-        footerButtons = []
+        footerButtons = [
+            <Button onClick={handleAddCustomField}>Add Field</Button>,
+            <Button onClick={handleOnSave}>Save</Button>,
+            <Button onClick={handleOnClose}>Close</Button>,
+        ]
     }
 
     return (

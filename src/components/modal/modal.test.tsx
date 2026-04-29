@@ -14,6 +14,7 @@ test('should load and display server-side data', async () => {
 
     render(<TypeFormBuilderModal
         title={"test"}
+        tabs={true}
         button_title={"open"}
         getSchema={handleApiCall}
         handleSave={(data) => {
