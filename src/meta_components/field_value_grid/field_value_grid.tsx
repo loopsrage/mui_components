@@ -29,7 +29,8 @@ export const DatagridSx = () => {
     };
     return {
         '& .MuiDataGrid-columnHeader-last': {
-
+            width: "100%",
+            flex: 2,
         },
         '& .MuiDataGrid-columnHeader[data-field="Field"]': {
             ...stickyHeaderCommon,

@@ -2183,7 +2183,10 @@ var Be = ({ endpoint: e, handleErr: t }) => {
 		backgroundColor: "#191E23 !important"
 	};
 	return {
-		"& .MuiDataGrid-columnHeader-last": {},
+		"& .MuiDataGrid-columnHeader-last": {
+			width: "100%",
+			flex: 2
+		},
 		"& .MuiDataGrid-columnHeader[data-field=\"Field\"]": {
 			...t,
 			left: 0
