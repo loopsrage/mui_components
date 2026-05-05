@@ -1,8 +1,7 @@
 import { FC, RefObject } from 'react';
-import { GridWithButtonsProps } from '../grid_with_buttons/grid_with_buttons';
-import { UITable } from '../../components/grid/grid';
+import { GridWithButtonsProps, GridWithButtons } from '../grid_with_buttons/grid_with_buttons';
 export interface TableGroup {
-    table: typeof UITable;
+    table: typeof GridWithButtons;
     props: GridWithButtonsProps;
 }
 export interface CompareTablesProps {

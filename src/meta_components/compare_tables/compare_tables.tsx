@@ -1,13 +1,13 @@
 import {type FC, type RefObject, useRef} from "react";
 import {Button, Stack} from "@mui/material";
-import {type GridWithButtonsProps} from "@/meta_components/grid_with_buttons/grid_with_buttons";
-import {type TableState, type UITable} from "@/components/grid/grid";
+import {type GridWithButtonsProps, type GridWithButtons} from "@/meta_components/grid_with_buttons/grid_with_buttons";
+import {type TableState} from "@/components/grid/grid";
 import {useRefIndex} from "@/context/context_index";
 import type {GridRowSelectionModel} from "@mui/x-data-grid";
 import {IsNullOrUndefined} from "@/utility/validation";
 
 export interface TableGroup {
-    table: typeof UITable
+    table: typeof GridWithButtons
     props: GridWithButtonsProps
 }
 
