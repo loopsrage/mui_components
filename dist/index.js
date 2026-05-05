@@ -2297,7 +2297,7 @@ var Ve = ({ endpoint: e, handleErr: t }) => {
 			},
 			children: "Compare"
 		}, 0), /* @__PURE__ */ E(_, {
-			direction: "row",
+			direction: "column",
 			gap: 2,
 			sx: { width: "100%" },
 			children: /* @__PURE__ */ E(T, { children: e.map((e) => (U(e.props.grid_options) && (e.props.grid_options = { onRowSelectionModelChange: a(e.props.refKey) }), /* @__PURE__ */ E(e.table, { ...e.props }))) })

@@ -49,7 +49,7 @@ export const CompareTables: FC<CompareTablesProps> = ({tables, compare}) => {
     return (
         <Stack direction={"column"}>
             <Button key={0} onClick={handleOnClick}>Compare</Button>
-            <Stack direction={"row"} gap={2} sx={{width: "100%"}}>
+            <Stack direction={"column"} gap={2} sx={{width: "100%"}}>
                 <>
                     {
                         tables.map((value) => {
