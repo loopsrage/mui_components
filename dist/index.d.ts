@@ -12,6 +12,7 @@ export * from './meta_components/header_footer_layout/header_footer_layout';
 export * from './meta_components/hf_cenered/hf_centered';
 export * from './meta_components/csv_grid/csv_grid';
 export * from './meta_components/field_value_grid/field_value_grid';
+export * from './meta_components/compare_tables/compare_tables';
 export * from './context/context';
 export * from './context/context_index';
 export * from './ibase/ibase';
