@@ -91,6 +91,7 @@ export const TypeFormBuilderModal = ({title, tabs, getSchema, handleSave, elemen
         if (IsNullOrUndefined(ReadFromContainers(current, "root.Fields"))) {
             SetContainer(formRef, NewObject(current, "root.Fields", {}))
         }
+        console.log(formRef, elm, current)
         AddElement(formRef, "root.Fields."+formRef.current.index, elm)
         setElements(GetElements(formRef))
     }

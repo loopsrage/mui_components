@@ -1594,7 +1594,7 @@ var Be = ({ endpoint: e, handleErr: t }) => {
 				let e = {};
 				e[p.current.index] = "";
 				let t = Z(p);
-				U(q(t, "root.Fields")) && X(p, Se(t, "root.Fields", {})), Q(p, "root.Fields." + p.current.index, e), S(et(p));
+				U(q(t, "root.Fields")) && X(p, Se(t, "root.Fields", {})), console.log(p, e, t), Q(p, "root.Fields." + p.current.index, e), S(et(p));
 			},
 			children: "Add Field"
 		}),
