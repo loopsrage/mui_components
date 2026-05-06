@@ -1430,11 +1430,11 @@ var Ve = ({ endpoint: e, handleErr: t }) => {
 			defaultValue: i.defaultValue[e]
 		}, t));
 		if (U(i.defaultValue)) return;
-		let r = Object.keys(i.defaultValue)[0];
-		return typeof i.defaultValue[r] == "object" ? null : /* @__PURE__ */ E(ke, {
+		let r = Object.keys(i.defaultValue)[0], a = i.defaultValue[r];
+		return H(a) ? /* @__PURE__ */ E(ke, {
 			inputKey: n,
 			inputProps: i
-		});
+		}) : null;
 	}
 	return a;
 }, Ze = (e, t = {}) => ({
