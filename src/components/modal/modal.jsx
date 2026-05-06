@@ -88,11 +88,11 @@ export const TypeFormBuilderModal = ({title, tabs, getSchema, handleSave, elemen
         const elm = {}
         elm[formRef.current.index] = ""
         const current = GetContainer(formRef)
-        if (IsNullOrUndefined(ReadFromContainers(current, "root.Fields"))) {
-            SetContainer(formRef, NewObject(current, "root.Fields", {}))
+        if (IsNullOrUndefined(ReadFromContainers(current, "root.fields"))) {
+            SetContainer(formRef, NewObject(current, "root.fields", {}))
         }
         console.log(formRef, elm, current)
-        AddElement(formRef, "root.Fields."+formRef.current.index, elm)
+        AddElement(formRef, "root.fields."+formRef.current.index, elm)
         setElements(GetElements(formRef))
     }
 
