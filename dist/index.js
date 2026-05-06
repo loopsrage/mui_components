@@ -1211,6 +1211,14 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 			endpoint: "/select_options",
 			args: e
 		}),
+		schema: async (e, t = {}) => await n.fetchJson({
+			endpoint: "/create",
+			fetchParams: {
+				method: "GET",
+				...t
+			},
+			args: e
+		}),
 		create: async (e, t = {}) => await n.fetchJson({
 			endpoint: "/create",
 			fetchParams: {

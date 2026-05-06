@@ -13,6 +13,14 @@ export const Api = ({ endpoint, handleErr}) => {
             endpoint: "/select_options",
             args,
         }),
+        schema: async (args, params = {}) => await api.fetchJson({
+            endpoint: "/create",
+            fetchParams: {
+                method: "GET",
+                ...params
+            },
+            args,
+        }),
         create: async (args, params = {}) => await api.fetchJson({
             endpoint: "/create",
             fetchParams: {
