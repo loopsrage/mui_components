@@ -92,7 +92,7 @@ const defaultSelector = () => {
             const keyName = Object.keys(inputProps.defaultValue)[0]
             let keyValue = inputProps.defaultValue[keyName]
             if (!IsPrimitive(keyValue)) {
-                return null
+                return
             }
             return <KeyValue inputKey={key} inputProps={inputProps} />
         }

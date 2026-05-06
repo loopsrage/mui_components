@@ -106,14 +106,13 @@ export const TypeFormBuilderModal = ({title, tabs, getSchema, handleSave, elemen
 
     return (
         <Stack direction="row" gap={3} >
-            <IconButton onClick={handleOnAdd}>
-                <DescriptionIcon sx={{ color: 'red' }} />
-            </IconButton>
+            <Button onClick={handleOnAdd}>
+                Create
+            </Button>
             <CenteredModal title={title}
                            body={getbody()}
                            show={show}
                            footer={footerButtons}
-                           title_sx={{background: "black", color: 'white'}}
             />
         </Stack>
     )
