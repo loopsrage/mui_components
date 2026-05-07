@@ -107,7 +107,7 @@ export const TypeFormBuilderModal = ({title, tabs, getSchema, handleSave, elemen
     return (
         <Stack direction="row" gap={3} >
             <Button onClick={handleOnAdd}>
-                Create
+                {title}
             </Button>
             <CenteredModal title={title}
                            body={getbody()}

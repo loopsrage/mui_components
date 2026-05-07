@@ -1628,7 +1628,7 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 					console.error("Failed to load schema:", e);
 				}
 			},
-			children: "Create"
+			children: e
 		}), /* @__PURE__ */ T(V, {
 			title: e,
 			body: /* @__PURE__ */ E(t, {
@@ -1734,17 +1734,19 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 			show: i
 		})]
 	});
-}, ft = ({ handleRefreshGrid: e, api: t, id: n, params: r, context: i }) => /* @__PURE__ */ T(g, {
-	direction: "row",
-	gap: 1,
-	children: /* @__PURE__ */ T(lt, {
+}, ft = ({ handleRefreshGrid: e, api: t, id: n, params: r }) => {
+	let i = {
 		...r,
 		refreshGrid: e,
 		api: t,
-		id: n,
-		context: i
-	})
-}), pt = (e, t) => {
+		id: n
+	};
+	return /* @__PURE__ */ E(g, {
+		direction: "row",
+		gap: 1,
+		children: [/* @__PURE__ */ T(lt, { ...i }), /* @__PURE__ */ T(dt, { ...i })]
+	});
+}, pt = (e, t) => {
 	let n = e.current;
 	n && (n.endpoint = t);
 }, mt = (e) => e.current.endpoint, ht = (e) => e.current.api, gt = (e, t) => {

@@ -67,11 +67,12 @@ export const Delete = ({refreshGrid, api, id}) => {
     )
 }
 
-export const EditCellRenderer = ({handleRefreshGrid, api, id, params, context}) => {
+export const EditCellRenderer = ({handleRefreshGrid, api, id, params}) => {
     const props = {...params, refreshGrid: handleRefreshGrid, api, id};
     return (
         <Stack direction="row" gap={1}>
-            <Update  {...props} context={context} />
+            <Update  {...props} />
+            <Delete  {...props} />
         </Stack>
     )
 }
