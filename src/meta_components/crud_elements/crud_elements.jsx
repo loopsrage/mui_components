@@ -24,7 +24,7 @@ export const Update = ({refreshGrid, api, id, title, footerButtons, ...props}) =
         handleSave={handleOnSave}
         footerButtons={footerButtons}
         register_component={true}
-        refKey={"update_modal"}
+        refKey={String(id)}
         {...props}/>
 }
 

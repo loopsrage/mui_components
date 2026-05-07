@@ -91,7 +91,6 @@ export const TypeFormBuilderModal = ({title, tabs, getSchema, handleSave, elemen
         if (IsNullOrUndefined(ReadFromContainers(current, "root.fields"))) {
             SetContainer(formRef, NewObject(current, "root.fields", {}))
         }
-        console.log(formRef, elm, current)
         AddElement(formRef, "root.fields."+formRef.current.index, elm)
         setElements(GetElements(formRef))
     }
@@ -107,7 +106,7 @@ export const TypeFormBuilderModal = ({title, tabs, getSchema, handleSave, elemen
     return (
         <Stack direction="row" gap={3} >
             <Button onClick={handleOnAdd}>
-                {title}
+                Create
             </Button>
             <CenteredModal title={title}
                            body={getbody()}

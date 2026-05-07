@@ -452,7 +452,7 @@ export const ModalCellRendererWrapper = (ref: RefObject<TableState>) => {
         if (!st) return;
 
         const handleShow = (show: boolean = false) => {
-            const update: FormBuilderState | null | undefined = context?.get("update_modal")
+            const update: FormBuilderState | null | undefined = context?.get(String(params.id))
             const up = update?.context
 
             if (!up) return;

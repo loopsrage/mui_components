@@ -1602,7 +1602,7 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 				let e = {};
 				e[f.current.index] = "";
 				let t = Z(f);
-				U(q(t, "root.fields")) && X(f, xe(t, "root.fields", {})), console.log(f, e, t), Q(f, "root.fields." + f.current.index, e), x($e(f));
+				U(q(t, "root.fields")) && X(f, xe(t, "root.fields", {})), Q(f, "root.fields." + f.current.index, e), x($e(f));
 			},
 			children: "Add Field"
 		}),
@@ -1628,7 +1628,7 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 					console.error("Failed to load schema:", e);
 				}
 			},
-			children: e
+			children: "Create"
 		}), /* @__PURE__ */ T(V, {
 			title: e,
 			body: /* @__PURE__ */ E(t, {
@@ -1698,7 +1698,7 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 	},
 	footerButtons: i,
 	register_component: !0,
-	refKey: "update_modal",
+	refKey: String(n),
 	...a
 }), ut = ({ refreshGrid: e, api: t, handleSelectedIds: r }) => {
 	let [i, a] = A(!1);
@@ -1926,7 +1926,7 @@ var ze = ({ endpoint: e, handleErr: t }) => {
 		let a = e.current;
 		if (!a) return;
 		let o = (e = !1) => {
-			let t = r?.get("update_modal")?.context;
+			let t = r?.get(String(i.id))?.context;
 			if (!t) return;
 			let n = t.setShow;
 			n(e);
