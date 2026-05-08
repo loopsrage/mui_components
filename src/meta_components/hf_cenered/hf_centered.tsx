@@ -47,7 +47,7 @@ export const HFCenteredLayout: FC<HFCenteredLayoutProps> = ({children, theme}) =
             <ThemeProvider theme={useTheme}>
                 <CssBaseline />
                 <HeaderFooterLayout>
-                    <Stack direction={"column"} gap={2} alignItems="center" sx={{width: "100%"}}>
+                    <Stack direction={"column"} sx={{width: "100%"}}>
                         {children}
                     </Stack>
                 </HeaderFooterLayout>

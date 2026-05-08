@@ -471,8 +471,8 @@ export const ModalCellRendererWrapper = (ref: RefObject<TableState>) => {
         }
 
         const title = (
-            <Stack direction="column" justifyContent="space-between" spacing={2} sx={{ width: '100%' }}>
-                <Stack gap={3} direction="row">
+            <Stack direction="column" spacing={2} sx={{ width: '100%' }}>
+                <Stack spacing={3} direction="row">
                     <Box sx={{...st.modal_header_sx}}>
                         {"Update"}
                     </Box>
@@ -481,7 +481,7 @@ export const ModalCellRendererWrapper = (ref: RefObject<TableState>) => {
                         <CloseIcon />
                     </IconButton>
                 </Stack>
-                <Stack gap={3} direction="row">
+                <Stack spacing={3} direction="row">
                     {Object.entries(st.modal_header_rows || []).map(k => k)}
                 </Stack>
             </Stack>

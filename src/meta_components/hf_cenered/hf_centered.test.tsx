@@ -86,7 +86,7 @@ test('should load and display server-side data', async () => {
     render(
         <HFCenteredLayout>
             <CenteredContainer sx={{minHeight: "10hv", display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                <Stack gap={3} alignItems={"center"}>
+                <Stack spacing={3} >
                     <Typography   align="center" sx={{ fontWeight: 'bold', width: '100%'}} >
                        Default
                     </Typography>

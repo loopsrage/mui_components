@@ -2,7 +2,6 @@ import {useState} from "react";
 import { Buffer } from 'buffer';
 import {DecompressGzipPng, StringToArrayBuffer} from "../../utility/gzip.js";
 import {IsNullOrUndefined} from "../../utility/validation.js";
-import { Image } from 'mui-image';
 
 const encodingString = "data:image/#{encoding};base64,#{data}"
 
@@ -22,5 +21,16 @@ export const DataImage = ({data, encoding, alt}) => {
         src = src.replace("#{data}", Buffer.from(decompressed).toString('base64'))
         setPng(src)
     })
-    return <Image src={png} fluid alt={alt} />
+
+    return <Box
+            component="img"
+            src={png}
+            alt={alt}
+            sx={{
+                width: '100%',
+                height: 'auto', // Replaces the 'fluid' prop from mui-image
+                display: 'block',
+                maxWidth: '100%',
+            }}
+        />
 }
