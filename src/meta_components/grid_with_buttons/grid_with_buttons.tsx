@@ -14,12 +14,12 @@ export interface GridWithButtonsProps extends Props {
 export const GridWithButtons: FC<GridWithButtonsProps> = ({buttons, endpoint, title, title_topology_params, button_stack_params, header_stack_params, outer_stack_params, ...props}) => {
     const headerButtons = buttons?.map((button) => button)
     return (
-        <Stack direction={"column"} spacing={2} sx={{width: "100%"}} {...outer_stack_params}>
+        <Stack direction={"column"} spacing={2} sx={{width: "100%", justifyContent: "center", alignItems: "center"}} {...outer_stack_params}>
             <Stack direction={"row"} {...header_stack_params}>
                 <Typography variant={"h6"} sx={{m:2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}} {...title_topology_params}>
                     {title}
                 </Typography>
-                <Stack direction={"row"} spacing={2} sx={{pr: 16, pl: 16, justifyContent: 'flex-end', width: '20%'}} {...button_stack_params}>
+                <Stack direction={"row"} spacing={2} sx={{pr: 16, pl: 16, justifyContent: 'flex-end', width: '20%', alignItems: "center"}} {...button_stack_params}>
                     {headerButtons}
                 </Stack>
             </Stack>

@@ -41,7 +41,7 @@ export const DeleteMany = ({refreshGrid, api, handleSelectedIds}) => {
     }
 
     return (
-        <Stack direction="horizontal" gap={2}>
+        <Stack direction="horizontal" spacing={2} sx={{width: "100%", justifyContent: "center", alignItems: "center"}}>
             <Button onClick={handleOnCLick}>Delete</Button>
             <CenteredConfirmCancelModal onConfirm={handleConfirm} show={show}/>
         </Stack>
@@ -60,7 +60,7 @@ export const Delete = ({refreshGrid, api, id}) => {
     }
 
     return (
-        <Stack direction="row" gap={1}>
+        <Stack direction="row" spacing={1} sx={{width: "100%", justifyContent: "center", alignItems: "center"}}>
             <Button onClick={handleOnCLick}>Delete</Button>
             <CenteredConfirmCancelModal onConfirm={handleConfirm} show={show}/>
         </Stack>
@@ -70,7 +70,7 @@ export const Delete = ({refreshGrid, api, id}) => {
 export const EditCellRenderer = ({handleRefreshGrid, api, id, params}) => {
     const props = {...params, refreshGrid: handleRefreshGrid, api, id};
     return (
-        <Stack direction="row" gap={1}>
+        <Stack direction="row" spacing={1} sx={{width: "100%", justifyContent: "center", alignItems: "center"}}>
             <Update  {...props} />
             <Delete  {...props} />
         </Stack>

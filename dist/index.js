@@ -1296,7 +1296,11 @@ var Ge = ({ endpoint: e, handleErr: t }) => {
 	return /* @__PURE__ */ O(T, {
 		direction: "column",
 		spacing: 2,
-		sx: { width: "100%" },
+		sx: {
+			width: "100%",
+			justifyContent: "center",
+			alignItems: "center"
+		},
 		...o,
 		children: [/* @__PURE__ */ O(T, {
 			direction: "row",
@@ -1318,7 +1322,8 @@ var Ge = ({ endpoint: e, handleErr: t }) => {
 					pr: 16,
 					pl: 16,
 					justifyContent: "flex-end",
-					width: "20%"
+					width: "20%",
+					alignItems: "center"
 				},
 				...i,
 				children: c
@@ -1714,7 +1719,12 @@ var Ge = ({ endpoint: e, handleErr: t }) => {
 	let [r, i] = c(!1);
 	return /* @__PURE__ */ O(T, {
 		direction: "horizontal",
-		gap: 2,
+		spacing: 2,
+		sx: {
+			width: "100%",
+			justifyContent: "center",
+			alignItems: "center"
+		},
 		children: [/* @__PURE__ */ D(d, {
 			onClick: () => {
 				i(!r);
@@ -1731,7 +1741,12 @@ var Ge = ({ endpoint: e, handleErr: t }) => {
 	let [r, i] = c(!1);
 	return /* @__PURE__ */ O(T, {
 		direction: "row",
-		gap: 1,
+		spacing: 1,
+		sx: {
+			width: "100%",
+			justifyContent: "center",
+			alignItems: "center"
+		},
 		children: [/* @__PURE__ */ D(d, {
 			onClick: () => {
 				i(!r);
@@ -1753,7 +1768,12 @@ var Ge = ({ endpoint: e, handleErr: t }) => {
 	};
 	return /* @__PURE__ */ O(T, {
 		direction: "row",
-		gap: 1,
+		spacing: 1,
+		sx: {
+			width: "100%",
+			justifyContent: "center",
+			alignItems: "center"
+		},
 		children: [/* @__PURE__ */ D(pt, { ...i }), /* @__PURE__ */ D(ht, { ...i })]
 	});
 }, _t = (e, t) => {
@@ -2206,7 +2226,11 @@ var Ge = ({ endpoint: e, handleErr: t }) => {
 		theme: n,
 		children: [/* @__PURE__ */ D(m, {}), /* @__PURE__ */ D(Qt, { children: /* @__PURE__ */ D(T, {
 			direction: "column",
-			sx: { width: "100%" },
+			sx: {
+				width: "100%",
+				justifyContent: "center",
+				alignItems: "center"
+			},
 			children: e
 		}) })]
 	}) });
@@ -2309,6 +2333,11 @@ var Ge = ({ endpoint: e, handleErr: t }) => {
 	};
 	return /* @__PURE__ */ O(T, {
 		direction: "column",
+		sx: {
+			width: "100%",
+			justifyContent: "center",
+			alignItems: "center"
+		},
 		children: [/* @__PURE__ */ D(d, {
 			onClick: () => {
 				let e = r.current;
@@ -2318,7 +2347,11 @@ var Ge = ({ endpoint: e, handleErr: t }) => {
 		}, 0), /* @__PURE__ */ D(T, {
 			direction: "column",
 			spacing: 2,
-			sx: { width: "100%" },
+			sx: {
+				width: "100%",
+				justifyContent: "center",
+				alignItems: "center"
+			},
 			children: /* @__PURE__ */ D(se, { children: e.map((e) => (U(e.props.grid_options) && (e.props.grid_options = { onRowSelectionModelChange: i(e.props.refKey) }), /* @__PURE__ */ D(e.table, { ...e.props }))) })
 		})]
 	});
