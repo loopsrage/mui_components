@@ -1,13 +1,35 @@
-import type {FC} from "react";
-import {AppBar, Box, IconButton, Toolbar, Typography} from "@mui/material";
-import BugReportIcon from '@mui/icons-material/BugReport';
+import {type FC, useLayoutEffect, useRef, useState, type ReactElement} from "react";
+import {AppBar, Box, Toolbar, Typography} from "@mui/material";
+import {useConditionalRef} from "@/context/context_index";
+import type {IBaseRefProps} from "@/ibase/ibase";
 
-export interface AppBarProps {
+export interface AppBarProps extends IBaseRefProps {
     title?: string;
     appbar_sx?: object;
 }
 
-export const UIAppBar: FC<AppBarProps> = ({title, appbar_sx}) => {
+export interface AppBarState {
+    register_element: (elem: Record<string, ReactElement>) => void
+}
+
+export const UIAppBar: FC<AppBarProps> = ({title, appbar_sx, refKey, register_component}) => {
+    const [elements, setElements] = useState({})
+    const setRegistryRef = useConditionalRef(refKey, register_component)
+
+    const handleSetElements = (elem: Record<string, ReactElement>) => {
+        const current = {...elements, ...elem}
+        setElements(current)
+    }
+
+    const localRef = useRef<AppBarState>({
+        register_element: handleSetElements,
+    });
+
+    useLayoutEffect(() => {
+        setRegistryRef(localRef.current);
+        return () => setRegistryRef(null);
+    }, [setRegistryRef]);
+
     return (
         <AppBar position="static" sx={{
             minHeight: 50,
@@ -27,18 +49,10 @@ export const UIAppBar: FC<AppBarProps> = ({title, appbar_sx}) => {
                     alt="Logo"
                     src="/logo.png"
                 />
-
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                     {title}
                 </Typography>
-
-                <IconButton
-                    size="small"
-                    sx={{ color: 'white' }}
-                    onClick={() => console.log('Debug Clicked')}
-                >
-                    <BugReportIcon fontSize="small" />
-                </IconButton>
+                {Object.keys(elements).map(x => x)}
             </Toolbar>
         </AppBar>
     )
