@@ -71,6 +71,7 @@ export declare const DataSourceWrapper: (ref: RefObject<TableState>, handleToggl
     }>;
 };
 export declare const SetSearch: (ref: RefObject<TableState>, value: string) => void;
+export declare const SetDatasource: (ref: RefObject<TableState>, datasource: GridDataSource) => Promise<void>;
 export declare const GetDatasource: (ref: RefObject<TableState>) => GridDataSource | undefined;
 export declare const Refresh: (ref: RefObject<TableState>) => Promise<void>;
 export declare const SetSelectedRows: (ref: RefObject<TableState>) => (model: GridRowSelectionModel) => void;

@@ -392,6 +392,16 @@ export const SetSearch = (ref: RefObject<TableState>, value: string) => {
     ref.current = st;
 }
 
+export const SetDatasource = async (ref: RefObject<TableState>, datasource: GridDataSource) => {
+    const st = ref.current;
+    if (!st) return;
+
+    st.datasource = datasource
+
+    ref.current = st
+    await Refresh(ref)
+}
+
 export const GetDatasource = (ref: RefObject<TableState>) => {
     return ref.current?.datasource
 }
