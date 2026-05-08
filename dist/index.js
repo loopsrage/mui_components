@@ -63,7 +63,7 @@ var F = (e, t) => () => (t || (e((t = { exports: {} }).exports, t), e = null), t
 					sx: { flexGrow: 1 },
 					children: e
 				}),
-				Object.keys(i).map((e) => e)
+				Object.keys(i).map((e) => i[e])
 			]
 		})
 	});

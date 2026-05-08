@@ -13,7 +13,7 @@ export interface AppBarState {
 }
 
 export const UIAppBar: FC<AppBarProps> = ({title, appbar_sx, refKey, register_component}) => {
-    const [elements, setElements] = useState({})
+    const [elements, setElements] = useState({} as Record<string, ReactElement>)
     const setRegistryRef = useConditionalRef(refKey, register_component)
 
     const handleSetElements = (elem: Record<string, ReactElement>) => {
@@ -52,7 +52,7 @@ export const UIAppBar: FC<AppBarProps> = ({title, appbar_sx, refKey, register_co
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                     {title}
                 </Typography>
-                {Object.keys(elements).map(x => x)}
+                {Object.keys(elements).map(x => elements[x])}
             </Toolbar>
         </AppBar>
     )
