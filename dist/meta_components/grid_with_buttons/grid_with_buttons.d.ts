@@ -5,6 +5,8 @@ export interface GridWithButtonsProps extends Props {
     buttons?: ReactElement[] | null;
     title_topology_params?: object | null;
     button_stack_params?: object | null;
+    header_stack_params?: object | null;
+    outer_stack_params?: object | null;
 }
 export declare const GridWithButtons: FC<GridWithButtonsProps>;
 //# sourceMappingURL=grid_with_buttons.d.ts.map

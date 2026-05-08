@@ -1291,14 +1291,16 @@ var Ge = ({ endpoint: e, handleErr: t }) => {
 		defaultValue: n.defaultValue,
 		children: [...r || /* @__PURE__ */ D(se, {})]
 	}, e);
-}, Je = ({ buttons: e, endpoint: t, title: n, title_topology_params: r, button_stack_params: i, ...a }) => {
-	let o = e?.map((e) => e);
+}, Je = ({ buttons: e, endpoint: t, title: n, title_topology_params: r, button_stack_params: i, header_stack_params: a, outer_stack_params: o, ...s }) => {
+	let c = e?.map((e) => e);
 	return /* @__PURE__ */ O(T, {
 		direction: "column",
 		spacing: 2,
 		sx: { width: "100%" },
+		...o,
 		children: [/* @__PURE__ */ O(T, {
 			direction: "row",
+			...a,
 			children: [/* @__PURE__ */ D(ae, {
 				variant: "h6",
 				sx: {
@@ -1319,10 +1321,10 @@ var Ge = ({ endpoint: e, handleErr: t }) => {
 					width: "20%"
 				},
 				...i,
-				children: o
+				children: c
 			})]
 		}), /* @__PURE__ */ D(Gt, {
-			...a,
+			...s,
 			endpoint: t
 		})]
 	});
