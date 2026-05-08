@@ -60,7 +60,7 @@ export const Delete = ({refreshGrid, api, id}) => {
     }
 
     return (
-        <Stack direction="row" gap={3}>
+        <Stack direction="row" gap={1}>
             <Button onClick={handleOnCLick}>Delete</Button>
             <CenteredConfirmCancelModal onConfirm={handleConfirm} show={show}/>
         </Stack>
