@@ -8,6 +8,7 @@ export interface TypeFormBuilderModalProps {
     /** The label for the trigger button and the header of the modal. */
     title: unknown;
     button_title: string;
+    getButton?: (handleAdd: () => Promise<void>) => ReactElement
     tabs?: boolean;
     /**
      * Async function that returns the schema data (e.g., from an API).
