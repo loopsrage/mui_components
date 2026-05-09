@@ -105,7 +105,7 @@ export const TypeFormBuilderModal = ({title, button_title, getButton,  tabs, get
     const defaultButton = <Button onClick={handleOnAdd}>{button_title}</Button>
     return (
         <Stack direction="row" spacing={1} >
-            {button ? getButton(handleOnAdd) : defaultButton}
+            {getButton ? getButton(handleOnAdd) : defaultButton}
 
             <CenteredModal title={title}
                            body={getbody()}

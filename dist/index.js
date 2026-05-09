@@ -1619,36 +1619,8 @@ var We = ({ endpoint: e, handleErr: t }) => {
 		} catch (e) {
 			console.error("Failed to load schema:", e);
 		}
-	}, te = () => /* @__PURE__ */ A(u, {
-		sx: { width: "100%" },
-		children: [
-			r && /* @__PURE__ */ k(u, {
-				sx: {
-					borderBottom: 1,
-					borderColor: "divider"
-				},
-				children: /* @__PURE__ */ A(ee, {
-					value: w,
-					onChange: (e, t) => E(t),
-					"aria-label": "custom tabs",
-					children: [/* @__PURE__ */ k(D, { label: "File Upload" }), /* @__PURE__ */ k(D, { label: "File Viewer" })]
-				})
-			}),
-			w === 0 && /* @__PURE__ */ k(u, {
-				sx: {
-					borderBottom: 1,
-					borderColor: "divider",
-					width: "100%"
-				},
-				children: S
-			}),
-			w === 1 && /* @__PURE__ */ k(u, {
-				sx: { p: 3 },
-				children: /* @__PURE__ */ k("pre", { children: JSON.stringify(Z(_)?.value, null, 2) })
-			})
-		]
-	});
-	f ||= [
+	};
+	return f ||= [
 		/* @__PURE__ */ k(d, {
 			onClick: () => {
 				let e = {};
@@ -1666,17 +1638,43 @@ var We = ({ endpoint: e, handleErr: t }) => {
 			onClick: b,
 			children: "Close"
 		})
-	];
-	let ne = /* @__PURE__ */ k(d, {
-		onClick: O,
-		children: t
-	});
-	return /* @__PURE__ */ A(T, {
+	], /* @__PURE__ */ A(T, {
 		direction: "row",
 		spacing: 1,
-		children: [button ? n(O) : ne, /* @__PURE__ */ k(ve, {
+		children: [n ? n(O) : /* @__PURE__ */ k(d, {
+			onClick: O,
+			children: t
+		}), /* @__PURE__ */ k(ve, {
 			title: e,
-			body: te(),
+			body: /* @__PURE__ */ A(u, {
+				sx: { width: "100%" },
+				children: [
+					r && /* @__PURE__ */ k(u, {
+						sx: {
+							borderBottom: 1,
+							borderColor: "divider"
+						},
+						children: /* @__PURE__ */ A(ee, {
+							value: w,
+							onChange: (e, t) => E(t),
+							"aria-label": "custom tabs",
+							children: [/* @__PURE__ */ k(D, { label: "File Upload" }), /* @__PURE__ */ k(D, { label: "File Viewer" })]
+						})
+					}),
+					w === 0 && /* @__PURE__ */ k(u, {
+						sx: {
+							borderBottom: 1,
+							borderColor: "divider",
+							width: "100%"
+						},
+						children: S
+					}),
+					w === 1 && /* @__PURE__ */ k(u, {
+						sx: { p: 3 },
+						children: /* @__PURE__ */ k("pre", { children: JSON.stringify(Z(_)?.value, null, 2) })
+					})
+				]
+			}),
 			show: v,
 			footer: f
 		})]
