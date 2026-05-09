@@ -1295,10 +1295,10 @@ var We = ({ endpoint: e, handleErr: t }) => {
 	let c = e?.map((e) => e);
 	return /* @__PURE__ */ A(T, {
 		direction: "column",
-		spacing: 2,
+		spacing: 1,
 		sx: {
 			width: "100%",
-			justifyContent: "center",
+			justifyContent: "flex-start",
 			alignItems: "center"
 		},
 		...o,
