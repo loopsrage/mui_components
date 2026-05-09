@@ -13,7 +13,7 @@ export interface CrudApi {
     deleteIds: (ids: (string | number)[]) => Promise<unknown>;
 }
 
-export interface BaseProps {
+export interface BaseProps extends TypeFormBuilderModalProps {
     refreshGrid: () => void;
     api: ApiClient;
 }
