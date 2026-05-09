@@ -1598,85 +1598,85 @@ var Ge = ({ endpoint: e, handleErr: t }) => {
 			}), H(r[t]) && Q(e, n + "." + t, r[t]));
 		});
 	});
-}, ut = ({ title: e, tabs: t, getSchema: n, handleSave: r, elementSelector: i, footerButtons: o, refKey: l, register_component: f = !1, context: p = null }) => {
-	let m = z(l, f), h = s(null), [g, _] = c(!1), v = () => {
-		_(!1);
-	}, y = () => {
-		r(Z(h).value), _(!1);
+}, ut = ({ title: e, button_title: t, tabs: n, getSchema: r, handleSave: i, elementSelector: o, footerButtons: l, refKey: f, register_component: p = !1, context: m = null }) => {
+	let h = z(f, p), g = s(null), [_, v] = c(!1), y = () => {
+		v(!1);
+	}, b = () => {
+		i(Z(g).value), v(!1);
 	};
-	h.current ||= $e(i, {
+	g.current ||= $e(o, {
 		setShow: (e) => {
-			_(e);
+			v(e);
 		},
-		...p
-	}), a(() => (m(h.current), () => m(null)), [m]);
-	let [b, x] = c(void 0), [S, C] = c(0);
-	return o ||= [
+		...m
+	}), a(() => (h(g.current), () => h(null)), [h]);
+	let [x, S] = c(void 0), [C, w] = c(0);
+	return l ||= [
 		/* @__PURE__ */ D(d, {
 			onClick: () => {
 				let e = {};
-				e[h.current.index] = "";
-				let t = Z(h);
-				U(Y(t, "root.fields")) && X(h, J(t, "root.fields", {})), Q(h, "root.fields." + h.current.index, e), x(rt(h));
+				e[g.current.index] = "";
+				let t = Z(g);
+				U(Y(t, "root.fields")) && X(g, J(t, "root.fields", {})), Q(g, "root.fields." + g.current.index, e), S(rt(g));
 			},
 			children: "Add Field"
 		}),
 		/* @__PURE__ */ D(d, {
-			onClick: y,
+			onClick: b,
 			children: "Save"
 		}),
 		/* @__PURE__ */ D(d, {
-			onClick: v,
+			onClick: y,
 			children: "Close"
 		})
 	], /* @__PURE__ */ O(T, {
 		direction: "row",
-		gap: 3,
+		spacing: 1,
 		children: [/* @__PURE__ */ D(d, {
 			onClick: async () => {
 				try {
-					X(h, Me(null, [], ".", await n())), tt(h, v), lt({
-						formRef: h,
-						container: Z(h)
-					}), x(rt(h)), _(!0);
+					X(g, Me(null, [], ".", await r())), tt(g, y), lt({
+						formRef: g,
+						container: Z(g)
+					}), S(rt(g)), v(!0);
 				} catch (e) {
 					console.error("Failed to load schema:", e);
 				}
 			},
-			children: "Create"
+			children: t
 		}), /* @__PURE__ */ D(xe, {
 			title: e,
 			body: /* @__PURE__ */ O(u, {
 				sx: { width: "100%" },
 				children: [
-					t && /* @__PURE__ */ D(u, {
+					n && /* @__PURE__ */ D(u, {
 						sx: {
 							borderBottom: 1,
 							borderColor: "divider"
 						},
 						children: /* @__PURE__ */ O(te, {
-							value: S,
-							onChange: (e, t) => C(t),
+							value: C,
+							onChange: (e, t) => w(t),
 							"aria-label": "custom tabs",
 							children: [/* @__PURE__ */ D(E, { label: "File Upload" }), /* @__PURE__ */ D(E, { label: "File Viewer" })]
 						})
 					}),
-					S === 0 && /* @__PURE__ */ D(u, {
+					C === 0 && /* @__PURE__ */ D(u, {
 						sx: {
 							borderBottom: 1,
 							borderColor: "divider",
 							width: "100%"
 						},
-						children: b
+						children: x
 					}),
-					S === 1 && /* @__PURE__ */ D(u, {
+					C === 1 && /* @__PURE__ */ D(u, {
 						sx: { p: 3 },
-						children: /* @__PURE__ */ D("pre", { children: JSON.stringify(Z(h)?.value, null, 2) })
+						children: /* @__PURE__ */ D("pre", { children: JSON.stringify(Z(g)?.value, null, 2) })
 					})
 				]
 			}),
-			show: g,
-			footer: o
+			show: _,
+			footer: l
 		})]
 	});
 }, dt = ({ title: e, show: t, onCancel: n, onConfirm: r }) => /* @__PURE__ */ D(xe, {

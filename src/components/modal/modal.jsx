@@ -15,7 +15,7 @@ import {
 import DescriptionIcon from '@mui/icons-material/Description'
 import {useConditionalRef} from "@/context/context_index.ts";
 
-export const TypeFormBuilderModal = ({title, tabs, getSchema, handleSave, elementSelector, footerButtons, refKey, register_component=false, context=null}) => {
+export const TypeFormBuilderModal = ({title, button_title, tabs, getSchema, handleSave, elementSelector, footerButtons, refKey, register_component=false, context=null}) => {
     const setRegistryRef = useConditionalRef(refKey, register_component)
     const formRef = useRef(null)
     const [show, setShow] = useState(false);
@@ -104,9 +104,9 @@ export const TypeFormBuilderModal = ({title, tabs, getSchema, handleSave, elemen
     }
 
     return (
-        <Stack direction="row" gap={3} >
+        <Stack direction="row" spacing={1} >
             <Button onClick={handleOnAdd}>
-                Create
+                {button_title}
             </Button>
             <CenteredModal title={title}
                            body={getbody()}
