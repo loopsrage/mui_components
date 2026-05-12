@@ -17,6 +17,8 @@ export * from './meta_components/hf_cenered/hf_centered';
 export * from './meta_components/csv_grid/csv_grid';
 export * from './meta_components/field_value_grid/field_value_grid';
 export * from './meta_components/compare_tables/compare_tables';
+export * from './meta_components/vector_search/vector_search';
+
 
 // Context & Utilities
 export * from './context/context';
