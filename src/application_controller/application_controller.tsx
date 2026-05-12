@@ -62,6 +62,7 @@ export const AppController: FC<AppControllerParams> = ({defaultApp}) => {
   }, [context]);
 
   useLayoutEffect(() => {
+    setActive(defaultApp)
     registry(localRef)
     return () => registry(null)
   }, [registry]);
