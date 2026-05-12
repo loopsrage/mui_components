@@ -28,6 +28,8 @@ export const AppController: FC<AppControllerParams> = ({defaultApp}) => {
 
   useEffect(() => {
     const appbarRef = context?.get("appbar") as AppBarState
+    if (!appbarRef) return
+
     appbarRef.register_element({
       "home": (
           <IconButton
