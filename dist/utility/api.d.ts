@@ -3,7 +3,7 @@ import { ApiArgs } from './fetchapi';
 /**
  * Interface for the API client returned by the Api factory.
  */
-export interface ApiClient extends ApiArgs {
+export interface ApiClient {
     /** Generic JSON fetch at a specific sub-path */
     at: (endpoint: string, params?: Record<string, unknown>) => Promise<ApiResponse | unknown>;
     /** Specialized fetch for container-wrapped data structures */
@@ -28,7 +28,7 @@ export interface ApiClient extends ApiArgs {
     endpoint: () => string;
 }
 
-export interface ApiProps {
+export interface ApiProps extends ApiArgs{
     endpoint: string;
     handleErr?: (error: unknown) => void | null;
 }
