@@ -1,9 +1,9 @@
 import type {ApiResponse} from "../components/grid/grid";
-
+import type {ApiArgs} from "./fetchapi"
 /**
  * Interface for the API client returned by the Api factory.
  */
-export interface ApiClient {
+export interface ApiClient extends ApiArgs {
     /** Generic JSON fetch at a specific sub-path */
     at: (endpoint: string, params?: Record<string, unknown>) => Promise<ApiResponse | unknown>;
     /** Specialized fetch for container-wrapped data structures */

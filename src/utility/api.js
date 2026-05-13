@@ -1,11 +1,11 @@
 import {FetchApi} from "./fetchapi.js";
 import {IsNullOrUndefined} from "./validation.js";
 
-export const Api = ({ endpoint, handleErr}) => {
+export const Api = ({ endpoint, handleErr, ...props}) => {
     if (IsNullOrUndefined(handleErr)) {
         handleErr = (err) => console.log(err)
     }
-    const api = FetchApi(endpoint, {handleErr})
+    const api = FetchApi(endpoint, {handleErr, ...props})
     return {
         at: async (endpoint, params) => await api.fetchJson({endpoint: endpoint, ...params}),
         atContainer: async (endpoint, params) => await api.fetchContainer({endpoint: endpoint, ...params}),

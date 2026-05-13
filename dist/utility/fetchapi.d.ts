@@ -1,21 +1,21 @@
 export interface ApiArgs {
     endpoint: string;
-    args?: Record<string, never>;
+    args?: Record<string, unknown>;
     inputHeaders?: Record<string, string>;
-    fetchParams?: never;
+    fetchParams?: unknown;
 }
 
 export interface ApiWrapper {
     fetchPromise: (params: ApiArgs) => Promise<Response>;
-    fetchJson: <T = never>(params: ApiArgs) => Promise<T>;
-    fetchGunzip: (params: ApiArgs) => Promise<never>;
-    fetchContainer: (params: ApiArgs) => Promise<never>;
-    at: <T = never>(endpoint: string, params?: {
+    fetchJson: (params: ApiArgs) => Promise<unknown>;
+    fetchGunzip: (params: ApiArgs) => Promise<unknown>;
+    fetchContainer: (params: ApiArgs) => Promise<unknown>;
+    at: (endpoint: string, params?: {
         fetchParams: object;
         args: object
-    }) => Promise<T>;
-    atContainer: (endpoint: string, params?: Partial<ApiArgs>) => Promise<never>;
+    }) => Promise<unknown>;
+    atContainer: (endpoint: string, params?: Partial<ApiArgs>) => Promise<unknown>;
 }
 
-export declare function FetchApi(coreUrl: string, options?: never): ApiWrapper;
+export declare function FetchApi(coreUrl: string, options?: unknown): ApiWrapper;
 export const DefaultApi: ApiWrapper;
