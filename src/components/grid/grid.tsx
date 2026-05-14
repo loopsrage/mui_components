@@ -220,7 +220,7 @@ export const GetRows = (ref: RefObject<TableState>): GridValidRowModel[] => {
             const columnData = st.rows[colIndex];
             rowObj[colDef.field] = columnData ? columnData[rowIndex] : null;
         });
-        rowObj.id = rowObj.id = rowObj["id"] ?? rowIndex;
+        rowObj.id = rowObj.id = rowObj["id"] ?? rowIndex+1;
         return rowObj;
     });
 }
