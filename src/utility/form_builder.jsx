@@ -6,6 +6,7 @@ import {DataViewer} from "../components/file_viewer/file_viewer.jsx";
 import {DataImage} from "../components/image_viewer/image_viewer.jsx";
 import {SelectOptions} from "../components/select_options/select_options.jsx";
 import {FieldValueGrid, UITable, useRefIndex} from "@";
+import {SubGrid} from "@/meta_components/sub_grid/sub_grid.tsx";
 import {CsvGrid} from "@/meta_components/csv_grid/csv_grid.tsx";
 import {useEffect} from "react";
 
@@ -50,8 +51,8 @@ const defaultSelector = () => {
 
         if (currentType === 'object') {
             if (inputProps.defaultValue["Subtype"] === 20) {
-
-                return <CsvGrid api={formRef.current?.api} key={jsxKey} refKey={"csv_grid"} register_component={true}/>
+                const container = ReadFromContainers(GetContainer(formRef), key.slice(0, key.lastIndexOf(".")))
+                return <SubGrid key={jsxKey} data={container?.value["Data"]} />
             }
 
             if (inputProps.defaultValue["Subtype"] === 19) {
