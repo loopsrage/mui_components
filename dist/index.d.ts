@@ -8,6 +8,7 @@ export * from './components/grid/grid';
 export * from './components/modal/modal';
 export * from './components/upload_input/upload_input';
 export * from './components/file_viewer/file_viewer';
+export * from './components/file_upload/file_upload';
 export * from './meta_components/crud_elements/crud_elements';
 export * from './meta_components/grid_with_buttons/grid_with_buttons';
 export * from './meta_components/header_footer_layout/header_footer_layout';

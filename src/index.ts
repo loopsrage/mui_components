@@ -9,6 +9,7 @@ export * from './components/grid/grid';
 export * from './components/modal/modal';
 export * from './components/upload_input/upload_input';
 export * from './components/file_viewer/file_viewer';
+export * from './components/file_upload/file_upload';
 
 // Meta Components
 export * from './meta_components/crud_elements/crud_elements';
