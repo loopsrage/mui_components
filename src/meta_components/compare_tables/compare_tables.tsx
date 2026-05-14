@@ -1,5 +1,5 @@
 import {type FC, type RefObject, useRef} from "react";
-import {Button, Stack} from "@mui/material";
+import {Button, Stack, type StackProps} from "@mui/material";
 import {type GridWithButtonsProps, type GridWithButtons} from "@/meta_components/grid_with_buttons/grid_with_buttons";
 import {type TableState} from "@/components/grid/grid";
 import {useRefIndex} from "@/context/context_index";
@@ -14,6 +14,8 @@ export interface TableGroup {
 export interface CompareTablesProps {
     tables: TableGroup[];
     compare: (state: Record<string, string>) => void;
+    outside_stack_params?: StackProps
+    inside_stack_params?: StackProps
 }
 
 export interface CompareTablesRef {
@@ -28,7 +30,7 @@ export const SetTableState = (ref: RefObject<CompareTablesRef>, refKey: string, 
     ref.current = st
 }
 
-export const CompareTables: FC<CompareTablesProps> = ({tables, compare}) => {
+export const CompareTables: FC<CompareTablesProps> = ({tables, compare, ...params}) => {
     const context = useRefIndex()
     const localRef = useRef<CompareTablesRef>({state: {}})
     const handleRowSelect = (refKey: string) => {
@@ -47,9 +49,9 @@ export const CompareTables: FC<CompareTablesProps> = ({tables, compare}) => {
     }
 
     return (
-        <Stack direction={"column"} sx={{width: "100%", justifyContent: "center", alignItems: "center"}}>
+        <Stack direction={"column"} sx={{width: "100%", justifyContent: "center", alignItems: "center"}} {...params.outside_stack_params}>
             <Button key={0} onClick={handleOnClick}>Compare</Button>
-            <Stack direction={"column"} spacing={2} sx={{ width: "100%", justifyContent: "center", alignItems: "center"}}>
+            <Stack direction={"row"} spacing={2} sx={{ width: "100%", justifyContent: "center", alignItems: "center"}} {...params.inside_stack_params}>
                 <>
                     {
                         tables.map((value) => {
