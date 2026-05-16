@@ -1,12 +1,11 @@
 import { FC, ReactElement } from 'react';
-import { InputProps, PaperProps, StackProps } from '@mui/material';
+import { InputProps, StackProps } from '@mui/material';
 import { ApiClient, GridWithButtonsProps } from 'components';
 export interface VectorSearchProps {
     api: ApiClient;
     endpoint: string;
     grid_props?: GridWithButtonsProps;
     grid_sx?: object;
-    paper_props?: PaperProps;
     stack_props?: StackProps;
     input_props?: InputProps;
     input_elem?: ReactElement;
