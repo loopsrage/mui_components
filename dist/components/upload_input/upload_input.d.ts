@@ -21,6 +21,7 @@ export interface UploadInputState {
     setProgressValue: (value: number) => void;
     progressValue: number;
     handleToggle: (loading: boolean) => void;
+    getText: () => string;
 }
 export declare const SetProgressValue: (ref: RefObject<UploadInputState>, value: number) => void;
 export declare const GetProgressValue: (ref: RefObject<UploadInputState>) => number;

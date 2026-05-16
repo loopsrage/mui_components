@@ -72,6 +72,7 @@ export interface UploadInputState {
     setProgressValue: (value: number) => void;
     progressValue: number;
     handleToggle: (loading: boolean) => void;
+    getText: () => string
 }
 
 export const SetProgressValue = (ref: RefObject<UploadInputState>, value: number) => {
@@ -109,6 +110,7 @@ export const UIInput: FC<UploadInputProps> = ({refKey, register_component, hidde
     const localRef = useRef<UploadInputState>({
         handleToggle,
         progressValue: 0,
+        getText: () => text,
         setProgressValue: setProgress
     });
 
