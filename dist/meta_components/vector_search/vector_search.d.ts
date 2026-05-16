@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, ReactElement } from 'react';
 import { InputProps, PaperProps, StackProps } from '@mui/material';
 import { ApiClient, GridWithButtonsProps } from 'components';
 export interface VectorSearchProps {
@@ -9,6 +9,7 @@ export interface VectorSearchProps {
     paper_props?: PaperProps;
     stack_props?: StackProps;
     input_props?: InputProps;
+    input_elem?: ReactElement;
 }
 export declare const VectorSearch: FC<VectorSearchProps>;
 //# sourceMappingURL=vector_search.d.ts.map

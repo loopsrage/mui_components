@@ -1,4 +1,4 @@
-import {type FC, type RefObject, type SetStateAction, useState} from "react";
+import {type FC, type RefObject, type SetStateAction, type ReactElement, useState} from "react";
 import {Input, type InputProps, Paper, type PaperProps, Stack, type StackProps} from "@mui/material";
 import {
     type ApiClient, GridWithButtons, type GridWithButtonsProps,
@@ -16,6 +16,8 @@ export interface VectorSearchProps {
     paper_props?: PaperProps
     stack_props?: StackProps
     input_props?: InputProps
+
+    input_elem?: ReactElement
 }
 
 export const VectorSearch: FC<VectorSearchProps> = (params) => {
@@ -29,6 +31,14 @@ export const VectorSearch: FC<VectorSearchProps> = (params) => {
         setSearch(event.target.value)
         await Refresh(gridRef)
     }
+    const Elem = () => {
+        return params.input_elem || <Input value={search} {...params.input_props} onChange={handleOnChange}  />
+    }
+    const sharedProps = {
+      value: search,
+      ...params.input_props,
+      onChange: handleOnChange,
+    }
 
     return (
         <Stack spacing={3} sx={{width: "100%", justifyContent: "center", alignItems: "center" }}>
@@ -38,7 +48,7 @@ export const VectorSearch: FC<VectorSearchProps> = (params) => {
                 overflowY:"auto",
                 p:0}} {...params.paper_props} >
                 <Stack sx={{justifyContent: "center", alignItems: "center"}} direction={"column"} {...params.stack_props} >
-                    <Input value={search} {...params.input_props} onChange={handleOnChange}  />
+                    <Elem {...sharedProps} />
                     <GridWithButtons
                         button_stack_params={{
                             sx: {
