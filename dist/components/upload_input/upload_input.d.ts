@@ -20,11 +20,12 @@ export interface UploadInputProps {
 export interface UploadInputState {
     setProgressValue: (value: number) => void;
     progressValue: number;
+    text: string;
     handleToggle: (loading: boolean) => void;
-    getText: () => string;
 }
 export declare const SetProgressValue: (ref: RefObject<UploadInputState>, value: number) => void;
 export declare const GetProgressValue: (ref: RefObject<UploadInputState>) => number;
 export declare const SetLoading: (ref: RefObject<UploadInputState>, loading: boolean) => void;
+export declare const GetText: (ref: RefObject<UploadInputState>) => string;
 export declare const UIInput: FC<UploadInputProps>;
 //# sourceMappingURL=upload_input.d.ts.map

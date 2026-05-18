@@ -71,8 +71,8 @@ export interface UploadInputProps {
 export interface UploadInputState {
     setProgressValue: (value: number) => void;
     progressValue: number;
+    text: string
     handleToggle: (loading: boolean) => void;
-    getText: () => string
 }
 
 export const SetProgressValue = (ref: RefObject<UploadInputState>, value: number) => {
@@ -95,6 +95,9 @@ export const SetLoading = (ref: RefObject<UploadInputState>, loading: boolean) =
     st.handleToggle(loading)
 }
 
+export const GetText = (ref: RefObject<UploadInputState>) => {
+    return ref.current.text
+}
 
 export const UIInput: FC<UploadInputProps> = ({refKey, register_component, hidden, onDropSuccess, onSend, textFieldSx, textFieldProps, sendButtonProps}) => {
     const [text, setText] = useState("");
@@ -110,7 +113,7 @@ export const UIInput: FC<UploadInputProps> = ({refKey, register_component, hidde
     const localRef = useRef<UploadInputState>({
         handleToggle,
         progressValue: 0,
-        getText: () => text,
+        text: "",
         setProgressValue: setProgress
     });
 
@@ -151,6 +154,7 @@ export const UIInput: FC<UploadInputProps> = ({refKey, register_component, hidde
     const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
         const newValue = e.target.value;
         setText(newValue)
+        localRef.current.text = newValue
     };
 
     return (
