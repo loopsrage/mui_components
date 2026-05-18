@@ -150,10 +150,7 @@ export const UIInput: FC<UploadInputProps> = ({refKey, register_component, hidde
 
     const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
         const newValue = e.target.value;
-
-        if (/^[0-9,]*$/.test(newValue)) {
-            setText(newValue);
-        }
+        setText(newValue)
     };
 
     return (
