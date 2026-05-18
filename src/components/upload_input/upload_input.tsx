@@ -100,7 +100,6 @@ export const GetText = (ref: RefObject<UploadInputState>) => {
 }
 
 export const UIInput: FC<UploadInputProps> = ({refKey, register_component, hidden, onDropSuccess, onSend, textFieldSx, textFieldProps, sendButtonProps}) => {
-    const [text, setText] = useState("");
     const [loading, setLoading] = useState(false)
     const [progress, setProgress] = useState(0)
 
@@ -153,14 +152,13 @@ export const UIInput: FC<UploadInputProps> = ({refKey, register_component, hidde
 
     const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
         const newValue = e.target.value;
-        setText(newValue)
         localRef.current.text = newValue
     };
 
     return (
         <TextField
             variant="outlined"
-            value={text}
+            defaultValue={GetText(localRef)}
             onChange={handleTextChange}
             placeholder="3186815,3192062,3107146,3192072...."
             slotProps={{
