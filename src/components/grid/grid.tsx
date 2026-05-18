@@ -583,6 +583,7 @@ export const UITable: FC<Props> = ({ api, endpoint, row_details, refKey, cellRen
             filterMode="server"
             autosizeOnMount
             autosizeOptions={{
+                expand: true,
                 includeOutliers: true,
                 includeHeaders: true,
             }}
