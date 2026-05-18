@@ -1,4 +1,4 @@
-import {type FC, useEffect, useState} from "react";
+import {type FC, useLayoutEffect, useState} from "react";
 import {
     GetRows,
     GetHeaders,
@@ -16,7 +16,7 @@ export const SubGrid: FC<KeyValueProps> = ({data, ...props}) => {
     const context = useRefIndex();
     const [gridData, setGridData] = useState<Record<string, object[]>>({ rows: [], columns: [] });
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         const updateGrid = async () => {
             const gridState = context?.get("sub_grid") as TableState;
             if (!gridState) return;
@@ -32,9 +32,6 @@ export const SubGrid: FC<KeyValueProps> = ({data, ...props}) => {
                 columns: [...GetHeaders(ref)]
             });
 
-            if (gridState.gridRef.current) {
-                gridState.gridRef.current.autosizeColumns();
-            }
             await Refresh(ref);
         };
 
