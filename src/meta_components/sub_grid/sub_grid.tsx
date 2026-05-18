@@ -32,6 +32,9 @@ export const SubGrid: FC<KeyValueProps> = ({data, ...props}) => {
                 columns: [...GetHeaders(ref)]
             });
 
+            if (gridState.gridRef.current) {
+                gridState.gridRef.current.autosizeColumns();
+            }
             await Refresh(ref);
         };
 
