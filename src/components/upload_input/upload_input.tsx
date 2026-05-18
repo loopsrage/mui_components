@@ -153,6 +153,7 @@ export const UIInput: FC<UploadInputProps> = ({refKey, register_component, hidde
     const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
         const newValue = e.target.value;
         localRef.current.text = newValue
+        SetProgressValue(localRef, 100)
     };
 
     return (
