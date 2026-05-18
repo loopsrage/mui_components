@@ -1,4 +1,4 @@
-import {type FC, useLayoutEffect, useRef, useState, type ReactElement} from "react";
+import {type FC, useLayoutEffect, useRef, useState,type RefObject, type ReactElement} from "react";
 import {AppBar, Box, Toolbar, Typography} from "@mui/material";
 import {useConditionalRef} from "@/context/context_index";
 import type {IBaseRefProps} from "@/ibase/ibase";
@@ -10,6 +10,22 @@ export interface AppBarProps extends IBaseRefProps {
 
 export interface AppBarState {
     register_element: (elem: Record<string, ReactElement>) => void
+    title?: string;
+}
+
+export const SetAppBarTitle = (ref: RefObject<AppBarState>, title: string) => {
+    const st = ref.current
+    if (!st) return;
+
+    st.title = title
+    ref.current = st
+}
+
+export const GetAppBarTitle = (ref: RefObject<AppBarState>) => {
+    const st = ref.current
+    if (!st) return;
+
+    return st.title
 }
 
 export const UIAppBar: FC<AppBarProps> = ({title, appbar_sx, refKey, register_component}) => {
