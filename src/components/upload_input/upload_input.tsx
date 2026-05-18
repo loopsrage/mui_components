@@ -124,7 +124,7 @@ export const UIInput: FC<UploadInputProps> = ({refKey, register_component, hidde
         }
     }, [onDropSuccess]);
 
-    const { getRootProps, getInputProps, open, isDragActive } = useDropzone({
+    const { getRootProps, getInputProps, open } = useDropzone({
         onDrop,
         noClick: true,
         noKeyboard: true,
@@ -163,9 +163,6 @@ export const UIInput: FC<UploadInputProps> = ({refKey, register_component, hidde
             onChange={handleTextChange}
             placeholder="3186815,3192062,3107146,3192072...."
             slotProps={{
-                htmlInput: {
-                    inputMode: "numeric",
-                } as object | undefined,
                 input: {
                     ...rootProps,
                     inputRef: ref,
@@ -182,11 +179,6 @@ export const UIInput: FC<UploadInputProps> = ({refKey, register_component, hidde
             }}
             sx={{
                 width: "100%",
-                // Change background color when a file is being dragged over
-                backgroundColor: isDragActive ? 'action.hover' : 'inherit',
-                '& .MuiOutlinedInput-root': {
-                    transition: 'background-color 0.2s',
-                },
                 display: hidden ? 'none' : 'flex',
                 ...textFieldSx
             }}
