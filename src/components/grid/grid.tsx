@@ -242,6 +242,7 @@ export const GetHeaders = (ref: RefObject<TableState>) => {
         headerName: TitleCase(path.split('.').pop(), "_"),
         flex: 2,
         type: 'string',
+        display: 'flex',
         hideable: true
     } as GridColDef));
 
@@ -250,6 +251,7 @@ export const GetHeaders = (ref: RefObject<TableState>) => {
             field: "edit",
             headerName: "Edit",
             sortable: false,
+            display: 'flex',
             filterable: false,
             flex: 1,
             type: 'actions',
