@@ -144,7 +144,10 @@ export const UIInput: FC<UploadInputProps> = ({refKey, register_component, hidde
         <ProgressAdornment loading={true} value={progress} />
     ) : (
         <SendIconButton
-            onClick={onSend(localRef)}
+            onClick={() => {
+                onSend(localRef)
+                SetProgressValue(localRef, 100)
+            }}
             sx={{ color: progress === 100 ? 'red' : 'inherit' }}
             {...sendButtonProps}
         />
@@ -153,7 +156,6 @@ export const UIInput: FC<UploadInputProps> = ({refKey, register_component, hidde
     const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
         const newValue = e.target.value;
         localRef.current.text = newValue
-        SetProgressValue(localRef, 100)
     };
 
     return (
