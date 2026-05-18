@@ -261,7 +261,6 @@ export const GetHeaders = (ref: RefObject<TableState>) => {
         const insertPosition = Math.max(0, headers.length - 1);
         headers.splice(insertPosition, 0, editColumn);
     }
-    headers[headers.length].resizable = false
     return headers;
 }
 
