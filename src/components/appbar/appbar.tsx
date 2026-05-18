@@ -11,6 +11,7 @@ export interface AppBarProps extends IBaseRefProps {
 export interface AppBarState {
     register_element: (elem: Record<string, ReactElement>) => void
     title?: string;
+    set_appbar_title: (title: string) => void
 }
 
 export const SetAppBarTitle = (ref: RefObject<AppBarState>, title: string) => {
@@ -18,6 +19,7 @@ export const SetAppBarTitle = (ref: RefObject<AppBarState>, title: string) => {
     if (!st) return;
 
     st.title = title
+    st.set_appbar_title(title)
     ref.current = st
 }
 
@@ -30,6 +32,7 @@ export const GetAppBarTitle = (ref: RefObject<AppBarState>) => {
 
 export const UIAppBar: FC<AppBarProps> = ({title, appbar_sx, refKey, register_component}) => {
     const [elements, setElements] = useState({} as Record<string, ReactElement>)
+    const [, setTitle] = useState("")
     const setRegistryRef = useConditionalRef(refKey, register_component)
 
     const handleSetElements = (elem: Record<string, ReactElement>) => {
@@ -39,6 +42,10 @@ export const UIAppBar: FC<AppBarProps> = ({title, appbar_sx, refKey, register_co
 
     const localRef = useRef<AppBarState>({
         register_element: handleSetElements,
+        title: title,
+        set_appbar_title: (title: string) => {
+            setTitle(title)
+        }
     });
 
     useLayoutEffect(() => {
@@ -66,7 +73,7 @@ export const UIAppBar: FC<AppBarProps> = ({title, appbar_sx, refKey, register_co
                     src="/logo.png"
                 />
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                    {title}
+                    {GetAppBarTitle(localRef)}
                 </Typography>
                 {Object.keys(elements).map(x => elements[x])}
             </Toolbar>

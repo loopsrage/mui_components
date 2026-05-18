@@ -7,6 +7,7 @@ export interface AppBarProps extends IBaseRefProps {
 export interface AppBarState {
     register_element: (elem: Record<string, ReactElement>) => void;
     title?: string;
+    set_appbar_title: (title: string) => void;
 }
 export declare const SetAppBarTitle: (ref: RefObject<AppBarState>, title: string) => void;
 export declare const GetAppBarTitle: (ref: RefObject<AppBarState>) => string | undefined;
