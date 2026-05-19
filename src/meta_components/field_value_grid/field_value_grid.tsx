@@ -113,7 +113,7 @@ export const FieldValueGrid: FC<KeyValueProps> = ({data, datagrid_sx, ...props})
         updateGrid();
     }, [data, context]);
 
-    const sx = datagrid_sx?  datagrid_sx() : DatagridSx()
+    const sx = datagrid_sx ?  datagrid_sx : DatagridSx()
 
     return (
         <UITable register_component={true} datagrid_sx={sx}  {...props} grid_options={{
