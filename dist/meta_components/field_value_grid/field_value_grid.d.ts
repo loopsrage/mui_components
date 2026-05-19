@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { Props } from '../../components/grid/grid';
 export interface KeyValueProps extends Omit<Props, 'api' | 'endpoint' | 'refKey'> {
     data: object;
+    datagrid_sx?: () => object;
 }
 export declare const DatagridSx: () => {
     '& .MuiDataGrid-columnHeader-last': {

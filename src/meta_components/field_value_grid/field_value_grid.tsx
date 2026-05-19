@@ -12,6 +12,7 @@ import {useRefIndex} from "@/context/context_index";
 
 export interface KeyValueProps extends Omit<Props, 'api' | 'endpoint' | 'refKey'> {
     data: object;
+    datagrid_sx?: () => object
 }
 
 export const DatagridSx = () => {
@@ -87,7 +88,7 @@ export const DatagridSx = () => {
     }
 }
 
-export const FieldValueGrid: FC<KeyValueProps> = ({data, ...props}) => {
+export const FieldValueGrid: FC<KeyValueProps> = ({data, datagrid_sx, ...props}) => {
     const context = useRefIndex();
     const [gridData, setGridData] = useState<Record<string, object[]>>({ rows: [], columns: [] });
 
@@ -112,8 +113,10 @@ export const FieldValueGrid: FC<KeyValueProps> = ({data, ...props}) => {
         updateGrid();
     }, [data, context]);
 
+    const sx = datagrid_sx?  datagrid_sx() : DatagridSx()
+
     return (
-        <UITable register_component={true} datagrid_sx={DatagridSx()}  {...props} grid_options={{
+        <UITable register_component={true} datagrid_sx={sx}  {...props} grid_options={{
             columns: gridData.columns,
             rows: gridData.rows,
             paginationMode: "client",

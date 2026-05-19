@@ -12,7 +12,7 @@ import {useRefIndex} from "@/context/context_index";
 import {BuildContainerTree} from "@/utility/containers";
 import {type KeyValueProps, DatagridSx} from "@/meta_components/field_value_grid/field_value_grid"
 
-export const SubGrid: FC<KeyValueProps> = ({data, ...props}) => {
+export const SubGrid: FC<KeyValueProps> = ({data, datagrid_sx, ...props}) => {
     const context = useRefIndex();
     const [gridData, setGridData] = useState<Record<string, object[]>>({ rows: [], columns: [] });
 
@@ -37,9 +37,10 @@ export const SubGrid: FC<KeyValueProps> = ({data, ...props}) => {
 
         updateGrid();
     }, [data, context]);
+    const sx = datagrid_sx?  datagrid_sx() : DatagridSx()
 
     return (
-        <UITable register_component={true} datagrid_sx={DatagridSx()}  {...props} grid_options={{
+        <UITable register_component={true} datagrid_sx={sx}  {...props} grid_options={{
             columns: gridData.columns,
             rows: gridData.rows,
             paginationMode: "client",

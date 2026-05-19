@@ -182,6 +182,17 @@ export const UIInput: FC<UploadInputProps> = ({refKey, register_component, hidde
             sx={{
                 width: "100%",
                 display: hidden ? 'none' : 'flex',
+                  "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                    border: "none",
+                  },
+                  // Target the border ring during hover while focused
+                  "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
+                    border: "none",
+                  },
+                  // Optional: Target the default border ring state
+                  "& .MuiOutlinedInput-notchedOutline": {
+                    border: "none",
+                  },
                 ...textFieldSx
             }}
             {...textFieldProps}
