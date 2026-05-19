@@ -101,7 +101,7 @@ const defaultSelector = () => {
     }
 }
 
-export const InitialTypeFormBuilderRefState = (elementSelector, context={}) => {
+export const InitialTypeFormBuilderRefState = (elementSelector, datagrid_sx, context={}) => {
     return {
         index: 0,
         elements: {},
@@ -111,7 +111,7 @@ export const InitialTypeFormBuilderRefState = (elementSelector, context={}) => {
         element_component: {},
         container: undefined,
         handleOnClose: undefined,
-        datagrid_sx: {},
+        datagrid_sx: datagrid_sx ? datagrid_sx : () => {},
         elementSelector: elementSelector || defaultSelector(),
 
         context: context,
