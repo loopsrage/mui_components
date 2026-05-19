@@ -189,10 +189,6 @@ export const UIInput: FC<UploadInputProps> = ({refKey, register_component, hidde
                   "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
                     border: "none",
                   },
-                  // Optional: Target the default border ring state
-                  "& .MuiOutlinedInput-notchedOutline": {
-                    border: "none",
-                  },
                 ...textFieldSx
             }}
             {...textFieldProps}

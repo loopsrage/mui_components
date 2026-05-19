@@ -52,12 +52,12 @@ const defaultSelector = () => {
         if (currentType === 'object') {
             if (inputProps.defaultValue["Subtype"] === 20) {
                 const container = ReadFromContainers(GetContainer(formRef), key.slice(0, key.lastIndexOf(".")))
-                return <SubGrid key={jsxKey} data={container?.value["Data"]} />
+                return <SubGrid key={jsxKey} data={container?.value["Data"]} datagrid_sx={GetModalGridSX(formRef)} />
             }
 
             if (inputProps.defaultValue["Subtype"] === 19) {
                 const container = ReadFromContainers(GetContainer(formRef), key.slice(0, key.lastIndexOf(".")))
-                return <FieldValueGrid key={jsxKey} data={container?.value["Data"]} />
+                return <FieldValueGrid key={jsxKey} data={container?.value["Data"]} datagrid_sx={GetModalGridSX(formRef)} />
             }
 
             if (inputProps.defaultValue["Subtype"] === 17) {
@@ -111,6 +111,7 @@ export const InitialTypeFormBuilderRefState = (elementSelector, context={}) => {
         element_component: {},
         container: undefined,
         handleOnClose: undefined,
+        datagrid_sx: {},
         elementSelector: elementSelector || defaultSelector(),
 
         context: context,
@@ -133,6 +134,21 @@ export const SetContainer = (ref, container) => {
         st.container = container
     }
     ref.current = st
+}
+
+export const GetModalGridSX = (ref) => {
+    const st = ref.current
+    if (!st) return;
+
+    return st.datagrid_sx()
+}
+
+export const SetModalGridSX = (ref, datagrid_sx) => {
+    const st = ref.current
+    if (!st) return
+
+    st.datagrid_sx = datagrid_sx
+    ref.current = datagrid_sx
 }
 
 export const GetContainer = (ref) => {
