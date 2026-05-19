@@ -19,6 +19,7 @@ export interface TypeFormBuilderModalProps {
      * Receives the final value object from the FormBuilder container.
      */
     handleSave: (data: unknown) => void;
+    datagrid_sx?: () => object;
     /**
      * Optional custom function to decide which React component to render
      * for a specific data type or key.
