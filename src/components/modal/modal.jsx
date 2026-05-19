@@ -30,8 +30,7 @@ export const TypeFormBuilderModal = ({title, button_title, getButton,  tabs, get
     }
 
     if (!formRef.current) {
-        formRef.current = InitialTypeFormBuilderRefState(elementSelector, {
-            datagrid_sx: datagrid_sx,
+        formRef.current = InitialTypeFormBuilderRefState(elementSelector, datagrid_sx, {
             setShow: (value) => {setShow(value)},
             ...context
         })
