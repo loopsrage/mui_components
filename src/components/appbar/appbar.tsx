@@ -58,7 +58,7 @@ export const UIAppBar: FC<AppBarProps> = ({title, appbar_sx, refKey, register_co
             minHeight: 50,
             px: 2,
             mt: 'auto',
-            backgroundColor: "black",
+            backgroundColor: "#333",
             width: '100%',
             display: 'flex',
             flexDirection: 'column',
