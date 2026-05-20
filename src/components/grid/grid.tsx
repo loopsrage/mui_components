@@ -248,7 +248,7 @@ export const GetHeaders = (ref: RefObject<TableState>) => {
     if (st.row_details) {
         const editColumn: GridColDef = {
             field: "edit",
-            headerName: "Edit",
+            headerName: "Approve / Reject",
             sortable: false,
             display: 'flex',
             filterable: false,
