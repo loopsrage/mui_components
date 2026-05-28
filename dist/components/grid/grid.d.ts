@@ -38,6 +38,7 @@ export interface Props extends IBaseRefProps {
     grid_options?: object | undefined;
     context?: Record<string, unknown> | null | undefined;
 }
+export declare const ExportCSV: (ref: RefObject<TableState>) => void;
 export declare const SetEndpoint: (ref: RefObject<TableState>, endpoint: string) => void;
 export declare const GetEndpoint: (ref: RefObject<TableState>) => string | undefined;
 export declare const GetApi: (ref: RefObject<TableState>) => ApiClient | null | undefined;

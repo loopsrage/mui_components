@@ -59,6 +59,15 @@ export interface Props extends IBaseRefProps {
     context?: Record<string, unknown> | null | undefined;
 }
 
+export const ExportCSV = (ref: RefObject<TableState>) => {
+    const st = ref.current;
+    if (!st) return;
+
+    const gridApi = st.gridRef
+    if (!gridApi.current) return;
+    gridApi.current.exportDataAsCsv();
+}
+
 export const SetEndpoint = (ref: RefObject<TableState>, endpoint: string) => {
     const st = ref.current;
     if (!st) return;
@@ -251,6 +260,7 @@ export const GetHeaders = (ref: RefObject<TableState>) => {
             headerName: "Approve / Reject",
             sortable: false,
             display: 'flex',
+            minWidth: 200,
             filterable: false,
             flex: 1,
             type: 'actions',
