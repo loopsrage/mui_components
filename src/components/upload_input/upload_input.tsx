@@ -19,10 +19,11 @@ export interface ProgressAdornmentProps {
 }
 
 export const ProgressAdornment: FC<ProgressAdornmentProps> = ({loading, value}) => {
+    if (!loading) return null;
     return (
         <Box sx={{ position: 'relative', display: 'inline-flex' }}>
             <InputAdornment position="end">
-                {loading && <CircularProgress sx={{ color: '#ff0000' }}  variant="determinate" value={value} />}
+                <CircularProgress sx={{ color: '#ff0000' }}  variant="determinate" value={value} size={32} thickness={4} />
                 <Box
                     sx={{
                         top: 0,
@@ -38,7 +39,7 @@ export const ProgressAdornment: FC<ProgressAdornmentProps> = ({loading, value}) 
                     <Typography
                         variant="caption"
                         component="div"
-                        sx={{ color: 'text.secondary' }}
+                        sx={{ color: 'text.secondary', fontWeight: 'bold', lineHeight: 1, fontSize: '0.65rem', letterSpacing: "-0.5px"}}
                     >{`${Math.round(value)}%`}</Typography>
                 </Box>
             </InputAdornment>
@@ -146,7 +147,6 @@ export const UIInput: FC<UploadInputProps> = ({refKey, register_component, hidde
         <SendIconButton
             onClick={() => {
                 onSend(localRef)
-                SetProgressValue(localRef, 100)
             }}
             sx={{ color: progress === 100 ? 'red' : 'inherit' }}
             {...sendButtonProps}
