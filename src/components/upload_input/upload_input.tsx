@@ -163,7 +163,7 @@ export const UIInput: FC<UploadInputProps> = ({refKey, register_component, hidde
             variant="outlined"
             defaultValue={GetText(localRef)}
             onChange={handleTextChange}
-            placeholder="3186815,3192062,3107146,3192072...."
+            placeholder="3186815,3192062,3107146,3192072 Or Blank for Select All"
             slotProps={{
                 input: {
                     ...rootProps,
