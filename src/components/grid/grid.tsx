@@ -1,4 +1,4 @@
-import {type FC, type JSX, type RefObject, useLayoutEffect, useRef, useState} from "react";
+import {type FC, type JSX, type RefObject, useLayoutEffect, useRef, useState, useEffect} from "react";
 import {
     DataGrid, type GridApi,
     type GridColDef, type GridColumnVisibilityModel,
@@ -27,6 +27,7 @@ export interface TableState extends IBaseRefProps {
     rows: unknown[][]
     row_count?: number | undefined
     row_details?: boolean | null
+    row_status?: boolean | null
     cellRenderer?: (ref: RefObject<TableState>) => (params: GridRenderCellParams) => (undefined | JSX.Element) | null
     datasource?: GridDataSource | undefined
     paginationModel: GridPaginationModel | undefined
@@ -264,12 +265,28 @@ export const GetHeaders = (ref: RefObject<TableState>) => {
             filterable: false,
             flex: 1,
             type: 'actions',
-            renderCell: GetCellRenderer(ref),
+            renderCell: GetEditCellRenderer(ref),
         };
 
         const insertPosition = Math.max(0, headers.length - 1);
         headers.splice(insertPosition, 0, editColumn);
     }
+
+    if (st.row_status) {
+        const statusColumn: GridColDef = {
+            field: "status",
+            headerName: "Process Stage",
+            sortable: false,
+            display: 'flex',
+            minWidth: 200,
+            filterable: false,
+            flex: 1,
+            type: 'actions',
+            renderCell: GetStatusCellRenderer(ref),
+        };
+        headers.push(statusColumn)
+    }
+
     return headers;
 }
 
@@ -458,13 +475,114 @@ export const SetCellRenderer = (ref: RefObject<TableState>, cellRenderer:  (ref:
     ref.current = st;
 }
 
-export const GetCellRenderer = (ref: RefObject<TableState>) => {
+export const GetStatusCellRenderer = (ref: RefObject<TableState>) => {
+    const st = ref.current;
+    if (!st) return;
+    return st.cellRenderer
+        ? st.cellRenderer(ref)
+        : StatusCellRendererWrapper(ref)
+}
+
+export const GetEditCellRenderer = (ref: RefObject<TableState>) => {
     const st = ref.current;
     if (!st) return;
     return st.cellRenderer
         ? st.cellRenderer(ref)
         : ModalCellRendererWrapper(ref)
 }
+
+interface StatusPayload {
+    status: string;
+    stage_datetime: string | null;
+}
+
+interface CustomApiResponse {
+    results?: StatusPayload;
+    [key: string]: unknown;
+}
+
+// 2. Main cell component with tightly contained hook scopes
+const PeriodicStatusCell = ({
+                                params,
+                                tableRef
+                            }: {
+    params: GridRenderCellParams;
+    tableRef: RefObject<TableState>;
+}) => {
+    const [status, setStatus] = useState<string>((params.value as string) || 'Loading...');
+    const [timeStr, setTimeStr] = useState<string>('');
+    const rowId = params.id;
+
+    useEffect(() => {
+        let isMounted = true;
+
+        const fetchStatus = async () => {
+            const st = tableRef.current;
+            if (!st || !st.api || !st.endpoint) return;
+
+            const finalArgs = {
+                ...st.args,
+                item_id: rowId,
+            };
+
+            try {
+                const response = await st.api.at("/" + st.endpoint + "/status", {
+                    fetchParams: {
+                        method: "GET",
+                        ...GetFetchParams(tableRef),
+                    },
+                    args: finalArgs,
+                }) as CustomApiResponse;
+
+                if (!isMounted) return;
+
+                // Perfectly aligns with the backend dictionary layout: {"results": {...}}
+                if (response && response.results) {
+                    const payload = response.results;
+
+                    if (payload.status) {
+                        setStatus(payload.status);
+                    }
+
+                    if (payload.stage_datetime) {
+                        const dateObj = new Date(payload.stage_datetime);
+                        setTimeStr(dateObj.toLocaleString());
+                    } else {
+                        setTimeStr('');
+                    }
+                }
+            } catch (error) {
+                console.error(`Failed periodic cell status retrieve for row ${rowId}:`, error);
+            }
+        };
+
+        fetchStatus();
+
+        const intervalId = setInterval(fetchStatus, 5000);
+
+        return () => {
+            isMounted = false;
+            clearInterval(intervalId);
+        };
+    }, [rowId, tableRef]); // Explicitly closes the hook safely within component scope bounds
+
+    return (
+        <div style={{ display: 'flex', flexDirection: 'column', lineHeight: '1.2', padding: '4px 0' }}>
+            <span style={{ fontWeight: 500 }}>{status}</span>
+            {timeStr && (
+                <span style={{ fontSize: '11px', color: 'rgba(0, 0, 0, 0.6)', marginTop: '2px' }}>
+          {timeStr}
+        </span>
+            )}
+        </div>
+    );
+};
+
+export const StatusCellRendererWrapper = (tableRef: RefObject<TableState>) => {
+    return (params: GridRenderCellParams) => {
+        return <PeriodicStatusCell params={params} tableRef={tableRef} />;
+    };
+};
 
 export const ModalCellRendererWrapper = (ref: RefObject<TableState>) => {
     const context = useRefIndex();

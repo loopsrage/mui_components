@@ -11,6 +11,7 @@ export interface TableState extends IBaseRefProps {
     rows: unknown[][];
     row_count?: number | undefined;
     row_details?: boolean | null;
+    row_status?: boolean | null;
     cellRenderer?: (ref: RefObject<TableState>) => (params: GridRenderCellParams) => (undefined | JSX.Element) | null;
     datasource?: GridDataSource | undefined;
     paginationModel: GridPaginationModel | undefined;
@@ -77,7 +78,9 @@ export declare const GetDatasource: (ref: RefObject<TableState>) => GridDataSour
 export declare const Refresh: (ref: RefObject<TableState>) => Promise<void>;
 export declare const SetSelectedRows: (ref: RefObject<TableState>) => (model: GridRowSelectionModel) => void;
 export declare const SetCellRenderer: (ref: RefObject<TableState>, cellRenderer: (ref: RefObject<TableState>) => (params: GridRenderCellParams) => (undefined | JSX.Element) | null) => void;
-export declare const GetCellRenderer: (ref: RefObject<TableState>) => ((params: GridRenderCellParams) => (undefined | JSX.Element) | null) | undefined;
+export declare const GetStatusCellRenderer: (ref: RefObject<TableState>) => ((params: GridRenderCellParams) => (undefined | JSX.Element) | null) | undefined;
+export declare const GetEditCellRenderer: (ref: RefObject<TableState>) => ((params: GridRenderCellParams) => (undefined | JSX.Element) | null) | undefined;
+export declare const StatusCellRendererWrapper: (tableRef: RefObject<TableState>) => (params: GridRenderCellParams) => import("react/jsx-runtime").JSX.Element;
 export declare const ModalCellRendererWrapper: (ref: RefObject<TableState>) => (params: GridRenderCellParams) => import("react/jsx-runtime").JSX.Element | undefined;
 export declare const UITable: FC<Props>;
 //# sourceMappingURL=grid.d.ts.map
