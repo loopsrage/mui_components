@@ -501,81 +501,74 @@ interface CustomApiResponse {
 }
 
 // 2. Main cell component with tightly contained hook scopes
-const PeriodicStatusCell = ({
-                                params,
-                                tableRef
-                            }: {
-    params: GridRenderCellParams;
-    tableRef: RefObject<TableState>;
-}) => {
-    const [status, setStatus] = useState<string>((params.value as string) || 'Loading...');
-    const [timeStr, setTimeStr] = useState<string>('');
-    const rowId = params.id;
+const PeriodicStatusCell = ({ params, tableRef }: { params: GridRenderCellParams; tableRef: RefObject<TableState>; }) => {
+  const [status, setStatus] = useState<string>((params.value as string) || 'Loading...');
+  const [timeStr, setTimeStr] = useState<string>('');
+  const rowId = params.id;
 
-    useEffect(() => {
-        let isMounted = true;
+  useEffect(() => {
+    let isMounted = true;
 
-        const fetchStatus = async () => {
-            const st = tableRef.current;
-            if (!st || !st.api || !st.endpoint) return;
+    const fetchStatus = async () => {
+      const st = tableRef.current;
+      if (!st || !st.api || !st.endpoint) return;
 
-            const finalArgs = {
-                ...st.args,
-                item_id: rowId,
-            };
-            console.log(finalArgs, st)
-            try {
-                const response = await st.api.at("/" + st.endpoint + "/status", {
-                    fetchParams: {
-                        method: "GET",
-                        ...GetFetchParams(tableRef),
-                    },
-                    args: finalArgs,
-                }) as CustomApiResponse;
+      const finalArgs = {
+        ...st.args,
+        item_id: rowId,
+      };
+      console.log(finalArgs, st)
 
-                if (!isMounted) return;
+      try {
+        const response = await st.api.at("/" + st.endpoint + "/status", {
+          fetchParams: {
+            method: "GET",
+            ...GetFetchParams(tableRef),
+          },
+          args: finalArgs,
+        }) as CustomApiResponse;
 
-                // Perfectly aligns with the backend dictionary layout: {"results": {...}}
-                if (response && response.results) {
-                    const payload = response.results;
+        if (!isMounted) return;
 
-                    if (payload.status) {
-                        setStatus(payload.status);
-                    }
+        // Perfectly aligns with the backend dictionary layout: {"results": {...}}
+        if (response && response.results) {
+          const payload = response.results;
+          if (payload.status) {
+            setStatus(payload.status);
+          }
+          if (payload.stage_datetime) {
+            const dateObj = new Date(payload.stage_datetime);
+            setTimeStr(dateObj.toLocaleString());
+          } else {
+            setTimeStr('');
+          }
+        }
+      } catch (error) {
+        console.error(`Failed periodic cell status retrieve for row ${rowId}:`, error);
+      }
+    };
 
-                    if (payload.stage_datetime) {
-                        const dateObj = new Date(payload.stage_datetime);
-                        setTimeStr(dateObj.toLocaleString());
-                    } else {
-                        setTimeStr('');
-                    }
-                }
-            } catch (error) {
-                console.error(`Failed periodic cell status retrieve for row ${rowId}:`, error);
-            }
-        };
+    fetchStatus();
+    const intervalId = setInterval(fetchStatus, 5000); // Polls exactly every 5000ms (5 seconds)
 
-        fetchStatus();
+    return () => {
+      isMounted = false;
+      clearInterval(intervalId);
+    };
+  }, [rowId, tableRef]); // Explicitly closes the hook safely within component scope bounds
 
-        const intervalId = setInterval(fetchStatus, 5000);
-
-        return () => {
-            isMounted = false;
-            clearInterval(intervalId);
-        };
-    }, [rowId, tableRef]); // Explicitly closes the hook safely within component scope bounds
-
-    return (
-        <div style={{ display: 'flex', flexDirection: 'column', lineHeight: '1.2', padding: '4px 0' }}>
-            <span style={{ fontWeight: 500 }}>{status}</span>
-            {timeStr && (
-                <span style={{ fontSize: '11px', color: 'rgba(0, 0, 0, 0.6)', marginTop: '2px' }}>
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', lineHeight: '1.2', padding: '4px 0' }}>
+      <span style={{ fontWeight: 500 }}>{status}</span>
+      {timeStr && (
+        <span style={{ fontSize: '11px', color: 'rgba(0, 0, 0, 0.6)', marginTop: '2px' }}>
           {timeStr}
         </span>
-            )}
-        </div>
-    );
+      )}
+    </div>
+  );
 };
+
 
 export const StatusCellRendererWrapper = (tableRef: RefObject<TableState>) => {
     return (params: GridRenderCellParams) => {
