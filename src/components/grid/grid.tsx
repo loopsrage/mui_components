@@ -479,9 +479,7 @@ export const SetCellRenderer = (ref: RefObject<TableState>, cellRenderer:  (ref:
 export const GetStatusCellRenderer = (ref: RefObject<TableState>) => {
     const st = ref.current;
     if (!st) return;
-    return st.cellRenderer
-        ? st.cellRenderer(ref)
-        : StatusCellRendererWrapper(ref)
+    return StatusCellRendererWrapper(ref)
 }
 
 export const GetEditCellRenderer = (ref: RefObject<TableState>) => {
