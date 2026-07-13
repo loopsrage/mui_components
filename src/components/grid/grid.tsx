@@ -523,7 +523,7 @@ const PeriodicStatusCell = ({
                 ...st.args,
                 item_id: rowId,
             };
-
+            console.log(finalArgs, st)
             try {
                 const response = await st.api.at("/" + st.endpoint + "/status", {
                     fetchParams: {
