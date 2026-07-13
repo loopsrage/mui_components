@@ -51,6 +51,7 @@ export interface Props extends IBaseRefProps {
 
     endpoint?: string | undefined;
     row_details?: boolean | null
+    row_status?: boolean | null
     checkbox_select?: boolean | undefined
     toolbar?: boolean | undefined
     cellRenderer?:  (ref: RefObject<TableState>) => (params: GridRenderCellParams) => (undefined | JSX.Element) | null
