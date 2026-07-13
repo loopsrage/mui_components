@@ -275,7 +275,7 @@ export const GetHeaders = (ref: RefObject<TableState>) => {
 
     if (st.row_status) {
         const statusColumn: GridColDef = {
-            field: "status",
+            field: "process_stage",
             headerName: "Process Stage",
             sortable: false,
             display: 'flex',
