@@ -1,4 +1,4 @@
-import {type FC, type JSX, type RefObject, useLayoutEffect, useRef, useState, useEffect} from "react";
+import {type FC, type JSX, type RefObject, useLayoutEffect, useRef, useState} from "react";
 import {
     DataGrid, type GridApi,
     type GridColDef, type GridColumnVisibilityModel,
@@ -15,7 +15,7 @@ import type {ApiClient} from "@/utility/api";
 import {EditCellRenderer} from "@/meta_components/crud_elements/crud_elements";
 import type {IBaseRefProps} from "@/ibase/ibase";
 import {useConditionalRef, useRefIndex} from "@/context/context_index";
-import {Box, Button, IconButton, Stack} from "@mui/material";
+import {Box, type BoxProps, Button, IconButton, Stack} from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 import type {FormBuilderState} from "@/utility/form_builder";
 
@@ -28,6 +28,7 @@ export interface TableState extends IBaseRefProps {
     row_count?: number | undefined
     row_details?: boolean | null
     row_status?: boolean | null
+    statusCellRenderer?: (ref: RefObject<TableState>) => (params: GridRenderCellParams) => (undefined | JSX.Element) | null
     cellRenderer?: (ref: RefObject<TableState>) => (params: GridRenderCellParams) => (undefined | JSX.Element) | null
     datasource?: GridDataSource | undefined
     paginationModel: GridPaginationModel | undefined
@@ -476,10 +477,21 @@ export const SetCellRenderer = (ref: RefObject<TableState>, cellRenderer:  (ref:
     ref.current = st;
 }
 
+export const SetStatusCellRenderer = (ref: RefObject<TableState>, statusCellRenderer:  (ref: RefObject<TableState>) => (params: GridRenderCellParams) => (undefined | JSX.Element) | null) => {
+    const st = ref.current;
+    if (!st) return;
+
+    st.statusCellRenderer = statusCellRenderer
+
+    ref.current = st;
+}
+
 export const GetStatusCellRenderer = (ref: RefObject<TableState>) => {
     const st = ref.current;
     if (!st) return;
-    return StatusCellRendererWrapper(ref)
+    return st.cellRenderer
+        ? st.statusCellRenderer?.(ref)
+        : StatusCellRendererWrapper(ref)
 }
 
 export const GetEditCellRenderer = (ref: RefObject<TableState>) => {
@@ -490,90 +502,26 @@ export const GetEditCellRenderer = (ref: RefObject<TableState>) => {
         : ModalCellRendererWrapper(ref)
 }
 
-interface StatusPayload {
-    status: string;
-    stage_datetime: string | null;
-}
+interface StatusPayload { status: string; stage_datetime: string | null; }
+interface CustomApiResponse { results?: StatusPayload; [key: string]: unknown; }
 
-interface CustomApiResponse {
-    results?: StatusPayload;
-    [key: string]: unknown;
-}
+interface StatusCellParams { box?: BoxProps; };
 
-// 2. Main cell component with tightly contained hook scopes
-const PeriodicStatusCell = ({ params, tableRef }: { params: GridRenderCellParams; tableRef: RefObject<TableState>; }) => {
-  const [status, setStatus] = useState<string>((params.value as string) || 'Loading...');
-  const [timeStr, setTimeStr] = useState<string>('');
-  const rowId = params.id;
-
-  useEffect(() => {
-    let isMounted = true;
-
-    const fetchStatus = async () => {
-      const st = tableRef.current;
-      if (!st || !st.api || !st.endpoint) return;
-
-      const finalArgs = {
-        ...st.args,
-        item_id: rowId,
-      };
-      console.log(finalArgs, st)
-
-      try {
-        const response = await st.api.at("/" + st.endpoint + "/status", {
-          fetchParams: {
-            method: "GET",
-            ...GetFetchParams(tableRef),
-          },
-          args: finalArgs,
-        }) as CustomApiResponse;
-
-        if (!isMounted) return;
-
-        // Perfectly aligns with the backend dictionary layout: {"results": {...}}
-        if (response && response.results) {
-          const payload = response.results;
-          if (payload.status) {
-            setStatus(payload.status);
-          }
-          if (payload.stage_datetime) {
-            const dateObj = new Date(payload.stage_datetime);
-            setTimeStr(dateObj.toLocaleString());
-          } else {
-            setTimeStr('');
-          }
-        }
-      } catch (error) {
-        console.error(`Failed periodic cell status retrieve for row ${rowId}:`, error);
-      }
-    };
-
-    fetchStatus();
-    const intervalId = setInterval(fetchStatus, 5000); // Polls exactly every 5000ms (5 seconds)
-
-    return () => {
-      isMounted = false;
-      clearInterval(intervalId);
-    };
-  }, [rowId, tableRef]); // Explicitly closes the hook safely within component scope bounds
-
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', lineHeight: '1.2', padding: '4px 0' }}>
-      <span style={{ fontWeight: 500 }}>{status}</span>
-      {timeStr && (
-        <span style={{ fontSize: '11px', color: 'rgba(0, 0, 0, 0.6)', marginTop: '2px' }}>
-          {timeStr}
-        </span>
-      )}
-    </div>
-  );
+export const StatusCell = ({ props, params, tableRef }: { props?: StatusCellParams, params: GridRenderCellParams, tableRef: RefObject<TableState> }) => {
+  const [status, setStatus] = useState("");
+  const handleStatus = async () => {
+    const st = tableRef.current;
+    if (!st) return;
+    const finalArgs = { ...st.args, item_id: params.id };
+    const result = await st.api?.at("/" + st.endpoint, { fetchParams: { method: "GET", ...GetFetchParams(tableRef), }, args: finalArgs, }) as CustomApiResponse;
+    setStatus(result.results?.status || "");
+  };
+  return ( <Box {...props?.box} onClick={handleStatus}> {status} </Box> );
 };
 
-
-export const StatusCellRendererWrapper = (tableRef: RefObject<TableState>) => {
-    return (params: GridRenderCellParams) => {
-        return <PeriodicStatusCell params={params} tableRef={tableRef} />;
-    };
+export const StatusCellRendererWrapper = (ref: RefObject<TableState>) => {
+  const customBoxProps: StatusCellParams = { box: { sx: { cursor: 'pointer', display: 'flex', alignItems: 'center' } } };
+  return (params: GridRenderCellParams) => { return <StatusCell props={customBoxProps} params={params} tableRef={ref} />; };
 };
 
 export const ModalCellRendererWrapper = (ref: RefObject<TableState>) => {
