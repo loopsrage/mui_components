@@ -275,20 +275,18 @@ export const GetHeaders = (ref: RefObject<TableState>) => {
         headers.splice(insertPosition, 0, editColumn);
     }
 
-    if (st.row_status) {
-        const statusColumn: GridColDef = {
-            field: "process_stage",
-            headerName: "Process Stage",
-            sortable: false,
-            display: 'flex',
-            minWidth: 200,
-            filterable: false,
-            flex: 1,
-            type: 'actions',
-            renderCell: GetStatusCellRenderer(ref),
-        };
-        headers.push(statusColumn)
-    }
+    const statusColumn: GridColDef = {
+        field: "process_stage",
+        headerName: "Process Stage",
+        sortable: false,
+        display: 'flex',
+        minWidth: 200,
+        filterable: false,
+        flex: 1,
+        type: 'actions',
+        renderCell: GetStatusCellRenderer(ref),
+    };
+    headers.push(statusColumn)
     console.log(headers)
     return headers;
 }
