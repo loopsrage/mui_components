@@ -289,7 +289,7 @@ export const GetHeaders = (ref: RefObject<TableState>) => {
         };
         headers.push(statusColumn)
     }
-
+    console.log(headers)
     return headers;
 }
 
@@ -490,8 +490,8 @@ export const SetStatusCellRenderer = (ref: RefObject<TableState>, statusCellRend
 export const GetStatusCellRenderer = (ref: RefObject<TableState>) => {
     const st = ref.current;
     if (!st) return;
-    return st.cellRenderer
-        ? st.statusCellRenderer?.(ref)
+    return st.statusCellRenderer
+        ? st.statusCellRenderer(ref)
         : StatusCellRendererWrapper(ref)
 }
 
