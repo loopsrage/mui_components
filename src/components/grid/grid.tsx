@@ -56,6 +56,7 @@ export interface Props extends IBaseRefProps {
     checkbox_select?: boolean | undefined
     toolbar?: boolean | undefined
     cellRenderer?:  (ref: RefObject<TableState>) => (params: GridRenderCellParams) => (undefined | JSX.Element) | null
+    statusCellRenderer?:  (ref: RefObject<TableState>) => (params: GridRenderCellParams) => (undefined | JSX.Element) | null
     datagrid_sx?: object | undefined;
 
     grid_options?: object | undefined;
