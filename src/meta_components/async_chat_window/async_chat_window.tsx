@@ -12,7 +12,6 @@ import {
 import {
   Box,
   Button,
-  Divider,
   Paper,
   Stack,
   TextField,
@@ -148,7 +147,7 @@ export const AsyncChatWindow: FC<AsyncChatWindowProps> = ({
   onSendMessage,
   onRefresh,
   refreshIntervalMs = 5000,
-  onOpenArtifact,
+  onOpenArtifact: _onOpenArtifact,
   renderMarkdown,
   headerSlot,
   toolbarExtraSlot,
@@ -163,7 +162,6 @@ export const AsyncChatWindow: FC<AsyncChatWindowProps> = ({
   const [windowStart, setWindowStart] = useState<number>(0);
   const [stickToBottom, setStickToBottom] = useState<boolean>(true);
   const [showAllThoughts, setShowAllThoughts] = useState<boolean>(defaultShowThoughts);
-  const [expandedThoughtIds, setExpandedThoughtIds] = useState<Record<string, boolean>>({});
   const [draftInput, setDraftInput] = useState<string>("");
   const [wsConnected, setWsConnected] = useState<boolean>(false);
   const [streamedMessages, setStreamedMessages] = useState<Record<string, AsyncChatMessage>>({});
@@ -473,22 +471,8 @@ export const AsyncChatWindow: FC<AsyncChatWindowProps> = ({
     });
   };
 
-  const toggleMessageThought = useCallback(
-    (id: string) => {
-      setExpandedThoughtIds((prev) => ({
-        ...prev,
-        [id]: !(prev[id] ?? showAllThoughts),
-      }));
-    },
-    [showAllThoughts]
-  );
-
   const handleToggleAllThoughts = useCallback(() => {
-    setShowAllThoughts((prev) => {
-      const next = !prev;
-      setExpandedThoughtIds({});
-      return next;
-    });
+    setShowAllThoughts((prev) => !prev);
   }, []);
 
   const handleSendDraft = useCallback(async () => {
@@ -661,10 +645,7 @@ export const AsyncChatWindow: FC<AsyncChatWindowProps> = ({
             const cleanText = sanitizeChatText(msg.text || "");
             const cleanThoughts = sanitizeChatText(msg.thoughts || "");
             const hasThoughts = roleLabel === "AGENT" && cleanThoughts.length > 0;
-            const isThoughtOpen = expandedThoughtIds[msg.id] ?? showAllThoughts;
-            const artifacts = msg.artifacts || [];
-            const primaryArtifactId =
-              roleLabel === "ARTIFACT" ? msg.id : artifacts[0]?.id || "";
+            const isThoughtOpen = Boolean(showAllThoughts);
 
             return (
               <Box
@@ -684,72 +665,21 @@ export const AsyncChatWindow: FC<AsyncChatWindowProps> = ({
                 }}
               >
                 <Stack spacing={1} sx={{ minWidth: 0, width: "100%" }}>
-                  {/* Clean Chat Message Header: Role + Clean Timestamp + Thought Toggle / Artifact Modal Button */}
-                  <Stack
-                    direction="row"
-                    spacing={1.5}
-                    sx={{ justifyContent: "space-between", alignItems: "center" }}
-                  >
-                    <Stack direction="row" spacing={1} sx={{ alignItems: "center", minWidth: 0 }}>
-                      <Typography
-                        variant="caption"
-                        data-testid={`antigravity-card-role-${msg.id}`}
-                        sx={{
-                          color: isUser ? primaryAccent : textPrimary,
-                          fontWeight: 700,
-                          fontFamily: fontMono,
-                        }}
-                      >
-                        {roleLabel}
-                      </Typography>
-                      {cleanTs && (
-                        <Typography
-                          variant="caption"
-                          data-testid={`antigravity-card-timestamp-${msg.id}`}
-                          sx={{
-                            color: textSecondary,
-                            fontFamily: fontMono,
-                          }}
-                        >
-                          {cleanTs}
-                        </Typography>
-                      )}
-                    </Stack>
+                  {/* Timestamp Only Header */}
+                  {cleanTs && (
+                    <Typography
+                      variant="caption"
+                      data-testid={`antigravity-card-timestamp-${msg.id}`}
+                      sx={{
+                        color: textSecondary,
+                        fontFamily: fontMono,
+                      }}
+                    >
+                      {cleanTs}
+                    </Typography>
+                  )}
 
-                    <Stack direction="row" spacing={0.75} sx={{ alignItems: "center", flexShrink: 0 }}>
-                      {hasThoughts && showThoughtsToggle && (
-                        <Button
-                          size="small"
-                          variant="outlined"
-                          data-testid={`toggle-thought-btn-${msg.id}`}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            toggleMessageThought(msg.id);
-                          }}
-                          sx={actionButtonSx}
-                        >
-                          {isThoughtOpen ? "Hide Thoughts" : "Show Thoughts"}
-                        </Button>
-                      )}
-
-                      {primaryArtifactId && onOpenArtifact && (
-                        <Button
-                          size="small"
-                          variant="outlined"
-                          data-testid={`inspect-brain-btn-${msg.id}`}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            onOpenArtifact(primaryArtifactId);
-                          }}
-                          sx={actionButtonSx}
-                        >
-                          Open Artifact Modal
-                        </Button>
-                      )}
-                    </Stack>
-                  </Stack>
-
-                  {/* Collapsible Agent Thoughts Block */}
+                  {/* Agent Thoughts Block (Visible ONLY when Show Agent Thoughts is turned on) */}
                   {hasThoughts && isThoughtOpen && (
                     <Box
                       data-testid={`agent-thoughts-${msg.id}`}
@@ -787,36 +717,6 @@ export const AsyncChatWindow: FC<AsyncChatWindowProps> = ({
                       </Typography>
                     )}
                   </Box>
-
-                  {/* Artifact Modal Triggers */}
-                  {artifacts.length > 0 && onOpenArtifact && (
-                    <>
-                      <Divider sx={{ borderColor }} />
-                      <Stack
-                        direction="row"
-                        spacing={0.75}
-                        useFlexGap
-                        data-testid={`antigravity-card-artifacts-${msg.id}`}
-                        sx={{ flexWrap: "wrap", alignItems: "center" }}
-                      >
-                        {artifacts.map((art) => (
-                          <Button
-                            key={art.id}
-                            size="small"
-                            variant="outlined"
-                            data-testid={`open-artifact-modal-btn-${art.id}`}
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              onOpenArtifact(art.id);
-                            }}
-                            sx={actionButtonSx}
-                          >
-                            {art.name}
-                          </Button>
-                        ))}
-                      </Stack>
-                    </>
-                  )}
                 </Stack>
               </Box>
             );

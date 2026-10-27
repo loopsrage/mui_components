@@ -1,10 +1,12 @@
 import {
+  type ChangeEvent,
   type FC,
   type MouseEvent,
   type ReactNode,
   useCallback,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from "react";
 import {
@@ -29,6 +31,10 @@ export interface FileSystemFileItem {
   modified_ts_ms?: number;
   extension?: string;
   file_type?: string;
+  mime_type?: string;
+  is_multimedia?: boolean;
+  is_binary?: boolean;
+  scope?: string;
   entry_id?: string;
   is_artifact?: boolean;
   has_mermaid?: boolean;
@@ -100,6 +106,15 @@ export interface FileSystemExplorerProps {
     event: MouseEvent<HTMLElement>
   ) => void;
   getDownloadUrl?: (file: FileSystemFileItem) => string;
+  enableCrud?: boolean;
+  onUploadFiles?: (files: FileList, targetFolder?: string) => void | Promise<void>;
+  onCreateFile?: (path: string, content: string) => void | Promise<void>;
+  onDeleteFile?: (
+    file: FileSystemFileItem,
+    rootNode: FileSystemRootNode,
+    event: MouseEvent<HTMLElement>
+  ) => void | Promise<void>;
+  crudUploadAccept?: string;
   title?: string;
   subtitle?: string;
   showSearch?: boolean;
@@ -178,6 +193,11 @@ export const FileSystemExplorer: FC<FileSystemExplorerProps> = ({
   onSelectRoot,
   onDownloadFile,
   getDownloadUrl,
+  enableCrud = false,
+  onUploadFiles,
+  onCreateFile,
+  onDeleteFile,
+  crudUploadAccept = "*/*,image/*,audio/*,video/*,application/pdf,.md,.py,.ts,.tsx,.json,.txt,.svg",
   title = "DIRECTORY EXPLORER",
   subtitle,
   showSearch = false,
@@ -206,6 +226,27 @@ export const FileSystemExplorer: FC<FileSystemExplorerProps> = ({
     {}
   );
   const [filterText, setFilterText] = useState("");
+  const [showNewFileForm, setShowNewFileForm] = useState(false);
+  const [newFilePath, setNewFilePath] = useState("artifacts/note.md");
+  const [newFileContent, setNewFileContent] = useState("# Promoted Model Artifact\n");
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const handleFileInputChange = useCallback(
+    async (e: ChangeEvent<HTMLInputElement>) => {
+      if (e.target.files && e.target.files.length > 0 && onUploadFiles) {
+        await onUploadFiles(e.target.files);
+      }
+      e.target.value = "";
+    },
+    [onUploadFiles]
+  );
+
+  const handleCreateFileSubmit = useCallback(async () => {
+    const trimmed = newFilePath.trim();
+    if (!trimmed || !onCreateFile) return;
+    await onCreateFile(trimmed, newFileContent);
+    setShowNewFileForm(false);
+  }, [newFilePath, newFileContent, onCreateFile]);
 
   useEffect(() => {
     if (!tree || tree.length === 0) return;
@@ -291,6 +332,43 @@ export const FileSystemExplorer: FC<FileSystemExplorerProps> = ({
     return result;
   }, [tree, filterText]);
 
+  const renderFolderSvg = (open: boolean, color: string, size: number = 15) => (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      style={{ flexShrink: 0 }}
+    >
+      {open ? (
+        <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+      ) : (
+        <path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z" />
+      )}
+    </svg>
+  );
+
+  const renderFileSvg = (color: string, size: number = 13) => (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      style={{ flexShrink: 0 }}
+    >
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+      <polyline points="14 2 14 8 20 8" />
+    </svg>
+  );
+
   const renderFileItem = (
     file: FileSystemFileItem,
     rootNode: FileSystemRootNode,
@@ -307,7 +385,7 @@ export const FileSystemExplorer: FC<FileSystemExplorerProps> = ({
         data-testid={`${testIdPrefix}-tree-file-${rootNode.short_id}-${file.name}`}
         onClick={() => onSelectFile?.(file, rootNode)}
         sx={{
-          pl: Math.max(1.5, depth * 1.25),
+          pl: Math.max(1.25, depth * 1.1),
           pr: 0.75,
           py: 0.4,
           borderRadius: 0.75,
@@ -323,45 +401,77 @@ export const FileSystemExplorer: FC<FileSystemExplorerProps> = ({
           "&:hover": { bgcolor: subtleBg },
         }}
       >
-        <Typography
-          sx={{
-            fontSize: "0.75rem",
-            fontFamily: fontMono,
-            color: isSelected ? primaryAccent : textPrimary,
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-            whiteSpace: "nowrap",
-            flex: 1,
-          }}
+        <Stack
+          direction="row"
+          spacing={0.6}
+          sx={{ alignItems: "center", minWidth: 0, flex: 1 }}
         >
-          {file.name}
-        </Typography>
-        {showDownload ? (
-          <Button
-            size="small"
-            component={downloadHref ? "a" : "button"}
-            href={downloadHref}
-            onClick={(e: MouseEvent<HTMLElement>) => {
-              e.stopPropagation();
-              if (onDownloadFile) {
-                onDownloadFile(file, rootNode, e);
-              }
-            }}
-            data-testid={`tree-download-btn-${rootNode.short_id}-${file.name}`}
+          {renderFileSvg(isSelected ? primaryAccent : textSecondary, 13)}
+          <Typography
             sx={{
-              minWidth: "auto",
-              px: 0.6,
-              py: 0.1,
-              fontSize: "0.66rem",
+              fontSize: "0.74rem",
               fontFamily: fontMono,
-              textTransform: "none",
-              color: textSecondary,
-              border: `1px solid ${borderColor}`,
+              color: isSelected ? primaryAccent : textPrimary,
+              fontWeight: isSelected ? 600 : 400,
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+              flex: 1,
             }}
           >
-            DL
-          </Button>
-        ) : null}
+            {file.name}
+          </Typography>
+        </Stack>
+        <Stack direction="row" spacing={0.5} sx={{ alignItems: "center" }}>
+          {showDownload ? (
+            <Button
+              size="small"
+              component={downloadHref ? "a" : "button"}
+              href={downloadHref}
+              onClick={(e: MouseEvent<HTMLElement>) => {
+                e.stopPropagation();
+                if (onDownloadFile) {
+                  onDownloadFile(file, rootNode, e);
+                }
+              }}
+              data-testid={`tree-download-btn-${rootNode.short_id}-${file.name}`}
+              sx={{
+                minWidth: "auto",
+                px: 0.6,
+                py: 0.1,
+                fontSize: "0.66rem",
+                fontFamily: fontMono,
+                textTransform: "none",
+                color: textSecondary,
+                border: `1px solid ${borderColor}`,
+              }}
+            >
+              DL
+            </Button>
+          ) : null}
+          {onDeleteFile && file.scope !== "promoted_repo" ? (
+            <Button
+              size="small"
+              onClick={(e: MouseEvent<HTMLElement>) => {
+                e.stopPropagation();
+                onDeleteFile(file, rootNode, e);
+              }}
+              data-testid={`${testIdPrefix}-tree-delete-btn-${rootNode.short_id}-${file.name}`}
+              sx={{
+                minWidth: "auto",
+                px: 0.5,
+                py: 0.1,
+                fontSize: "0.64rem",
+                fontFamily: fontMono,
+                textTransform: "none",
+                color: textSecondary,
+                border: `1px solid ${borderColor}`,
+              }}
+            >
+              Del
+            </Button>
+          ) : null}
+        </Stack>
       </Box>
     );
   };
@@ -390,20 +500,25 @@ export const FileSystemExplorer: FC<FileSystemExplorerProps> = ({
           onClick={() => toggleNode(folderKey)}
           data-testid={`${testIdPrefix}-tree-folder-${rootNode.short_id}-${fRel}`}
           sx={{
-            pl: 0.75 + depth * 0.75,
+            pl: 0.6 + depth * 0.65,
             pr: 0.75,
             py: 0.4,
             borderRadius: 0.75,
             cursor: "pointer",
             display: "flex",
             alignItems: "center",
-            justifyContent: "space-between",
+            gap: 0.6,
             "&:hover": { bgcolor: subtleBg },
           }}
         >
+          {renderFolderSvg(
+            isExpanded,
+            isExpanded ? primaryAccent : textSecondary,
+            14
+          )}
           <Typography
             sx={{
-              fontSize: "0.75rem",
+              fontSize: "0.74rem",
               fontWeight: 600,
               color: textPrimary,
               fontFamily: fontMono,
@@ -413,7 +528,7 @@ export const FileSystemExplorer: FC<FileSystemExplorerProps> = ({
               flex: 1,
             }}
           >
-            {isExpanded ? "[v]" : "[>]"} {folderLabel} ({count})
+            {folderLabel} ({count})
           </Typography>
         </Box>
         {isExpanded && (
@@ -493,6 +608,55 @@ export const FileSystemExplorer: FC<FileSystemExplorerProps> = ({
           </Box>
           <Stack direction="row" spacing={0.5} sx={{ alignItems: "center" }}>
             {headerExtraSlot}
+            {(enableCrud || onUploadFiles) && (
+              <>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  multiple
+                  accept={crudUploadAccept}
+                  data-testid={`${testIdPrefix}-fs-upload-input`}
+                  style={{ display: "none" }}
+                  onChange={handleFileInputChange}
+                />
+                <Button
+                  size="small"
+                  onClick={() => fileInputRef.current?.click()}
+                  data-testid={`${testIdPrefix}-fs-upload-btn`}
+                  sx={{
+                    minWidth: "auto",
+                    px: 0.7,
+                    py: 0.15,
+                    fontSize: "0.66rem",
+                    fontFamily: fontMono,
+                    textTransform: "none",
+                    color: primaryAccent,
+                    border: `1px solid ${primaryAccent}`,
+                  }}
+                >
+                  Upload
+                </Button>
+              </>
+            )}
+            {(enableCrud || onCreateFile) && (
+              <Button
+                size="small"
+                onClick={() => setShowNewFileForm((prev) => !prev)}
+                data-testid={`${testIdPrefix}-fs-new-file-toggle-btn`}
+                sx={{
+                  minWidth: "auto",
+                  px: 0.7,
+                  py: 0.15,
+                  fontSize: "0.66rem",
+                  fontFamily: fontMono,
+                  textTransform: "none",
+                  color: textPrimary,
+                  border: `1px solid ${borderColor}`,
+                }}
+              >
+                +File
+              </Button>
+            )}
             <Button
               size="small"
               onClick={expandAll}
@@ -529,6 +693,74 @@ export const FileSystemExplorer: FC<FileSystemExplorerProps> = ({
             </Button>
           </Stack>
         </Box>
+
+        {showNewFileForm && (enableCrud || onCreateFile) && (
+          <Stack
+            spacing={0.75}
+            data-testid={`${testIdPrefix}-fs-new-file-form`}
+            sx={{
+              p: 1,
+              borderRadius: 0.75,
+              bgcolor: canvasBg,
+              border: `1px solid ${borderColor}`,
+            }}
+          >
+            <TextField
+              size="small"
+              fullWidth
+              value={newFilePath}
+              onChange={(e) => setNewFilePath(e.target.value)}
+              placeholder="artifacts/new_file.md"
+              slotProps={{
+                htmlInput: {
+                  "data-testid": `${testIdPrefix}-fs-new-file-name-input`,
+                  style: {
+                    fontSize: "0.72rem",
+                    fontFamily: fontMono,
+                    padding: "4px 8px",
+                  },
+                },
+              }}
+            />
+            <TextField
+              size="small"
+              fullWidth
+              multiline
+              minRows={2}
+              maxRows={4}
+              value={newFileContent}
+              onChange={(e) => setNewFileContent(e.target.value)}
+              placeholder="File content..."
+              slotProps={{
+                htmlInput: {
+                  "data-testid": `${testIdPrefix}-fs-new-file-content-input`,
+                  style: {
+                    fontSize: "0.72rem",
+                    fontFamily: fontMono,
+                    padding: "4px 8px",
+                  },
+                },
+              }}
+            />
+            <Stack direction="row" spacing={0.75} sx={{ justifyContent: "flex-end" }}>
+              <Button
+                size="small"
+                variant="outlined"
+                data-testid={`${testIdPrefix}-fs-new-file-submit-btn`}
+                onClick={handleCreateFileSubmit}
+                sx={{
+                  fontSize: "0.68rem",
+                  fontFamily: fontMono,
+                  textTransform: "none",
+                  py: 0.2,
+                  px: 1,
+                }}
+              >
+                Save to FSBase
+              </Button>
+            </Stack>
+          </Stack>
+        )}
 
         {showSearch && (
           <TextField
@@ -607,25 +839,36 @@ export const FileSystemExplorer: FC<FileSystemExplorerProps> = ({
                   >
                     <Stack
                       direction="row"
-                      spacing={0.5}
+                      spacing={0.75}
                       sx={{
                         justifyContent: "space-between",
                         alignItems: "center",
                       }}
                     >
-                      <Typography
-                        sx={{
-                          fontSize: "0.76rem",
-                          fontWeight: 600,
-                          color: isSelectedRoot ? primaryAccent : textPrimary,
-                          fontFamily: fontMono,
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          whiteSpace: "nowrap",
-                        }}
+                      <Stack
+                        direction="row"
+                        spacing={0.75}
+                        sx={{ alignItems: "center", minWidth: 0, flex: 1 }}
                       >
-                        {isExpanded ? "[-]" : "[+]"} {node.friendly_name}
-                      </Typography>
+                        {renderFolderSvg(
+                          isExpanded,
+                          isExpanded || isSelectedRoot ? primaryAccent : textSecondary,
+                          16
+                        )}
+                        <Typography
+                          sx={{
+                            fontSize: "0.76rem",
+                            fontWeight: 600,
+                            color: isSelectedRoot ? primaryAccent : textPrimary,
+                            fontFamily: fontMono,
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                          }}
+                        >
+                          {node.friendly_name}
+                        </Typography>
+                      </Stack>
                       <Typography
                         sx={{
                           fontSize: "0.68rem",

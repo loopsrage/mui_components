@@ -12,6 +12,10 @@ export interface FileSystemFileItem {
     modified_ts_ms?: number;
     extension?: string;
     file_type?: string;
+    mime_type?: string;
+    is_multimedia?: boolean;
+    is_binary?: boolean;
+    scope?: string;
     entry_id?: string;
     is_artifact?: boolean;
     has_mermaid?: boolean;
@@ -72,6 +76,11 @@ export interface FileSystemExplorerProps {
     onSelectRoot?: (rootNode: FileSystemRootNode) => void;
     onDownloadFile?: (file: FileSystemFileItem, rootNode: FileSystemRootNode, event: MouseEvent<HTMLElement>) => void;
     getDownloadUrl?: (file: FileSystemFileItem) => string;
+    enableCrud?: boolean;
+    onUploadFiles?: (files: FileList, targetFolder?: string) => void | Promise<void>;
+    onCreateFile?: (path: string, content: string) => void | Promise<void>;
+    onDeleteFile?: (file: FileSystemFileItem, rootNode: FileSystemRootNode, event: MouseEvent<HTMLElement>) => void | Promise<void>;
+    crudUploadAccept?: string;
     title?: string;
     subtitle?: string;
     showSearch?: boolean;
