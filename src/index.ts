@@ -22,6 +22,7 @@ export * from './meta_components/field_value_grid/field_value_grid';
 export * from './meta_components/compare_tables/compare_tables';
 export * from './meta_components/vector_search/vector_search';
 export * from './meta_components/async_chat_window/async_chat_window';
+export * from './meta_components/file_system_explorer/file_system_explorer';
 
 
 // Context & Utilities
