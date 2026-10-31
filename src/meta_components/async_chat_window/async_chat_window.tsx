@@ -16,6 +16,8 @@ import {
   Stack,
   TextField,
   Typography,
+  Avatar,
+  Chip,
 } from "@mui/material";
 
 export interface AsyncChatArtifact {
@@ -500,29 +502,39 @@ export const AsyncChatWindow: FC<AsyncChatWindowProps> = ({
     }
   }, [draftInput, onSendMessage]);
 
-  const surfaceBg = theme?.surfaceBg || "#121824";
-  const canvasBg = theme?.canvasBg || "#0B0F17";
-  const subtleBg = theme?.subtleBg || "#171F2E";
-  const borderColor = theme?.borderColor || "#232F46";
-  const primaryAccent = theme?.primaryAccent || "#38BDF8";
-  const textPrimary = theme?.textPrimary || "#F1F5F9";
-  const textSecondary = theme?.textSecondary || "#94A3B8";
+  const surfaceBg = theme?.surfaceBg || "#0f172a";
+  const canvasBg = theme?.canvasBg || "#0b1020";
+  const subtleBg = theme?.subtleBg || "#111827";
+  const borderColor = theme?.borderColor || "#1f2937";
+  const primaryAccent = theme?.primaryAccent || "#38bdf8";
+  const textPrimary = theme?.textPrimary || "#f8fafc";
+  const textSecondary = theme?.textSecondary || "#94a3b8";
   const fontMono = theme?.fontMono || "JetBrains Mono, monospace";
+  const fontSans = theme?.fontSans || "Inter, system-ui, sans-serif";
   const baseFontSize = theme?.baseFontSize || 13;
+
+  const userBubbleBg = primaryAccent;
+  const userBubbleText = "#020617";
+  const agentBubbleBg = subtleBg;
+  const agentBubbleBorder = borderColor;
+  const timestampBg = "rgba(15, 23, 42, 0.5)";
 
   const actionButtonSx = {
     textTransform: "none",
     fontFamily: fontMono,
-    fontSize: `${baseFontSize}px`,
-    px: 1.1,
-    py: 0.25,
+    fontSize: `${Math.max(11, baseFontSize - 1)}px`,
+    px: 1,
+    py: 0.2,
     minWidth: 0,
     whiteSpace: "nowrap",
-    color: primaryAccent,
+    color: textSecondary,
     borderColor: borderColor,
-    backgroundColor: surfaceBg,
+    backgroundColor: "transparent",
+    borderRadius: 6,
     "&:hover": {
       borderColor: primaryAccent,
+      color: primaryAccent,
+      backgroundColor: "rgba(56, 189, 248, 0.08)",
     },
   };
 
@@ -543,7 +555,10 @@ export const AsyncChatWindow: FC<AsyncChatWindowProps> = ({
         mt: 1.5,
         backgroundColor: surfaceBg,
         borderColor: borderColor,
+        border: `1px solid ${borderColor}`,
+        borderRadius: 14,
         overflow: "hidden",
+        boxShadow: "0 20px 40px -12px rgba(0, 0, 0, 0.45)",
       }}
     >
       {headerSlot}
@@ -555,15 +570,28 @@ export const AsyncChatWindow: FC<AsyncChatWindowProps> = ({
         sx={{
           justifyContent: "space-between",
           alignItems: "center",
-          px: 2,
-          py: 1,
+          px: 2.5,
+          py: 1.25,
           borderBottom: `1px solid ${borderColor}`,
           backgroundColor: surfaceBg,
           flexShrink: 0,
           flexWrap: "wrap",
+          gap: 1,
         }}
       >
-        <Stack direction="row" spacing={1.25} sx={{ alignItems: "center", minWidth: 0 }}>
+        <Stack direction="row" spacing={1} sx={{ alignItems: "center", minWidth: 0, gap: 1 }}>
+          <Box
+            sx={{
+              width: 8,
+              height: 8,
+              borderRadius: "50%",
+              backgroundColor: wsConnected ? primaryAccent : textSecondary,
+              boxShadow: wsConnected
+                ? `0 0 8px ${primaryAccent}`
+                : "none",
+              flexShrink: 0,
+            }}
+          />
           <Typography
             variant="caption"
             data-testid="async-chat-sync-state"
@@ -571,10 +599,11 @@ export const AsyncChatWindow: FC<AsyncChatWindowProps> = ({
               fontFamily: fontMono,
               color: textSecondary,
               fontWeight: 600,
+              letterSpacing: "0.02em",
             }}
           >
             {stickToBottom
-              ? `${wsConnected ? "WS StreamConnected • " : "Live Follow • "}Auto-Refresh Active`
+              ? `${wsConnected ? "Stream Connected • " : "Live • "}Auto-Refresh Active`
               : "Scrolled Up • Auto-Refresh Paused (Scroll to Bottom to Resume)"}
           </Typography>
           {toolbarExtraSlot}
@@ -589,7 +618,7 @@ export const AsyncChatWindow: FC<AsyncChatWindowProps> = ({
             onClick={handleToggleAllThoughts}
             sx={actionButtonSx}
           >
-            {showAllThoughts ? "Hide Agent Thoughts" : "Show Agent Thoughts"}
+            {showAllThoughts ? "Hide Thoughts" : "Show Thoughts"}
           </Button>
         )}
       </Stack>
@@ -608,21 +637,40 @@ export const AsyncChatWindow: FC<AsyncChatWindowProps> = ({
           overflowX: "hidden",
           p: 2,
           backgroundColor: canvasBg,
+          display: "flex",
+          flexDirection: "column",
+          gap: 0,
+          "&::-webkit-scrollbar": {
+            width: "6px",
+          },
+          "&::-webkit-scrollbar-track": {
+            backgroundColor: "transparent",
+          },
+          "&::-webkit-scrollbar-thumb": {
+            backgroundColor: "rgba(255, 255, 255, 0.06)",
+            borderRadius: "3px",
+          },
+          "&::-webkit-scrollbar-thumb:hover": {
+            backgroundColor: "rgba(255, 255, 255, 0.12)",
+          },
         }}
       >
-        <Stack spacing={1.75} sx={{ pb: 2 }}>
+        <Stack spacing={0} sx={{ pb: 3, width: "100%", display: "flex", flexDirection: "column", alignItems: "center" }}>
           {orderedMessages.length === 0 && emptyStateText && (
             <Box
               data-testid="antigravity-search-empty-state"
               sx={{
-                p: 3,
+                p: 4,
                 textAlign: "center",
-                borderRadius: 1,
-                backgroundColor: surfaceBg,
-                border: `1px solid ${borderColor}`,
+                borderRadius: 16,
+                backgroundColor: subtleBg,
+                border: `1px dashed ${borderColor}`,
+                width: "100%",
+                maxWidth: 420,
+                boxSizing: "border-box",
               }}
             >
-              <Typography variant="body1" sx={{ color: textSecondary }}>
+              <Typography variant="body2" sx={{ color: textSecondary, fontWeight: 500 }}>
                 {emptyStateText}
               </Typography>
             </Box>
@@ -638,7 +686,7 @@ export const AsyncChatWindow: FC<AsyncChatWindowProps> = ({
             }}
           />
 
-          {visibleMessages.map((msg) => {
+          {visibleMessages.map((msg, idx) => {
             const roleLabel = msg.role || "AGENT";
             const isUser = roleLabel === "USER";
             const cleanTs = formatCleanChatTimestamp(msg.timestamp, msg.sortTsMs);
@@ -646,6 +694,12 @@ export const AsyncChatWindow: FC<AsyncChatWindowProps> = ({
             const cleanThoughts = sanitizeChatText(msg.thoughts || "");
             const hasThoughts = roleLabel === "AGENT" && cleanThoughts.length > 0;
             const isThoughtOpen = Boolean(showAllThoughts);
+            const prevMsg = visibleMessages[idx - 1];
+            const prevIsSameSender = prevMsg && (prevMsg.role || "AGENT") === roleLabel;
+            const showAvatar = !prevIsSameSender;
+            const showTimestamp = cleanTs && (!prevIsSameSender || idx === 0);
+
+            const bubbleMaxWidth = isUser ? "72%" : "88%";
 
             return (
               <Box
@@ -655,69 +709,149 @@ export const AsyncChatWindow: FC<AsyncChatWindowProps> = ({
                 data-message-role={roleLabel}
                 data-sort-ts={msg.sortTsMs ?? 0}
                 sx={{
-                  p: 2,
-                  borderRadius: 1.5,
                   width: "100%",
-                  boxSizing: "border-box",
-                  backgroundColor: isUser ? subtleBg : surfaceBg,
-                  border: `1px solid ${borderColor}`,
-                  borderLeft: `3px solid ${isUser ? primaryAccent : borderColor}`,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: isUser ? "flex-end" : "flex-start",
+                  mb: 1.5,
                 }}
               >
-                <Stack spacing={1} sx={{ minWidth: 0, width: "100%" }}>
-                  {/* Timestamp Only Header */}
-                  {cleanTs && (
+                {showAvatar && (
+                  <Box
+                    sx={{
+                      width: "100%",
+                      display: "flex",
+                      alignItems: isUser ? "flex-end" : "flex-start",
+                      px: 2,
+                      mb: 0.5,
+                    }}
+                  >
+                    <Avatar
+                      sx={{
+                        width: 28,
+                        height: 28,
+                        ml: isUser ? 0 : 0.5,
+                        mr: isUser ? 0.5 : 0,
+                        fontSize: 14,
+                        fontWeight: 700,
+                        fontFamily: fontMono,
+                        backgroundColor: isUser ? primaryAccent : subtleBg,
+                        color: isUser ? userBubbleText : textPrimary,
+                        border: isUser ? `1px solid ${primaryAccent}` : `1px solid ${borderColor}`,
+                        boxShadow: isUser ? `0 0 12px ${primaryAccent}40` : "none",
+                      }}
+                    >
+                      {isUser ? "U" : "A"}
+                    </Avatar>
+                  </Box>
+                )}
+
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 0.75,
+                    px: 2,
+                    width: "100%",
+                    mb: showTimestamp ? 0 : 0.25,
+                  }}
+                >
+                  {!prevIsSameSender && (
+                    <Chip
+                      label={isUser ? "You" : "Agent"}
+                      size="small"
+                      variant="outlined"
+                      sx={{
+                        fontFamily: fontMono,
+                        fontSize: "10px",
+                        fontWeight: 700,
+                        color: isUser ? userBubbleText : primaryAccent,
+                        borderColor: isUser ? primaryAccent : borderColor,
+                        backgroundColor: isUser ? "rgba(56, 189, 248, 0.12)" : "transparent",
+                        height: 18,
+                        ml: isUser ? 0 : 0,
+                        mr: isUser ? 0 : 0,
+                        flexShrink: 0,
+                      }}
+                    />
+                  )}
+                  {showTimestamp && cleanTs && (
                     <Typography
                       variant="caption"
-                      data-testid={`antigravity-card-timestamp-${msg.id}`}
                       sx={{
                         color: textSecondary,
                         fontFamily: fontMono,
+                        fontSize: `${Math.max(10, baseFontSize - 2)}px`,
+                        fontWeight: 500,
+                        backgroundColor: timestampBg,
+                        borderRadius: 6,
+                        px: 0.75,
+                        py: 0.1,
+                        ml: "auto",
+                        whiteSpace: "nowrap",
                       }}
                     >
                       {cleanTs}
                     </Typography>
                   )}
+                </Box>
 
-                  {/* Agent Thoughts Block (Visible ONLY when Show Agent Thoughts is turned on) */}
-                  {hasThoughts && isThoughtOpen && (
-                    <Box
-                      data-testid={`agent-thoughts-${msg.id}`}
-                      sx={{
-                        p: 1.25,
-                        borderRadius: 1,
-                        backgroundColor: canvasBg,
-                        border: `1px dashed ${borderColor}`,
-                        color: textSecondary,
-                        fontFamily: fontMono,
-                        fontSize: `${Math.max(11, baseFontSize - 1)}px`,
-                        whiteSpace: "pre-wrap",
-                        overflowX: "auto",
-                      }}
-                    >
-                      {cleanThoughts}
-                    </Box>
-                  )}
-
-                  {/* Chat Message Body (User / Agent Text) */}
+                <Box
+                  sx={{
+                    maxWidth: bubbleMaxWidth,
+                    width: "100%",
+                    boxSizing: "border-box",
+                    px: 2,
+                    mb: 0.25,
+                  }}
+                >
                   <Box
-                    data-testid={`antigravity-card-snippet-${msg.id}`}
                     sx={{
-                      width: "100%",
-                      boxSizing: "border-box",
-                      color: textPrimary,
-                      overflowX: "auto",
+                      p: 1.25,
+                      borderRadius: isUser ? 14 : 14,
+                      backgroundColor: isUser ? userBubbleBg : agentBubbleBg,
+                      color: isUser ? userBubbleText : textPrimary,
+                      border: !isUser ? `1px solid ${agentBubbleBorder}` : "none",
+                      boxShadow:
+                        "0 1px 3px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(0, 0, 0, 0.15)",
+                      borderBottomRightRadius: isUser ? 4 : 14,
+                      borderBottomLeftRadius: isUser ? 14 : 4,
+                      overflowWrap: "anywhere",
+                      wordBreak: "break-word",
                     }}
                   >
                     {renderMarkdown ? (
                       renderMarkdown(cleanText)
                     ) : (
-                      <Typography variant="body2" sx={{ whiteSpace: "pre-wrap" }}>
+                      <Typography variant="body2" sx={{ whiteSpace: "pre-wrap", lineHeight: 1.6 }}>
                         {cleanText}
                       </Typography>
                     )}
                   </Box>
-                </Stack>
+                </Box>
+
+                {hasThoughts && isThoughtOpen && (
+                  <Box
+                    data-testid={`agent-thoughts-${msg.id}`}
+                    sx={{
+                      maxWidth: "88%",
+                      width: "100%",
+                      p: 1.25,
+                      borderRadius: 10,
+                      backgroundColor: "rgba(15, 23, 42, 0.4)",
+                      border: `1px dashed ${borderColor}`,
+                      color: textSecondary,
+                      fontFamily: fontMono,
+                      fontSize: `${Math.max(10, baseFontSize - 1)}px`,
+                      whiteSpace: "pre-wrap",
+                      overflowX: "auto",
+                      px: 2,
+                      mb: 0.5,
+                    }}
+                  >
+                    {cleanThoughts}
+                  </Box>
+                )}
               </Box>
             );
           })}
@@ -749,6 +883,7 @@ export const AsyncChatWindow: FC<AsyncChatWindowProps> = ({
             borderTop: `1px solid ${borderColor}`,
             backgroundColor: surfaceBg,
             flexShrink: 0,
+            gap: 1,
           }}
         >
           <TextField
@@ -768,13 +903,55 @@ export const AsyncChatWindow: FC<AsyncChatWindowProps> = ({
                 "data-testid": "async-chat-input-field",
               },
             }}
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                borderRadius: 10,
+                backgroundColor: subtleBg,
+                borderColor: borderColor,
+                "&:hover .MuiOutlinedInput-notchedOutline": {
+                  borderColor: primaryAccent,
+                },
+                "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                  borderColor: primaryAccent,
+                  boxShadow: `0 0 0 2px ${primaryAccent}20`,
+                },
+              },
+              "& .MuiInputBase-input": {
+                color: textPrimary,
+                fontSize: `${baseFontSize}px`,
+                fontFamily: fontSans || fontMono,
+                px: 1,
+                py: 0.75,
+              },
+              "& .MuiInputBase-input::placeholder": {
+                color: textSecondary,
+                opacity: 0.6,
+              },
+            }}
           />
           <Button
             size="small"
-            variant="outlined"
+            variant="contained"
             data-testid="async-chat-send-btn"
+            disabled={!draftInput.trim()}
             onClick={handleSendDraft}
-            sx={actionButtonSx}
+            sx={{
+              ...actionButtonSx,
+              variant: "contained",
+              backgroundColor: draftInput.trim() ? primaryAccent : borderColor,
+              color: draftInput.trim() ? "#020617" : textSecondary,
+              borderColor: draftInput.trim() ? primaryAccent : borderColor,
+              "&:hover": {
+                backgroundColor: draftInput.trim() ? "#7fd4ff" : borderColor,
+                color: draftInput.trim() ? "#020617" : textSecondary,
+                boxShadow: draftInput.trim() ? `0 0 16px ${primaryAccent}50` : "none",
+              },
+              "&:disabled": {
+                opacity: 0.45,
+                cursor: "not-allowed",
+                boxShadow: "none",
+              },
+            }}
           >
             Send
           </Button>
